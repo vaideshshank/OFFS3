@@ -7,8 +7,8 @@ var con 	   = require("../../models/mysql"),
 module.exports = {
 
 	index: function (req, res) {
-
-},
+		res.send("asdasdasd");
+	},
 	initials:function(req,res) {
 		//college_name.   //enrollment_number.    //email.     //type   //semester
 		//By default email set to sjv97mhjn@gmail.com
