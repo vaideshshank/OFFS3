@@ -42,7 +42,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 
 
     $scope.userCategoryList = [
-    	"Student" // Removing elements for now. To be added later as functionality is added.
+    	"student" // Removing elements for now. To be added later as functionality is added.
     ];
 
   	$scope.setCollege = function(singleCollege) {

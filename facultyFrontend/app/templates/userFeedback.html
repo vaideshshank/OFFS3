@@ -64,7 +64,7 @@
                         {{ singleTheoryTeacher.subject_code }}
                       </div>
                       <div class="col s6">
-                          <input type="number" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher.feedback_id, $index)">
+                          <input type="number" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)">
                       </div>
                     </div>
                   </div>
@@ -89,7 +89,7 @@
                         {{ singlePracticalTeacher.subject_code }}
                       </div>
                       <div class="col s6">
-                          <input type="number" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher.feedback_id, $index)">
+                          <input type="number" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher, $index)">
                       </div>
                     </div>
                   </div>
@@ -115,7 +115,7 @@
             <i class="material-icons right">send</i>
         </a>
 
-        <a class="proceed-to-feedback btn waves-effect waves-light" ng-click="sendFeedbackEvaluation()" ng-if="pointer2==attributesList.practicals.length">
+        <a class="proceed-to-feedback btn waves-effect waves-light" ng-click="sendFeedbackEvaluation()" ng-if="pointer2==attributesList.practicals.length" ng-disabled="buttonDisabled">
             Complete your Evaluation
             <i class="material-icons right">send</i>
         </a>

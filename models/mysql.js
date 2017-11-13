@@ -26,7 +26,8 @@ var con=mysql.createConnection({
   host:"localhost",
   user:"root",
   password:"",
-  database:'sdc'
+  database:'sdc',
+
 });
 //Z3apbUnvi5LQKClu
 con.connect(function(err){

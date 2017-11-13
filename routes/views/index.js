@@ -19,14 +19,15 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 	{  console.log("Not all Fields Set");
 		res.send("400");          }
 			else
-		{       var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+		{       var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));	
 				year = '20' + year.toString();
-
+				
 				console.log(req.query.enrollment_no.substr(10,12));
 				console.log(req.query);
 				var tablename = req.query.college_name + '_' + req.query.type + '_' + year;
 				console.log(tablename);
 				var random = Math.floor(Math.random()*(98989 - 12345 + 1) + 12345 );
+				console.log("random "+ random);
 				var query  = ' update '+ tablename +' set password = ' +random.toString() +
 							 ', email= ? ' +
 							 ' where enrollment_no= ?' ;
@@ -63,7 +64,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 							    console.log(error);
 							  } else {
 							    console.log('Email sent: ' + info.response);
-
+							  
 							    res.send("200");
 							  }
 							});
@@ -87,7 +88,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 				}
 		else
 		{
-		var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+		var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));	
 		year = '20' + year.toString();
 		var tablename = req.query.tablename + '_' + year;
 		console.log(tablename);
@@ -122,7 +123,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		}) }
 	},
 
-dashboard:function(req,res) {
+	dashboard:function(req,res) {
 
 		if(req.query.tablename==null||req.query.enrollment_no==null)
 		{
@@ -171,9 +172,9 @@ dashboard:function(req,res) {
 
 	feedbackform:function(req,res) {
 		//console.log();
-
+		console.log(req.query);
 		if(req.query.course&&req.query.stream&&req.query.semester&&req.query.college_name)
-		{
+		{		
 			    console.log(req.query.course, req.query.stream, req.query.semester,req.query.college_name);
 				var college_name 	= req.query.college_name;
 
@@ -186,7 +187,7 @@ dashboard:function(req,res) {
 					semester: 	Number(req.query.semester)
 				};
 				if(process.env.year=='2017')
-				var tablename1 		= college_name + '_subject_allocation_' + process.env.year ;
+				var tablename1 		= college_name + '_subject_allocation_' + process.env.year ;	
 				var query = ' select s.feedback_id,s.batch_id,s.subject_code,s.instructor_code, ' +
 				            ' s.subject_name,s.type,b.course,b.stream,b.semester,t.name as teacher '+
 							' from ' 	   + tablename1 + ' as s ' +
@@ -214,13 +215,13 @@ dashboard:function(req,res) {
 	},
 
 	feedback:function(req,res) {
-
+		
 		//res.send(req.body);
 		console.log(req.body);
 		var tablename = req.body.college_name + '_feedback_' + process.env.year;
 		var feedbacks = req.body.teacherFeedback;
-
-
+		var dumptable = req.body.college_name + '_dump_' + process.env.year ;
+		var hanu =0;
 		if(tablename==null||feedbacks==null){
 			console.log("Not All Fields set");
 			res.send("400");
@@ -230,10 +231,11 @@ dashboard:function(req,res) {
 
 			 		var error=0;
 			 		async.each(feedbacks,function(feedback,callback) {
+			 			hanu =0;
 					console.log(feedback);
 					var result = feedback.score;
 					if(result.length==15&&feedback.feedbackId!=null)
-						{
+						{  console.log("nothing");
 							var query='update '+ tablename+' set'+
 							   ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
 							   ' at_4 = concat(at_4,?),  at_5 = concat(at_5,?),  at_6 = concat(at_6,?), '  +
@@ -243,6 +245,16 @@ dashboard:function(req,res) {
 							   ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
 							   ' total = total + ? ' +
 					          'where feedback_id = ' +feedback.feedbackId;
+					console.log("something");
+				  var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+				'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
+				'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
+				'values ( ' + req.body.enrollment_no +' , ? , ' + feedback.instructor_code+','+
+				 result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
+				','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
+				 result[13]+','+ result[14]+  ')';
+				 console.log(query2);
+
 					var sum=0;
 					for(i=0;i<=14;i++)    //check;
 					{   result[i]=Number(result[i]);
@@ -257,7 +269,17 @@ dashboard:function(req,res) {
 						if(err)
 							console.log(err);
 						else{
-							console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
+							
+						
+							con.query(query2,feedback .subject_code,function(err3,result3){
+								if(err3)
+								{
+									console.log(err3);
+								}
+								else{
+									console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
+								}
+							})
 
 						}
 					})
@@ -273,6 +295,17 @@ dashboard:function(req,res) {
 							   ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
 							   ' total = total + ? ' +
 					          'where feedback_id = ' +feedback.feedbackId;
+							console.log("nothing");
+  				 var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+				'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8) '+
+				'values ( ' + req.body.enrollment_no +' , ? , ' + feedback.instructor_code+','+
+				 result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
+				','+ result[6]+','+result[7] + ')';
+				 
+							 console.log(query2);
+
+							 console.log("Something");
+
 					var sum=0;
 					for(i=0;i<=7;i++)    //check;
 					{   result[i]=Number(result[i]);
@@ -289,19 +322,28 @@ dashboard:function(req,res) {
 						if(err)
 							console.log(err);
 						else{
-						  console.log("feedback id " +feedback.feedbackId + ' of length ' + result.length + ' updated ')
-
+						  console.log(" feedback id " +feedback.feedbackId + ' of length ' + result.length + ' updated ')
+						
 						}
 					})
 						}
 						else{
-							console.log("Error at processing feedback of id : " + feedback.feedbackId  + ' of length ' + result.length );
-							error=1;
+
+								con.query(query2,feedback.subject_code,function(err3,result3){
+								if(err3)
+								{
+									console.log(err3);
+								}
+								else{
+									console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
+								}
+							})
+							
 						}
 
 					callback();
 					}, function(err) {
-						 if (err){
+						 if (err || hanu==1 ){
 							console.error(err);
 							res.status(err);
 						}
@@ -339,5 +381,9 @@ dashboard:function(req,res) {
 
 			}
 	}
+
+
+
+
 
  }

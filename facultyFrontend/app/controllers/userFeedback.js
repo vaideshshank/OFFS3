@@ -8,7 +8,9 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
 	$scope.buttonToggler = true;
+	$scope.buttonDisabled = false;
 
+	
 	$scope.teacherFeedback = [];
 
 	$scope.attributesList = {
@@ -58,7 +60,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 		// var stream = "Section A";
 		// var semester = "1";
 
-		var course = $rootScope.userInfo.course;;
+		var course = $rootScope.userInfo.course;
 
 		var stream = $rootScope.userInfo.stream;
 		var semester = $rootScope.semester;
@@ -70,7 +72,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 
 			console.log(response);
 			for (var x=0;x<$scope.feedback.length;x++) {
-				$scope.feedback[x].type = ($scope.feedback[x].type).toLowerCase();
+				$scope.feedback[x].type = $scope.feedback[x].type;
 
 			}
 
@@ -85,12 +87,13 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 		})
 	}
 
-	$scope.addFeedbackToTheoryTeacher = function(feedbackId, index) {
+	$scope.addFeedbackToTheoryTeacher = function(singleTheoryTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
 
-		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', feedbackId]);
+	
+		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', singleTheoryTeacher.feedback_id]);
 
 
 		if (foundTeacher) {
@@ -102,9 +105,11 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 
 		} else {
 			$scope.teacherFeedback.push({
-				feedbackId: feedbackId,
+				feedbackId: singleTheoryTeacher.feedback_id,
 				score: [$scope.feedbackGivenByTheUser[index]],
-				type: 'Theory'
+				type: 'Theory',
+				instructor_code: singleTheoryTeacher.instructor_code,
+				subject_code: singleTheoryTeacher.subject_code
 			})
 		}
 
@@ -113,14 +118,16 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 		if ($scope.theoryTeacher.length <= $scope.checkOccurence) {
 			$scope.buttonToggler = false;
 		}
+
+		console.log($scope.teacherFeedback);
 	}
 
-	$scope.addFeedbackToPracticalTeacher = function(feedbackId, index) {
+	$scope.addFeedbackToPracticalTeacher = function(singlePracticalTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
 
-		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', feedbackId]);
+		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', singlePracticalTeacher.feedback_id]);
 
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer2] == null) {
@@ -130,9 +137,11 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 			}
 		} else {
 			$scope.teacherFeedback.push({
-				feedbackId: feedbackId,
+				feedbackId: singlePracticalTeacher.feedback_id,
 				score: [$scope.feedbackGivenByTheUser[index]],
-				type: 'Practical'
+				type: 'Practical',
+				instructor_code: singlePracticalTeacher.instructor_code,
+				subject_code: singlePracticalTeacher.subject_code
 			})
 		}
 		$scope.checkOccurence++;
@@ -141,6 +150,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 			$scope.buttonToggler = false;
 		}
 
+				console.log($scope.teacherFeedback);
 	}
 
 	$scope.increasePointer = function() {
@@ -192,10 +202,13 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 
 		var object = {
 			college_name: $scope.college_name,
+			enrollment_no: $scope.userInfo.enrollment_no, 
 			teacherFeedback: $scope.teacherFeedback,
 			email: $scope.email
 
 		}
+
+		$scope.buttonDisabled = true;
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
 			console.log(response);
