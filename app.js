@@ -43,8 +43,8 @@ app.use("/", routes);
 //middleware
 
 
-app.listen(80 ,function() {
-	console.log("Listening On port " + 80);
+app.listen(3000,function() {
+	console.log("Listening On port " + 81);
 });
 
 //SQL LOCK TRANSACTION , CHECK IF INTERNALLY PRESENT.
