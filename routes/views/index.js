@@ -20,7 +20,6 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		res.send("400");          }
 			else
 		{       var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));	
-
 				year = '20' + year.toString();
 				
 				console.log(req.query.enrollment_no.substr(10,12));
@@ -97,7 +96,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		console.log(enrollment_no);
 		var password = req.query.password;
 		console.log(password);
-		var query = ' select password,name,email,course,stream,enrollment_no,year_of_admission,phone'+
+		var query = ' select *'+
 					' from ' + tablename +' where enrollment_no = ' + enrollment_no;
 		con.query(query, function(err,result) {
 			if(err) {
@@ -215,6 +214,9 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 	},
 
+
+		
+		//res.send(req.body);
 	feedback:function(req,res) {
 
 		
@@ -223,7 +225,8 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		var tablename = req.body.college_name + '_feedback_2017';
 		var feedbacks = req.body.teacherFeedback;
 		var dumptable = req.body.college_name + '_dump_2017' ;
-		var year = (req.body.enrollment_no.substr(req.body.enrollment_no.length-2,2));
+		var enr = req.body.enrollment_no.toString();
+		var year = (enr.substr(enr.length-2,2));
 		var semester  =  (17- Number(year))*2 + 1;
 		console.log(semester);
 		var table3 = req.body.college_name + '_student_20' + year;
@@ -429,6 +432,15 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 					})
 
 			}
+	},
+	 updatefeedbackstatus :  function(res,req)
+	{
+		var college_list=['usms','usict','usmc','uslls','usbas','ushss','usbt','usct'];	
+		
+		var query = 'update ? set s_? = 1 where enrollment_no in ' +
+		'( select distinct(enrollment_no) from ? where enrollment_number like "%?" ) '
+
+
 	}
 
 
