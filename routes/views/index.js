@@ -20,9 +20,9 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		res.send("400");          }
 			else
 
-		{       
+		{
 
-                 
+
 			    var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
 				year = '20' + year.toString();
 
@@ -223,7 +223,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 	},
 
 
-		
+
 		//res.send(req.body);
 	feedback:function(req,res) {
 
@@ -238,12 +238,12 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		var semester  =  (17- Number(year))*2 + 1;
 		console.log(semester);
 		var table3 = req.body.college_name + '_student_20' + year;
-		console.log(table3); 
+		console.log(table3);
 		console.log(req.body.enrollment_no);
 		var query3 = 'update ' + table3+ ' set s_? = 1 where enrollment_no = ?'
 
 		//var hanu =0;
-		if(req.body.college_name==null||feedbacks==null||req.body.enrollment_no==null){
+		if(req.body.college_name==null||feedbacks==null||req.body.enrollment_no==null) {
 
 			console.log("Not All Fields set");
 			res.send("400");
@@ -279,7 +279,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 					var sum=0;
 					for(i=0;i<=14;i++)    //check;
-					{   result[i]=Number(result[i]);
+					{   result[i]=Math.round(Number(result[i]));
 						if(result[i]>5&&result[i]<1)
 						{	console.log("Incorrect Data");
 							res.send("400");
@@ -308,10 +308,10 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 										{
 											//console.log(res4);
 											console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
-								
+
 
 										}
-									}) 
+									})
 
 
 								}
@@ -344,7 +344,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 					var sum=0;
 					for(i=0;i<=7;i++)    //check;
-					{   result[i]=Number(result[i]);
+					{   result[i]=Math.round(Number(result[i]));
 						if(result[i]>5&&result[i]<1)
 						{
 							res.send("Incorrect Data");
@@ -365,7 +365,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 								}
 								else{
 									//console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
-								
+
 										con.query(query3,[semester,Number(req.body.enrollment_no)],function(err4,res4){
 										if(err4)
 										{
@@ -375,10 +375,10 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 										{
 											//console.log(res4);
 											console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
-								
+
 
 										}
-									}) 
+									})
 								}
 							})
 
@@ -387,7 +387,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						}
 						else{
 
-								
+
 
 						}
 

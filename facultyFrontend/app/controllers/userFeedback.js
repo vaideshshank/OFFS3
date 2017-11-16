@@ -52,8 +52,8 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		console.log($rootScope);
 
 		var tablename = $rootScope.tablename;
-
 		var table=tablename.split("_");
+
 		$scope.college_name=table[0];
 		// $scope.college_name = "usap";
 
@@ -68,23 +68,41 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		var stream = $rootScope.userInfo.stream;
 		var semester = $rootScope.semester;
 
+		console.log($rootScope);
 
 		console.log(course, stream, semester);
 		userService.getInstructorsForFeedback($scope.college_name, course, stream, semester, function(response) {
 			$scope.feedback = response;
 
 			console.log(response);
+
 			for (var x=0;x<$scope.feedback.length;x++) {
-				$scope.feedback[x].type = ($scope.feedback[x].type).toLowerCase();
+				$scope.feedback[x].type = $scope.feedback[x].type;
 
 			}
 
 			var seggregatedTeacherType = _.groupBy(response, function(result) {
             		return result.type;
         	});
+
 			console.log(seggregatedTeacherType);
         	$scope.theoryTeacher = seggregatedTeacherType.Theory;
         	$scope.practicalTeacher = seggregatedTeacherType.Practical;
+
+        	if (!$scope.theoryTeacher) {
+        		$scope.theoryTeacher = seggregatedTeacherType.theory;
+        	}
+        	if (!$scope.practicalTeacher) {
+        		$scope.practicalTeacher = seggregatedTeacherType.practical;
+        	}
+        	if (!$scope.theoryTeacher) {
+        		$scope.theoryTeacher = seggregatedTeacherType.THEORY;
+        	}
+        	if (!$scope.practicalTeacher) {
+        		$scope.practicalTeacher = seggregatedTeacherType.PRACTICAL;
+        	}
+
+
         	console.log($scope.theoryTeacher);
         	console.log($scope.practicalTeacher)
 		})
@@ -150,10 +168,19 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		$scope.pointer += 1;
 		$scope.buttonToggler = true;
 		$scope.checkOccurence = 0;
-		for (var x=0;x<$scope.feedbackGivenByTheUser.length; x++ ) {
-			$scope.feedbackGivenByTheUser[x] = null;
+		for(var x=0;x<$scope.teacherFeedback.length;x++) {
+			if ($scope.teacherFeedback[x].type=="Theory") {
+				if(!$scope.teacherFeedback[x].score[$scope.pointer]) {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length;y++ ) {
+						$scope.feedbackGivenByTheUser[y] = null;
+					}
+				} else {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length; y++ ) {
+						$scope.feedbackGivenByTheUser[y] = $scope.teacherFeedback[y].score[$scope.pointer];
+					}
+				}
+			}
 		}
-
 	}
 
 	$scope.decreasePointer = function() {
@@ -167,14 +194,13 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 	$scope.decreasePointer2 = function() {
 		$scope.pointer2 -= 1;
-		var foundTeacher = $scope.teacherFeedback[$scope.pointer2];
+		var foundTeacher = $scope.teacherFeedback[$scope.pointer + $scope.pointer2];
 
 		console.log($scope.teacherFeedback);
-		var count = 0;
-		for (var x=0; x<$scope.teacherFeedback.length;x++) {
 
-			if ($scope.feedbackGivenByTheUser[x].type == "Practical") {
-				$scope.feedbackGivenByTheUser[count] = $scope.feedbackGivenByTheUser[x].score[$scope.pointer2]
+		for (var x=0; x<$scope.teacherFeedback.length;x++) {
+			if ($scope.teacherFeedback[x].type == "Practical") {
+				$scope.feedbackGivenByTheUser[x] = $scope.teacherFeedback[x].score[$scope.pointer2];
 			}
 		}
 	}
@@ -187,7 +213,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 			console.log(singleFeedbackLength);
 
-			if (singleFeedbackLength !=15 || singleFeedbackLength !=0) {
+			if (singleFeedbackLength !=15 && singleFeedbackLength !=0) {
 				alert('Some input fields are left missing please fill the input field!!');
 				console.log("asd;lajsdlkjasdlaskd")
 				$scope.checkDisabled = false;
@@ -197,7 +223,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 		}
 		// for (var x=0; x< )
-
+		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
 	}
 
@@ -205,38 +231,39 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		$scope.pointer2 += 1;
 		$scope.buttonToggler = true;
 		$scope.checkOccurence = 0;
-		for (var x=0;x<$scope.feedbackGivenByTheUser.length; x++ ) {
-			$scope.feedbackGivenByTheUser[x] = null;
+
+		for(var x=0;x<$scope.teacherFeedback.length;x++) {
+			if ($scope.teacherFeedback[x].type=="Practical") {
+				if(!$scope.teacherFeedback[x].score[$scope.pointer2]) {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length;y++ ) {
+						$scope.feedbackGivenByTheUser[y] = null;
+					}
+				} else {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length; y++ ) {
+						$scope.feedbackGivenByTheUser[y] = $scope.teacherFeedback[y].score[$scope.pointer2];
+					}
+				}
+			}
 		}
 	}
 
 	$scope.sendFeedbackEvaluation = function() {
 
-		for (var x =14;x<$scope.teacherFeedback.length;x++) {
-			var singleFeedbackLength = $scope.teacherFeedback[x].score.length;
 
-			console.log(singleFeedbackLength);
-			if (singleFeedbackLength !=8 || singleFeedbackLength !=0) {
-				alert('Some input fields are left missing please fill the input field!!');
-				console.log("asd;lajsdlkjasdlaskd")
-				$scope.checkDisabled = false;
-				return;
-			}
-
-		}
 
 		$scope.disabled = false;
 
 		var object = {
 			college_name: $scope.college_name,
 			teacherFeedback: $scope.teacherFeedback,
-			email: $scope.email
-
+			email: $scope.email,
+			enrollment_no: 	$rootScope.userInfo.enrollment_no
 		}
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
 			console.log(response);
 			if (response == 400) {
+				alert("something wrong happened");
 				// $location.path("/")
 			} else {
 				$location.path("/thankYouPage");

@@ -64,7 +64,7 @@
                         {{ singleTheoryTeacher.subject_code }}
                       </div>
                       <div class="col s6">
-                          <input type="number" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher.feedback_id, $index)">
+                          <input placeholder="1-5" type="text" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher.feedback_id, $index)" style="text-align: center">
                       </div>
                     </div>
                   </div>
@@ -89,7 +89,7 @@
                         {{ singlePracticalTeacher.subject_code }}
                       </div>
                       <div class="col s6">
-                          <input type="number" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher.feedback_id, $index)">
+                          <input type="text" placeholder="1-5" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher.feedback_id, $index)" style="text-align: center;">
                       </div>
                     </div>
                   </div>
