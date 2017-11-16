@@ -32,4 +32,8 @@ router.get("/dashboard", routes.views.index.dashboard);
 router.post("/edit", routes.views.index.edit);
 router.get("/feedbackform", routes.views.index.feedbackform);
 router.post("/feedback", routes.views.index.feedback);
+router.get("/getStudentStatus", routes.views.index.getStudentStatus);
+router.get("/getStudentDetails", routes.views.index.getStudentDetails);
+
+
 module.exports = router;

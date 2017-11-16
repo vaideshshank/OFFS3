@@ -3,7 +3,7 @@ var express 		= require('express'),
 	bodyparser 		= require('body-parser'),
 	bcrypt			= require('bcrypt-nodejs'),
 	session			= require('express-session'),
-	sessionStore    =   new session.MemoryStore(),
+	sessionStore      =   new session.MemoryStore(),
 	request			= require('request'),
 	methodOverride  = require('method-override'),
 	sql				= require("mssql"),
@@ -41,6 +41,7 @@ app.use("/", routes);
 
 
 //middleware
+
 
 
 app.listen(80,function() {
