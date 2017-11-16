@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 node_modules
+=======
+node_modules/**
+facultyFrontend/node_modules/**
+**/node_modules/**
+>>>>>>> 73b517d8d92e4ffb674648bb64e7a8fd9bf8ea4c
 .env
