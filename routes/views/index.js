@@ -338,6 +338,74 @@ dashboard:function(req,res) {
 					})
 
 			}
+	},
+
+	getStudentStatus: function(req, res) {
+		var collegeName = req.query.collegeName;
+		var semester = req.query.semester;
+		var course  = req.query.course;
+		var stream  = req.query.stream;
+
+		var query = "select enrollment_no, name, s_" + semester + " from "  + collegeName + "_student_" + process.env.year + " where" +
+		 " course='" + course + "' AND stream='" + stream + "'";
+
+		console.log(query);
+
+		con.query(query, function(err, userStatus) {
+			if (err) {
+				console.log(err);
+				res.json("400");
+
+				return;
+			}
+
+			console.log(userStatus)
+			res.json(userStatus);
+			return;
+
+		})
+	},
+
+	getStudentDetails: function(req, res) {
+		console.log("asdasdasdasd");
+		var collegeName = req.query.collegeName;
+		var userDetails = {
+			stream:[],
+			course:[]
+		}
+
+		if (process.env.year) {
+			var query = "select distinct stream from " + collegeName + "_student_" + process.env.year;
+		}
+
+		console.log(query);
+		con.query(query, function(err, stream) {
+			if (err) {
+				console.error(err);
+				res.json("400");
+				return;
+			}
+			userDetails.stream = stream;
+
+			var query2 = "select distinct course from " + collegeName + "_student_" + process.env.year;
+			con.query(query2, function(err, course) {
+				if (err) {
+					console.error(err);
+					res.json("400");
+					return;
+				}
+
+				console.log(query2);
+				userDetails.course = course;
+				userDetails.stream = stream;
+
+				res.json(userDetails);
+				return;
+			})
+		})
 	}
+
+
+
 
  }
