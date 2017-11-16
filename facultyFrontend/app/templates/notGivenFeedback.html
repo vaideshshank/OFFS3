@@ -7,6 +7,18 @@
 			<div class="card-content">
 				<div class="row">
 
+					<div class="col s2">
+						<div class="login_dropdown">
+							<button class="btn btn-primary dropdown-button2" id="input_field" data-activates="dropdown2" style="background-color: white !important;color: black;">
+								{{ semester || 'sem' }} <span class="caret pull-right">▼</span>
+							</button>
+
+							<ul id="dropdown2" class="dropdown-content" style="background-color: white;color: black;">
+								<li ng-repeat="semester in semesterList" ng-click="setSemester(semester)" style="text-align: center;"> {{ semester }}</li>
+							</ul>
+						</div>
+					</div>
+
 					<div class="col s6">
 						<div class="login_dropdown">
 					        <button class='btn btn-primary dropdown-button2' id="input_field" data-activates='dropdown1' style="background-color: white !important;color: black; width: 30em">
@@ -45,19 +57,6 @@
 					        </ul>
 		      			</div>
 					</div>
-
-					<div class="col s2">
-						<div class="login_dropdown">
-							<button class="btn btn-primary dropdown-button2" id="input_field" data-activates="dropdown2" style="background-color: white !important;color: black;">
-								{{ semester || 'sem' }} <span class="caret pull-right">▼</span>
-							</button>
-
-							<ul id="dropdown2" class="dropdown-content" style="background-color: white;color: black;">
-								<li ng-repeat="semester in semesterList" ng-click="setSemester(semester)" style="text-align: center;"> {{ semester }}</li>
-							</ul>
-						</div>
-					</div>
-
 				</div>
 			</div>
 

@@ -43,6 +43,7 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $rootScope, $locati
 
 	$scope.getStudenelist = function() {
 		if (!$scope.college || !$scope.semester || !$scope.courseName || !$scope.streamName) {
+			alert("all field are not set. Set them completely");
 			return;
 		}
 
@@ -91,10 +92,13 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $rootScope, $locati
 		if (!singleCollege) {
 			return;
 		}
+		if (!$scope.semester) {
+			alert("Please fill the semester block first");
+			return;
+		}
 
 		$scope.college = singleCollege;
-		console.log($scope.college.collegeCode);
-		userService.getStudentDetails($scope.college.collegeCode, function(response) {
+		userService.getStudentDetails($scope.college.collegeCode,$scope.semester, function(response) {
 			if (response == "400") {
 				alert("something wrong happened")
 			} else {

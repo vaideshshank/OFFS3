@@ -435,11 +435,15 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 	getStudentStatus: function(req, res) {
 		var collegeName = req.query.collegeName;
-		var semester = req.query.semester;
+		var semester = parseInt(req.query.semester);
 		var course  = req.query.course;
 		var stream  = req.query.stream;
 
-		var query = "select enrollment_no, name, s_" + semester + " from "  + collegeName + "_student_" + process.env.year + " where" +
+		var year = 2017 - (semester - 1 )/2;
+
+
+
+		var query = "select enrollment_no, name, s_" + semester + " from "  + collegeName + "_student_" + year + " where" +
 		 " course='" + course + "' AND stream='" + stream + "'";
 
 		console.log(query);
@@ -463,13 +467,16 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 	getStudentDetails: function(req, res) {
 		console.log("asdasdasdasd");
 		var collegeName = req.query.collegeName;
+		var semester = parseInt(req.query.semester);
+		var year = 2017 - (semester - 1 )/2;
+
 		var userDetails = {
 			stream:[],
 			course:[]
 		}
 
 		if (process.env.year) {
-			var query = "select distinct stream from " + collegeName + "_student_" + process.env.year;
+			var query = "select distinct stream from " + collegeName + "_student_" + year;
 		}
 
 		console.log(query);
@@ -481,7 +488,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 			}
 			userDetails.stream = stream;
 
-			var query2 = "select distinct course from " + collegeName + "_student_" + process.env.year;
+			var query2 = "select distinct course from " + collegeName + "_student_" + year;
 			con.query(query2, function(err, course) {
 				if (err) {
 					console.error(err);

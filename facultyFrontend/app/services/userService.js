@@ -133,12 +133,13 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($htt
             })
         },
 
-        getStudentDetails: function(collegeName, callback) {
+        getStudentDetails: function(collegeName, semester, callback) {
             $http({
                 method: 'GET',
                 url: BACKEND + "/getStudentDetails",
                 params: {
-                    collegeName : collegeName
+                    collegeName : collegeName,
+                    semester: semester
                 }
             }).then(function(response) {
                 if (callback) {
