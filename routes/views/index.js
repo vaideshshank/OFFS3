@@ -2,7 +2,7 @@ var con 	   = require("../../models/mysql"),
  	ses        =   require('node-ses'),
  	async      =  require('async'),
  	controller = require("../../models/config"),
-     nodemailer = require('nodemailer');
+    nodemailer = require('nodemailer');
 
 module.exports = {
 
@@ -430,9 +430,5 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 			}
 	}
-
-
-
-
 
  }
