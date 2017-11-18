@@ -1,5 +1,5 @@
+faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, $document, $location, userService) {
 
-faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userService) {
 
 	$scope.feedback;
 	$scope.pointer  = 0;
@@ -8,10 +8,13 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
 	$scope.buttonToggler = true;
-	$scope.buttonDisabled = false;
+	$scope.disabled = false;
+	$scope.checkDisabled = false;
 
-	
-	$scope.teacherFeedback = [];
+	$scope.teacherFeedback = [
+		// Theory: {},
+		// Practical: {}
+	];
 
 	$scope.attributesList = {
 		theory: [
@@ -49,8 +52,8 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 		console.log($rootScope);
 
 		var tablename = $rootScope.tablename;
-
 		var table=tablename.split("_");
+
 		$scope.college_name=table[0];
 		// $scope.college_name = "usap";
 
@@ -60,17 +63,19 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 		// var stream = "Section A";
 		// var semester = "1";
 
-		var course = $rootScope.userInfo.course;
+		var course = $rootScope.userInfo.course;;
 
 		var stream = $rootScope.userInfo.stream;
 		var semester = $rootScope.semester;
 
+		console.log($rootScope);
 
 		console.log(course, stream, semester);
 		userService.getInstructorsForFeedback($scope.college_name, course, stream, semester, function(response) {
 			$scope.feedback = response;
 
 			console.log(response);
+
 			for (var x=0;x<$scope.feedback.length;x++) {
 				$scope.feedback[x].type = $scope.feedback[x].type;
 
@@ -79,55 +84,64 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 			var seggregatedTeacherType = _.groupBy(response, function(result) {
             		return result.type;
         	});
+
 			console.log(seggregatedTeacherType);
         	$scope.theoryTeacher = seggregatedTeacherType.Theory;
         	$scope.practicalTeacher = seggregatedTeacherType.Practical;
+
+        	if (!$scope.theoryTeacher) {
+        		$scope.theoryTeacher = seggregatedTeacherType.theory;
+        	}
+        	if (!$scope.practicalTeacher) {
+        		$scope.practicalTeacher = seggregatedTeacherType.practical;
+        	}
+        	if (!$scope.theoryTeacher) {
+        		$scope.theoryTeacher = seggregatedTeacherType.THEORY;
+        	}
+        	if (!$scope.practicalTeacher) {
+        		$scope.practicalTeacher = seggregatedTeacherType.PRACTICAL;
+        	}
+
+
         	console.log($scope.theoryTeacher);
         	console.log($scope.practicalTeacher)
 		})
 	}
 
-	$scope.addFeedbackToTheoryTeacher = function(singleTheoryTeacher, index) {
+	$scope.addFeedbackToTheoryTeacher = function(feedbackId, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
 
-	
-		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', singleTheoryTeacher.feedback_id]);
+		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', feedbackId]);
 
-
+		// console.log(foundTeacher);
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
-			}else {
+			} else {
+				// console.log("yaham takk aagya abh aage kaya hoga")
 				foundTeacher.score[$scope.pointer] = $scope.feedbackGivenByTheUser[index];
+				// console.log(foundTeacher);
 			}
 
 		} else {
 			$scope.teacherFeedback.push({
-				feedbackId: singleTheoryTeacher.feedback_id,
+				feedbackId: feedbackId,
 				score: [$scope.feedbackGivenByTheUser[index]],
-				type: 'Theory',
-				instructor_code: singleTheoryTeacher.instructor_code,
-				subject_code: singleTheoryTeacher.subject_code
+				type: 'Theory'
 			})
 		}
 
 		$scope.checkOccurence++;
-
-		if ($scope.theoryTeacher.length <= $scope.checkOccurence) {
-			$scope.buttonToggler = false;
-		}
-
-		console.log($scope.teacherFeedback);
 	}
 
-	$scope.addFeedbackToPracticalTeacher = function(singlePracticalTeacher, index) {
+	$scope.addFeedbackToPracticalTeacher = function(feedbackId, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
 
-		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', singlePracticalTeacher.feedback_id]);
+		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', feedbackId]);
 
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer2] == null) {
@@ -137,11 +151,9 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 			}
 		} else {
 			$scope.teacherFeedback.push({
-				feedbackId: singlePracticalTeacher.feedback_id,
+				feedbackId: feedbackId,
 				score: [$scope.feedbackGivenByTheUser[index]],
-				type: 'Practical',
-				instructor_code: singlePracticalTeacher.instructor_code,
-				subject_code: singlePracticalTeacher.subject_code
+				type: 'Practical'
 			})
 		}
 		$scope.checkOccurence++;
@@ -150,69 +162,108 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 			$scope.buttonToggler = false;
 		}
 
-				console.log($scope.teacherFeedback);
 	}
 
 	$scope.increasePointer = function() {
 		$scope.pointer += 1;
 		$scope.buttonToggler = true;
 		$scope.checkOccurence = 0;
-		for (var x=0;x<$scope.feedbackGivenByTheUser.length; x++ ) {
-			$scope.feedbackGivenByTheUser[x] = null;
+		for(var x=0;x<$scope.teacherFeedback.length;x++) {
+			if ($scope.teacherFeedback[x].type=="Theory") {
+				if(!$scope.teacherFeedback[x].score[$scope.pointer]) {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length;y++ ) {
+						$scope.feedbackGivenByTheUser[y] = null;
+					}
+				} else {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length; y++ ) {
+						$scope.feedbackGivenByTheUser[y] = $scope.teacherFeedback[y].score[$scope.pointer];
+					}
+				}
+			}
 		}
-
 	}
 
 	$scope.decreasePointer = function() {
 		$scope.pointer -=1;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer];
-		console.log($scope.teacherFeedback);
 
 		for (var x=0; x<$scope.teacherFeedback.length;x++) {
 			$scope.feedbackGivenByTheUser[x] = $scope.teacherFeedback[x].score[$scope.pointer];
 		}
 	}
 
-	// $scope.decreasePointer2 = function() {
-	// 	$scope.pointer2 -= 1;
-	// 	var foundTeacher = $scope.teacherFeedback[$scope.pointer2];
+	$scope.decreasePointer2 = function() {
+		$scope.pointer2 -= 1;
+		var foundTeacher = $scope.teacherFeedback[$scope.pointer + $scope.pointer2];
 
-	// 	console.log($scope.teacherFeedback);
+		console.log($scope.teacherFeedback);
 
-	// 	for (var x=0; x<$scope.teacherFeedback.length;x++) {
-	// 		$scope.feedbackGivenByTheUser[x] =
-	// 	}
-	// }
+		for (var x=0; x<$scope.teacherFeedback.length;x++) {
+			if ($scope.teacherFeedback[x].type == "Practical") {
+				$scope.feedbackGivenByTheUser[x] = $scope.teacherFeedback[x].score[$scope.pointer2];
+			}
+		}
+	}
 
 	$scope.switchPointer = function() {
-		$scope.pointer2 += 1;
 
+
+		for (var x =0;x<$scope.teacherFeedback.length;x++) {
+			var singleFeedbackLength = $scope.teacherFeedback[x].score.length;
+
+			console.log(singleFeedbackLength);
+
+			if (singleFeedbackLength !=15 && singleFeedbackLength !=0) {
+				alert('Some input fields are left missing please fill the input field!!');
+				console.log("asd;lajsdlkjasdlaskd")
+				$scope.checkDisabled = false;
+				return;
+			}
+
+
+		}
+		// for (var x=0; x< )
+		console.log($scope.teacherFeedback);
+		$scope.pointer2 += 1;
 	}
 
 	$scope.increasePointer2 = function() {
 		$scope.pointer2 += 1;
 		$scope.buttonToggler = true;
 		$scope.checkOccurence = 0;
-		for (var x=0;x<$scope.feedbackGivenByTheUser.length; x++ ) {
-			$scope.feedbackGivenByTheUser[x] = null;
+
+		for(var x=0;x<$scope.teacherFeedback.length;x++) {
+			if ($scope.teacherFeedback[x].type=="Practical") {
+				if(!$scope.teacherFeedback[x].score[$scope.pointer2]) {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length;y++ ) {
+						$scope.feedbackGivenByTheUser[y] = null;
+					}
+				} else {
+					for (var y=0;y<$scope.feedbackGivenByTheUser.length; y++ ) {
+						$scope.feedbackGivenByTheUser[y] = $scope.teacherFeedback[y].score[$scope.pointer2];
+					}
+				}
+			}
 		}
 	}
 
 	$scope.sendFeedbackEvaluation = function() {
 
+
+
+		$scope.disabled = false;
+
 		var object = {
 			college_name: $scope.college_name,
-			enrollment_no: $scope.userInfo.enrollment_no, 
 			teacherFeedback: $scope.teacherFeedback,
-			email: $scope.email
-
+			email: $scope.email,
+			enrollment_no: 	$rootScope.userInfo.enrollment_no
 		}
-
-		$scope.buttonDisabled = true;
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
 			console.log(response);
 			if (response == 400) {
+				alert("something wrong happened");
 				// $location.path("/")
 			} else {
 				$location.path("/thankYouPage");
@@ -222,5 +273,35 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $location, userSe
 
 
 	$scope.getInstructorsForFeedback();
+
+
+
+
+	$scope.open = function() {
+
+        var modalInstance = $uibModal.open({
+            templateUrl: 'app/templates/instructions.html',
+            scope: $scope,
+            controller: 'SaveFilterCtrl',
+            size: 'sm',
+            animation: 'true',
+            resolve: {}
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $log.info('Modal closed at: ' + new Date());
+        }, function (selectedItem) {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+});
+
+
+faculty.controller('SaveFilterCtrl', function ($uibModal, $uibModalInstance, $scope, $window, $sce, $route, $location, $rootScope, $http, $templateCache, userService) {
+
+    $scope.dismiss = function() {
+		$uibModalInstance.dismiss();
+    };
 
 });

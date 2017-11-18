@@ -3,7 +3,7 @@ var express 		= require('express'),
 	bodyparser 		= require('body-parser'),
 	bcrypt			= require('bcrypt-nodejs'),
 	session			= require('express-session'),
-	sessionStore    =   new session.MemoryStore(),
+	sessionStore      =   new session.MemoryStore(),
 	request			= require('request'),
 	methodOverride  = require('method-override'),
 	sql				= require("mssql"),
@@ -43,8 +43,9 @@ app.use("/", routes);
 //middleware
 
 
+
 app.listen(3000,function() {
-	console.log("Listening On port " + 81);
+	console.log("Listening On port " + 80);
 });
 
 //SQL LOCK TRANSACTION , CHECK IF INTERNALLY PRESENT.

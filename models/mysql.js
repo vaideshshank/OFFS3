@@ -9,7 +9,7 @@
 // });
 // //Z3apbUnvi5LQKClu
 // con.connect(function(err){
-//   if(err)`
+//   if(err)
 //     throw err;
 //   console.log("Connected");
 
@@ -26,8 +26,7 @@ var con=mysql.createConnection({
   host:"localhost",
   user:"root",
   password:"",
-  database:'sdc',
-
+  database:'sdc'
 });
 //Z3apbUnvi5LQKClu
 con.connect(function(err){

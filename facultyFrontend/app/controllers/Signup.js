@@ -39,10 +39,8 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		}
 	];
 
-
-
     $scope.userCategoryList = [
-    	"student" // Removing elements for now. To be added later as functionality is added.
+    	"student"
     ];
 
   	$scope.setCollege = function(singleCollege) {
@@ -64,10 +62,12 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		$rootScope.semester = $scope.user.semister;
 		console.log($rootScope.semester);
 	}
+
 	$scope.LoginUser = function() {
 
-			$scope.hidebutton = true;
+			$scope.hidebutton  = true;
 			$scope.showSpinner = true;
+
 		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 			return;
 		}
@@ -76,7 +76,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 			if (response == 400) {
 				$location.path('/')
 
-			}else {
+			} else {
 				$rootScope.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
 				$rootScope.rollno = $scope.user.rollno;
 				console.log($rootScope);

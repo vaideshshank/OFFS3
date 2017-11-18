@@ -1,4 +1,4 @@
-window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'BotDetectCaptcha'])
+window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstrap',  'BotDetectCaptcha'])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
@@ -17,6 +17,10 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'BotDetectCa
         .when('/userFeedback', {
             controller: 'feedbackCtrl',
             templateUrl: './app/templates/userFeedback.html'
+        })
+        .when('/notGivenFeedback', {
+            controller: 'notGivenFeedbackCtrl',
+            templateUrl: './app/templates/notGivenFeedback.html'
         })
         .when('/thankYouPage', {
             templateUrl: './app/templates/thankYouPage.html'
