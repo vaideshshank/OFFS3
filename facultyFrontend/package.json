@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angularjs-captcha": "^1.2.2"
+    "angularjs-captcha": "^1.3.0"
   }
 }
