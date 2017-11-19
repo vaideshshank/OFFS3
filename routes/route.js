@@ -26,6 +26,6 @@ router.get("/getStudentDetails", routes.views.index.getStudentDetails);
 
 
 router.post("/dinitials",routes.views.dean.initials);
-
+router.post("/checksession",routes.views.dean.checksession);  //This is a temporary route.
 
 module.exports = router;

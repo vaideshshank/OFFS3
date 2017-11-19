@@ -20,7 +20,7 @@ module.exports = {
 	var dean_id 	 = req.query.dean_id;
 	var password	 = req.query.password;
 	var query 		 = 'select * from '+ college_name+'_dean where instructor_id = ? and password = ?';
-    if(college_name!=null&&dean_id!=null&&password!=null){							//Check For all fields
+    if(college_name!=null&&dean_id!=null&&password!=null){				//Check For all fields
 	con.query(query,[dean_id,password],function(error,result){
 		if(error){
 			console.log(error);
@@ -48,7 +48,23 @@ module.exports = {
 		
 	}
 
+	},
+	checksession : function(req,res){
+		/* This route is just to check if sessions are working .
+			Hit this url once you have logged in.	*/
+			if(req.session.dean){
+				console.log(req.session.dean);
+				res.json(req.session.dean);
+			}
+			else
+			{
+				console.log("No session detected");
+				var obj = {status:200,message:"No session detected"} ;
+			}
+
+
 	}
+
 
 
 }
