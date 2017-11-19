@@ -25,7 +25,8 @@ router.get("/getStudentDetails", routes.views.index.getStudentDetails);
 */
 
 
-router.post("/dinitials",routes.views.dean.initials);
-router.post("/checksession",routes.views.dean.checksession);  //This is a temporary route.
+router.post("/dinitials",routes.views.dean.initials);  //To authenticate the dean
+router.post("/dchecksession",routes.views.dean.checksession);  //This is a temporary route.
+router.get("/ddashboard",routes.views.dean.dashboard);    // To get details of a BACH .
 
 module.exports = router;
