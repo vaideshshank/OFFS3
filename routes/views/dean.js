@@ -68,6 +68,7 @@ module.exports = {
 		/* I will require req.query.year as 2016 or 2017 and req.query.semester as 1 for (odd) or 0(even) and 
 		    req.query.college_name
 		   I will send a bulky object check it yourself
+		   And yet I have not included session authentication ,so that you can hit it without login
 		   Erase this after you understand !
 
 		*/
