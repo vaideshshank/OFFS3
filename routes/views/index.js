@@ -8,7 +8,7 @@ module.exports = {
 
 	index: function (req, res) {
 
-},
+	},
 	initials:function(req,res) {
 		//college_name.   //enrollment_number.    //email.     //type   //semester
 		//By default email set to sjv97mhjn@gmail.com
@@ -465,7 +465,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 	},
 
 	getStudentDetails: function(req, res) {
-		console.log("asdasdasdasd");
+
 		var collegeName = req.query.collegeName;
 		var semester = parseInt(req.query.semester);
 		var year = 2017 - (semester - 1 )/2;
@@ -504,5 +504,5 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 				return;
 			})
 		})
- }
+ 	}
 }

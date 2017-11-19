@@ -1,0 +1,223 @@
+<div class="card container box-center">
+    <div class="row">
+        <div class="container">
+            <table>
+                <thead>
+                    <div class="col s6">
+                        <th>Attributes</th>
+                    </div>
+                    <div class="col s6">
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>Total</th>
+                    </div>
+                </thead>
+                <tr>
+                    <td class="col s6">
+                        {{ attributes }}
+                    </td>
+                    <td class="col s6">
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container-fluid">
+    <br>
+    <div class=" student-welcome-card">
+        <div class="container-fluid teacher-welcome-container">
+            <div class="row">
+                <div class="col-md-7"></div>
+                <div class="col-md-3">
+                    <a class="save waves-effect waves-light btn ">SAVE
+				REPORT AS PDF</a>
+                </div>
+
+                <div class="col-md-2">
+
+                    <a class="logout waves-effect waves-light btn">LOG OUT</a>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3 col-md-offset-2">
+                    <div class="year-dropdown">
+                        <div class="input-field">
+                            <select ng-model="tc.year_selected" ng-change="tc.setYear(tc.year_selected)" ng-options="year for year in tc.getyear()" id="select-year" autocomplete="off">
+                                <option value="" disabled>Choose Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="semester-dropdown">
+                        <div class="input-field">
+                            <select ng-model="tc.acad_sem_selected" ng-change="tc.setAcad(tc.acad_sem_selected)" ng-options="option for option in tc.getacad_sem()" id="select-semester" autocomplete="off">
+                                <option value="" disabled>Choose Semester</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <br>
+                    <button ng-show="tc.isTeacherSelected" class="go waves-effect waves-light btn right">SEARCH</button>
+                </div>
+
+                <div class="col-md-2">
+                    <br> <a class="reload waves-effect waves-light btn right"><i class="small material-icons">replay</i></a>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-offset-2 col-md-6">
+                    <div class="">
+                        <div class="teacher-dropdown">
+                            <div class="input-field" ng-show="tc.year_selected && tc.acad_sem_selected">
+                                <select id="select-teacher" ng-model="tc.teacher" ng-change="tc.setTeacherSelected(tc.teacher)" ng-options="option for option in tc.getTeachers()" autocomplete="off">
+                                    <option value="" disabled>Choose Teacher</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row parameters" ng-show="tc.ifParametersAllowed()">
+
+                <div class="col-md-2" ng-show="tc.year_selected && tc.acad_sem_selected">
+                    <br>
+                    <div class='teacher-dropdown small-title'>
+                        <center>OPTIONAL PARAMETERS</center>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="">
+                        <div class="teacher-dropdown">
+                            <div class="input-field" ng-show="tc.year_selected && tc.acad_sem_selected">
+                                <select ng-model="tc.cur.course" ng-options="option for option in tc.getCourses() " id="sel-course" autocomplete="off">
+                                    <option value="" disabled>Course</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="">
+                        <div class="teacher-dropdown">
+                            <div class="input-field" ng-show="tc.year_selected && tc.acad_sem_selected">
+                                <select ng-model="tc.cur.stream" ng-options="option for option in tc.getStream() " id="sel-stream" autocomplete="off">
+                                    <option value="" disabled>Stream</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="">
+                        <div class="teacher-dropdown">
+                            <div class="input-field" ng-show="tc.year_selected && tc.acad_sem_selected">
+                                <select ng-model="tc.cur.semester" ng-options="option for option in tc.getSem() " id="sel-sem" autocomplete="off">
+                                    <option value="" disabled>Semester</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="">
+                        <div class="teacher-dropdown">
+                            <div class="input-field" ng-show="tc.year_selected && tc.acad_sem_selected">
+                                <select ng-model="tc.cur.subject" ng-options="option for option in tc.getSub() " id="sel-sub" autocomplete="off">
+                                    <option value="" disabled>Subject</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="progress loadingTeachers hide">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <br>
+                    <br>
+                    <center>
+                        <span class="formula-head">
+						<center>
+						FORMULA USED TO EVALUATE PERCENTAGE:
+						<center>
+				</span>
+                </div>
+                <div class="col-md-3">
+                    <div class="formula-title">THEORY SUBJECTS</div>
+                    <div class="formula-img">
+                        <img class="formula" src='<c:url value="/resources/formula_images/theory.png" />' />
+
+                        <div class="formula-img-instruction">T = Maximum no of marks which can be obtained by teacher in Theory subjects</div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="formula-title">PRACTICAL SUBJECTS</div>
+                    <div class="formula-img">
+                        <img class="formula" src='<c:url value="/resources/formula_images/practical.png" />' />
+
+                        <div class="formula-img-instruction">P = Maximum no of marks which can be obtained by teacher in Practical subjects</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 notations">
+                    <div class="formula-title">NOTATIONS</div>
+                    <li><strong>N</strong> = No of students who gave feedback</li>
+                    <li><strong>Mn</strong> = Marks given by nth student</li>
+                </div>
+
+                <div class="col-md-1"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="result-header hide">
+        <div class="row">
+            <div class="col-md-6 inamecol">
+                <div class="small-title">INSTRUCTOR NAME</div>
+                <div class="result-header-teacher-name"></div>
+
+            </div>
+            <div class="col-md-6 icodecol">
+                <div class="small-title">INSTRUCTOR ID</div>
+                <div class="result-header-teacher-code"></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="result"></div>
+
+</div>
+ -->
