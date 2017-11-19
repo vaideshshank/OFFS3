@@ -45,7 +45,7 @@ app.use("/", routes);
 
 
 app.listen(3000,function() {
-	console.log("Listening On port " + 80);
+	console.log("Listening On port " + 3000);
 });
 
 //SQL LOCK TRANSACTION , CHECK IF INTERNALLY PRESENT.
