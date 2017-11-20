@@ -292,20 +292,23 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 							console.log(err);
 						else{
 
-
+							console.log("query1",Result);
 							con.query(query2,feedback.subject_code,function(err3,result3){
 								if(err3)
 								{
 									console.log(err3);
 								}
 								else{
+									console.log("query2", result3);
 									con.query(query3,[semester,Number(req.body.enrollment_no)],function(err4,res4){
+										
 										if(err4)
 										{
 											console.log(err4);
 										}
 										else
 										{
+											console.log("query3", res4);
 											//console.log(res4);
 											console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
 
@@ -358,6 +361,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						if(err)
 							console.log(err);
 						else{
+							console.log("practical query 1", Result);
 						 con.query(query2,feedback.subject_code,function(err3,result3){
 								if(err3)
 								{
@@ -365,7 +369,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 								}
 								else{
 									//console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
-
+										console.log("practical query 2" , result3);
 										con.query(query3,[semester,Number(req.body.enrollment_no)],function(err4,res4){
 										if(err4)
 										{
@@ -374,6 +378,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 										else
 										{
 											//console.log(res4);
+											console.log("practical query 3 ", res4);
 											console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
 
 
