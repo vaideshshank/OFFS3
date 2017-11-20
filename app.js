@@ -42,8 +42,6 @@ app.use("/", routes);
 
 //middleware
 
-
-
 app.listen(8080,function() {
 	console.log("Listening On port " + 3000);
 });
