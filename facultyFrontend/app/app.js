@@ -18,7 +18,7 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'feedbackCtrl',
             templateUrl: './app/templates/userFeedback.html'
         })
-        .when('/notGivenFeedback', {
+        .when('/status', {
             controller: 'notGivenFeedbackCtrl',
             templateUrl: './app/templates/notGivenFeedback.html'
         })
@@ -30,6 +30,7 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'deanAnalysisCtrl',
             templateUrl: './app/templates/dean_analysis.html'
         })
+
         .when('/thankYouPage', {
             templateUrl: './app/templates/thankYouPage.html'
         });
@@ -57,3 +58,10 @@ faculty.config(function(captchaSettingsProvider) {
     captchaEndpoint: '/bdc4-simple-api-angularjs-captcha-example/botdetectcaptcha'
   });
 });
+
+// bhai eakk min mila hai kuch let me try
+//okay
+//samajh rha hun..
+//ab upload karten hain..
+// bhai mei he kar deta hun
+//but isse previous data erase to nhi hoga ? 
