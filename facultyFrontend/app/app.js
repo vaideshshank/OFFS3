@@ -22,8 +22,12 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'notGivenFeedbackCtrl',
             templateUrl: './app/templates/notGivenFeedback.html'
         })
-        .when("/deanAnalysis", {
+        .when('/deanDashboard', {
             controller: 'deanCtrl',
+            templateUrl: './app/templates/deanDashboard.html'
+        })
+        .when("/deanAnalysis", {
+            controller: 'deanAnalysisCtrl',
             templateUrl: './app/templates/dean_analysis.html'
         })
         .when('/thankYouPage', {
