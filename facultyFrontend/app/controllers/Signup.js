@@ -45,11 +45,16 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 
   	$scope.setCollege = function(singleCollege) {
 		$scope.college = singleCollege;
+		$rootScope.college = singleCollege;
 	}
+	
 
 	$scope.setUserCategory =  function(userCategory) {
 		$scope.user.category = userCategory;
 	}
+
+	$scope.setCollege($scope.collegeList[$scope.collegeList.length - 1])
+ $scope.setUserCategory('Dean');
 
 	$scope.findSemister = function() {
 		var roll = _.clone($scope.user.rollno);
@@ -71,32 +76,31 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 			return;
 		}
-
+// idhar college Name ayeg kya?
+		console.log($scope.college, $scope.user);
 		if ($scope.user.category == "Dean") {
-			facultyService.send_details($scope.college, $scope.user, function(response) {
+			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
 					$location.path("/");
 				} else {
-					alert(response.message);
-					console.log("Asdaskldjaslkdjaslkjdlaksdm");
-					$location.path("/deanDashboard");
+					
+					$location.path("/deanAnalysis");
+				}
+			})
+		} else {
+			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+				if (response == 400) {
+					$location.path('/')
+
+				} else {
+					$rootScope.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
+					$rootScope.rollno = $scope.user.rollno;
+					console.log($rootScope);
+					$location.path('/verify');
 				}
 			})
 		}
-
-		userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
-			if (response == 400) {
-				$location.path('/')
-
-			} else {
-				$rootScope.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
-				$rootScope.rollno = $scope.user.rollno;
-				console.log($rootScope);
-				$location.path('/verify');
-			}
-		})
-
 	}
 
 	$scope.verifyUser = function() {

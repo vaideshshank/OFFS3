@@ -36,6 +36,26 @@ faculty.factory('facultyService', ['$http', '$timeout', '$rootScope', function($
 					callback(data);
 				}
 			})
-		}
+		},
+
+		getFeedback: function(college, year, callback) {
+			$http({
+				method: "GET",
+				url: BACKEND + "/ddashboard",
+				params: {
+					year: year,
+					college_name: college
+				}
+			}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response.data);
+					callback(data);
+				}
+			})
+		},
  	}
 }]);
