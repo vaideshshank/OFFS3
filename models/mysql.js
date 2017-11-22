@@ -36,4 +36,4 @@ con.connect(function(err){
 
 });
 module.exports= con;
- isse comment kardo and upar walla uncomment
+// isse comment kardo and upar walla uncomment

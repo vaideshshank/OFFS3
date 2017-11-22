@@ -53,8 +53,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		$scope.user.category = userCategory;
 	}
 
-	$scope.setCollege($scope.collegeList[$scope.collegeList.length - 1])
- $scope.setUserCategory('Dean');
+	
 
 	$scope.findSemister = function() {
 		var roll = _.clone($scope.user.rollno);

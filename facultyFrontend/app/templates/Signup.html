@@ -33,7 +33,7 @@
           <div class="row">
             <div class="col s12">
               <span>
-                <h4 style = "color: #1A237E; padding-left: 0.5em;"> <strong>{{ user.category }} Login</strong></h4>
+                <h4 style = "color: #1A237E; padding-left: 0.5em;"> <strong>{{ user.category.charAt(0).toUpperCase() + user.category.slice(1) }} Login</strong></h4>
               </span>
             </div>
 
@@ -79,7 +79,7 @@
             
               <div class="g-recaptcha hide" data-sitekey="6LcW-CcUAAAAAMSs6yu89PgIMvFyOT4Bps651gYE"></div>
                 <div class="input-field col s12">
-                  <p><strong>This feedback is anonymous</strong></p>
+                  <p ng-if="user.category=='student'"><strong>This feedback is anonymous</strong></p>
                   <button  ng-click="LoginUser()" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
                     <i class="material-icons right">send</i>
                   </button>
