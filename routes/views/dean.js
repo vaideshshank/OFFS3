@@ -11,15 +11,19 @@ module.exports = {
 	},
 
 	initials: function(req,res) {
-
-		var college_name = req.query.college_name.college_code;
+		console.log('dean initials');
+		console.log(req.query);
+		//yey galat route ko hit kar rha hai dekho log mei hai hit initials jabhki yahan koo console mei nhi hai
+		var college_name = req.query.college_name;
+		// karle , sorry :p apne changes kya kre//just that // dekh dekh
 		var dean_id 	 = req.query.dean_id;
 		var password	 = req.query.password;
 		var query 		 = 'select * from '+ college_name + '_dean where instructor_id = ? and password = ?';
-
+		console.log(college_name, dean_id, password);
+		//karna bhaiya abh check karte hai
 	    if(college_name != null && dean_id != null && password != null) {		//Check For all fields
 			con.query(query,[dean_id,password],function(error,result) {
-
+				console.log(result);
 			if(error) {
 				console.log(error);
 				var obj = { status:400 , message :"There is error in query!"};
@@ -60,7 +64,7 @@ module.exports = {
 				var obj = {status:200,message:"No session detected"} ;
 			}
 	},
-
+//dashorad walla hai bhaiya  // ok // thanks // chal krta hu okkk11
 	dashboard	: function(req,res) {
 		/* I will require req.query.year as 2016 or 2017 and req.query.semester as 1 for (odd) or 0(even) and
 		    req.query.college_name
@@ -68,12 +72,17 @@ module.exports = {
 		   And yet I have not included session authentication ,so that you can hit it without login
 		   Erase this after you understand !
 
-		*/
+			*/
+
+		console.log(req.query)
 		var year = req.query.year;
 		var semester = Number(req.query.semester);
-		var college_name  =req.session.college_name;
+		var college_name  =req.query.college_name;
 
 		if(year==null||semester==null||college_name==null) {
+			console.log(year)
+			console.log(semester)
+			console.log(college_name)
 			console.log("Not All Fields Set")
 			var obj = { status:400 , message :"Not All Fields Set"};
 			res.json(obj);
@@ -90,8 +99,8 @@ module.exports = {
 			var query =	' select * from '+ tables.subject_allocation+' as s  ' +
 					   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
 					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
-					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id '+
-					   	' where MOD(b.semester,2) = '+ semester+'   ' ;
+					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id'
+					   	;
 					   	console.log(query);
 		    con.query(query,function(error,result){
 		    	if(error) {
