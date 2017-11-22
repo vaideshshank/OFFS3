@@ -256,7 +256,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 
 
-		$scope.disabled = false;
+		$scope.disabled = true;
 
 		var object = {
 			college_name: $scope.college_name,
