@@ -8,7 +8,8 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($htt
                     "college_name" : collegeName,
                     "enrollment_no" : user.rollno,
                     "email": user.email,
-                    "type": user.category
+                    "type": user.category,
+                    "semester": user.semister
                 }
 
             }).then(function(response) {
@@ -21,14 +22,15 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($htt
             });
         },
 
-        verifyUser: function(otp, tablename, enrollment_no, callback) {
+        verifyUser: function(otp, tablename, enrollment_no, semester, callback) {
             $http({
                 method:'POST',
                 url: BACKEND + '/verify',
                 params: {
                     'tablename': tablename,
                     'enrollment_no': enrollment_no,
-                    'password': otp
+                    'password': otp,
+                    'semester': semester
                 }
             }).then(function(response) {
                 if (callback) {

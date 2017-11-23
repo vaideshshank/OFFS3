@@ -220,7 +220,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 			if (singleFeedbackLength !=15 && singleFeedbackLength !=0) {
 				alert('Some input fields are left missing please fill the input field!!');
-				console.log("asd;lajsdlkjasdlaskd")
+				//console.log("asd;lajsdlkjasdlaskd")
 				$scope.checkDisabled = false;
 				return;
 			}
@@ -230,6 +230,10 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		// for (var x=0; x< )
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
+	}
+
+	$scope.logout = function() {
+		$location.path("/");
 	}
 
 	$scope.increasePointer2 = function() {
@@ -310,3 +314,5 @@ faculty.controller('SaveFilterCtrl', function ($uibModal, $uibModalInstance, $sc
     };
 
 });
+/*
+Digital modulation*/

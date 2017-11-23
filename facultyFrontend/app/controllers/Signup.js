@@ -65,6 +65,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 	$scope.updateSemester = function() {
 		$rootScope.semester = $scope.user.semister;
 		console.log($rootScope.semester);
+		console.log($scope.user);
 	}
 
 	$scope.LoginUser = function() {
@@ -75,7 +76,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 			return;
 		}
-// idhar college Name ayeg kya?
+// idhar college Name ayeg kya? bhai 1 min rukja 2 calls aachuke hai zaada der ka kaam nhi hai mera ok
 		console.log($scope.college, $scope.user);
 		if ($scope.user.category == "Dean") {
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
@@ -88,6 +89,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 				}
 			})
 		} else {
+			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response == 400) {
 					$location.path('/')
@@ -112,7 +114,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		var rollno = $rootScope.rollno;
 		console.log($rootScope.tablename);
 
-		userService.verifyUser($scope.otp, tablename, rollno, function(response) {
+		userService.verifyUser($scope.otp, tablename, rollno, $rootScope.semester, function(response) {
 			if (response == 400) {
 				alert('User is not verified');
 				$location.path('/');

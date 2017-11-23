@@ -108,7 +108,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 			if (!_.isObject(val['at_1']) && _.isString(val['at_1'])) {
 
 
-			if (Object.keys(val).indexOf('at_15') >= 0) {
+			if (val['at_15'].length!=1) {
 				val.type="Theory"
 			} else {
 				val.type="Practical"

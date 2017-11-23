@@ -17,6 +17,7 @@ router.get("/feedbackform", routes.views.index.feedbackform);
 router.post("/feedback", routes.views.index.feedback);
 router.get("/getStudentStatus", routes.views.index.getStudentStatus);
 router.get("/getStudentDetails", routes.views.index.getStudentDetails);
+// router.get("/update",routes.views.index.update_s_series);
 //DEAN MODULE==============================================================
 /*
  	All the dean routes are made in /views/dean.js
