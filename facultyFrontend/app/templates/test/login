@@ -1,9 +1,0 @@
-#!/bin/sh
-pass="shivaji"
-read -p "enter login name:" login
-if [ "$login" == "$pass" ]
-  then
-    echo -e "\n login accepted"
-  else
-    echo -e "\n entered login name invalid"
-fi
