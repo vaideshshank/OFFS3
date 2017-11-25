@@ -94,7 +94,9 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 				if (response == 400) {
 					$location.path('/')
 
-				} else {
+				} else if(response.message) {
+					alert(response.message)
+				}else {
 					$rootScope.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
 					$rootScope.rollno = $scope.user.rollno;
 					console.log($rootScope);

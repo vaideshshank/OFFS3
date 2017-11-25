@@ -33,8 +33,9 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						console.log(er3);
 					else{
 						if(res3[0]!=null)
-						{
+						{		var obj = {'message' : "You have already filled your feedback, Thanks!"}
 								console.log("user found in dump");
+								res.send(obj);
 						}
 						else
 						{
