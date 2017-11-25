@@ -25,10 +25,10 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 			else
 
 		{
-				var dump = req.query.college_name + '_dump_2017' ;
+				var dump = req.query.college_name + '_dump_2017';
 				var query0 = 'select enrollment_no from '+ dump + ' where enrollment_no = ' +Number(req.query.enrollment_no) ;
 				console.log(query0);
-				con.query(query0,function(er3,res3){
+				con.query(query0,function(er3,res3) {
 					if(er3)
 						console.log(er3);
 					else{
