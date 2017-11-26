@@ -1,4 +1,4 @@
-faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, Captcha) {
+faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, Captcha) {
 
 	$scope.user = {};
 	$scope.name = "";
@@ -40,7 +40,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 	];
 
     $scope.userCategoryList = [
-    	"student", "Dean"
+    	"student", "Dean", "VC", "Pro VC"
     ];
 
   	$scope.setCollege = function(singleCollege) {
@@ -76,7 +76,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 			return;
 		}
-// idhar college Name ayeg kya? bhai 1 min rukja 2 calls aachuke hai zaada der ka kaam nhi hai mera ok
+
 		console.log($scope.college, $scope.user);
 		if ($scope.user.category == "Dean") {
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
@@ -85,10 +85,34 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 					$location.path("/");
 				} else {
 					
-					$location.path("/deanAnalysis");
+					$location.path("/deanDashboard");
 				}
 			})
-		} else {
+		} else if($scope.user.category == "VC") {
+vcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+				if (response.status == 400) {
+					alert(response.message);
+					$location.path("/");
+				} else {
+					
+					$location.path("/vcDashboard");
+				}
+			})
+
+
+		}else if($scope.user.category == "Pro VC") {
+	pvcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+				if (response.status == 400) {
+					alert(response.message);
+					$location.path("/");
+				} else {
+					
+					$location.path("/pvcDashboard");
+				}
+			})
+
+
+		}else {
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response == 400) {

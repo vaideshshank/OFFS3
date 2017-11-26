@@ -3,7 +3,10 @@ var router  = express.Router();
 var routes = {
   views: {
     index: require("./views/index"),
-    dean : require("./views/dean")
+    dean : require("./views/dean"),
+    vc : require("./views/vc"),
+    pvc : require("./views/pvc")
+
   }
 }
 
@@ -29,5 +32,14 @@ router.get("/getStudentDetails", routes.views.index.getStudentDetails);
 router.post("/dinitials",routes.views.dean.initials);  //To authenticate the dean
 router.get("/dchecksession",routes.views.dean.checksession);  //This is a temporary route.
 router.get("/ddashboard",routes.views.dean.dashboard);    // To get details of a BACH .
+
+
+router.post("/vinitials",routes.views.vc.initials);  //To authenticate the dean
+router.get("/vchecksession",routes.views.vc.checksession);  //This is a temporary route.
+router.get("/vdashboard",routes.views.vc.dashboard);    // To get details of a BACH .
+
+router.post("/pvinitials",routes.views.pvc.initials);  //To authenticate the dean
+router.get("/pvchecksession",routes.views.pvc.checksession);  //This is a temporary route.
+router.get("/pvdashboard",routes.views.pvc.dashboard);    // To get details of a BACH .
 
 module.exports = router;

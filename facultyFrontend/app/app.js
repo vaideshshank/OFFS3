@@ -30,21 +30,27 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'deanAnalysisCtrl',
             templateUrl: './app/templates/dean_analysis.html'
         })
+        .when('/vcDashboard', {
+            controller: 'vcCtrl',
+            templateUrl: './app/templates/vcDashboard.html'
+        })
+        .when("/vcAnalysis", {
+            controller: 'vcAnalysisCtrl',
+            templateUrl: './app/templates/vc_analysis.html'
+        })
+        .when('/pvcDashboard', {
+            controller: 'vcCtrl',
+            templateUrl: './app/templates/pvcDashboard.html'
+        })
+        .when("/pvcAnalysis", {
+            controller: 'pvcAnalysisCtrl',
+            templateUrl: './app/templates/pvc_analysis.html'
+        })
 
         .when('/thankYouPage', {
             templateUrl: './app/templates/thankYouPage.html'
         });
-        // .when('/Signup', {
-        // 	controller: 'SignupCtrl',
-        // 	templateUrl: '/app/templates/Signup.html',
-        // 	reloadOnSearch: false
-        // });
-
-        // $locationProvider.html5Mode(true);
-        // $locationProvider.html5Mode({
-        //     enabled: true,
-        //     requireBase: false
-        // });
+        
     }
 ]);
 

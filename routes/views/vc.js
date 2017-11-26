@@ -11,15 +11,15 @@ module.exports = {
 	},
 
 	initials: function(req,res) {
-		console.log('dean initials');
+		console.log('vc initials');
 		console.log(req.query);
 		var college_name = req.query.college_name;
-		var dean_id 	 = req.query.dean_id;
+		var vc_id 	 = req.query.vc_id;
 		var password	 = req.query.password;
-		var query 		 = 'select * from '+ college_name + '_dean where instructor_id = ? and password = ?';
-		console.log(college_name, dean_id, password);
-	    if(college_name != null && dean_id != null && password != null) {		//Check For all fields
-			con.query(query,[dean_id,password],function(error,result) {
+		var query 		 = 'select * from '+ 'vc where instructor_id = ? and password = ?';
+		console.log(college_name, vc_id, password);
+	    if(college_name != null && vc_id != null && password != null) {		//Check For all fields
+			con.query(query,[vc_id,password],function(error,result) {
 				console.log(result);
 			if(error) {
 				console.log(error);
@@ -27,16 +27,15 @@ module.exports = {
 				res.json(obj);
 
 			} else if(result[0] == null) {
-				console.log("No Dean Found");
 				var obj = { status:400 , message :"No Such User Found ! ."};
 				res.json(obj);  		// Invalid Password or username
 
 			} else {
 				console.log(result[0]);
-				req.session.dean = result[0];
-				req.session.dean.college_name = req.query.college_name;
-				console.log(req.session.dean);
-				var obj = { status:200 , message :"Dean authentication Successfull"};
+				req.session.vc = result[0];
+				req.session.vc.college_name = req.query.college_name;
+				console.log(req.session.vc);
+				var obj = { status:200 , message :"VC authentication Successfull"};
 				res.json(obj);  	 //Successfull
 			}
 
@@ -50,9 +49,9 @@ module.exports = {
 	checksession : function(req,res) {
 		/*  This route is just to check if sessions are working .
 			Hit this url once you have logged in.	*/
-			if(req.session.dean) {
-				console.log(req.session.dean);
-				res.json(req.session.dean);
+			if(req.session.vc) {
+				console.log(req.session.vc);
+				res.json(req.session.vc);
 			}
 
 			else
@@ -62,13 +61,13 @@ module.exports = {
 			}
 	},
 	dashboard	: function(req,res) {
-
+		console.log('In dashboard');
 		var year = req.query.year;
-		var semester = Number(req.query.semester);
 		var college_name  =req.query.college_name;
 
-		if(year==null||semester==null||college_name==null) {
-		
+		if(year==null|| college_name==null) {
+			console.log(year)
+			console.log(college_name)
 			var obj = { status:400 , message :"Not All Fields Set"};
 			res.json(obj);
 		}
@@ -94,7 +93,7 @@ module.exports = {
 					res.json(obj);       // Connection Error
 				}
 				else if(result[0]==null){
-					console.log("No Dean Found");
+					console.log("No VC Found");
 					var obj = { status:400 , message :"No Such User Found ! ."};
 					res.json(obj);  		// Invalid Password or username
 				}
