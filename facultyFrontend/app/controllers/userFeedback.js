@@ -213,20 +213,20 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 	$scope.switchPointer = function() {
 
 
-		for (var x =0;x<$scope.teacherFeedback.length;x++) {
-			var singleFeedbackLength = $scope.teacherFeedback[x].score.length;
+		// for (var x =0;x<$scope.teacherFeedback.length;x++) {
+		// 	var singleFeedbackLength = $scope.teacherFeedback[x].score.length;
 
-			console.log(singleFeedbackLength);
+		// 	console.log(singleFeedbackLength);
 
-			if (singleFeedbackLength !=15 && singleFeedbackLength !=0) {
-				alert('Some input fields are left missing please fill the input field!!');
-				//console.log("asd;lajsdlkjasdlaskd")
-				$scope.checkDisabled = false;
-				return;
-			}
+		// 	if (singleFeedbackLength !=15 && singleFeedbackLength !=0) {
+		// 		alert('Some input fields are left missing please fill the input field!!');
+		// 		//console.log("asd;lajsdlkjasdlaskd")
+		// 		$scope.checkDisabled = false;
+		// 		return;
+		// 	}
 
 
-		}
+		// }
 		// for (var x=0; x< )
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
