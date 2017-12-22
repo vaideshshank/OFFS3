@@ -17,13 +17,33 @@ console.log("Hit initials");
 console.log(req.query);
 if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email==null||req.query.type==null)
 	{  console.log("Not all Fields Set");
+		// var obj = {
+		// 	status: 400,
+		// 	messa
+		// }
 		res.send("400");          }
 			else
 
 		{
+				var dump = req.query.college_name + '_dump_2017';
+				var query0 = 'select enrollment_no from '+ dump + ' where enrollment_no = ' +Number(req.query.enrollment_no) ;
+				console.log(query0);
+				con.query(query0,function(er3,res3) {
+					if(er3)
+						console.log(er3);
+					else{
+						if(res3[0]!=null)
+						{		var obj = {'message' : "You have already filled your feedback, Thanks!"}
+								console.log("user found in dump");
+								res.send(obj);
+						}
+						else
+						{
+								// deeksha  paras aakash kumar  
+								{
 
-
-			    var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+			    // var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+			    var year = 17 - (req.query.semester - 1)/2;
 				year = '20' + year.toString();
 
 				console.log(req.query.enrollment_no.substr(10,12));
@@ -80,6 +100,14 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						}
 
 				})}
+
+						}
+					}
+				})
+
+				
+
+			}
 	},
 	verify: function(req,res){
 		// var token  = Math.floor(Math.random()*(98989 - 12345 + 1) + 12345 );
@@ -93,9 +121,12 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		else
 		{
 
-		var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+		var year = 17 - (req.query.semester - 1)/2;
 
 		year = '20' + year.toString();
+
+		// 
+		console.log(year);
 		var tablename = req.query.tablename + '_' + year;
 		console.log(tablename);
 		var enrollment_no = Number(req.query.enrollment_no);
@@ -110,6 +141,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 					res.status(400);
 			}
 			else {
+				console.log(result);
 				if(password!=result[0].password)
 				{
 					console.log("Password Did Not match");
@@ -356,6 +388,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						sum=sum+Number(result[i]);
 										}
 					};
+					//coo 
 
 					con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],sum],function(err,Result){
 						if(err)
@@ -462,7 +495,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 			}
 
 
-			console.log(userStatus)
+			//console.log(userStatus)
 			res.json(userStatus);
 			return;
 
@@ -501,7 +534,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 					return;
 				}
 
-				console.log(query2);
+				//console.log(query2); //03669900117
 				userDetails.course = course;
 				userDetails.stream = stream;
 
@@ -511,3 +544,5 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		})
  	}
 }
+
+// usem :  03669900117 med first 

@@ -8,13 +8,13 @@
 
             <div class='greeting'>HELLO</div>
 
-            <div class="student-name"> {{ user.name }}</div>
+            <div class="student-name"> {{ vc.name }}</div>
 
-            <div class="student-enroll"> {{ user.enrollment_no }}</div>
         </div>
         <div class="col s4">
             <center>
-                <img height=100 width=149 id="stud-img" class="student-main-image" src="http://placehold.it/180x200">
+
+                <img id="stud-img" class="student-main-image" ng-src="./app/instructor_images/vc/vc.jpg" onerror="this.src='http://placehold.it/180x200'">
 
                 <div style="margin-bottom: 0px !important;" class="row">
 
@@ -25,13 +25,12 @@
                         <br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">
                     </form>
-                    <div class="form-instructions">FORMAT: your-enrollment-number.jpg
-                    </div>
+                    
                 </div>
             </center>
 
         </div>
-        <div class="col s4">
+        <div class="col s4 hide">
             <a class="logout btn waves-effect waves-light right" ng-click="logout()">LOG OUT </a>
         </div>
     </div>
@@ -39,27 +38,23 @@
     <div class="card-action">
         <div class="row">
 
-            <div class="col s3">
+            <div class="col s4">
                 <div class="small-title">SCHOOL</div>
 
-                <div class="small-content school">{{ user.college_name }}</div>
+                <div class="small-content school">{{ vc.college_name }}</div>
 
             </div>
 
-            <div class="col s3">
-                <div class="small-title">COURSE</div>
-                <div class="small-content course">{{ user.course }}</div>
-            </div>
-            <div class="col s3">
-                <div class="small-title">STREAM</div>
+            <div class="col s4">
+                <div class="small-title">ROOM NO</div>
 
-                <div class="small-content stream">{{ user.stream }}</div>
+                <div class="small-content stream">{{ vc.room_no }}</div>
 
             </div>
-            <div class="col s3">
-                <div class="small-title">YEAR OF ADMISSION</div>
+            <div class="col s4">
+                <div class="small-title">DATE OF JOINING</div>
 
-                <div class="small-contenty yoa">{{ user.year_of_admission }}</div>
+                <div class="small-contenty yoa">{{ vc.date_of_joining }}</div>
 
             </div>
         </div>
@@ -68,21 +63,20 @@
     <div class="card-action">
         <div class="row">
             <div class="col s12">
-
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" readonly ng-model="user.email">
+                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" disabled ng-model="vc.email">
                 </div>
 
                 <div class="input-field col s6">
-                    <input placeholder="Phone Number" id="last_name" type="text" class="validate editField phone" readonly ng-model="user.phone">
+                    <input placeholder="phone number" id="last_name" type="text" class="validate editField phone" disabled ng-model="vc.phone">
                 </div>
             </div>
         </div>
     </div>
 
     <div class="card-action">
-        <a class="proceed-to-feedback btn waves-effect waves-light" ng-click="feedbackProcess()">
-            PROCEED TO FEEDBACK PROCESS
+        <a class="check-status btn waves-effect waves-light" ng-click="checkStatus()">
+            VIEW FEEDBACK
         </a>
     </div>
 </div>
