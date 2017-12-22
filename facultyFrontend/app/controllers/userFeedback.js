@@ -1,4 +1,4 @@
-faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, $document, $location, userService) {
+	faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, $document, $location, userService) {
 
 
 	$scope.feedback;
@@ -108,12 +108,12 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		})
 	}
 
-	$scope.addFeedbackToTheoryTeacher = function(feedbackId, index) {
+	$scope.addFeedbackToTheoryTeacher = function(theoryTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
 
-		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', feedbackId]);
+		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', theoryTeacher.feedback_id]);
 
 		// console.log(foundTeacher);
 		if (foundTeacher) {
@@ -127,21 +127,24 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 		} else {
 			$scope.teacherFeedback.push({
-				feedbackId: feedbackId,
+				feedbackId: theoryTeacher.feedback_id,
 				score: [$scope.feedbackGivenByTheUser[index]],
-				type: 'Theory'
+				type: 'Theory',
+				subject_code: theoryTeacher.subject_code,
+				instructor_code: theoryTeacher.instructor_code
+
 			})
 		}
 
 		$scope.checkOccurence++;
 	}
 
-	$scope.addFeedbackToPracticalTeacher = function(feedbackId, index) {
+	$scope.addFeedbackToPracticalTeacher = function(practicalTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
 
-		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', feedbackId]);
+		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', practicalTeacher.feedback_id]);
 
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer2] == null) {
@@ -151,9 +154,11 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 			}
 		} else {
 			$scope.teacherFeedback.push({
-				feedbackId: feedbackId,
+				feedbackId: practicalTeacher.feedback_id,
 				score: [$scope.feedbackGivenByTheUser[index]],
-				type: 'Practical'
+				type: 'Practical',
+				subject_code: practicalTeacher.subject_code,
+				instructor_code: practicalTeacher.instructor_code
 			})
 		}
 		$scope.checkOccurence++;
@@ -251,7 +256,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 
 
-		$scope.disabled = false;
+		$scope.disabled = true;
 
 		var object = {
 			college_name: $scope.college_name,
