@@ -5,7 +5,7 @@ var routes = {
     index: require("./views/index"),
     dean : require("./views/dean"),
     vc : require("./views/vc"),
-    pvc : require("./views/pvc")
+    pvc : require("./views/pvc"),
     teacher : require("./views/teacher")
 
   }
