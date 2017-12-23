@@ -6,6 +6,7 @@ var routes = {
     dean : require("./views/dean"),
     vc : require("./views/vc"),
     pvc : require("./views/pvc")
+    teacher : require("./views/teacher")
 
   }
 }
@@ -42,6 +43,9 @@ router.post("/pvinitials",routes.views.pvc.initials);  //To authenticate the dea
 router.get("/pvchecksession",routes.views.pvc.checksession);  //This is a temporary route.
 router.get("/pvdashboard",routes.views.pvc.dashboard);    // To get details of a BACH .
 
+router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the teacher
+router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details and stuff
+router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
 
 
 module.exports = router;
