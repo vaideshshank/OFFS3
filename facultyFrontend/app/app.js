@@ -1,4 +1,4 @@
-window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstrap',  'BotDetectCaptcha'])
+window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstrap'])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
@@ -46,7 +46,14 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'pvcAnalysisCtrl',
             templateUrl: './app/templates/pvc_analysis.html'
         })
-
+        .when('/teacherDashboard', {
+            controller: 'tCtrl',
+            templateUrl: './app/templates/teacherDashboard.html'
+        })
+        .when("/teacherAnalysis", {
+            controller: 'tAnalysisCtrl',
+            templateUrl: './app/templates/teacher_analysis.html'
+        })
         .when('/thankYouPage', {
             templateUrl: './app/templates/thankYouPage.html'
         });
@@ -59,11 +66,6 @@ faculty.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-faculty.config(function(captchaSettingsProvider) {
-  captchaSettingsProvider.setSettings({
-    captchaEndpoint: '/bdc4-simple-api-angularjs-captcha-example/botdetectcaptcha'
-  });
-});
 
 // bhai eakk min mila hai kuch let me try
 //okay

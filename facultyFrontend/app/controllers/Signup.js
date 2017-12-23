@@ -1,4 +1,4 @@
-faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, Captcha) {
+faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService) {
 
 	$scope.user = {};
 	$scope.name = "";
@@ -40,7 +40,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 	];
 
     $scope.userCategoryList = [
-    	"student", "Dean", "VC", "Pro VC"
+    	"student", "Dean", "VC", "Pro VC", "faculty"
     ];
 
   	$scope.setCollege = function(singleCollege) {
@@ -110,8 +110,16 @@ vcService.send_details($scope.college.collegeCode, $scope.user, function(respons
 					$location.path("/pvcDashboard");
 				}
 			})
-
-
+		}else if($scope.user.category == "Teacher") {
+	pvcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+				if (response.status == 400) {
+					alert(response.message);
+					$location.path("/");
+				} else {
+					
+					$location.path("/teacherDashboard");
+				}
+			})
 		}else {
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
