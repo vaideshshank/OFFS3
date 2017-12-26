@@ -69,8 +69,10 @@ module.exports = {
 		var course = req.query.course;
 		var stream = req.query.stream;
 		var semester = Number(req.query.semester);
+		var ins_id = req.session.ins.instructor_id;
+//var semester = req.query.semester;
 
-		if(year==null|| subject_type==null || subject_type==null || subject_name==null || course==null || stream==null|| semester==null) {
+		if(year==null|| college_name==null || subject_type==null || subject_name==null || course==null || stream==null|| semester==null) {
 			console.log(year)
 			console.log(subject_type)
 			var obj = { status:400 , message :"Not All Fields Set"};
@@ -89,24 +91,36 @@ module.exports = {
 			var query =	' select * from '+ tables.subject_allocation+' as s  ' +
 					   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
 					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
-					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id'
+					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id' +
 
-					   	' where b.course = ? and b.stream = ? and b.semester = ? and type = s.type';
+					   	' where s.instructor_code = ? and b.course = ? and b.stream = ? and b.semester = ? and s.type = ?';
 
 					   	;
 					   	console.log(query);
-		    con.query(query,[course,stream,semester,subject_type],function(error,result){
+
+console.log(req.query);
+
+		    con.query(query,[ins_id,course,stream,semester,subject_type],function(error,result){
 		    	if(error) {
+
+		    		console.log(req.query);
+					
 					console.log(error);
 					var obj = { status:400 , message :"There is error in query!"};
 					res.json(obj);       // Connection Error
 				}
 				else if(result[0]==null){
+					
+					console.log(req.query);
+
 					console.log("No Teacher Found");
 					var obj = { status:400 , message :"No Such User Found ! ."};
 					res.json(obj);  		// Invalid Password or username
 				}
 				else{
+
+					console.log(req.query);
+
 					console.log("Data fetched");
 					console.log(result);
 					res.json(result);

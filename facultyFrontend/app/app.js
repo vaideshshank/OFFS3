@@ -42,7 +42,7 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'vcCtrl',
             templateUrl: './app/templates/pvcDashboard.html'
         })
-        .when("/pvcAnalysis", {
+        .when('/pvcAnalysis', {
             controller: 'pvcAnalysisCtrl',
             templateUrl: './app/templates/pvc_analysis.html'
         })
@@ -50,7 +50,7 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             controller: 'tCtrl',
             templateUrl: './app/templates/teacherDashboard.html'
         })
-        .when("/teacherAnalysis", {
+        .when('/teacherAnalysis', {
             controller: 'tAnalysisCtrl',
             templateUrl: './app/templates/teacher_analysis.html'
         })
