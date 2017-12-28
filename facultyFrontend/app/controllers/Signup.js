@@ -92,7 +92,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 					alert(response.message);
 					$location.path("/");
 				} else  {
-					$location.path("teacherDashboard")
+					$location.path("/teacherDashboard")
 				}
 			})
 

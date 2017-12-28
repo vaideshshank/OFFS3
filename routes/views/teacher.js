@@ -1,8 +1,8 @@
-var con 	   = require("../../models/mysql"),
- 	ses        =   require('node-ses'),
- 	async      =  require('async'),
- 	controller = require("../../models/config"),
-    nodemailer = require('nodemailer');
+var con 	    = require("../../models/mysql"),
+ 	ses         = require('node-ses'),
+ 	async       = require('async'),
+ 	controller  = require("../../models/config"),
+    nodemailer  = require('nodemailer');
 
 module.exports = {
 
@@ -79,41 +79,41 @@ module.exports = {
 		}
 		else
 		{   var tables = {
-			       batch_allocation    :college_name + '_batch_allocation',
-				   subject_allocation :college_name + '_subject_allocation',
-				   feedback		   	  :college_name + '_feedback_'          + year,
-		   		   employee			  :'employee'
+			       batch_allocation   : college_name + '_batch_allocation',
+				   subject_allocation : college_name + '_subject_allocation',
+				   feedback		   	  : college_name + '_feedback_'          + year,
+		   		   employee			  : 'employee'
 		   	}
 
 		   	console.log(tables);
 
-			var query =	' select * from '+ tables.subject_allocation+' as s  ' +
-					   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
-					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
-					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id'
+			var query =	' select * from '+ tables.subject_allocation +' as s  ' +
+					   	' inner join  '+ tables.batch_allocation +' as b on s.batch_id = b.batch_id ' +
+					   	' inner join  '+ tables.employee +' as e on s.instructor_code =e.instructor_id '+
+					   	' inner join  '+ tables.feedback +' as f on s.feedback_id = f.feedback_id' +
 
 					   	' where b.course = ? and b.stream = ? and b.semester = ? and type = s.type';
 
 					   	;
 					   	console.log(query);
-		    con.query(query,[course,stream,semester,subject_type],function(error,result){
-		    	if(error) {
-					console.log(error);
-					var obj = { status:400 , message :"There is error in query!"};
-					res.json(obj);       // Connection Error
-				}
-				else if(result[0]==null){
-					console.log("No Teacher Found");
-					var obj = { status:400 , message :"No Such User Found ! ."};
-					res.json(obj);  		// Invalid Password or username
-				}
-				else{
-					console.log("Data fetched");
-					console.log(result);
-					res.json(result);
+					    con.query(query,[course,stream,semester,subject_type],function(error,result) {
+					    	if(error) {
+								console.log(error);
+								var obj = { status:400 , message :"There is error in query!"};
+								res.json(obj);       // Connection Error
+							}
+							else if(result[0]==null) {
+								console.log("No Teacher Found");
+								var obj = { status:400 , message :"No Such User Found ! ."};
+								res.json(obj);  		// Invalid Password or username
+							}
+							else{
+								console.log("Data fetched");
+								console.log(result);
+								res.json(result);
 
-				}
-		    })
+							}
+					    })
 		}
 	}
 }
