@@ -57,7 +57,7 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
         .when('/thankYouPage', {
             templateUrl: './app/templates/thankYouPage.html'
         });
-        
+
     }
 ]);
 
@@ -72,4 +72,4 @@ faculty.config(['$locationProvider', function($locationProvider) {
 //samajh rha hun..
 //ab upload karten hain..
 // bhai mei he kar deta hun
-//but isse previous data erase to nhi hoga ? 
+//but isse previous data erase to nhi hoga ?

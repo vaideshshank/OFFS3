@@ -1,12 +1,13 @@
-faculty.factory('pvcService', ['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope) {
-	return {
+faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope) {
+	return  {
+
 		send_details : function(college, user, callback) {
 			$http({
 				method: "POST",
-				url: BACKEND + '/pvinitials',
+				url: BACKEND + '/tinitials',
 				params: {
 					college_name: college,
-					pvc_id: user.rollno,
+					ins_id: user.rollno,
 					password: user.password
 				}
 
@@ -25,7 +26,7 @@ faculty.factory('pvcService', ['$http', '$timeout', '$rootScope', function($http
 		getDetails: function(callback) {
 			$http({
 				method: "GET",
-				url: BACKEND + "/pvchecksession",
+				url: BACKEND + "/tchecksession",
 			}).then(function(response) {
 				if (callback) {
 					callback(response.data);
@@ -41,7 +42,7 @@ faculty.factory('pvcService', ['$http', '$timeout', '$rootScope', function($http
 		getFeedback: function(college, year, callback) {
 			$http({
 				method: "GET",
-				url: BACKEND + "/pvdashboard",
+				url: BACKEND + "/tdashboard",
 				params: {
 					year: year,
 					college_name: college
@@ -57,5 +58,5 @@ faculty.factory('pvcService', ['$http', '$timeout', '$rootScope', function($http
 				}
 			})
 		}
- 	}
-}]);
+	}
+}])

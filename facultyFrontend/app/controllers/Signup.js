@@ -1,4 +1,4 @@
-faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService) {
+faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
 
 	$scope.user = {};
 	$scope.name = "";
@@ -7,11 +7,11 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		collegeName : "University School of Law and Legal Studies",
 		collegeCode :"uslls"},
 
-		{collegeName :"University School of Management Studies",
-		collegeCode: "usms"},
+		{ collegeName :"University School of Management Studies",
+		collegeCode: "usms" },
 
-	    {collegeName :"University School of Education",
-		collegeCode:  "use"},
+	    { collegeName :"University School of Education",
+		collegeCode:  "use" },
 
 		{collegeName :"University School of BioTechnology",
 		collegeCode : "usbt"},
@@ -35,12 +35,11 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		collegeCode : "ushss"},
 
 		{collegeName :"University School of Info.,Comm. and Technology",
-		collegeCode : "usict"
-		}
+		collegeCode : "usict"}
 	];
 
     $scope.userCategoryList = [
-    	"student", "Dean", "VC", "Pro VC", "faculty"
+    	"student", "Dean", "VC", "Pro VC", "Teacher"
     ];
 
   	$scope.setCollege = function(singleCollege) {
@@ -52,8 +51,6 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 	$scope.setUserCategory =  function(userCategory) {
 		$scope.user.category = userCategory;
 	}
-
-
 
 	$scope.findSemister = function() {
 		var roll = _.clone($scope.user.rollno);
@@ -85,12 +82,23 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 					alert(response.message);
 					$location.path("/");
 				} else {
-					console.log("asd,hasdlkhasd");
 					$location.path("/deanDashboard");
 				}
 			})
+		} else if ($scope.user.category == 'Teacher') {
+
+			teacherService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+				if (response.status == 400) {
+					alert(response.message);
+					$location.path("/");
+				} else  {
+					$location.path("teacherDashboard")
+				}
+			})
+
 		} else if($scope.user.category == "VC") {
-vcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+
+			vcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
 					$location.path("/");
@@ -101,8 +109,9 @@ vcService.send_details($scope.college.collegeCode, $scope.user, function(respons
 			})
 
 
-		}else if($scope.user.category == "Pro VC") {
-	pvcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
+		} else if($scope.user.category == "Pro VC") {
+
+			pvcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
 					$location.path("/");
@@ -111,17 +120,7 @@ vcService.send_details($scope.college.collegeCode, $scope.user, function(respons
 					$location.path("/pvcDashboard");
 				}
 			})
-		}else if($scope.user.category == "Teacher") {
-	pvcService.send_details($scope.college.collegeCode, $scope.user, function(response) {
-				if (response.status == 400) {
-					alert(response.message);
-					$location.path("/");
-				} else {
-
-					$location.path("/teacherDashboard");
-				}
-			})
-		}else {
+		} else {
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response == 400) {

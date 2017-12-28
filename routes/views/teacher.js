@@ -60,6 +60,7 @@ module.exports = {
 				var obj = {status:200,message:"No session detected"} ;
 			}
 	},
+
 	dashboard	: function(req,res) {
 		console.log('In dashboard');
 		var year = req.query.year;
