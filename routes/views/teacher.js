@@ -98,8 +98,8 @@ module.exports = {
 //		var year = req.query.year;
 
 		var tables = {
-			       batch_allocation    :college_name + '_batch_allocation_',
-				   subject_allocation :college_name + '_subject_allocation_',
+			       batch_allocation    :college_name + '_batch_allocation',
+				   subject_allocation :college_name + '_subject_allocation',
 			}
 
 //subject_name, course, stream, semester
@@ -139,7 +139,7 @@ module.exports = {
 		console.log('In dashboard');
 		var year = req.query.year;
 		var college_name = req.query.college_name;
-		var subject_type  =req.query.subject_type;
+//		var subject_type  =req.query.subject_type;
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
 		var stream = req.query.stream;
@@ -155,8 +155,8 @@ module.exports = {
 		}
 		else
 		{   var tables = {
-			       batch_allocation    :college_name + '_batch_allocation_',
-				   subject_allocation :college_name + '_subject_allocation_' ,
+			       batch_allocation    :college_name + '_batch_allocation',
+				   subject_allocation :college_name + '_subject_allocation' ,
 				   feedback		   	  :college_name + '_feedback_'          + year,
 		   		   employee			  :'employee'
 		   	}
@@ -168,11 +168,11 @@ module.exports = {
 					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
 					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id' +
 
-					   	' where b.course = ? and b.stream = ? and b.semester = ? and s.type = ? and s.instructor_code =' + ins_id +';' 
+					   	' where b.course = ? and b.stream = ? and b.semester = ? and s.instructor_code =' + ins_id +';' 
 
 					   	;
 					   	console.log(query);
-		    con.query(query,[course,stream,semester,subject_type],function(error,result){
+		    con.query(query,[course,stream,semester],function(error,result){
 		    	if(error) {
 					console.log(error);
 					var obj = { status:400 , message :"There is error in query!"};
