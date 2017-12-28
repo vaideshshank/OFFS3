@@ -61,15 +61,54 @@ module.exports = {
 			}
 	},
 
+	populate : function(req, res) {
+
+		var ins_id = req.session.ins.instructor_id;
+		var year = 2017;
+		var college_name = req.session.ins.school;
+		console.log('In populate');
+		var tables = {
+			       batch_allocation    :college_name + '_batch_allocation',
+				   subject_allocation :college_name + '_subject_allocation',
+		}
+
+		var query =	' select * from '+ tables.subject_allocation + ' as s  ' +
+				   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
+
+				   	' where s.instructor_code = ' + ins_id + ' ;';
+				   	console.log(query);
+
+		con.query(query,function(error,result) {
+				console.log(result);
+			if(error) {
+				console.log(error);
+				var obj = { status:400 , message :"There is error in query!"};
+				res.json(obj);
+
+			} else if(result[0] == null) {
+				var obj = { status:400 , message :"Oops ! ."};
+				res.json(obj);
+
+			} else {
+				console.log(result[0]);
+				var obj = { status:200 , message :"Successfull"};
+				res.json(obj);  	 //Successfull
+			}
+
+		})
+
+	},
+
 	dashboard	: function(req,res) {
 		console.log('In dashboard');
 		var year = req.query.year;
 		var college_name = req.query.college_name;
-		var subject_type  =req.query.subject_type;
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
 		var stream = req.query.stream;
 		var semester = Number(req.query.semester);
+
+		var ins_id = req.session.ins.instructor_id;
 
 		if(year==null|| subject_type==null || subject_type==null || subject_name==null || course==null || stream==null|| semester==null) {
 			console.log(year)
@@ -79,41 +118,43 @@ module.exports = {
 		}
 		else
 		{   var tables = {
-			       batch_allocation   : college_name + '_batch_allocation',
-				   subject_allocation : college_name + '_subject_allocation',
-				   feedback		   	  : college_name + '_feedback_'          + year,
-		   		   employee			  : 'employee'
-		   	}
+
+			       batch_allocation    :college_name + '_batch_allocation',
+				   subject_allocation :college_name + '_subject_allocation' ,
+				   feedback		   	  :college_name + '_feedback_'          + year,
+		   		   employee			  :'employee'
+			}
 
 		   	console.log(tables);
 
-			var query =	' select * from '+ tables.subject_allocation +' as s  ' +
-					   	' inner join  '+ tables.batch_allocation +' as b on s.batch_id = b.batch_id ' +
-					   	' inner join  '+ tables.employee +' as e on s.instructor_code =e.instructor_id '+
-					   	' inner join  '+ tables.feedback +' as f on s.feedback_id = f.feedback_id' +
+			var query =	' select * from '+ tables.subject_allocation+' as s  ' +
+					   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
+					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
+					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id' +
 
-					   	' where b.course = ? and b.stream = ? and b.semester = ? and type = s.type';
+					   	' where b.course = ? and b.stream = ? and b.semester = ? and s.instructor_code =' + ins_id +';'
 
 					   	;
 					   	console.log(query);
-					    con.query(query,[course,stream,semester,subject_type],function(error,result) {
-					    	if(error) {
-								console.log(error);
-								var obj = { status:400 , message :"There is error in query!"};
-								res.json(obj);       // Connection Error
-							}
-							else if(result[0]==null) {
-								console.log("No Teacher Found");
-								var obj = { status:400 , message :"No Such User Found ! ."};
-								res.json(obj);  		// Invalid Password or username
-							}
-							else{
-								console.log("Data fetched");
-								console.log(result);
-								res.json(result);
 
-							}
-					    })
+		    con.query(query,[course,stream,semester],function(error,result){
+		    	if(error) {
+					console.log(error);
+					var obj = { status:400 , message :"There is error in query!"};
+					res.json(obj);       // Connection Error
+				}
+				else if(result[0]==null){
+					console.log("No Teacher Found");
+					var obj = { status:400 , message :"No Such User Found ! ."};
+					res.json(obj);  		// Invalid Password or username
+				}
+				else{
+					console.log("Data fetched");
+					console.log(result);
+					res.json(result);
+
+				}
+		    })
 		}
 	}
 }

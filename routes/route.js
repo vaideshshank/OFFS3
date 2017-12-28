@@ -45,6 +45,7 @@ router.get("/pvdashboard",routes.views.pvc.dashboard);    // To get details of a
 
 router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the teacher
 router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details
+router.get("/tpopulate",routes.views.teacher.populate);    // To populate the dropdowns
 router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
 
 
