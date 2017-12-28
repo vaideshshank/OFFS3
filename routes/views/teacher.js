@@ -64,7 +64,7 @@ module.exports = {
 	populate : function(req, res) {
 
 		var ins_id = req.session.ins.instructor_id;
-		var year = 2017;
+		var year = req.query.year;
 		var college_name = req.session.ins.school;
 		console.log('In populate');
 		var tables = {
