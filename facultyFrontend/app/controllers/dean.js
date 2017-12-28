@@ -7,10 +7,12 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 		facultyService.getDetails(function(response) {
 			$scope.dean = response;
 		})
+
 	}
 
 	$scope.checkStatus = function() {
-		$location.path("/deanDashboard");
+		$location.path("/deanAnalysis");
+
 	}
 
 	$scope.getDetails();

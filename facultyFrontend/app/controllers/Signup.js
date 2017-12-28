@@ -47,13 +47,13 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		$scope.college = singleCollege;
 		$rootScope.college = singleCollege;
 	}
-	
+
 
 	$scope.setUserCategory =  function(userCategory) {
 		$scope.user.category = userCategory;
 	}
 
-	
+
 
 	$scope.findSemister = function() {
 		var roll = _.clone($scope.user.rollno);
@@ -79,12 +79,13 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 
 		console.log($scope.college, $scope.user);
 		if ($scope.user.category == "Dean") {
+
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
 					$location.path("/");
 				} else {
-					
+					console.log("asd,hasdlkhasd");
 					$location.path("/deanDashboard");
 				}
 			})
@@ -94,7 +95,7 @@ vcService.send_details($scope.college.collegeCode, $scope.user, function(respons
 					alert(response.message);
 					$location.path("/");
 				} else {
-					
+
 					$location.path("/vcDashboard");
 				}
 			})
@@ -106,7 +107,7 @@ vcService.send_details($scope.college.collegeCode, $scope.user, function(respons
 					alert(response.message);
 					$location.path("/");
 				} else {
-					
+
 					$location.path("/pvcDashboard");
 				}
 			})
@@ -116,7 +117,7 @@ vcService.send_details($scope.college.collegeCode, $scope.user, function(respons
 					alert(response.message);
 					$location.path("/");
 				} else {
-					
+
 					$location.path("/teacherDashboard");
 				}
 			})

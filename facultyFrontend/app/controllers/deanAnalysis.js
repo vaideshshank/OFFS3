@@ -4,6 +4,8 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 	$scope.selectedYear = '2017';
 
 	$scope.getFeedback = function() {
+		console.log($rootScope);
+
 		facultyService.getFeedback($rootScope.college.collegeCode, $scope.selectedYear, function(response) {
 			$scope.deanfb = response;
 			console.log($scope.deanfb);
@@ -15,7 +17,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 			$scope.stream = _.chain($scope.deanfb).pluck('stream').uniq().value();
 			$scope.semester = _.chain($scope.deanfb).pluck('semester').uniq().value();
 
-	  // init all selects
+			// init all selects
 			$(document).ready(function () {
 				$('select').material_select();
 			})
@@ -61,7 +63,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 	}
 
 	$scope.updateSubjects = function () {
-		
+
 	}
 
 	$scope.search  = function () {
@@ -152,7 +154,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 		$scope.final_res = final_res;
 
 	//		console.log(final_res);
-	
+
 
 	}
 
@@ -165,11 +167,11 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
  			 }
  			 else {
  				k=8;
- 			
+
  		}
 
  		for (var i = 0; i < k; i++) {
- 				sarr.push(value['at_' + (+i+1)]['1']*1 + value['at_' + (+i+1)]['2']*2 + 
+ 				sarr.push(value['at_' + (+i+1)]['1']*1 + value['at_' + (+i+1)]['2']*2 +
                     value['at_' + (+i+1)]['3']*3 + value['at_' + (+i+1)]['4']*4  +
                 value['at_' + (+i+1)]['5']*5)
  			}
@@ -177,7 +179,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
  			return sarr.reduce(function (v,a) {
  				return v+a;
  			})
- } 
+ }
 
 	$scope.getDetails = function() {
 		facultyService.getDetails(function(response) {
