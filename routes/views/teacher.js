@@ -102,7 +102,12 @@ module.exports = {
 	dashboard	: function(req,res) {
 		console.log('In dashboard');
 		var year = req.query.year;
+//<<<<<<< HEAD
+//		var college_name = req.query..college_name;
+//		var subject_type  =req.query.subject_type;
+//=======
 		var college_name = req.session.ins.school;
+//>>>>>>> a066d0d19f09d6fe28085ea6aff24763700e4738
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
 		var stream = req.query.stream;
@@ -119,8 +124,8 @@ module.exports = {
 		else
 		{   var tables = {
 
-			       batch_allocation    :college_name + '_batch_allocation',
-				   subject_allocation :college_name + '_subject_allocation' ,
+			       batch_allocation    :college_name + '_batch_allocation_'+ year,
+				   subject_allocation :college_name + '_subject_allocation_'+ year ,
 				   feedback		   	  :college_name + '_feedback_'          + year,
 		   		   employee			  :'employee'
 			}
