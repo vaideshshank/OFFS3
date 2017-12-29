@@ -68,6 +68,7 @@ module.exports = {
 		var college_name = req.session.ins.school;
 		console.log('In populate');
 		var tables = {
+
 			       batch_allocation   :college_name + '_batch_allocation',
 				   subject_allocation :college_name + '_subject_allocation'
 		}
@@ -124,8 +125,8 @@ module.exports = {
 		else
 		{   var tables = {
 
-			       batch_allocation    :college_name + '_batch_allocation_'+ year,
-				   subject_allocation :college_name + '_subject_allocation_'+ year ,
+			       batch_allocation    :college_name + '_batch_allocation',
+				   subject_allocation :college_name + '_subject_allocation',
 				   feedback		   	  :college_name + '_feedback_'          + year,
 		   		   employee			  :'employee'
 			}
