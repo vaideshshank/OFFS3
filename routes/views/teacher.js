@@ -138,7 +138,7 @@ module.exports = {
 	dashboard	: function(req,res) {
 		console.log('In dashboard');
 		var year = req.query.year;
-		var college_name = req.query.college_name;
+		var college_name = req.query..college_name;
 //		var subject_type  =req.query.subject_type;
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
