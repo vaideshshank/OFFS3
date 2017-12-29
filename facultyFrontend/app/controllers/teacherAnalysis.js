@@ -7,16 +7,15 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		console.log($rootScope);
 
 
-		teacherService.getFeedback(function(response) {
+		teacherService.populate(function(response) {
 			$scope.teacherfb = response;
 			console.log($scope.teacherfb);
 
-			//get unique teachers
-			$scope.subjects = _.chain($scope.teacherfb).pluck('subject_name').uniq().value();
-			$scope.course 	= _.chain($scope.teacherfb).pluck('course').uniq().value();
-			$scope.stream 	= _.chain($scope.teacherfb).pluck('stream').uniq().value();
-			$scope.semester = _.chain($scope.teacherfb).pluck('semester').uniq().value();
-
+			$scope.subjects = _.chain($scope.teacherfb.data).pluck('subject_name').uniq().value();
+			$scope.course 	= _.chain($scope.teacherfb.data).pluck('course').uniq().value();
+			$scope.stream 	= _.chain($scope.teacherfb.data).pluck('stream').uniq().value();
+			$scope.semester = _.chain($scope.teacherfb.data).pluck('semester').uniq().value();
+			$scope.years 	= ['2014', '2015', '2016', '2017'];
 			// init all selects
 			$(document).ready(function () {
 				$('select').material_select();
@@ -64,26 +63,26 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		var sem 	= $scope.selectedSem;
 		var stream 	= $scope.selectedStream;
 		var subject = $scope.selectedSubject;
+		var year  	= $scope.selectedYear;
 
-		console.log(sem, course, stream, semester);
+		console.log(sem, course, stream);
 
-		if (!subject || !course || !stream || !sem) {
+		if (!subject || !course || !stream || !sem || !year) {
 			return;
 		}
 
-		teacherService.getTeacherfb(course, sem, stream, subject, function(response) {
+		teacherService.getTeacherfb(course, sem, stream, subject, year, function(response) {
 			console.log(response);
-			// var final_res = response;
-		})
+		 	var final_res = response;
 
 
   // One Time Preprocessing
 
-		final_res.forEach(function (val) {
+		final_res.forEach(function(val) {
 			if (!_.isObject(val['at_1']) && _.isString(val['at_1'])) {
 
 
-			if (val['at_15'].length!=1) {
+			if (val['at_15']) {
 				val.type="Theory"
 			} else {
 				val.type="Practical"
@@ -128,6 +127,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 	//		console.log(final_res);
 
+		})
 
 	}
 
@@ -155,9 +155,9 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
  }
 
 	$scope.getDetails = function() {
-		facultyService.getDetails(function(response) {
-			$scope.dean = response;
-			console.log($scope.dean);
+		teacherService.getDetails(function(response) {
+			$scope.teacher = response;
+			console.log($scope.teacher);
 		})
 	}
 

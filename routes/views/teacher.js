@@ -91,7 +91,7 @@ module.exports = {
 
 			} else {
 				console.log(result[0]);
-				var obj = { status:200 , message :"Successfull"};
+				var obj = {status:200 , message :"Successfull", data: result};
 				res.json(obj);  	 //Successfull
 			}
 
@@ -102,17 +102,17 @@ module.exports = {
 	dashboard	: function(req,res) {
 		console.log('In dashboard');
 		var year = req.query.year;
-		var college_name = req.query.college_name;
+		var college_name = req.session.ins.school;
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
 		var stream = req.query.stream;
-		var semester = Number(req.query.semester);
+		var semester = Number(req.query.sem);
 
 		var ins_id = req.session.ins.instructor_id;
 
-		if(year==null|| subject_type==null || subject_type==null || subject_name==null || course==null || stream==null|| semester==null) {
+		if(year==null|| course==null || stream==null|| semester==null) {
 			console.log(year)
-			console.log(subject_type)
+			// console.log(subject_type)
 			var obj = { status:400 , message :"Not All Fields Set"};
 			res.json(obj);
 		}

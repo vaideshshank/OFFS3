@@ -3,9 +3,7 @@
 <br>
 
 <div class="row">
-    <div class="col s1">
 
-    </div>
     <div class="col s4">
         <select ng-model="selectedSubject" ng-options="option for option in subjects">
             <option value="" disabled selected>Choose Subject</option>
@@ -24,6 +22,11 @@
     <div class="col s2">
         <select ng-model="selectedSem" ng-options="option for option in semester">
             <option value="" disabled selected>Choose Semester</option>
+        </select>
+    </div>
+    <div class="col s2">
+        <select ng-model="selectedYear" ng-options="option for option in years">
+            <option value="" disabled selected> Choose Year </option>
         </select>
     </div>
 </div>

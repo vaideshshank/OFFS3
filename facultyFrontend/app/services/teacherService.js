@@ -55,13 +55,16 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 			})
 		},
 
-		getFeedback	: function(college, year, callback) {
+		getTeacherfb: function(course, sem, stream, subject, year, callback) {
 			$http({
 				method: "GET",
 				url: BACKEND + "/tdashboard",
 				params: {
-					year: year,
-					college_name: college
+					course: course,
+					sem: sem,
+					stream: stream,
+					subject: subject,
+					year: year
 				}
 			}).then(function(response) {
 				if (callback) {
