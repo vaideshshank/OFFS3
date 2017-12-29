@@ -1,5 +1,6 @@
 var express = require("express");
 var router  = express.Router();
+
 var routes = {
   views: {
     index: require("./views/index"),
@@ -7,7 +8,6 @@ var routes = {
     vc : require("./views/vc"),
     pvc : require("./views/pvc"),
     teacher : require("./views/teacher")
-
   }
 }
 
@@ -47,6 +47,5 @@ router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the 
 router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details
 router.get("/tpopulate",routes.views.teacher.populate);    // To populate the dropdowns
 router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
-
 
 module.exports = router;
