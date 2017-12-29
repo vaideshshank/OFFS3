@@ -39,10 +39,13 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 			})
 		},
 
-		populate: function(callback) {
+		populate: function(year,callback) {
 			$http({
 				method: "GET",
 				url: BACKEND + "/tpopulate",
+				params: {
+					year:year
+				}
 			}).then(function(response) {
 				if (callback) {
 					callback(response.data);
