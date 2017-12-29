@@ -1,92 +1,26 @@
-faculty.controller("teacherAnalysisCtrl", function($scope, $rootScope, $location, teacherService) {
+faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teacherService) {
 
-	$scope.vc = [];
-	$scope.viewElements = false;
+	$scope.teacher = [];
 	$scope.selectedYear = '2017';
-	$scope.selected = {};
-	$scope.progress = false;
-
-	$scope.collegeList = [
-		{collegeName : "University School of Law and Legal Studies",
-		collegeCode :"uslls"},
-
-		{collegeName :"University School of Management Studies",
-		collegeCode: "usms"},
-
-		{collegeName :"University School of Education",
-		collegeCode:  "use"},
-
-		{collegeName :"University School of BioTechnology",
-		collegeCode : "usbt"},
-
-		{collegeName :"University School of Chemical Technology",
-		collegeCode : "usct"},
-
-		{collegeName :"University School of Environment Management",
-	  	collegeCode : "usem"},
-
-		{collegeName :"University School of Mass Communication",
-		collegeCode : "usmc"},
-
-		{collegeName :"University School of Basic and Applied Sciences",
-		collegeCode :  "usbas"},
-
-		{collegeName :"University School of Architecture and Planning",
-		collegeCode : "usap"},
-
-		{collegeName :"University School of Humanities and Social",
-		collegeCode : "ushss"},
-
-		{collegeName :"University School of Info.,Comm. and Technology",
-		collegeCode : "usict"}
-	];
 
 	$scope.getFeedback = function() {
+		console.log($rootScope);
 
-		vcService.getFeedback($scope.selectedSchool, $scope.selectedYear, function(response) {
 
-			$scope.viewElements = true;
-			$scope.vcfb = response;
-			console.log($scope.vcfb);
+		teacherService.populate(function(response) {
+			$scope.teacherfb = response;
+			console.log($scope.teacherfb);
 
-			//get unique teachers
-			$scope.teacherlist = _.chain($scope.vcfb).pluck('name').uniq().value().sort();
-			$scope.subjects = _.chain($scope.vcfb).pluck('subject_name').uniq().value();
-			$scope.course = _.chain($scope.vcfb).pluck('course').uniq().value();
-			$scope.stream = _.chain($scope.vcfb).pluck('stream').uniq().value();
-			$scope.semester = _.chain($scope.vcfb).pluck('semester').uniq().value();
-
-	  // init all selects
+			$scope.subjects = _.chain($scope.teacherfb.data).pluck('subject_name').uniq().value();
+			$scope.course 	= _.chain($scope.teacherfb.data).pluck('course').uniq().value();
+			$scope.stream 	= _.chain($scope.teacherfb.data).pluck('stream').uniq().value();
+			$scope.semester = _.chain($scope.teacherfb.data).pluck('semester').uniq().value();
+			$scope.years 	= ['2014', '2015', '2016', '2017'];
+			// init all selects
 			$(document).ready(function () {
 				$('select').material_select();
 			})
-
-			$scope.progress = false;
-
 		})
-	}
-
-	$scope.yearChange = function () {
-		$scope.final_res = {};
-		console.log('changed');
-		if($scope.selectedSchool) {
-			//hide stuff
-			$scope.viewElements = false;
-			// show preloader
-			$scope.progress = true;
-			$scope.getFeedback();
-		}
-	}
-
-	$scope.schoolChange = function () {
-		$scope.final_res = {}
-		if ($scope.selectedYear) {
-			// hide it
-			$scope.viewElements = false;
-			// show preloader
-			$scope.progress = true;
-			$scope.getFeedback();
-		}
 	}
 
 	$rootScope.attributesList = {
@@ -123,56 +57,32 @@ faculty.controller("teacherAnalysisCtrl", function($scope, $rootScope, $location
 	$scope.updateSubjects = function () {
 
 	}
-	$scope.t = function () {
-		console.log($scope.selected.Teacher);
-	}
-	$scope.search  = function () {
 
-		console.log($scope.vcfb);
+	$scope.search = function () {
+		var course 	= $scope.selectedCourse;
+		var sem 	= $scope.selectedSem;
+		var stream 	= $scope.selectedStream;
+		var subject = $scope.selectedSubject;
+		var year  	= $scope.selectedYear;
 
-		var course = $scope.selected.Course;
-		var sem = $scope.selected.Sem;
-		var stream = $scope.selected.Stream;
-		var subject = $scope.selected.Subject;
-		var teacher = $scope.selected.Teacher;
+		console.log(sem, course, stream);
 
-		console.log(sem)
-		console.log(course)
-		console.log(stream)
-		console.log(subject)
-		console.log(teacher)
-		mdict = {}
-		if (teacher != null || teacher != undefined) {
-				mdict['name'] = teacher
+		if (!subject || !course || !stream || !sem || !year) {
+			return;
 		}
 
-		if ( course != null || course != undefined) {
-			mdict['course'] = course
-		}
+		teacherService.getTeacherfb(course, sem, stream, subject, year, function(response) {
+			console.log(response);
+		 	var final_res = response;
 
-		if ( sem != null || sem != undefined) {
-			mdict['semester'] = sem
-		}
 
-		if ( stream != null || stream != undefined) {
-			mdict['stream'] = stream
-		}
-
-		if ( subject != null || subject != undefined) {
-			mdict['subject_name'] = subject
-		}
-
-		console.log(mdict)
-		var final_res = _.where($scope.vcfb, mdict);
-
-		console.log(final_res)
   // One Time Preprocessing
 
-		final_res.forEach(function (val) {
+		final_res.forEach(function(val) {
 			if (!_.isObject(val['at_1']) && _.isString(val['at_1'])) {
 
 
-			if (val['at_15'].length!=1) {
+			if (val['at_15']) {
 				val.type="Theory"
 			} else {
 				val.type="Practical"
@@ -217,10 +127,12 @@ faculty.controller("teacherAnalysisCtrl", function($scope, $rootScope, $location
 
 	//		console.log(final_res);
 
+		})
 
 	}
 
  $scope.getTotal = function (value) {
+ 	console.log(value);
  	sum = 0
  	sarr = []
  		if(value.type=='Theory') {
@@ -243,11 +155,12 @@ faculty.controller("teacherAnalysisCtrl", function($scope, $rootScope, $location
  }
 
 	$scope.getDetails = function() {
-		vcService.getDetails(function(response) {
-			$scope.vc = response;
-			console.log($scope.vc);
+		teacherService.getDetails(function(response) {
+			$scope.teacher = response;
+			console.log($scope.teacher);
 		})
 	}
 
-
+	$scope.getDetails();
+	$scope.getFeedback();
 })

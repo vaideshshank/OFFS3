@@ -3,53 +3,30 @@
 <br>
 
 <div class="row">
-    <div class="col m5 offset-m1">
-        <select ng-model="selectedSchool" ng-options="clg.collegeCode as clg.collegeName for clg in collegeList" ng-change="schoolChange()">
-            <option value="" disabled selected>Choose School</option>
-        </select>
-    </div>
-    <div class="col m5">
-        <select ng-model="selectedYear" ng-options="option for option in ['2016', '2017']" ng-change="yearChange()">
-            <option value="" disabled selected>Choose Academic Year</option>
-        </select>
-    </div>
-</div>
-<div class="row" ng-if="progress">
-  <div class="progress">
-      <div class="indeterminate"></div>
-  </div>
-</div>
-<section ng-if="viewElements">
-<div class="row">
 
-    <div class="col m10 offset-m1 ">
-        <select ng-model="selected.Teacher" ng-options="option for option in teacherlist" ng-change="t()">
-            <option value="" disabled selected>Choose a Teacher</option>
-        </select>
-    </div>
-</div>
-<div class="row">
-    <div class="col s1">
-
-    </div>
     <div class="col s4">
-        <select ng-model="selected.Subject" ng-options="option for option in subjects">
+        <select ng-model="selectedSubject" ng-options="option for option in subjects">
             <option value="" disabled selected>Choose Subject</option>
         </select>
     </div>
     <div class="col s2">
-         <select ng-model="selected.Course" ng-options="option for option in course">
+         <select ng-model="selectedCourse" ng-options="option for option in course">
             <option value="" disabled selected>Choose Course</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selected.Stream" ng-options="option for option in stream">
+        <select ng-model="selectedStream" ng-options="option for option in stream">
             <option value="" disabled selected>Choose Stream</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selected.Sem" ng-options="option for option in semester">
+        <select ng-model="selectedSem" ng-options="option for option in semester">
             <option value="" disabled selected>Choose Semester</option>
+        </select>
+    </div>
+    <div class="col s2">
+        <select ng-model="selectedYear" ng-options="option for option in years">
+            <option value="" disabled selected> Choose Year </option>
         </select>
     </div>
 </div>
@@ -57,10 +34,9 @@
 <div class="center">
     <a class="waves-effect white black-text btn" ng-click="search()">SEARCH</a>
 </div>
-</section>
+
 <div class="" style="padding: 2em;">
-    <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em"
-    ng-if="value.no_of_students_evaluated > 0">
+    <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em">
         <div class="row inforow">
             <div class="infoelement">
                 <div class="small-title">

@@ -1,8 +1,8 @@
-var con 	   = require("../../models/mysql"),
- 	ses        =   require('node-ses'),
- 	async      =  require('async'),
- 	controller = require("../../models/config"),
-    nodemailer = require('nodemailer');
+var con 	    = require("../../models/mysql"),
+ 	ses         = require('node-ses'),
+ 	async       = require('async'),
+ 	controller  = require("../../models/config"),
+    nodemailer  = require('nodemailer');
 
 module.exports = {
 
@@ -61,55 +61,21 @@ module.exports = {
 			}
 	},
 
-
 	populate : function(req, res) {
 
 		var ins_id = req.session.ins.instructor_id;
 		var year = req.query.year;
 		var college_name = req.session.ins.school;
-/*		query= "*********************";
-
-		con.query(query, function(err,result) {
-			if (err) {
-				console.log(err);
-
-				res.json()
-			}
-
-			if (result) {
-
-				var lastResult = iske andar sab hoga
-
-				lastResult = {
-					subname: [], 
-					semester:[]
-				}
-
-				var obj = {
-					statusCode : 200,
-					lastResult	
-				}
-				res.json(lastResult) 
-			}
-
-		})*/
-
 		console.log('In populate');
-//		var year = req.query.year;
-
 		var tables = {
 			       batch_allocation    :college_name + '_batch_allocation',
 				   subject_allocation :college_name + '_subject_allocation',
-			}
+		}
 
-//subject_name, course, stream, semester
-
-
-		var query =	' select * from '+ tables.subject_allocation+' as s  ' +
+		var query =	' select * from '+ tables.subject_allocation + ' as s  ' +
 				   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
-				   	
-				   	' where s.instructor_code = ' +ins_id+ ' ;'
-				   	;
+
+				   	' where s.instructor_code = ' + ins_id + ' ;';
 				   	console.log(query);
 
 		con.query(query,function(error,result) {
@@ -125,7 +91,7 @@ module.exports = {
 
 			} else {
 				console.log(result[0]);
-				var obj = { status:200 , message :"Successfull"};
+				var obj = {status:200 , message :"Successfull", data: result};
 				res.json(obj);  	 //Successfull
 			}
 
@@ -133,33 +99,36 @@ module.exports = {
 
 	},
 
-
-
 	dashboard	: function(req,res) {
 		console.log('In dashboard');
 		var year = req.query.year;
-		var college_name = req.query..college_name;
+//<<<<<<< HEAD
+//		var college_name = req.query..college_name;
 //		var subject_type  =req.query.subject_type;
+//=======
+		var college_name = req.session.ins.school;
+//>>>>>>> a066d0d19f09d6fe28085ea6aff24763700e4738
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
 		var stream = req.query.stream;
-		var semester = Number(req.query.semester);
+		var semester = Number(req.query.sem);
 
 		var ins_id = req.session.ins.instructor_id;
 
-		if(year==null|| subject_type==null || subject_type==null || subject_name==null || course==null || stream==null|| semester==null) {
+		if(year==null|| course==null || stream==null|| semester==null) {
 			console.log(year)
-			console.log(subject_type)
+			// console.log(subject_type)
 			var obj = { status:400 , message :"Not All Fields Set"};
 			res.json(obj);
 		}
 		else
 		{   var tables = {
-			       batch_allocation    :college_name + '_batch_allocation',
-				   subject_allocation :college_name + '_subject_allocation' ,
+
+			       batch_allocation    :college_name + '_batch_allocation_'+ year,
+				   subject_allocation :college_name + '_subject_allocation_'+ year ,
 				   feedback		   	  :college_name + '_feedback_'          + year,
 		   		   employee			  :'employee'
-		   	}
+			}
 
 		   	console.log(tables);
 
@@ -168,10 +137,11 @@ module.exports = {
 					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
 					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id' +
 
-					   	' where b.course = ? and b.stream = ? and b.semester = ? and s.instructor_code =' + ins_id +';' 
+					   	' where b.course = ? and b.stream = ? and b.semester = ? and s.instructor_code =' + ins_id +';'
 
 					   	;
 					   	console.log(query);
+
 		    con.query(query,[course,stream,semester],function(error,result){
 		    	if(error) {
 					console.log(error);

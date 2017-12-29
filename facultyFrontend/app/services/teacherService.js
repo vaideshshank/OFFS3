@@ -39,13 +39,32 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 			})
 		},
 
-		getFeedback: function(college, year, callback) {
+		populate: function(callback) {
+			$http({
+				method: "GET",
+				url: BACKEND + "/tpopulate",
+			}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response.data);
+					callback(response.data);
+				}
+			})
+		},
+
+		getTeacherfb: function(course, sem, stream, subject, year, callback) {
 			$http({
 				method: "GET",
 				url: BACKEND + "/tdashboard",
 				params: {
-					year: year,
-					college_name: college
+					course: course,
+					sem: sem,
+					stream: stream,
+					subject: subject,
+					year: year
 				}
 			}).then(function(response) {
 				if (callback) {
@@ -54,7 +73,7 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 			}, function(response) {
 				if (callback) {
 					console.error(response.data);
-					callback(data);
+					callback(response.data);
 				}
 			})
 		}
