@@ -68,8 +68,8 @@ module.exports = {
 		var college_name = req.session.ins.school;
 		console.log('In populate');
 		var tables = {
-			       batch_allocation    :college_name + '_batch_allocation',
-				   subject_allocation :college_name + '_subject_allocation',
+			       batch_allocation   :college_name + '_batch_allocation',
+				   subject_allocation :college_name + '_subject_allocation'
 		}
 
 		var query =	' select * from '+ tables.subject_allocation + ' as s  ' +
