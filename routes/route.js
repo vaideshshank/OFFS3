@@ -3,11 +3,11 @@ var router  = express.Router();
 
 var routes = {
   views: {
-    index: require("./views/index"),
-    dean : require("./views/dean"),
-    vc : require("./views/vc"),
-    pvc : require("./views/pvc"),
-    teacher : require("./views/teacher")
+	index: require("./views/index"),
+	dean : require("./views/dean"),
+	vc : require("./views/vc"),
+	pvc : require("./views/pvc"),
+	teacher : require("./views/teacher")
   }
 }
 
