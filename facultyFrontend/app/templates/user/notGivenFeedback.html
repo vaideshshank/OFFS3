@@ -1,0 +1,132 @@
+<div>
+	<br>
+	<div class="row">
+		<div class="col s1">
+		</div>
+		<div class="card container col s10">
+			<div class="card-content">
+				<div class="row">
+
+					<div class="col s2">
+						<div class="login_dropdown">
+							<button class="btn btn-primary dropdown-button2" id="input_field" data-activates="dropdown2" style="background-color: white !important;color: black;">
+								{{ semester || 'sem' }} <span class="caret pull-right">▼</span>
+							</button>
+
+							<ul id="dropdown2" class="dropdown-content" style="background-color: white;color: black;">
+								<li ng-repeat="semester in semesterList" ng-click="setSemester(semester)" style="text-align: center;"> {{ semester }}</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col s6">
+						<div class="login_dropdown">
+					        <button class='btn btn-primary dropdown-button2' id="input_field" data-activates='dropdown1' style="background-color: white !important;color: black; width: 30em">
+					            {{ college.collegeName || 'select school' }} <span class="caret pull-right">▼</span>
+					        </button>
+
+					        <ul id='dropdown1' class='dropdown-content' style="background-color: white;color: black; width: 30em;">
+				            	<li><a> Search your college</a></li>
+				            	<li ng-repeat="singleCollege in collegeList"><a ng-click="setCollege(singleCollege)"> {{ singleCollege.collegeName }}</a></li>
+					        </ul>
+		      			</div>
+					</div>
+
+
+
+					<div class="col s2">
+						<div class="login_dropdown">
+					        <button class='btn btn-primary dropdown-button2' id="input_field" data-activates='dropdown3' style="background-color: white !important;color: black;width: 170px;">
+					             {{ courseName.course || 'course'}} <span class="caret pull-right">▼</span>
+					        </button>
+
+					        <ul id='dropdown3' class='dropdown-content' style="background-color: white;color: black;width:170px">
+				            	<li ng-repeat="courseName in courseList"><a ng-click="setCourseName(courseName)"> {{ courseName.course }} </a></li>
+					        </ul>
+		      			</div>
+					</div>
+
+					<div class="col s2">
+						<div class="login_dropdown">
+					        <button class='btn btn-primary dropdown-button2' id="input_field" data-activates='dropdown4' style="background-color: white !important;color: black;width: 170px;">
+					        	{{ streamName.stream || 'stream' }} <span class="caret pull-right">▼</span>
+					        </button>
+
+					        <ul id='dropdown4' class='dropdown-content' style="background-color: white;color: black;width:170px">
+				            	<li ng-repeat="streamName in streamList"><a ng-click="setStreamName(streamName)"> {{ streamName.stream }} </a></li>
+					        </ul>
+		      			</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<button class="btn btn-primary right" ng-click="getStudenelist()">
+					Check Evaluation <i class="material-icons right">send</i>
+				</button>
+				<br><br><br>
+			</div>
+		</div>
+		<div class="col s1"></div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col s1"></div>
+		<div class="card container" style="margin-left:auto; margin-right: auto;">
+			<div class="row">
+				<div class="col s1"></div>
+					<div class="col s10">
+						<div class="row">
+							<div class="col s6">
+								<label> Students not filled the form </label>
+								<table>
+								  <thead>
+								    <th>S.No.</th>
+								    <th>enrollment_no</th>
+								    <th>Name</th>
+								  </thead>
+								  <tr ng-repeat="value in nonSelectedStudents track by $index">
+								    <td>{{ $index  + 1}}</td>
+								    <td>{{ value.enrollment_no }}</td>
+								    <td>{{ value.name }}</td>
+								  </tr>
+								</table>
+							</div>
+
+							<div class="col s6">
+								<label> Students filled the form </label>
+								<table>
+								  <thead>
+								    <th>S.No.</th>
+								    <th>enrollment_no</th>
+								    <th>Name</th>
+								  </thead>
+								  <tr ng-repeat="value in selectedStudents track by $index">
+								    <td>{{ $index  	+ 1 }}</td>
+								    <td>{{ value.enrollment_no }}</td>
+								    <td>{{ value.name }}</td>
+								  </tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				<div class="col s1"></div>
+			</div>
+		</div>
+		<div class="col s1"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+ $('.dropdown-button2').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+</script>

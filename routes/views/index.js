@@ -8,7 +8,7 @@ module.exports = {
 
 	index: function (req, res) {
 
-},
+	},
 	initials:function(req,res) {
 		//college_name.   //enrollment_number.    //email.     //type   //semester
 		//By default email set to sjv97mhjn@gmail.com
@@ -17,13 +17,33 @@ console.log("Hit initials");
 console.log(req.query);
 if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email==null||req.query.type==null)
 	{  console.log("Not all Fields Set");
+		// var obj = {
+		// 	status: 400,
+		// 	messa
+		// }
 		res.send("400");          }
 			else
 
 		{
+				var dump = req.query.college_name + '_dump_2017';
+				var query0 = 'select enrollment_no from '+ dump + ' where enrollment_no = ' +Number(req.query.enrollment_no) ;
+				console.log(query0);
+				con.query(query0,function(er3,res3) {
+					if(er3)
+						console.log(er3);
+					else{
+						if(res3[0]!=null)
+						{		var obj = {'message' : "You have already filled your feedback, Thanks!"}
+								console.log("user found in dump");
+								res.send(obj);
+						}
+						else
+						{
+								// deeksha  paras aakash kumar  
+								{
 
-
-			    var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+			    // var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+			    var year = 17 - (req.query.semester - 1)/2;
 				year = '20' + year.toString();
 
 				console.log(req.query.enrollment_no.substr(10,12));
@@ -80,6 +100,14 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						}
 
 				})}
+
+						}
+					}
+				})
+
+				
+
+			}
 	},
 	verify: function(req,res){
 		// var token  = Math.floor(Math.random()*(98989 - 12345 + 1) + 12345 );
@@ -93,9 +121,12 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		else
 		{
 
-		var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
+		var year = 17 - (req.query.semester - 1)/2;
 
 		year = '20' + year.toString();
+
+		// 
+		console.log(year);
 		var tablename = req.query.tablename + '_' + year;
 		console.log(tablename);
 		var enrollment_no = Number(req.query.enrollment_no);
@@ -110,6 +141,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 					res.status(400);
 			}
 			else {
+				console.log(result);
 				if(password!=result[0].password)
 				{
 					console.log("Password Did Not match");
@@ -271,7 +303,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 				  var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
 				'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
 				'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
-				'values ( ' + req.body.enrollment_no +' , ? , ' + feedback.instructor_code+','+
+				'values ( ' + req.body.enrollment_no +' , ? , ? ,'+
 				 result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
 				','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
 				 result[13]+','+ result[14]+  ')';
@@ -292,20 +324,23 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 							console.log(err);
 						else{
 
-
-							con.query(query2,feedback.subject_code,function(err3,result3){
+							console.log("query1",Result);
+							con.query(query2,[feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
 								if(err3)
 								{
 									console.log(err3);
 								}
 								else{
+									console.log("query2", result3);
 									con.query(query3,[semester,Number(req.body.enrollment_no)],function(err4,res4){
+										
 										if(err4)
 										{
 											console.log(err4);
 										}
 										else
 										{
+											console.log("query3", res4);
 											//console.log(res4);
 											console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
 
@@ -334,7 +369,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 							console.log("nothing");
   				 var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
 				'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8) '+
-				'values ( ' + req.body.enrollment_no +' , ? , ' + feedback.instructor_code+','+
+				'values ( ' + req.body.enrollment_no +' , ? , ? ,'+
 				 result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
 				','+ result[6]+','+result[7] + ')';
 
@@ -353,19 +388,21 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						sum=sum+Number(result[i]);
 										}
 					};
+					//coo 
 
 					con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],sum],function(err,Result){
 						if(err)
 							console.log(err);
 						else{
-						 con.query(query2,feedback.subject_code,function(err3,result3){
+							console.log("practical query 1", Result);
+						 con.query(query2,[feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
 								if(err3)
 								{
 									console.log(err3);
 								}
 								else{
 									//console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
-
+										console.log("practical query 2" , result3);
 										con.query(query3,[semester,Number(req.body.enrollment_no)],function(err4,res4){
 										if(err4)
 										{
@@ -374,6 +411,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 										else
 										{
 											//console.log(res4);
+											console.log("practical query 3 ", res4);
 											console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
 
 
@@ -457,7 +495,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 			}
 
 
-			console.log(userStatus)
+			//console.log(userStatus)
 			res.json(userStatus);
 			return;
 
@@ -465,7 +503,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 	},
 
 	getStudentDetails: function(req, res) {
-		console.log("asdasdasdasd");
+
 		var collegeName = req.query.collegeName;
 		var semester = parseInt(req.query.semester);
 		var year = 2017 - (semester - 1 )/2;
@@ -496,7 +534,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 					return;
 				}
 
-				console.log(query2);
+				//console.log(query2); //03669900117
 				userDetails.course = course;
 				userDetails.stream = stream;
 
@@ -504,6 +542,16 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 				return;
 			})
 		})
+<<<<<<< HEAD
 
  }
+=======
+ 	},
+
+ 	teacher: function(req, res) {
+ 		
+ 	}
+>>>>>>> 49f5785f5f185f66e0d9c3e5cefdcc67e7941a02
 }
+
+// usem :  03669900117 med first 

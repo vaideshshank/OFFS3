@@ -19,7 +19,7 @@ aXpw5GPjJPCbyUzb#dashboard  {
 .secondary-navbar  ul a {
   line-height:60px;
   height:60px;
-  letter-spacing: 0.1em;aXpw5GPjJPCbyUzbaXpw5GPjJPCbyUzbaXpw5GPjJPCbyUzbaXpw5GPjJPCbyUzbaXpw5GPjJPCbyUzb
+  letter-spacing: 0.1em;
 }
 
 .secondary-navbar .tabs {
@@ -202,4 +202,11 @@ button {
 }
 .time.grey-text {
   font-weight: 400;
+}
+
+.student-name {
+  
+    font-size: 24px;
+    font-weight: 400;
+    padding-top: 0.5em;
 }

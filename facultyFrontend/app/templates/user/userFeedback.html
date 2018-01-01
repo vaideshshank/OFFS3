@@ -1,0 +1,136 @@
+<br>
+  <div class="row container">
+    <div class="col s4">
+    </div>
+  
+  </div>
+  <div class="row">
+    <div class="col s4">
+    </div>
+    <div class="col s4" style="text-align: center; font-family: ROBERTO" ng-if=" pointer <attributesList.theory.length">
+      <h3><strong>THEORY SECTION <strong></h3>
+    </div>
+    <div class="col s4" style="text-align: center; font-family: ROBERTO" ng-if="pointer >= attributesList.theory.length && pointer2 >= 0">
+      <h3><strong>PRACTICAL SECTION <strong></h3>
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+<div class="row">
+    <div>
+    <div id="grad" class="container student-card card">
+    <div class=" card-content row">
+        <div class="col s1">
+          <center ng-if="pointer < attributesList.theory.length">
+            <h3>#{{ pointer + 1 }}</h3>
+          </center>
+          <center style="color: #26a69a" ng-if="pointer2 < attributesList.practicals.length && pointer2 >=0">
+            <h3>#{{ pointer2  + 1 }}</h3>
+          </center>
+        </div>
+        <div class="col s11" style="color:black;">
+            <center ng-if="pointer < attributesList.theory.length">
+              <h3 class="light">{{ attributesList.theory[pointer]}}</h3>
+            </center>
+            <center ng-if="pointer2 < attributesList.practicals.length && pointer2 >= 0">
+              <h3 class="light">{{ attributesList.practicals[pointer2]}}</h3>
+            </center>
+        </div>
+    </div>
+
+    <div class="card-action">
+        <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            <div ng-repeat="singleTheoryTeacher in theoryTeacher track by $index" ng-if="pointer < attributesList.theory.length">
+                <div class="thumbnail image_groups" style="width: 125px; height: 150px; margin: 5px">
+                  <img ng-src="./app/instructor_images/{{college_name}}/{{singleTheoryTeacher.instructor_code}}.jpg" onerror="this.src='./app/instructor_images/not.jpg'" style="height: 150px; width: 125px;">
+                  <div class="caption" style="text-align: center">
+                   <div class="row" style="height: 40px;">
+                       {{ singleTheoryTeacher.teacher }}
+                    </div>
+                    <div class="row" style="height: 80px">   
+                  
+                        {{ singleTheoryTeacher.subject_name }}
+                     
+                    </div>
+                    <div class="row">
+                      <div class="col s12" style="margin-top: 1em">
+                        {{ singleTheoryTeacher.subject_code }}
+                      </div>
+                    </div>
+                    <div class="row">  
+                      <div class="col s12">
+
+                          <input placeholder="1-5" type="text" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)" style="text-align: center">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div ng-repeat="singlePracticalTeacher in practicalTeacher track by $index" ng-if="pointer2 < attributesList.practicals.length && pointer2 >= 0">
+                <div class="thumbnail image_groups" style="width: 125px; height: 150px; margin: 5px">
+                  <img ng-src="./app/instructor_images/{{college_name}}/{{singlePracticalTeacher.instructor_code}}.jpg" onerror="this.src='./app/instructor_images/not.jpg'" style="height: 150px; width: 125px;">
+                  <div class="caption" style="text-align: center">
+                    <div class="row" style="height: 40px">
+                       {{ singlePracticalTeacher.teacher }}
+                    </div>
+                    <div class="row" style="height: 80px">   
+                  
+                        {{ singlePracticalTeacher.subject_name }}
+                     
+                    </div>
+
+                    <div class="row">
+                      <div class="col s12" style="margin-top: 1em">
+                        {{ singlePracticalTeacher.subject_code }}
+                      </div>
+                    </div>
+                      <div class="row">
+                        <div class="col s12">
+
+                          <input type="text" placeholder="1-5" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher, $index)" style="text-align: center;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+          <a id="button" onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="increasePointer()" ng-if="pointer < attributesList.theory.length">
+              Next Attribute
+              <i class="material-icons right">navigate_next</i>
+          </a>
+
+          <a id="button" onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light left" ng-click="decreasePointer()" ng-if="pointer > 0 && pointer2 == -1">
+                Previous Attribute
+              <i class="material-icons right">navigate_before</i>
+          </a>
+
+          <a onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="switchPointer()" ng-if="pointer==attributesList.theory.length&&pointer2 < 0" ng-disabled="checkDisabled">
+              switch to practicals
+              <i class="material-icons right">navigate_next</i>
+          </a>
+
+          <a  onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="increasePointer2()" ng-if="pointer2>=0&&pointer==attributesList.theory.length&&pointer2 < attributesList.practicals.length">
+              Next Attributes
+              <i class="material-icons right">navigate_next</i>
+          </a>
+
+          <a  onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light left" ng-click="decreasePointer2()" ng-if="pointer2>=0&&pointer==attributesList.theory.length&&pointer2 < attributesList.practicals.length">
+              Previous Attributes
+              <i class="material-icons right">navigate_before</i>
+          </a>
+
+          <a class="proceed-to-feedback btn waves-effect waves-light" ng-click="sendFeedbackEvaluation()" ng-if="pointer2==attributesList.practicals.length" ng-disabled="disabled">
+              Complete your Evaluation
+              <i class="material-icons right">navigate_next</i>
+          </a>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+</div>
+</div>
+

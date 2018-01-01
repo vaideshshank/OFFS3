@@ -112,7 +112,6 @@ h4 {
 #grad {
 	margin-left: auto;
     margin-right: auto;
-    width: 77em;
 }
 
 #center-position {
@@ -150,4 +149,11 @@ h3 {
 
 .modal {
 	margin-top: 5em !important;
+}
+
+.box-center {
+	margin-right: auto !important;
+	margin-left: auto !important;
+	width: 95% !important;
+
 }
