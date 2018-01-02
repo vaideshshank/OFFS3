@@ -73,7 +73,7 @@ module.exports = {
 		}
 		else
 		{   var tables = {
-			       batch_allocation    :college_name + '_batch_allocation_' + year,
+			       batch_allocation    :college_name + '_batch_allocation',
 				   subject_allocation :college_name + '_subject_allocation_' + year,
 				   feedback		   	  :college_name + '_feedback_'          + year,
 		   		   employee			  :'employee'

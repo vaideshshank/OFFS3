@@ -542,11 +542,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 				return;
 			})
 		})
- 	},
-
- 	teacher: function(req, res) {
- 		
- 	}
+ }
 }
 
 // usem :  03669900117 med first 
