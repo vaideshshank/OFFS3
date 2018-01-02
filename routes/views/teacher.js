@@ -11,7 +11,7 @@ module.exports = {
 	 * @return {[type]}     [description]
 	 */
 	index: function(req, res) {},
-	
+
 	/**
 	 * [initials description]
 	 * @param  {[type]} req [description]
@@ -29,7 +29,7 @@ module.exports = {
 		var query = 'select * from ' + 'employee where instructor_id = ? and password = ?';
 		console.log(query);
 		console.log(college_name, ins_id, password);
-		
+
 		if (college_name != null && ins_id != null && password != null) {
 			//Check For all fields
 			con.query(query, [ins_id, password], function(error, result) {
@@ -87,13 +87,13 @@ module.exports = {
 	 * @return {[type]}     [description]
 	 */
 	populate: function(req, res) {
-		
+
 		var ins_id = req.session.ins.instructor_id;
 		var year = '2017';
 		var college_name = req.session.ins.school;
-		
+
 		console.log('In populate');
-		
+
 		var tables = {
 			batch_allocation: college_name + '_batch_allocation',
 			subject_allocation: college_name + '_subject_allocation_' + year,
@@ -118,7 +118,7 @@ module.exports = {
 				res.json(obj);
 			} else {
 				console.log(result);
-				var obj = { status: 200, message: 'Successfull', data: result[1] };
+				var obj = { status: 200, message: 'Successfull', data: result };
 				res.json(obj); //Successfull
 			}
 		});
