@@ -1,35 +1,55 @@
 var con = require('../../models/mysql'),
 	ses = require('node-ses'),
 	async = require('async'),
-	controller = require('../../models/config'),
-	nodemailer = require('nodemailer');
+	controller = require('../../models/config');
 
 module.exports = {
+	/**
+	 * [index description]
+	 * @param  {[type]} req [description]
+	 * @param  {[type]} res [description]
+	 * @return {[type]}     [description]
+	 */
 	index: function(req, res) {},
-
+	
+	/**
+	 * [initials description]
+	 * @param  {[type]} req [description]
+	 * @param  {[type]} res [description]
+	 * @return {[type]}     [description]
+	 */
 	initials: function(req, res) {
-		console.log('teacher initials');
+		console.log('To authenticate teacher');
+		console.log("Inside the params :-");
 		console.log(req.query);
 		var college_name = req.query.college_name;
 		var ins_id = req.query.ins_id;
 		var password = req.query.password;
+
 		var query = 'select * from ' + 'employee where instructor_id = ? and password = ?';
+		console.log(query);
 		console.log(college_name, ins_id, password);
+		
 		if (college_name != null && ins_id != null && password != null) {
 			//Check For all fields
 			con.query(query, [ins_id, password], function(error, result) {
+				console.log("Query Result :- ");
+
 				console.log(result);
+
 				if (error) {
 					console.log(error);
 					var obj = { status: 400, message: 'There is error in query!' };
 					res.json(obj);
 				} else if (result[0] == null) {
-					var obj = { status: 400, message: 'No Such User Found ! .' };
+					console.log("No Teacher Found")
+					var obj = { status: 400, message: 'No Such Teacher Found ! .' };
 					res.json(obj); // Invalid Password or username
 				} else {
-					console.log(result[0]);
 					req.session.ins = result[0];
 					req.session.ins.college_name = req.query.college_name;
+					console.log("Teacher Found");
+					console.log("session Created");
 					console.log(req.session.ins);
 					var obj = { status: 200, message: 'Teacher authentication Successfull' };
 					res.json(obj); //Successfull
@@ -42,6 +62,12 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * [checksession description]
+	 * @param  {[type]} req [description]
+	 * @param  {[type]} res [description]
+	 * @return {[type]}     [description]
+	 */
 	checksession: function(req, res) {
 		/*  This route is just to check if sessions are working .
 			Hit this url once you have logged in.	*/
@@ -54,45 +80,55 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * [populate description]
+	 * @param  {[type]} req [description]
+	 * @param  {[type]} res [description]
+	 * @return {[type]}     [description]
+	 */
 	populate: function(req, res) {
+		
 		var ins_id = req.session.ins.instructor_id;
 		var year = '2017';
 		var college_name = req.session.ins.school;
+		
 		console.log('In populate');
+		
 		var tables = {
 			batch_allocation: college_name + '_batch_allocation',
 			subject_allocation: college_name + '_subject_allocation_' + year,
 		};
-
-		var query =
-			' select * from ' +
-			tables.subject_allocation +
-			' as s  ' +
-			' inner join  ' +
-			tables.batch_allocation +
-			' as b on s.batch_id = b.batch_id ' +
-			' where s.instructor_code = ' +
-			ins_id +
-			' ;';
+		console.log("tables");
+		console.log(tables);
+		var query =` select * from  ${tables.subject_allocation}  as s  inner join  ${tables.batch_allocation}
+			   		as b on s.batch_id = b.batch_id  where s.instructor_code = ${ins_id} ` ;
+		console.log("Query");
 		console.log(query);
 
 		con.query(query, function(error, result) {
+			console.log("Result of query");
 			console.log(result);
 			if (error) {
 				console.log(error);
 				var obj = { status: 400, message: 'There is error in query!' };
 				res.json(obj);
 			} else if (result[0] == null) {
+				console.log("No ");
 				var obj = { status: 400, message: 'Oops ! .' };
 				res.json(obj);
 			} else {
-				console.log(result[0]);
-				var obj = { status: 200, message: 'Successfull', data: result };
+				console.log(result);
+				var obj = { status: 200, message: 'Successfull', data: result[1] };
 				res.json(obj); //Successfull
 			}
 		});
 	},
-
+	/**
+	 * [dashboard description]
+	 * @param  {[type]} req [description]
+	 * @param  {[type]} res [description]
+	 * @return {[type]}     [description]
+	 */
 	dashboard: function(req, res) {
 		console.log('In dashboard');
 		var year = req.query.year;
