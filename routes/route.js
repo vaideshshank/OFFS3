@@ -1,12 +1,13 @@
 var express = require("express");
 var router  = express.Router();
+
 var routes = {
   views: {
-    index: require("./views/index"),
-    dean : require("./views/dean"),
-    vc : require("./views/vc"),
-    pvc : require("./views/pvc")
-
+	index: require("./views/index"),
+	dean : require("./views/dean"),
+	vc : require("./views/vc"),
+	pvc : require("./views/pvc"),
+	teacher : require("./views/teacher")
   }
 }
 
@@ -33,7 +34,6 @@ router.post("/dinitials",routes.views.dean.initials);  //To authenticate the dea
 router.get("/dchecksession",routes.views.dean.checksession);  //This is a temporary route.
 router.get("/ddashboard",routes.views.dean.dashboard);    // To get details of a BACH .
 
-
 router.post("/vinitials",routes.views.vc.initials);  //To authenticate the dean
 router.get("/vchecksession",routes.views.vc.checksession);  //This is a temporary route.
 router.get("/vdashboard",routes.views.vc.dashboard);    // To get details of a BACH .
@@ -41,5 +41,10 @@ router.get("/vdashboard",routes.views.vc.dashboard);    // To get details of a B
 router.post("/pvinitials",routes.views.pvc.initials);  //To authenticate the dean
 router.get("/pvchecksession",routes.views.pvc.checksession);  //This is a temporary route.
 router.get("/pvdashboard",routes.views.pvc.dashboard);    // To get details of a BACH .
+
+router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the teacher
+router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details
+router.get("/tpopulate",routes.views.teacher.populate);    // To populate the dropdowns
+router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
 
 module.exports = router;

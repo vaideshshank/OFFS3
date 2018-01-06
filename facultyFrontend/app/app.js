@@ -1,56 +1,63 @@
-window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstrap',  'BotDetectCaptcha'])
+window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstrap'])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
         .when('/', {
             controller: 'SignupCtrl',
-            templateUrl: './app/templates/Signup.html'
+            templateUrl: './app/templates/user/Signup.html'
         })
         .when('/verify', {
         	controller: 'SignupCtrl',
-        	templateUrl: './app/templates/verify.html'
+        	templateUrl: './app/templates/user/verify.html'
         })
         .when('/dashboard', {
         	controller: 'dashboardCtrl',
-        	templateUrl: './app/templates/dashboard.html'
+        	templateUrl: './app/templates/user/dashboard.html'
         })
         .when('/userFeedback', {
             controller: 'feedbackCtrl',
-            templateUrl: './app/templates/userFeedback.html'
+            templateUrl: './app/templates/user/userFeedback.html'
         })
         .when('/status', {
             controller: 'notGivenFeedbackCtrl',
-            templateUrl: './app/templates/notGivenFeedback.html'
+            templateUrl: './app/templates/user/notGivenFeedback.html'
         })
         .when('/deanDashboard', {
             controller: 'deanCtrl',
-            templateUrl: './app/templates/deanDashboard.html'
+            templateUrl: './app/templates/dean/deanDashboard.html'
         })
         .when("/deanAnalysis", {
             controller: 'deanAnalysisCtrl',
-            templateUrl: './app/templates/dean_analysis.html'
+            templateUrl: './app/templates/dean/dean_analysis.html'
         })
         .when('/vcDashboard', {
             controller: 'vcCtrl',
-            templateUrl: './app/templates/vcDashboard.html'
+            templateUrl: './app/templates/vc/vcDashboard.html'
         })
         .when("/vcAnalysis", {
             controller: 'vcAnalysisCtrl',
-            templateUrl: './app/templates/vc_analysis.html'
+            templateUrl: './app/templates/vc/vc_analysis.html'
         })
         .when('/pvcDashboard', {
             controller: 'vcCtrl',
-            templateUrl: './app/templates/pvcDashboard.html'
+            templateUrl: './app/templates/pro_vc/pvcDashboard.html'
         })
-        .when("/pvcAnalysis", {
+        .when('/pvcAnalysis', {
             controller: 'pvcAnalysisCtrl',
-            templateUrl: './app/templates/pvc_analysis.html'
+            templateUrl: './app/templates/pro_vc/pvc_analysis.html'
         })
-
+        .when('/teacherDashboard', {
+            controller: 'tCtrl',
+            templateUrl: './app/templates/teacher/teacherDashboard.html'
+        })
+        .when('/teacherAnalysis', {
+            controller: 'tAnalysisCtrl',
+            templateUrl: './app/templates/teacher/teacher_analysis.html'
+        })
         .when('/thankYouPage', {
-            templateUrl: './app/templates/thankYouPage.html'
+            templateUrl: './app/templates/user/thankYouPage.html'
         });
-        
+
     }
 ]);
 
@@ -59,15 +66,10 @@ faculty.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
 
-faculty.config(function(captchaSettingsProvider) {
-  captchaSettingsProvider.setSettings({
-    captchaEndpoint: '/bdc4-simple-api-angularjs-captcha-example/botdetectcaptcha'
-  });
-});
 
 // bhai eakk min mila hai kuch let me try
 //okay
 //samajh rha hun..
 //ab upload karten hain..
 // bhai mei he kar deta hun
-//but isse previous data erase to nhi hoga ? 
+//but isse previous data erase to nhi hoga ?

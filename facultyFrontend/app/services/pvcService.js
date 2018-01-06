@@ -56,6 +56,6 @@ faculty.factory('pvcService', ['$http', '$timeout', '$rootScope', function($http
 					callback(data);
 				}
 			})
-		},
+		}
  	}
 }]);
