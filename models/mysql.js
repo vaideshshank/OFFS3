@@ -2,7 +2,7 @@ var connection=require('express-myconnection');
 var mysql=require('mysql');
 
 
-//http:php.ashutosh.pw
+// //http:php.ashutosh.pw
 
 
 // var con=mysql.createConnection({
