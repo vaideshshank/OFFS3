@@ -9,6 +9,7 @@ var express 		= require('express'),
 	sql				= require("mssql"),
 	con             = require("./models/mysql"),
 	routes 			= require('./routes/route'),
+	ip				= require('ip');
 	controller		= require("./models/config");
 					   require('dotenv').config();
 
@@ -17,6 +18,11 @@ app.use(bodyparser.urlencoded({ extended :true }));
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/facultyFrontend"));
+
+function hanu() {
+	var ip = require("ip");
+	console.dir ( ip.address() );
+}
 
 app.use(methodOverride("_method"));
 app.use(session({
@@ -39,6 +45,8 @@ app.use(function(req, res, next) {
 app.set("view engine", "ejs");
 app.use("/", routes);
 
+
+hanu();
 
 //middleware
 app.listen(80,function() {

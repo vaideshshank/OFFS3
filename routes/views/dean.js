@@ -85,7 +85,7 @@ module.exports = {
 				' as e on s.instructor_code =e.instructor_id ' +
 				' inner join  ' +
 				tables.feedback +
-				' as f on s.feedback_id = f.feedback_id';
+				' as f on s.feedback_id = f.feedback_id where f.no_of_students_evaluated !=0';
 			console.log(query);
 			con.query(query, function(error, result) {
 				console.log(result);

@@ -26,6 +26,78 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 		})
 	}
 
+	$scope.teacherList = function() {
+		var arr = [3];
+		 arr[0] = {semester: $scope.selectedSem}
+		 arr[1] =  {course: $scope.selectedCourse}
+		arr[2] = {stream: $scope.selectedStream}
+
+		var teacherWithDetails = _.clone($scope.deanfb);
+
+		for (var x =0;x<arr.length;x++) {
+			var key = Object.keys(arr[x]);
+			var val = key[0];
+			console.log(val)
+			console.log(arr[x][key[0]]);
+			if (arr[x][key[0]] !=undefined){
+				teacherWithDetails = _.where(teacherWithDetails, { [val]: arr[x][key[0]]  } )
+			}
+			 
+		}
+
+		// var teacherWithDetails = _.where($scope.deanfb, {semester:null});
+		$scope.teacherlist =  _.chain(teacherWithDetails).pluck('name').uniq().value().sort();
+		
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+	$scope.subjectLists = function() {
+		var arr = [4];
+		arr[0] = {semester: $scope.selectedSem}
+		arr[1] = {course: $scope.selectedCourse}
+		arr[2] = {stream: $scope.selectedStream}
+		arr[3] = {name: $scope.selectedTeacher}
+
+		var	subjectDetails = _.clone($scope.deanfb);
+
+		for (var x =0;x<arr.length;x++) {
+			var key = Object.keys(arr[x]);
+			var val = key[0];
+			if (arr[x][key[0]] !=undefined){
+				subjectDetails = _.where(subjectDetails, { [val]: arr[x][key[0]]  } )
+			}
+			 
+		}
+
+		$scope.subjects =  _.chain(subjectDetails).pluck('subject_name').uniq().value().sort();
+
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+
+
+	$scope.streamList = function() {
+		var course = $scope.selectedCourse;
+
+		var StreamDetails = _.where($scope.deanfb, {course:course});
+		$scope.stream =  _.chain(StreamDetails).pluck('stream').uniq().value().sort();
+		
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+
+
+	// $scope.getSubjects = function() {
+	// 	var teacher = 
+
+	// }
+
 	$scope.yearChange = function () {
 		console.log('changed');
 		$scope.getFeedback();
