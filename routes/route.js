@@ -7,7 +7,8 @@ var routes = {
 	dean : require("./views/dean"),
 	vc : require("./views/vc"),
 	pvc : require("./views/pvc"),
-	teacher : require("./views/teacher")
+	teacher : require("./views/teacher"),
+	dataportal : require("./views/dataportal")
   }
 }
 
@@ -46,5 +47,8 @@ router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the 
 router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details
 router.get("/tpopulate",routes.views.teacher.populate);    // To populate the dropdowns
 router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
+
+router.get("/dataportal",routes.views.dataportal.getEmployees);
+router.post("/createFeedback",routes.views.dataportal.createFeedback);
 
 module.exports = router;
