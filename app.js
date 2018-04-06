@@ -50,7 +50,7 @@ hanu();
 
 //middleware
 app.listen(8080,function() {
-	console.log("Listening On port " + 8080);
+	console.log("Listening On port " + 80);
 });
 
 //SQL LOCK TRANSACTION , CHECK IF INTERNALLY PRESENT.
