@@ -56,6 +56,10 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
         })
         .when('/thankYouPage', {
             templateUrl: './app/templates/user/thankYouPage.html'
+        })
+        .when('/dataPortal', {
+            controller: 'dataPortalCtrl',
+            templateUrl: './app/templates/dataPortal/dataPortal.html'
         });
 
     }

@@ -39,7 +39,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						}
 						else
 						{
-								// deeksha  paras aakash kumar  
+								// deeksha  paras aakash kumar
 								{
 
 			    // var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
@@ -105,7 +105,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 					}
 				})
 
-				
+
 
 			}
 	},
@@ -125,7 +125,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 		year = '20' + year.toString();
 
-		// 
+		//
 		console.log(year);
 		var tablename = req.query.tablename + '_' + year;
 		console.log(tablename);
@@ -333,7 +333,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 								else{
 									console.log("query2", result3);
 									con.query(query3,[semester,Number(req.body.enrollment_no)],function(err4,res4){
-										
+
 										if(err4)
 										{
 											console.log(err4);
@@ -388,7 +388,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 						sum=sum+Number(result[i]);
 										}
 					};
-					//coo 
+					//coo
 
 					con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],sum],function(err,Result){
 						if(err)
@@ -545,4 +545,4 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
  }
 }
 
-// usem :  03669900117 med first 
+// usem :  03669900117 med first

@@ -118,7 +118,7 @@ module.exports = {
 				res.json(obj);
 			} else {
 				console.log(result);
-				var obj = { status: 200, message: 'Successfull', data: result };
+				var obj = { status: 200, message: 'Successfull', data: Result };
 				res.json(obj); //Successfull
 			}
 		});
