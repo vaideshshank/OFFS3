@@ -72,9 +72,11 @@ module.exports = {
 	createFeedback: function(req,res) {
 		//console.log(req.query.data);
 		var details =req.query;
-		//console.log(details);
+		console.log(details);
 		async.each(details.data,function(detail,callback){
+
 			detail=JSON.parse(detail);
+			if(detail.teacher_name){
 			//console.log(typeof detail.teacher_name);
 			//console.log(typeof detail);
 			var teacherName=detail.teacher_name.toString();
@@ -105,7 +107,7 @@ module.exports = {
 			var insertSA = 'INSERT INTO '+subjectAllocationTable+
 							' (`feedback_id`, `batch_id`,`subject_code`, `instructor_code`, `subject_name`, `type`) VALUES'+
 							' (NULL, ?, ?, ?, ?, ? );';
-			var insertF = 'INSERT INTO '+ feedbackTable+' (`feedback_id`, `instructor_id`, `subject_code`, `type`, `total`, `at_1`, `at_2`, `at_3`, `at_4`, `at_5`, `at_6`, `at_7`, `at_8`, `at_9`, `at_10`, `at_11`, `at_12`, `at_13`, `at_14`, `at_15`, `no_of_students_evaluated`) VALUES (?, "","","",0,"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0",0)';
+			var insertF = 'INSERT INTO '+ feedbackTable+' (`feedback_id`, `instructor_id`, `subject_code`, `type`, `total`, `at_1`, `at_2`, `at_3`, `at_4`, `at_5`, `at_6`, `at_7`, `at_8`, `at_9`, `at_10`, `at_11`, `at_12`, `at_13`, `at_14`, `at_15`, `no_of_students_evaluated`) VALUES (?, ?,"","",0,"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0",0)';
 
 			con.query(getBatch,[course,stream,semester],function(err,batchId) {
 				if(err) {
@@ -119,7 +121,7 @@ module.exports = {
 							}
 							else{
 								console.log(result.insertId);
-								con.query(insertF,result.insertId,function(err,result) {
+								con.query(insertF,[result.insertId,teacherId],function(err,result) {
 									if(err) {
 										console.log(err);
 									}
@@ -133,6 +135,7 @@ module.exports = {
 
 				}
 			})
+		}
 			callback();
 		},function(error,Result){
 			if(error){
