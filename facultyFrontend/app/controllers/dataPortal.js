@@ -103,14 +103,43 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 		if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
 			return;
 		}
+	}
 
-		dataPortalService.getSubjects($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, function(responce) {
-			if (responce) {
-				$scope.subjectList = responce;
+	$scope.search = function() {
+		dataPortalService.getSubjects($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, function(response) {
+			console.log(response)
+			if (response) {
+				$scope.subjects_data = response;
+				$(document).ready(function () {
+					$('select').material_select();
+				})
+
+				dataPortalService.getTeacher(function(res) {
+					console.log(res);
+					var data_value  = {}
+					res.forEach(function(val) {
+						data_value[val.name + ' ' + val.instructor_id] = null;
+
+						// init autocomplete
+						$(document).ready(function(){
+							 $('input.autocomplete').autocomplete({
+								 data : data_value,
+							 });
+						 });
+
+
+					})
+				})
+
+
+
 			}
 		})
 	}
 
+	$scope.submit = function() {
+		// final data in subjects_data object.
+	}
 
 
 
