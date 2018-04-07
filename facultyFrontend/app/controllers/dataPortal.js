@@ -99,6 +99,26 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 		}
 	}
 
+
+		$scope.getTeachers = function() {
+			dataPortalService.getTeacher(function(res) {
+				var data_value  = {}
+				res.forEach(function(val) {
+					data_value[val.name + ' ' + val.instructor_id] = null;
+
+					// init autocomplete
+					$(document).ready(function(){
+						 $('input.autocomplete').autocomplete({
+							 data : data_value,
+						 });
+					 });
+
+
+				})
+			})
+		}
+
+
 	$scope.streamSelected = function() {
 		if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
 			return;
@@ -114,22 +134,7 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 					$('select').material_select();
 				})
 
-				dataPortalService.getTeacher(function(res) {
-					console.log(res);
-					var data_value  = {}
-					res.forEach(function(val) {
-						data_value[val.name + ' ' + val.instructor_id] = null;
-
-						// init autocomplete
-						$(document).ready(function(){
-							 $('input.autocomplete').autocomplete({
-								 data : data_value,
-							 });
-						 });
-
-
-					})
-				})
+				$scope.getTeachers();
 
 
 
@@ -149,6 +154,16 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 		})
 	}
 
+
+	$scope.add = function() {
+		$scope.subjects_data.push({
+			'subject_name'  : '',
+			'type' : '',
+			'subject_code' : '',
+			'teacher_name' : '',
+		})
+		$scope.getTeachers();
+	}
 
 
 

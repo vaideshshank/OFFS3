@@ -35,15 +35,27 @@
 <br>
 <div class="container sub-container">
   <div class="row" ng-repeat="item in subjects_data" style="margin-bottom: 0em !important;">
-      <div class="col m1" style="height: 3rem;vertical-align: middle;line-height:3rem;"> {{ item.subject_code }}</div>
+      <div class="col m2">
+        <div class="input-field col s12">
+          <input type="text" ng-model="item.subject_code" placeholder="Subject Code" class="no-margin">
+        </div>
+       </div>
 
-      <div class="col m6" style="height: 3rem;vertical-align: middle;line-height:3rem"> {{ item.subject_name }}</div>
+      <div class="col m4">
+        <div class="input-field col s12">
+          <input type="text" ng-model="item.subject_name" placeholder="Subject Name" class="no-margin">
+        </div>
+      </div>
 
-      <div class="col m1" style="height: 3rem;vertical-align: middle;line-height:3rem">{{ item.type }}</div>
+      <div class="col m2">
+        <div class="input-field col s12">
+          <input type="text" ng-model="item.type" class="no-margin" placeholder="Subject Type">
+        </div>
+      </div>
 
       <div class="col m3">
         <div class="input-field col s12">
-          <input id="teacher_name" type="text" class="autocomplete" ng-model="item.teacher_name" placeholder="Faculty Name">
+          <input id="teacher_name" type="text" class="autocomplete no-margin" ng-model="item.teacher_name" placeholder="Faculty Name">
         </div>
       </div>
 
@@ -55,8 +67,16 @@
 
 <br>
 
+<div class="row center">
+  <div class="col m6">
+      <a class="waves-effect white black-text btn" ng-click="add()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege">ADD SUBJECT</a>
+  </div>
+  <div class="col m6">
+      <a class="waves-effect white black-text btn" ng-click="submit()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege">SUBMIT</a>
+  </div>
+</div>
 <div class="center">
-    <a class="waves-effect white black-text btn" ng-click="submit()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege">SUBMIT</a>
+
 </div>
 <br><br>
 </div>
@@ -146,7 +166,7 @@ th:nth-child(7), td:nth-child(7) {
 .sub-container .row:nth-child(odd) {
   background: mintcream;
 }
-input#teacher_name {
+input.no-margin {
   margin-bottom: 0 !important;
 }
 
