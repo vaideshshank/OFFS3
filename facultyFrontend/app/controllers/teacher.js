@@ -11,5 +11,9 @@ faculty.controller("tCtrl", function($scope, $rootScope, $location, teacherServi
 		$location.path("/teacherAnalysis");
 	}
 
+	$scope.logout = function() {
+		$location.path('/')
+	}
+
 	$scope.getDetails();
 })

@@ -18,7 +18,6 @@ module.exports = {
 		if (college_name != null && pvc_id != null && password != null) {
 			//Check For all fields
 			con.query(query, [pvc_id, password], function(error, result) {
-				console.log(result);
 				if (error) {
 					console.log(error);
 					var obj = { status: 400, message: 'There is error in query!' };
@@ -27,11 +26,10 @@ module.exports = {
 					var obj = { status: 400, message: 'No Such User Found ! .' };
 					res.json(obj); // Invalid Password or username
 				} else {
-					console.log(result[0]);
 					req.session.pvc = result[0];
 					req.session.pvc.college_name = req.query.college_name;
-					console.log(req.session.pvc);
 					var obj = { status: 200, message: 'pvc authentication Successfull' };
+					console.log(req.session);
 					res.json(obj); //Successfull
 				}
 			});
@@ -45,6 +43,7 @@ module.exports = {
 	checksession: function(req, res) {
 		/*  This route is just to check if sessions are working .
 			Hit this url once you have logged in.	*/
+			console.log(req.session + "******************");
 		if (req.session.pvc) {
 			console.log(req.session.pvc);
 			res.json(req.session.pvc);
@@ -84,7 +83,7 @@ module.exports = {
 				' as e on s.instructor_code =e.instructor_id ' +
 				' inner join  ' +
 				tables.feedback +
-				' as f on s.feedback_id = f.feedback_id';
+				' as f on s.feedback_id = f.feedback_id where no_of_students_evaluated != 0';
 			console.log(query);
 			con.query(query, function(error, result) {
 				if (error) {

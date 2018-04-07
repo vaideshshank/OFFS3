@@ -49,6 +49,7 @@ module.exports = {
 	checksession : function(req,res) {
 		/*  This route is just to check if sessions are working .
 			Hit this url once you have logged in.	*/
+			console.log("sssssssssssssssssssss");
 			if(req.session.vc) {
 				console.log(req.session.vc);
 				res.json(req.session.vc);
@@ -83,7 +84,7 @@ module.exports = {
 			var query =	' select * from '+ tables.subject_allocation+' as s  ' +
 					   	' inner join  '+ tables.batch_allocation+' as b on s.batch_id = b.batch_id ' +
 					   	' inner join  '+ tables.employee+' as e on s.instructor_code =e.instructor_id '+
-					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id'
+					   	' inner join  '+ tables.feedback+' as f on s.feedback_id = f.feedback_id where no_of_students_evaluated != 0'
 					   	;
 					   	console.log(query);
 		    con.query(query,function(error,result){
