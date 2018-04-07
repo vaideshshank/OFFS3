@@ -137,6 +137,10 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 		})
 	}
 
+	$scope.deleteSubject = function(index) {
+		$scope.subjects_data.splice(index, 1);
+	}
+
 	$scope.submit = function() {
 		// final data in subjects_data object.
 	}

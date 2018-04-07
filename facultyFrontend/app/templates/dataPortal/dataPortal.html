@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="col m1" style="height: 3rem;vertical-align: middle;line-height:3rem;"> <i class="fa fa-close"></i> </div>
+      <div class="col m1 close-div"  ng-click="deleteSubject($index)" style="height: 3rem;vertical-align: middle;line-height:3rem;text-align:center;"> <i class="fa fa-close"></i> </div>
 
 
   </div>
@@ -187,6 +187,11 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
 
 .autocomplete-content {
     margin-bottom: 0;
+}
+.close-div:hover {
+    background: red !important;
+    color: white;
+    cursor: pointer;
 }
 </style>
 <script type="text/javascript">
