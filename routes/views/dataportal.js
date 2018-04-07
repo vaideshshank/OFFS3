@@ -54,7 +54,7 @@ module.exports = {
 		var course = req.query.course;
 		var stream = req.query.stream;
 		var semester = req.query.semester;
-		var query = "select Distinct subject_name, subject_code, type from ?? as t1 inner join ?? as t2 on t1.batch_id = t2.batch_id where " +
+		var query = "select subject_name, subject_code, type from ?? as t1 inner join ?? as t2 on t1.batch_id = t2.batch_id where " +
 					" course = ? and stream = ? and semester = ?";
 		console.log(query);
 		con.query(query,[college_name + "_batch_allocation", college_name + "_subject_allocation", course, stream, semester], function(err, subjectList) {
