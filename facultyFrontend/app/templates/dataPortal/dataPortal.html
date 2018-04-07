@@ -12,43 +12,56 @@
     </div>
     <div class="col s2">
          <select ng-model="selectedCourse" ng-change="courseSelected()">
-            <option value="" disabled selected>All Course</option>
+            <option value="" disabled selected>Choose Course</option>
             <option ng-repeat = "course in courseList">{{course.course}}</option>
         </select>
     </div>
     <div class="col s2">
         <select ng-model="selectedStream" ng-change="streamSelected()">
-            <option value=""  selected>All Stream</option>
-            <option ng-repeat="stream in courseList">{{stream}}</option>
+            <option value=""  selected>Choose Stream</option>
+            <option ng-repeat="stream in streamList">{{stream.stream }}</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selectedSem" ng-options="option for option in semester" ng-change="teacherList();subjectLists()">
-            <option value=""  selected>All Semester</option>
-            <option ng-repeat="semester in semesterList">{{semester}}</option>
+        <select ng-model="selectedSem" ng-change="semesterSelected()">
+            <option value=""  selected>Choose Semester</option>
+            <option ng-repeat="semester in [0,1,2,3,4,5,6,7,8,9,10]">{{semester}}</option>
         </select>
     </div>
 </div>
-<div class="row">
-    <div class="col s1">
+<div class="center">
+    <a class="waves-effect white black-text btn" ng-click="search()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege">SEARCH</a>
+</div>
+<br>
+<div class="container sub-container">
+  <div class="row" ng-repeat="item in subjects_data" style="margin-bottom: 0em !important;">
+      <div class="col m1" style="height: 3rem;vertical-align: middle;line-height:3rem;"> {{ item.subject_code }}</div>
 
-    </div>
-    <div class="col m5 ">
-        <select ng-model="selectedTeacher" ng-options="option for option in teacherlist" ng-change="subjectLists()">
-            <option value="" selected>All Teachers</option>
-            <option ng-repeat="teacher in teacherList">{{teacher}}</option>
-        </select>
-    </div>
-    <div class="col s5">
-        <select ng-model="selectedSubject" ng-options="option for option in subjects" ng-change="hanu()">
-            <option value="" selected>All Subject</option>
-        </select>
-    </div>
+      <div class="col m6" style="height: 3rem;vertical-align: middle;line-height:3rem"> {{ item.subject_name }}</div>
+
+      <div class="col m1" style="height: 3rem;vertical-align: middle;line-height:3rem">{{ item.type }}</div>
+
+      <div class="col m3">
+        <div class="input-field col s12">
+          <input id="teacher_name" type="text" class="autocomplete" ng-model="item.teacher_name" placeholder="Faculty Name">
+        </div>
+      </div>
+
+      <div class="col m1" style="height: 3rem;vertical-align: middle;line-height:3rem;"> <i class="fa fa-close"></i> </div>
+
+
+  </div>
 </div>
+
+<br>
 
 <div class="center">
-    <a class="waves-effect white black-text btn" ng-click="search()">SEARCH</a>
+    <a class="waves-effect white black-text btn" ng-click="search()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege">SEARCH</a>
 </div>
+<br><br>
+</div>
+
+
 
 
 <style type="text/css">
@@ -123,6 +136,57 @@ th:nth-child(7), td:nth-child(7) {
 .pct {
     font-size: 24px;
     font-weight: 700;
+}
+.input-field.col.s12 {
+    margin-top: 0 !important;
+}
+.sub-container .row:nth-child(even) {
+  background: lightcyan
+}
+.sub-container .row:nth-child(odd) {
+  background: mintcream;
+}
+input#teacher_name {
+  margin-bottom: 0 !important;
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default) {
+    height:3rem;
+}
+/* https://stackoverflow.com/questions/2610497/change-an-html5-inputs-placeholder-color-with-css */
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #909;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #909;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #909;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color:    #909;
+}
+.sub-container ul:not(.browser-default) {
+}
+
+.sub-container ul:not(.browser-default) li {
+
+}
+
+.sub-container .autocomplete-content {
+    margin-top: 0px;
+}
+
+.autocomplete-content {
+    margin-bottom: 0;
 }
 </style>
 <script type="text/javascript">
