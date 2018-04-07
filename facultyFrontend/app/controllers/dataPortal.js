@@ -91,6 +91,9 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 				if (responce) {
 					console.log(responce);
 					$scope.streamList = responce;
+					$(document).ready(function () {
+						$('select').material_select();
+					})
 				}
 			})
 		}
