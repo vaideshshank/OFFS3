@@ -143,6 +143,10 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 
 	$scope.submit = function() {
 		// final data in subjects_data object.
+
+		dataPortalService.sendSubjectData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, $scope.subjects_data, function(res) {
+			//handle save successfully!
+		})
 	}
 
 

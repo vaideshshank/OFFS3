@@ -78,6 +78,30 @@ faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope', function
 					callback(response);
 				}
 			})
+		},
+
+
+		sendSubjectData : function(college, course, stream, selectedSem, subject_data, callback) {
+			$http({
+				method:'POST',
+				url: BACKEND + '/createFeedback',
+				params: {
+					data : subject_data,
+					college : college,
+					course : course,
+					stream: stream,
+					semester: selectedSem
+				}
+			}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response);
+					callback(response);
+				}
+			})
 		}
 
 
