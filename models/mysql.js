@@ -26,7 +26,7 @@ var mysql=require('mysql');
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: '9630',
+	password: '',
 	database: 'sdc',
 });
 con.connect(function(err) {
@@ -34,4 +34,3 @@ con.connect(function(err) {
 	console.log('Connected');
 });
 module.exports = con;
-
