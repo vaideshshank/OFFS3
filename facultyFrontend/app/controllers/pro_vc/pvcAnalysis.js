@@ -5,14 +5,15 @@ faculty.controller("pvcAnalysisCtrl", function($scope, $rootScope, $location, pv
 	$scope.selectedYear = '2017';
 	$scope.selected = {};
 	$scope.progress = false;
-$scope.collegeList = [ 
+
+	$scope.collegeList = [
 		{collegeName : "University School of Law and Legal Studies",
 		collegeCode :"uslls"},
 
 		{collegeName :"University School of Management Studies",
 		collegeCode: "usms"},
 
-	 {collegeName :"University School of Education",
+	 	{collegeName :"University School of Education",
 		collegeCode:  "use"},
 
 		{collegeName :"University School of BioTechnology",
@@ -22,9 +23,9 @@ $scope.collegeList = [
 		collegeCode : "usct"},
 
 		{collegeName :"University School of Environment Management",
-	  collegeCode : "usem"},
+		collegeCode : "usem"},
 
-	 {collegeName :"University School of Mass Communication",
+		{collegeName :"University School of Mass Communication",
 		collegeCode : "usmc"},
 
 		{collegeName :"University School of Basic and Applied Sciences",
@@ -41,14 +42,11 @@ $scope.collegeList = [
 	];
 
 	$scope.getFeedback = function() {
-	
-
 
 		pvcService.getFeedback($scope.selectedSchool, $scope.selectedYear, function(response) {
 
 			$scope.viewElements = true;
 			$scope.pvcfb = response;
-			console.log($scope.pvcfb);
 
 			//get unique teachers
 			$scope.teacherlist = _.chain($scope.pvcfb).pluck('name').uniq().value().sort();
@@ -57,7 +55,7 @@ $scope.collegeList = [
 			$scope.stream = _.chain($scope.pvcfb).pluck('stream').uniq().value();
 			$scope.semester = _.chain($scope.pvcfb).pluck('semester').uniq().value();
 
-	  // init all selects
+			// init all selects
 			$(document).ready(function () {
 				$('select').material_select();
 			})
@@ -78,6 +76,80 @@ $scope.collegeList = [
 			$scope.getFeedback();
 		}
 	}
+
+
+	$scope.teacherList = function(Sem, Course, Streams) {
+
+		var arr = [3];
+		arr[0] = {semester: Sem}
+		arr[1] =  {course: Course}
+		arr[2] = {stream: Streams}
+
+		var teacherWithDetails = _.clone($scope.pvcfb);
+
+		for (var x =0;x<arr.length;x++) {
+			var key = Object.keys(arr[x]);
+			var val = key[0];
+			console.log(val)
+			console.log(arr[x][key[0]]);
+			if (arr[x][key[0]] !=undefined){
+				teacherWithDetails = _.where(teacherWithDetails, { [val]: arr[x][key[0]]  } )
+			}
+
+		}
+
+		// var teacherWithDetails = _.where($scope.pvcfb, {semester:null});
+		$scope.teacherlist =  _.chain(teacherWithDetails).pluck('name').uniq().value().sort();
+		console.log($scope.teacherList);
+
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+	$scope.subjectLists = function(Sem, Course, Streams, Teacher) {
+		var arr = [4];
+		arr[0] = { semester: Sem }
+		arr[1] = { course: Course }
+		arr[2] = { stream: Streams }
+		arr[3] = { name: Teacher }
+
+		var	subjectDetails = _.clone($scope.pvcfb);
+
+		for (var x =0;x<arr.length;x++) {
+			var key = Object.keys(arr[x]);
+			var val = key[0];
+			if (arr[x][key[0]] !=undefined){
+				subjectDetails = _.where(subjectDetails, { [val]: arr[x][key[0]]  } )
+			}
+
+		}
+
+		$scope.subjects =  _.chain(subjectDetails).pluck('subject_name').uniq().value().sort();
+
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+
+
+	$scope.streamList = function(course) {
+		if (!course) {
+			return;
+		}
+
+		var StreamDetails = _.where($scope.pvcfb, {course:course});
+		console.log(StreamDetails);
+		$scope.stream =  _.chain(StreamDetails).pluck('stream').uniq().value().sort();
+
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+
+
 
 	$scope.schoolChange = function () {
 		$scope.final_res = {}
@@ -122,26 +194,21 @@ $scope.collegeList = [
 	}
 
 	$scope.updateSubjects = function () {
-		
+
 	}
 	$scope.t = function () {
 		console.log($scope.selected.Teacher);
 	}
-	$scope.search  = function () {
+	$scope.search  = function (selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject) {
 
 		console.log($scope.pvcfb);
 
-		var course = $scope.selected.Course;
-		var sem = $scope.selected.Sem;
-		var stream = $scope.selected.Stream;
-		var subject = $scope.selected.Subject;
-		var teacher = $scope.selected.Teacher;
+		var course = selectedCourse;
+		var sem = selectedSem;
+		var stream = selectedStream;
+		var subject = selectedSubject;
+		var teacher = selectedTeacher;
 
-		console.log(sem)
-		console.log(course)
-		console.log(stream)
-		console.log(subject)
-		console.log(teacher)
 		mdict = {}
 		if (teacher != null || teacher != undefined) {
 				mdict['name'] = teacher
@@ -217,7 +284,7 @@ $scope.collegeList = [
 		$scope.final_res = final_res;
 
 	//		console.log(final_res);
-	
+
 
 	}
 
@@ -229,11 +296,11 @@ $scope.collegeList = [
  			 }
  			 else {
  				k=8;
- 			
+
  		}
 
  		for (var i = 0; i < k; i++) {
- 				sarr.push(value['at_' + (+i+1)]['1']*1 + value['at_' + (+i+1)]['2']*2 + 
+ 				sarr.push(value['at_' + (+i+1)]['1']*1 + value['at_' + (+i+1)]['2']*2 +
                     value['at_' + (+i+1)]['3']*3 + value['at_' + (+i+1)]['4']*4  +
                 value['at_' + (+i+1)]['5']*5)
  			}
@@ -241,7 +308,7 @@ $scope.collegeList = [
  			return sarr.reduce(function (v,a) {
  				return v+a;
  			})
- } 
+ }
 
 	$scope.getDetails = function() {
 		pvcService.getDetails(function(response) {
@@ -250,5 +317,5 @@ $scope.collegeList = [
 		})
 	}
 
-	
+
 })

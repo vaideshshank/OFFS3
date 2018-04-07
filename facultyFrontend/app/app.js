@@ -39,7 +39,7 @@ window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstra
             templateUrl: './app/templates/vc/vc_analysis.html'
         })
         .when('/pvcDashboard', {
-            controller: 'vcCtrl',
+            controller: 'pvcCtrl',
             templateUrl: './app/templates/pro_vc/pvcDashboard.html'
         })
         .when('/pvcAnalysis', {

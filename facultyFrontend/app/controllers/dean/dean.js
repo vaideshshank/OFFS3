@@ -15,5 +15,9 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 
 	}
 
+	$scope.logout = function() {
+		$location.path('/')
+	}
+
 	$scope.getDetails();
 })
