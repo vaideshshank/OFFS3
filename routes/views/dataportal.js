@@ -120,13 +120,13 @@ module.exports = {
 								console.log(err);
 							}
 							else{
-								console.log(result.insertId);
-								con.query(insertF,[result.insertId,teacherId],function(err,result) {
+								console.log(result.insertId); //Feedback Id
+								con.query(insertF,[result.insertId,teacherId],function(err,res) {
 									if(err) {
 										console.log(err);
 									}
 									else{
-										console.log(result);
+										console.log(res);
 									}
 								})
 
@@ -142,7 +142,7 @@ module.exports = {
 				console.log(error);
 			}
 			else{
-				console.log(result);
+				console.log(Result);
 			}
 		})
 
