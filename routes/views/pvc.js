@@ -71,8 +71,46 @@ module.exports = {
 			};
 
 			console.log(tables);
+var fin = `s.feedback_id,
+s.batch_id,
+s.subject_code,
+s.instructor_code,
+s.subject_name,
+s.type,
+b.batch_id,
+b.course,
+b.stream,
+b.semester,
+e.instructor_id,
+e.name,
+e.email,
+e.phone,
+e.date_of_joining,
+e.password,
+e.designation,
+e.room_no,
+e.school,
+f.feedback_id,
+f.instructor_id,
+f.total,
+f.at_1,
+f.at_2,
+f.at_3,
+f.at_4,
+f.at_5,
+f.at_6,
+f.at_7,
+f.at_8,
+f.at_9,
+f.at_10,
+f.at_11,
+f.at_12,
+f.at_13,
+f.at_14,
+f.at_15,
+f.no_of_students_evaluated`;
 			var query =
-				' select * from ' +
+				' select '+fin+' from ' +
 				tables.subject_allocation +
 				' as s  ' +
 				' inner join  ' +

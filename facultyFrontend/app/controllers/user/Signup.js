@@ -92,6 +92,9 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 					alert(response.message);
 					$location.path("/");
 				} else  {
+				
+					$rootScope.teacher = response.teacher;
+					console.log($rootScope.teacher);
 					$location.path("/teacherDashboard")
 				}
 			})
