@@ -49,7 +49,7 @@ app.use("/", routes);
 hanu();
 
 //middleware
-app.listen(80,function() {
+app.listen(process.env.port||8080,function() {
 	console.log("Listening On port " + 80);
 });
 

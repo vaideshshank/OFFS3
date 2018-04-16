@@ -4,7 +4,7 @@ var mysql=require('mysql');
 
 // //http:php.ashutosh.pw
 
-
+// 
 // var con=mysql.createConnection({
 //   host:"myshop.ctikxe6frwwu.ap-south-1.rds.amazonaws.com",
 //   user:"myshop",
@@ -21,8 +21,7 @@ var mysql=require('mysql');
 
 
 //localhost phpmyadmin
-
-
+//
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
