@@ -47,11 +47,11 @@ module.exports = {
 					res.json(obj); // Invalid Password or username
 				} else {
 					req.session.ins = result[0];
-					req.session.ins.college_name = req.query.college_name;
+					//req.session.ins.college_name = req.query.college_name;
 					console.log("Teacher Found");
 					console.log("session Created");
 					console.log(req.session.ins);
-					var obj = { status: 200, message: 'Teacher authentication Successfull' };
+					var obj = { status: 200, message: 'Teacher authentication Successfull' ,teacher:result[0] };
 					res.json(obj); //Successfull
 				}
 			});
@@ -71,6 +71,10 @@ module.exports = {
 	checksession: function(req, res) {
 		/*  This route is just to check if sessions are working .
 			Hit this url once you have logged in.	*/
+			console.log("Check for hit");
+			console.log(req.query);
+			console.log(req.body);
+
 		if (req.session.ins) {
 			console.log(req.session.ins);
 			res.json(req.session.ins);
@@ -87,10 +91,12 @@ module.exports = {
 	 * @return {[type]}     [description]
 	 */
 	populate: function(req, res) {
-
-		var ins_id = req.session.ins.instructor_id;
+		console.log("populate function called");
+		//console.log(req.session.ins);
+		console.log(req.query);
+		var ins_id = req.query.instructor_id;
 		var year = '2017';
-		var college_name = req.session.ins.school;
+		var college_name = req.query.school;
 
 		console.log('In populate');
 
@@ -117,8 +123,8 @@ module.exports = {
 				var obj = { status: 400, message: 'Oops ! .' };
 				res.json(obj);
 			} else {
-				console.log(result);
-				var obj = { status: 200, message: 'Successfull', data: Result };
+				//console.log(result);
+				var obj = { status: 200, message: 'Successfull', data: result };
 				res.json(obj); //Successfull
 			}
 		});
@@ -136,14 +142,14 @@ module.exports = {
 		//		var college_name = req.query..college_name;
 		//		var subject_type  =req.query.subject_type;
 		//=======
-		var college_name = req.session.ins.school;
+		var college_name = req.query.school;
 		//>>>>>>> a066d0d19f09d6fe28085ea6aff24763700e4738
 		var subject_name = req.query.subject_name;
 		var course = req.query.course;
 		var stream = req.query.stream;
 		var semester = Number(req.query.sem);
 		console.log('course' + course);
-		var ins_id = req.session.ins.instructor_id;
+		var ins_id = req.query.instructor_id;
 
 		if (year == null || course == null || stream == null || semester == null) {
 			console.log(year);
@@ -160,8 +166,46 @@ module.exports = {
 
 			console.log(tables);
 
+var fin = `s.feedback_id,
+s.batch_id,
+s.subject_code,
+s.instructor_code,
+s.subject_name,
+s.type,
+b.batch_id,
+b.course,
+b.stream,
+b.semester,
+e.instructor_id,
+e.name,
+e.email,
+e.phone,
+e.date_of_joining,
+e.password,
+e.designation,
+e.room_no,
+e.school,
+f.feedback_id,
+f.instructor_id,
+f.total,
+f.at_1,
+f.at_2,
+f.at_3,
+f.at_4,
+f.at_5,
+f.at_6,
+f.at_7,
+f.at_8,
+f.at_9,
+f.at_10,
+f.at_11,
+f.at_12,
+f.at_13,
+f.at_14,
+f.at_15,
+f.no_of_students_evaluated`
 			var query =
-				' select * from ' + tables.subject_allocation + ' as s  ' +
+				' select '+fin+' from ' + tables.subject_allocation + ' as s  ' +
 				' inner join  ' +   tables.batch_allocation +
 				' as b on s.batch_id = b.batch_id ' +
 				' inner join  ' +

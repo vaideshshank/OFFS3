@@ -82,11 +82,11 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 			if (!_.isObject(val['at_1']) && _.isString(val['at_1'])) {
 
 
-			if (val['at_15']) {
-				val.type="Theory"
-			} else {
-				val.type="Practical"
-			}
+			// if (val['at_15']) {
+			// 	val.type="Theory"
+			// } else {
+			// 	val.type="Practical"
+			// }
 
 
 			if(val.type=="Theory") {
@@ -154,13 +154,13 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
  			})
  }
 
-	$scope.getDetails = function() {
-		teacherService.getDetails(function(response) {
-			$scope.teacher = response;
-			console.log($scope.teacher);
-		})
-	}
+	// $scope.getDetails = function() {
+	// 	teacherService.getDetails(function(response) {
+	// 		$scope.teacher = response;
+	// 		console.log($scope.teacher);
+	// 	})
+	// }
 
-	$scope.getDetails();
+	// $scope.getDetails();
 	$scope.getFeedback();
 })

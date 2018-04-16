@@ -2,6 +2,7 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 	return  {
 
 		send_details : function(college, user, callback) {
+			
 			$http({
 				method: "POST",
 				url: BACKEND + '/tinitials',
@@ -23,28 +24,19 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 			})
 		},
 
-		getDetails: function(callback) {
-			$http({
-				method: "GET",
-				url: BACKEND + "/tchecksession",
-			}).then(function(response) {
-				if (callback) {
-					callback(response.data);
-				}
-			}, function(response) {
-				if (callback) {
-					console.error(response.data);
-					callback(data);
-				}
-			})
-		},
+		
 
 		populate: function(year,callback) {
+			console.log("$rootScope");
+			
+			console.log($rootScope);
 			$http({
 				method: "GET",
 				url: BACKEND + "/tpopulate",
 				params: {
-					year:year
+					year:year,
+					instructor_id:$rootScope.teacher.instructor_id,
+					school:$rootScope.teacher.school,
 				}
 			}).then(function(response) {
 				if (callback) {
@@ -67,6 +59,8 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 					sem: sem,
 					stream: stream,
 					subject: subject,
+					instructor_id:$rootScope.teacher.instructor_id,
+					school:$rootScope.teacher.school,
 					year: year
 				}
 			}).then(function(response) {

@@ -2,6 +2,7 @@ var connection=require('express-myconnection');
 var mysql=require('mysql');
 
 
+<<<<<<< HEAD
 // //http:php.ashutosh.pw
 
 // 
@@ -19,6 +20,8 @@ var mysql=require('mysql');
 // module.exports= con;
 
 
+=======
+>>>>>>> b7f3aca83d456380c4607b3fbf3758f65034a6c2
 
 //localhost phpmyadmin
 //

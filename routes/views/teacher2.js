@@ -14,7 +14,7 @@ module.exports = {
 		var dean_id = req.query.dean_id;
 		var password = req.query.password;
 		var query =
-			'select * from ' + college_name + '_dean where instructor_id = ? and password = ?';
+			'select * from employee where instructor_id = ? and password = ?';
 		console.log(college_name, dean_id, password);
 		if (college_name != null && dean_id != null && password != null) {
 			//Check For all fields
@@ -71,47 +71,10 @@ module.exports = {
 				feedback: college_name + '_feedback_' + year,
 				employee: 'employee',
 			};
-var fin = `s.feedback_id,
-s.batch_id,
-s.subject_code,
-s.instructor_code,
-s.subject_name,
-s.type,
-b.batch_id,
-b.course,
-b.stream,
-b.semester,
-e.instructor_id,
-e.name,
-e.email,
-e.phone,
-e.date_of_joining,
-e.password,
-e.designation,
-e.room_no,
-e.school,
-f.feedback_id,
-f.instructor_id,
-f.total,
-f.at_1,
-f.at_2,
-f.at_3,
-f.at_4,
-f.at_5,
-f.at_6,
-f.at_7,
-f.at_8,
-f.at_9,
-f.at_10,
-f.at_11,
-f.at_12,
-f.at_13,
-f.at_14,
-f.at_15,
-f.no_of_students_evaluated`
+
 			console.log(tables);
 			var query =
-				' select '+fin+' from ' +
+				' select * from ' +
 				tables.subject_allocation +
 				' as s  ' +
 				' inner join  ' +
