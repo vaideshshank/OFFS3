@@ -7,7 +7,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		console.log($rootScope);
 
 
-		teacherService.populate(function(response) {
+		teacherService.populate(selectedYear, function(response) {
 			$scope.teacherfb = response;
 			console.log($scope.teacherfb);
 
@@ -157,6 +157,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 	$scope.getDetails = function() {
 		teacherService.getDetails(function(response) {
 			$scope.teacher = response;
+			console.log("*************");
 			console.log($scope.teacher);
 		})
 	}

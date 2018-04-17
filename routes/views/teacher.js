@@ -216,7 +216,7 @@ f.no_of_students_evaluated`
 				' as f on s.feedback_id = f.feedback_id' +
 				' where b.course = ? and b.stream = ? and b.semester = ? and s.instructor_code =' +
 				ins_id +
-				';';
+				' ;';
 			console.log(query);
 
 			con.query(query, [course, stream, semester], function(error, result) {

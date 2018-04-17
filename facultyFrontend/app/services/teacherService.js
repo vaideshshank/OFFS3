@@ -36,7 +36,7 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 				params: {
 					year:year,
 					instructor_id:$rootScope.teacher.instructor_id,
-					school:$rootScope.teacher.school,
+					school:$rootScope.teacher.school
 				}
 			}).then(function(response) {
 				if (callback) {

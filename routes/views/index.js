@@ -1,12 +1,12 @@
 var con 	   = require("../../models/mysql"),
- 	ses        =   require('node-ses'),
- 	async      =  require('async'),
- 	controller = require("../../models/config"),
-  nodemailer = require('nodemailer');
+ 	  ses        =   require('node-ses'),
+  	async      =  require('async'),
+ 	  controller = require("../../models/config"),
+    nodemailer = require('nodemailer');
 //  year=18;
 module.exports = {
 
-	index: function (req, res) {
+  index: function (req, res) {
 
 	},
 	initials:function(req,res) {
@@ -27,9 +27,9 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		{ console.log(process.env.year);
       console.log(req.query.semester);
       console.log(process.env.odd_even);
-       var year = process.env.year - (req.query.semester -process.env.odd_even)/2;
+       var year = process.env.year - (req.query.semester - process.env.odd_even)/2;
       console.log(year);
-         year = '20' + year.toString();
+         year = year.toString();
 				var student_table = req.query.college_name + '_student_'+year;
 				var query0 = 'select s_'+req.query.semester +' from '+ student_table + ' where enrollment_no = ' +Number(req.query.enrollment_no) ;
 				console.log(query0);
@@ -125,7 +125,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		else
 		{
 		var year = process.env.year - (req.query.semester - process.env.odd_even)/2;
-		year = '20' + year.toString();
+		year = year.toString();
 		console.log(year);
 		var tablename = req.query.tablename + '_' + year;
 		console.log(tablename);
@@ -268,7 +268,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
       var table3 = req.session.student.college_name + '_student_' + year;
       console.log(table3);
       console.log(req.session.student.enrollment_no);
-      var query3 = 'update ' + table3+ ' set s_'+semester+' = 1 where enrollment_no = ?'
+      var query3 = 'update ' + table3+ ' set s_'+ semester+' = 1 where enrollment_no = ?'
 
       //var hanu =0;
       if(req.session.student.college_name==null||feedbacks==null||req.session.student.enrollment_no==null) {
@@ -282,7 +282,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
             var error=0;
             async.each(feedbacks,function(feedback,callback) {
               hanu =0;
-            console.log(feedback);
+            //console.log(feedback);
             var result = feedback.score;
             if(result.length==15&&feedback.feedbackId!=null)
               {  console.log("nothing");
@@ -473,7 +473,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 		var course  = req.query.course;
 		var stream  = req.query.stream;
 
-		var year = 2017 - (semester - 1 )/2;
+		var year = 2017 - (semester + odd_even )/2;
 
 
 
@@ -502,7 +502,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
 
 		var collegeName = req.query.collegeName;
 		var semester = parseInt(req.query.semester);
-		var year = 2017 - (semester - 1 )/2;
+		var year = 2017 - (semester + odd_even )/2;
 
 		var userDetails = {
 			stream:[],
