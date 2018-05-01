@@ -80,6 +80,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
+					
 					$location.path("/");
 				} else {
 					$location.path("/deanDashboard");
