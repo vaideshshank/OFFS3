@@ -1,4 +1,6 @@
 faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, $location) {
+	
+	$scope.disabled = false;
 
 	$scope.collegeList = [ {
 		collegeName : "University School of Law and Legal Studies",
@@ -149,6 +151,8 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 	$scope.submit = function() {
 		// final data in subjects_data object.
 
+		$scope.disabled = true;
+		
 		dataPortalService.sendSubjectData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, $scope.subjects_data, function(res) {
 			//handle save successfully!
 		})
