@@ -285,7 +285,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
             //console.log(feedback);
             var result = feedback.score;
             if(result.length==15&&feedback.feedbackId!=null)
-              {  console.log("nothing");
+              { // console.log("nothing");
                 var query='update '+ tablename+' set'+
                    ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
                    ' at_4 = concat(at_4,?),  at_5 = concat(at_5,?),  at_6 = concat(at_6,?), '  +
@@ -295,7 +295,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
                    ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                    ' total = total + ? ' +
                       'where feedback_id = ' +feedback.feedbackId;
-            console.log("something");
+           // console.log("something");
             var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
           'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
@@ -303,7 +303,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
            result[13]+','+ result[14]+  ')';
-           console.log(query2);
+          // console.log(query2);
 
             var sum=0;
             for(i=0;i<=14;i++)    //check;
@@ -320,14 +320,14 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
                 console.log(err);
               else{
 
-                console.log("query1",Result);
+                //console.log("query1",Result);
                 con.query(query2,[feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
                   if(err3)
                   {
                     console.log(err3);
                   }
                   else{
-                    console.log("query2", result3);
+                    //console.log("query2", result3);
                     con.query(query3,[Number(req.session.student.enrollment_no)],function(err4,res4){
 
                       if(err4)
@@ -336,9 +336,9 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
                       }
                       else
                       {
-                        console.log("query3", res4);
+                        //console.log("query3", res4);
                         //console.log(res4);
-                        console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
+                        console.log("theory feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
 
 
                       }
@@ -362,16 +362,16 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
                    ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                    ' total = total + ? ' +
                       'where feedback_id = ' +feedback.feedbackId;
-                console.log("nothing");
+               // console.log("nothing");
              var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8) '+
           'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] + ')';
 
-                 console.log(query2);
+                // console.log(query2);
 
-                 console.log("Something");
+                // console.log("Something");
 
             var sum=0;
             for(i=0;i<=7;i++)    //check;
@@ -390,7 +390,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
               if(err)
                 console.log(err);
               else{
-                console.log("practical query 1", Result);
+               // console.log("practical query 1", Result);
                con.query(query2,[feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
                   if(err3)
                   {
@@ -398,7 +398,7 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
                   }
                   else{
                     //console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
-                      console.log("practical query 2" , result3);
+                    //  console.log("practical query 2" , result3);
                       con.query(query3,[Number(req.session.student.enrollment_no)],function(err4,res4){
                       if(err4)
                       {
@@ -407,8 +407,8 @@ if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email=
                       else
                       {
                         //console.log(res4);
-                        console.log("practical query 3 ", res4);
-                        console.log("feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
+                      //  console.log("practical query 3 ", res4);
+                        console.log("Practical feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ')
 
 
                       }

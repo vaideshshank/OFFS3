@@ -4,7 +4,9 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 
 
 	$scope.getDetails = function() {
+		console.log('Get Details');
 		facultyService.getDetails(function(response) {
+			console.log(response);
 			$scope.dean = response;
 		})
 

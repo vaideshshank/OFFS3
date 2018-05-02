@@ -21,7 +21,8 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, facu
 			$scope.course = _.chain($scope.deanfb).pluck('course').uniq().value();
 			$scope.stream = _.chain($scope.deanfb).pluck('stream').uniq().value();
 			$scope.semester = _.chain($scope.deanfb).pluck('semester').uniq().value();
-
+			console.log($scope.stream);
+			$scope.selectedTeacher = $scope.deanfb.name;
 			// init all selects
 			$(document).ready(function () {
 				$('select').material_select();
@@ -35,7 +36,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, facu
 	$scope.subjectLists = function() {
 		var arr = [4];
 		console.log($scope.selectedSem, $scope.selectedCourse, $scope.selectedStream, $scope.selectedTeacher);
-		
+
 		arr[0] = {semester: $scope.selectedSem}
 		arr[1] = {course: $scope.selectedCourse}
 		arr[2] = {stream: $scope.selectedStream}
@@ -62,6 +63,9 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, facu
 
 
 	$scope.streamList = function() {
+		if (!$scope.selectedCourse) {
+			return;
+		}
 		var course = $scope.selectedCourse;
 
 		var StreamDetails = _.where($scope.deanfb, {course:course});
