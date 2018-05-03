@@ -57,7 +57,7 @@ module.exports = {
 		var query = "select subject_name, subject_code, type from ?? as t1 inner join ?? as t2 on t1.batch_id = t2.batch_id where " +
 					" course = ? and stream = ? and semester = ?";
 		console.log(query);
-		con.query(query,[college_name + "_batch_allocation", college_name + "_subject_allocation_2016", course, stream, semester], function(err, subjectList) {
+		con.query(query,[college_name + "_batch_allocation", college_name + "_subject_allocation", course, stream, semester], function(err, subjectList) {
 			if (err) {
 				console.log(err);
 			}
@@ -140,9 +140,12 @@ module.exports = {
 		},function(error,Result){
 			if(error){
 				console.log(error);
+				var obj = { status: 400, message: 'Something went wrong!! Please try again' };
+
 			}
 			else{
-				console.log(Result);
+				var obj = { status: 200, message: 'Your data is recorded' };
+				res.json(obj);
 			}
 		})
 

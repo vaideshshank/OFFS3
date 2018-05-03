@@ -1,5 +1,5 @@
 faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, $location) {
-	
+
 	$scope.disabled = false;
 
 	$scope.collegeList = [ {
@@ -102,23 +102,23 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 	}
 
 
-		$scope.getTeachers = function() {
-			dataPortalService.getTeacher(function(res) {
-				var data_value  = {}
-				res.forEach(function(val) {
-					data_value[val.name + ' ' + val.instructor_id] = null;
+	$scope.getTeachers = function() {
+		dataPortalService.getTeacher(function(res) {
+			var data_value  = {}
+			res.forEach(function(val) {
+				data_value[val.name + ' ' + val.instructor_id] = null;
 
-					// init autocomplete
-					$(document).ready(function(){
-						 $('input.autocomplete').autocomplete({
-							 data : data_value,
-						 });
+				// init autocomplete
+				$(document).ready(function(){
+					 $('input.autocomplete').autocomplete({
+						 data : data_value,
 					 });
+				 });
 
 
-				})
 			})
-		}
+		})
+	}
 
 
 	$scope.streamSelected = function() {
@@ -149,12 +149,20 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 	}
 
 	$scope.submit = function() {
-		// final data in subjects_data object.
 
 		$scope.disabled = true;
-		
+
 		dataPortalService.sendSubjectData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, $scope.subjects_data, function(res) {
-			//handle save successfully!
+			if (res.data) {
+				if (res.data.status == 200) {
+					alert(res.data.message);
+					$location.path("/");
+				} else {
+					alert(res.data.message);
+					$location.path("/dataPortal");
+				}
+			}
+
 		})
 	}
 
@@ -168,7 +176,5 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 		})
 		$scope.getTeachers();
 	}
-
-
 
 })
