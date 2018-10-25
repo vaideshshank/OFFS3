@@ -4,7 +4,7 @@ var mysql=require('mysql');
 var con=mysql.createConnection({
   host:"localhost/phpmyadmin",
   user:"root",
-  password:""
+  database:"sdc"
 });
 //Z3apbUnvi5LQKClu
 con.connect(function(err){
