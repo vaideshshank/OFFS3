@@ -1,3 +1,10 @@
+
+
+CREATE Database SDC;
+
+USE SDC;
+
+
 CREATE TABLE `employee` (
   `instructor_id` varchar(10) NOT NULL,
   `name` varchar(200) NOT NULL,

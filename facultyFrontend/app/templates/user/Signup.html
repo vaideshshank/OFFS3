@@ -42,35 +42,47 @@
 
         <div class="Signup_body">
           <div class="row">
-            <form class="col s12">
+            <form name="signupForm" class="col s12">
               <div class="row">
                 <div class="input-field col s12" ng-if="user.category=='student'">
-                  <input id="rollno" type="text" class="validate" ng-model="user.rollno" ng-blur="findSemister()">
+                  <input id="rollno" type="text" class="validate" name="enrollno" ng-model="user.rollno" ng-required="true" ng-blur="findSemister()">
                   <label for="rollno"> Your 11 Digit Enrollment Number</label>
+                  <div ng-show="signupForm.enrollno.$touched && signupForm.enrollno.$invalid">
+                    <small style="color: red; display: block; text-align: center;">Enter a valid Enrollment Number </small>
+                  </div>
                 </div>
                 <div class="input-field col s12" ng-if="user.category!=='student'">
-                  <input id="rollno" type="text" class="validate" ng-model="user.rollno">
+                  <input id="rollno" type="text" class="validate" name="rollno" ng-model="user.rollno" ng-required="true">
                   <label for="rollno"> {{ $scope.audience || 'User Id' }}</label>
+                  <div ng-show="signupForm.rollno.$touched && signupForm.rollno.$invalid">
+                    <small style="color: red; display: block; text-align: center;">Enter a valid Roll Number </small>
+                  </div>
                 </div>
               </div>
 
               <div class="row" ng-if="user.category=='student'">
                 <div class="input-field col s12">
-                  <input id="email" type="text" class="validate" ng-model="user.email">
+                  <input id="email" type="text" class="validate" name="email" ng-model="user.email" ng-required="true">
                   <label for="email"> Email </label>
+                  <div ng-show="signupForm.email.$touched && signupForm.email.$invalid">
+                    <small style="color: red; display: block; text-align: center;">Enter a valid email id </small>
+                  </div>
                 </div>
               </div>
 
               <div class="row" ng-if="user.category!='student'">
                 <div class="input-field col s12">
-                  <input id="password" type="password" class="validate" ng-model="user.password">
+                  <input id="password" type="password" class="validate" name="password" ng-model="user.password" ng-required="true">
                   <label for="password">Password</label>
+                  <div ng-show="signupForm.password.$touched && signupForm.password.$invalid">
+                    <small style="color: red; display: block; text-align: center;">Enter a valid password </small>
+                  </div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-field col s4" ng-if="user.category=='student'">
-                  <input  id="semister" type="text" class="validate" ng-model="user.semister" ng-blur="updateSemester()">
+                  <input  id="semister" type="text" class="validate" name="semester" ng-model="user.semister" ng-required="true" ng-blur="updateSemester()">
              <label for="semester" class="active">Current Semester</label> 
                 </div>
               </div>
