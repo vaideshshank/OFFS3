@@ -6,7 +6,7 @@ var express 		= require('express'),
 	sessionStore      =   new session.MemoryStore(),
 	request			= require('request'),
 	methodOverride  = require('method-override'),
-	sql				= require("mssql"),
+	sql				= require("mysql"),
 	con             = require("./models/mysql"),
 	routes 			= require('./routes/route'),
 	ip				= require('ip');
@@ -34,6 +34,7 @@ app.use(session({
     		},
     		rolling: true,
     		unset: 'destroy'   }));
+
 // This is for cross origin resource sharing
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', "*");
@@ -50,7 +51,7 @@ hanu();
 
 //middleware
 app.listen(process.env.port||8080,function() {
-	console.log("Listening On port " + 80);
+	console.log("Listening On port " + 8080);
 });
 
 //SQL LOCK TRANSACTION , CHECK IF INTERNALLY PRESENT.
