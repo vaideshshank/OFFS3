@@ -70,32 +70,34 @@ module.exports = {
               res.json("400");
 
             } else {
+              console.log('ssssssssssssssssssssaaaaaaaaaaaaaaarrrrrrrrrrrrrrr');
+              // nodemailer.createTestAccount((err, account) => {
+              //   var transporter = nodemailer.createTransport({
+              //     service: 'gmail',
+              //     auth: {
+              //       user:process.env.email,
+              //       pass: process.env.password,
+              //     }
+              //   });
 
-              nodemailer.createTestAccount((err, account) => {
-                var transporter = nodemailer.createTransport({
-                  service: 'gmail',
-                  auth: {
-                    user:process.env.email,
-                    pass: process.env.password,
-                  }
-                });
+              //   var mailOptions = {
+              //     from: process.env.email,
+              //     to: req.query.email,
+              //     subject: 'Noreply@FacultyFeedbackSystem',
+              //     text: 'Hi, Please Use this OTP : ' +random
+              //   };
 
-                var mailOptions = {
-                  from: process.env.email,
-                  to: req.query.email,
-                  subject: 'Noreply@FacultyFeedbackSystem',
-                  text: 'Hi, Please Use this OTP : ' +random
-                };
+              //   transporter.sendMail(mailOptions, function(error, info) {
+              //     if (error) {
+              //       console.log(error);
+              //     } else {
+              //       console.log('Email sent: ' + info.response);
+              //       res.send("200");
+              //     }
+              //   });
+              // });
 
-                transporter.sendMail(mailOptions, function(error, info) {
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log('Email sent: ' + info.response);
-                    res.send("200");
-                  }
-                });
-              });
+              res.send("200");
             }
           })
         }
@@ -121,7 +123,7 @@ module.exports = {
     console.log(enrollment_no);
     console.log(password);
 
-    student.getInformation(tablename, enrollment_no, function(err, rows) {
+    student.getInformation(tablename, enrollment_no, function(err, result) {
       if (err) {
         console.log(err);
         throw err;
