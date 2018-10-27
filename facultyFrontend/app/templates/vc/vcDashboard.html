@@ -19,8 +19,11 @@
                 <div style="margin-bottom: 0px !important;" class="row">
 
                     <form name="name" action="savefile" method="post" enctype="multipart/form-data">
-                        <input class="file-input" id="upload-photo" type='file' name="file" value="file"/>
+                        <input class="file-input" id="upload-photo" type='file' name="file" value="file" ng-required="true"/>
                         <label id="upload-photo-label" for="upload-photo" class="custom-file-upload"> Choose Image </label>
+                        <div ng-show="name.file.$touched && name.file.$invalid">
+                            <small style="color: red; display: block; text-align: center;">Please upload an image</small>
+                          </div>
                         <br>
                         <br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">

@@ -19,8 +19,11 @@
                 <div style="margin-bottom: 0px !important;" class="row">
 
                     <form name="name" action="savefile" method="post" enctype="multipart/form-data">
-                        <input class="file-input" id="upload-photo" type='file' name="file" value="file"/>
+                        <input class="file-input" id="upload-photo" type='file' name="file" value="file" ng-required="true"/>
                         <label id="upload-photo-label" for="upload-photo" class="custom-file-upload"> Choose Image </label>
+                        <div ng-show="name.file.$touched && name.file.$invalid">
+                            <small style="color: red; display: block; text-align: center;">Please upload an image</small>
+                          </div>
                         <br>
                         <br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">
@@ -64,11 +67,11 @@
         <div class="row">
             <div class="col s12">
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" disabled ng-model="pvc.email">
+                    <input placeholder="Email-Id" id="last_name" type="email" class="validate editField email-id" disabled ng-model="pvc.email">
                 </div>
 
                 <div class="input-field col s6">
-                    <input placeholder="phone number" id="last_name" type="text" class="validate editField phone" disabled ng-model="pvc.phone">
+                    <input placeholder="phone number" id="last_name" type="text" pattern="[789][0-9]{9}" class="validate editField phone" disabled ng-model="pvc.phone">
                 </div>
             </div>
         </div>

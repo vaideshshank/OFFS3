@@ -18,7 +18,7 @@
 
                 <div style="margin-bottom: 0px !important;" class="row">
 
-                    <form name="name" action="savefile" method="post" enctype="multipart/form-data">
+                    <form name="name" action="savefile" method="post" enctype="multipart/form-data" >
                         <input class="file-input" id="upload-photo" type='file' name="file" value="file"/>
                         <label id="upload-photo-label" for="upload-photo" class="custom-file-upload"> Choose Image </label>
                         <br>
@@ -70,11 +70,11 @@
             <div class="col s12">
 
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" readonly ng-model="user.email">
+                    <input placeholder="Email-Id" id="last_name" type="email" class="validate editField email-id" readonly ng-model="user.email">
                 </div>
 
                 <div class="input-field col s6">
-                    <input placeholder="Phone Number" id="last_name" type="text" class="validate editField phone" readonly ng-model="user.phone">
+                    <input placeholder="Phone Number" id="last_name" type="text" pattern="[789][0-9]{9}" class="validate editField phone" readonly ng-model="user.phone">
                 </div>
             </div>
         </div>
