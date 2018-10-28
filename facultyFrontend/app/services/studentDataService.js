@@ -41,7 +41,7 @@ faculty.factory('studentDataService',['$http', '$timeout', '$rootScope', functio
 		getData : function(college, selectedYear, callback) {
 			$http({
 				method:'GET',
-				//url: BACKEND + '/createFeedback',
+				url: BACKEND + '/updateStudent',
 				params: {
 					college : college,
 					year: selectedYear
@@ -62,7 +62,7 @@ faculty.factory('studentDataService',['$http', '$timeout', '$rootScope', functio
 		sendData : function(college, course, stream, selectedYear, student_data, callback) {
 			$http({
 				method:'POST',
-				//url: BACKEND + '/createFeedback',
+				url: BACKEND + '/sendStudent',
 				params: {
 					data : student_data,
 					college : college,

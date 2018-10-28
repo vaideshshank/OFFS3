@@ -1,4 +1,4 @@
-faculty.controller('studentDataCtrl', function ($http, $scope, dataPortalService, $location) {
+faculty.controller('studentDataCtrl', function ($http, $scope, dataPortalService, studentDataService, $location) {
 
 	$scope.disabled = false;
 
@@ -130,7 +130,7 @@ faculty.controller('studentDataCtrl', function ($http, $scope, dataPortalService
 
 		$scope.disabled = true;
 
-		dataPortalService.sendData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear, $scope.table, function (res) {
+		studentDataService.sendData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear, $scope.table.rows, function (res) {
 			if (res.data) {
 				if (res.data.status == 200) {
 					alert(res.data.message);

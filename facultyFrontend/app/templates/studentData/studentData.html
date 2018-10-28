@@ -64,11 +64,7 @@
     <table class="table table-condensed table-striped" ng-show="isAdd">
         <thead>
             <tr>
-                <th>Enrollment No.</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Password</th>
+                <th ng-repeat="col in table.columns">{{ col.value }}</th>
             </tr>
         </thead>
         <tbody>
