@@ -1,15 +1,16 @@
-var db = require('./mysql');
-
-module.exports=  {
-
-	checkLogin: function(college_name, year, semester, enrollment_no, callback) {
-
-
-		var student_table = college_name + '_student_' + year;
-		var enrollment_no = Number(req.query.enrollment_no);
-        var query = 'select s_? from ?? where enrollment_no = ?';
-
-		con.query(query,[semester, student_table, enrollment_no],function(err, rows) {
+var con = require('./mysql');
+ 
+module.exports = {
+ 
+ 	checkLogin: function(college_name, year, semester, enrollment_no, callback) {
+ 
+ 
+ 		var student_table = college_name + '_student_' + year;
+ 		var enrollment_no = Number(enrollment_no);
+        var query = 'select * from ?? where enrollment_no = ?';
+        // console.log(semester);
+		con.query(query,[student_table, enrollment_no],function(err, rows) {
+         	
          	if (err) {
          		console.log(err);
          		throw err;
@@ -21,13 +22,13 @@ module.exports=  {
 
 	login: function(tablename, password, email, enrollment_no, callback) {
         var query  = 'update ?? set password = ?, email= ? where enrollment_no= ?';
-
+        console.log('sssssssssssssssssssss');
         con.query(query,[tablename, password, email, enrollment_no], function(err, rows) {
         	if (err) {
         		console.log(err);
         		throw err;
         	}
-
+        	console.log(rows);
         	callback(null, rows);
          })
 	},
@@ -66,7 +67,7 @@ module.exports=  {
                 	'inner join ?? as t on t.instructor_id = s.instructor_code ' +
                 	'where b.course=? and b.stream =? and b.semester = ?';
 
-        con.query(query,[tablename1, tablename2, tablename3, course, stream, semester], function(err,result) {
+        con.query(query,[tablename1, tablename2, tablename3, course, stream, semester], function(err, rows) {
    			if (err) {
    				console.log(err);
    				throw err;
@@ -83,7 +84,7 @@ module.exports=  {
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] + ')';
 
-		con.query(query,[dumptable, enrollment_no, feedback.subject_code,feedback.instructor_code.toString()],function(err, rows) {
+		con.query(query,[dumptable, enrollment_no, subject_code,instructor_code.toString()],function(err, rows) {
 			if (err) {
 				console.log(err);
 				throw err;
@@ -97,7 +98,7 @@ module.exports=  {
 	markStudentEntry: function(table, semester, enrollment_no, callback) {
 		var query = 'update ?? set s_? = 1 where enrollment_no = ?';
 
-		con.query(query, [table, semester, enrollment_no], function(err, rows) {
+		con.query(query, [table, semester, enrollment_no.toString()], function(err, rows) {
 			if (err) {
 				console.log(err);
 				throw err;
@@ -106,7 +107,4 @@ module.exports=  {
 			callback(null, rows);
 		})
     }
-
-
 }
-

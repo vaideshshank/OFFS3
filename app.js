@@ -51,6 +51,7 @@ hanu();
 
 //middleware
 app.listen(process.env.port||8080,function() {
+	console.log(process.env.port);
 	console.log("Listening On port " + 8080);
 });
 
