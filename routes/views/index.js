@@ -25,7 +25,7 @@ module.exports = {
     var type          = req.query.type;
     var semester      = req.query.semester;
     var year          = process.env.year - (req.query.semester - process.env.odd_even)/2;
-    year              = year.toString();
+    year              = (Math.floor(year)).toString();
     var college_name  = req.query.college_name;
     var tablename     = college_name + '_' + type + '_' + year;
     var random        = Math.floor(Math.random()*(98989 - 12345 + 1) + 12345 );
@@ -113,7 +113,7 @@ module.exports = {
     }
 
     var year = process.env.year - (req.query.semester - process.env.odd_even)/2;
-    year = year.toString();
+    year = Math.floor(year).toString();
     var tablename = req.query.tablename + '_' + year;
     var enrollment_no = Number(req.query.enrollment_no);
     var password = req.query.password;
@@ -201,13 +201,13 @@ module.exports = {
 
   feedbackform : function(req,res) {
       console.log("Hit Feedback Form");
-      console.log(req.session.student);
+      //console.log(req.session.student);
 
       if(req.session.student.course && req.session.student.stream && req.session.student.year && req.session.student.college_name) {
           console.log(req.session.student);
           var college_name  = req.session.student.college_name;
 
-          var tablename1    = college_name + '_subject_allocation_2017'  ;  //Changes Every Year
+          var tablename1    = college_name + '_subject_allocation'  ;  //Changes Every Year
           var tablename2    = college_name + '_batch_allocation';
           var tablename3    = 'employee';
           var course        = req.session.student.course;
@@ -236,10 +236,10 @@ module.exports = {
       var feedbacks = req.body.teacherFeedback;
 
       var dumptable = req.session.student.college_name + '_dump_2017' ;
-      var enollment_no = req.session.student.enrollment_no.toString();
+      var enrollment_no = req.session.student.enrollment_no.toString();
       var year =req.session.student.year_of_admission;
       var semester  = req.session.student.semester;
-      var table3 = college_name + '_student_' + year;
+      var table3 = req.session.student.college_name + '_student_' + year;
 
       console.log(enrollment_no);
       console.log(semester);
@@ -380,12 +380,12 @@ module.exports = {
 
             callback();
             }, function(err) {
-               if (err || hanu==1 ){
+               if (err){
                 console.error(err);
                 res.status(err);
               }
               else{
-                   nodemailer.createTestAccount((err, account) => {
+                   /*nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -411,7 +411,8 @@ module.exports = {
                     }
                   });
 
-                  });
+                  });*/
+                  console.log("Thanks for the feedback")
               }
 
             })
