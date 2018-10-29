@@ -84,7 +84,7 @@ module.exports = {
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] + ')';
 
-		con.query(query,[dumptable, enrollment_no, feedback.subject_code,feedback.instructor_code.toString()],function(err, rows) {
+		con.query(query,[dumptable, enrollment_no, subject_code,instructor_code.toString()],function(err, rows) {
 			if (err) {
 				console.log(err);
 				throw err;
@@ -98,7 +98,7 @@ module.exports = {
 	markStudentEntry: function(table, semester, enrollment_no, callback) {
 		var query = 'update ?? set s_? = 1 where enrollment_no = ?';
 
-		con.query(query, [table, semester, enrollment_no], function(err, rows) {
+		con.query(query, [table, semester, enrollment_no.toString()], function(err, rows) {
 			if (err) {
 				console.log(err);
 				throw err;
