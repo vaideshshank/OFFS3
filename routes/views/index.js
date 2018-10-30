@@ -522,7 +522,7 @@ module.exports = {
   if (process.env.year == 2018) {
     var tableName = `${college_name}_student_${process.env.year}`;
     var initQuery =
-      "CREATE TABLE IF NOT EXISTS ?? (`enrollment_no` bigint(20) NOT NULL,`name` varchar(100) NOT NULL,`email` varchar(100) DEFAULT NULL,`phone` varchar(100) DEFAULT NULL,`year_of_admission` int(4) NOT NULL,`password` varchar(600) NOT NULL,`course` varchar(100) NOT NULL,`stream` varchar(100) NOT NULL,`s_1` int(11) DEFAULT '0',`s_9` int(11) DEFAULT '0',`s_8` int(11) DEFAULT '0',`s_5` int(11) DEFAULT '0',`s_6` int(11) DEFAULT '0',`s_4` int(11) DEFAULT '0',`s_3` int(11) DEFAULT '0',`s_2` int(11) DEFAULT '0',`s_7` int(11) DEFAULT '0',`s_10` int(11) DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+      "CREATE TABLE IF NOT EXISTS ?? (`enrollment_no` bigint(20) primary key,`name` varchar(100) NOT NULL,`email` varchar(100) DEFAULT NULL,`phone` varchar(100) DEFAULT NULL,`year_of_admission` int(4) NOT NULL,`password` varchar(600) DEFAULT NULL,`course` varchar(100) NOT NULL,`stream` varchar(100) NOT NULL,`s_1` int(11) DEFAULT '0',`s_9` int(11) DEFAULT '0',`s_8` int(11) DEFAULT '0',`s_5` int(11) DEFAULT '0',`s_6` int(11) DEFAULT '0',`s_4` int(11) DEFAULT '0',`s_3` int(11) DEFAULT '0',`s_2` int(11) DEFAULT '0',`s_7` int(11) DEFAULT '0',`s_10` int(11) DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;";
     con.query(initQuery, [tableName], err => {
       if (err) {
         res.status(500).send(
@@ -532,56 +532,60 @@ module.exports = {
             message: "Init Query Failed"
           })
         );
+      }else{
+        async.each(req.query.data,(singleStudent, callback) => {
+          // console.log("Student : "+singleStudent)
+             
+          
+             var student = JSON.parse(singleStudent);
+             // console.log(student.enrollment_no, typeof student);
+     
+             var query =
+               "INSERT INTO ?? (`enrollment_no`, `name`, `email`, `phone`, `year_of_admission`, `password`, `course`, `stream`, `s_1`, `s_9`, `s_8`, `s_5`, `s_6`, `s_4`, `s_3`, `s_2`, `s_7`, `s_10`) VALUES " +
+               "(?,?,?,?,?,0000,?,?, 0 ,0,0,0,0,0,0,0,0,0)";
+     
+             var query2=""
+             con.query(
+               query,
+               [
+                 tableName,
+                 student.enrollment_no,
+                 student.name,
+                 student.email,
+                 student.phone,
+                 process.env.year,
+                 course,
+                 stream
+               ],
+               err => {
+                 if (err) {
+                   callback(err);
+                 } else {
+                   callback();
+                 }
+               }
+             );
+           },
+           err => {
+             if (err) {
+               console.log(err);
+               res.status(500).send("Query Insertion Failed");
+             } else {
+               console.log("Insertion Complete");
+               res.status(200).json({
+                 dataInserted: true,
+                 message: "Success"
+               });
+             }
+           }
+         );
       }
     });
     // console.log(req.query.data, typeof req.query.data);
     // var data = JSON.parse(req.query.data);
 
     // console.log(req.query.data, typeof req.query.data);
-    async.each(
-        req.query.data,
-      (singleStudent, callback) => {
-
-        var student = JSON.parse(singleStudent);
-        // console.log(student.enrollment_no, typeof student);
-
-        var query =
-          "INSERT INTO ?? (`enrollment_no`, `name`, `email`, `phone`, `year_of_admission`, `password`, `course`, `stream`, `s_1`, `s_9`, `s_8`, `s_5`, `s_6`, `s_4`, `s_3`, `s_2`, `s_7`, `s_10`) VALUES " +
-          "(?,?,?,?,?,0000,?,?, 0 ,0,0,0,0,0,0,0,0,0)";
-        con.query(
-          query,
-          [
-            tableName,
-            student.enrollment_no,
-            student.name,
-            student.email,
-            student.phone,
-            process.env.year,
-            course,
-            stream
-          ],
-          err => {
-            if (err) {
-              callback(err);
-            } else {
-              callback();
-            }
-          }
-        );
-      },
-      err => {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Query Insertion Failed");
-        } else {
-          console.log("Insertion Complete");
-          res.status(200).json({
-            dataInserted: true,
-            message: "Success"
-          });
-        }
-      }
-    );
+    
   } else {
     res.status(500).send("Server Down");
   }

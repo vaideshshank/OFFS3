@@ -107,7 +107,7 @@ module.exports = {
 			console.log(subjectId);
 			console.log(subjectName);
 			console.log(type);
-			var subjectAllocationTable = school+'_subject_allocation_2017';
+			var subjectAllocationTable = school+'_subject_allocation';
 			var batchAllocatiomTable=school+'_batch_allocation';
 			var feedbackTable=school+'_feedback_2017';
 			var getBatch='select batch_id from ' + batchAllocatiomTable + ' where course=? and stream=? and semester = ?';
