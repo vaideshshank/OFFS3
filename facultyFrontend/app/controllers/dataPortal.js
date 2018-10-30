@@ -67,7 +67,7 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 					$scope.courseList = responce;
 					// $scope.courseList = JSON.parse(responce);
 					console.log(typeof $scope.courseList);
-
+					//console.log("Courses:: "+$scope.courseList);
 				$(document).ready(function () {
 					$('select').material_select();
 				})
@@ -77,7 +77,7 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 
 		}
 
-		// console.log($scope.selectedCollege);
+		 console.log($scope.selectedCollege);
 	}
 
 

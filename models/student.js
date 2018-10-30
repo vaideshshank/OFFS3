@@ -8,7 +8,8 @@ module.exports = {
  		var student_table = college_name + '_student_' + year;
  		var enrollment_no = Number(enrollment_no);
         var query = 'select * from ?? where enrollment_no = ?';
-        // console.log(semester);
+		// console.log(semester);
+		console.log("Student table is "+student_table);
 		con.query(query,[student_table, enrollment_no],function(err, rows) {
          	
          	if (err) {

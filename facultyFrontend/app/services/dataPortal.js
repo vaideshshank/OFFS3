@@ -12,6 +12,7 @@ faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope', function
 					console.log(response.data);
 					console.log(typeof response.data);
 					callback(response.data);
+					
 				}
 			}, function(response) {
 				if (callback) {

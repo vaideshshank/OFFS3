@@ -70,12 +70,19 @@ module.exports = {
 
 
 	createFeedback: function(req,res) {
+		console.log("createFeedback");
 		//console.log(req.query.data);
 		var details =req.query;
 		console.log(details);
-		async.each(details.data,function(detail,callback){
-
+		var Datas = details.data ;
+		console.log(Datas);
+		//datas=JSON.parse(Datas);
+		async.each(Datas,function(detail,callback){
 			detail=JSON.parse(detail);
+			console.log("*");
+			console.log(detail);
+			//detail=JSON.parse(detail);
+			
 			if(detail.teacher_name){
 			//console.log(typeof detail.teacher_name);
 			//console.log(typeof detail);
@@ -106,21 +113,27 @@ module.exports = {
 			var getBatch='select batch_id from ' + batchAllocatiomTable + ' where course=? and stream=? and semester = ?';
 			var insertSA = 'INSERT INTO '+subjectAllocationTable+
 							' (`feedback_id`, `batch_id`,`subject_code`, `instructor_code`, `subject_name`, `type`) VALUES'+
-							' (NULL, ?, ?, ?, ?, ? );';
+							' (null, ?, ?, ?, ?, ? );';
 			var insertF = 'INSERT INTO '+ feedbackTable+' (`feedback_id`, `instructor_id`, `subject_code`, `type`, `total`, `at_1`, `at_2`, `at_3`, `at_4`, `at_5`, `at_6`, `at_7`, `at_8`, `at_9`, `at_10`, `at_11`, `at_12`, `at_13`, `at_14`, `at_15`, `no_of_students_evaluated`) VALUES (?, ?,"","",0,"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0",0)';
-
+				console.log(getBatch);
+				console.log("****************************************************");
 			con.query(getBatch,[course,stream,semester],function(err,batchId) {
 				if(err) {
 					console.log(err);
 				}
 				else{
+					console.log("insertion happening");
 					console.log(batchId);
+					console.log(insertSA);
+					console.log("****************************************************");
 					con.query(insertSA,[batchId[0].batch_id,subjectId,teacherId,subjectName,type],function(err,result) {
 							if(err) {
 								console.log(err);
 							}
 							else{
 								console.log(result.insertId); //Feedback Id
+								console.log(insertF);
+								console.log("****************************************************");
 								con.query(insertF,[result.insertId,teacherId],function(err,res) {
 									if(err) {
 										console.log(err);

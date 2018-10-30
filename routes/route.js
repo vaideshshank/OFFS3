@@ -53,5 +53,6 @@ router.get('/getCourse', routes.views.dataportal.getCourse);
 router.get('/getStream', routes.views.dataportal.getStream);
 router.get('/getSubjects', routes.views.dataportal.getSubjects);
 router.post("/createFeedback",routes.views.dataportal.createFeedback);
+router.post("/sendStudent", routes.views.index.studentData);
 
 module.exports = router;

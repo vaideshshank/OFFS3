@@ -25,7 +25,8 @@ module.exports = {
     var type          = req.query.type;
     var semester      = req.query.semester;
     var year          = process.env.year - (req.query.semester - process.env.odd_even)/2;
-    year              = (Math.floor(year)).toString();
+    console.log("Year is : "+year);
+    //year              = (Math.floor(year)).toString();
     var college_name  = req.query.college_name;
     var tablename     = college_name + '_' + type + '_' + year;
     var random        = Math.floor(Math.random()*(98989 - 12345 + 1) + 12345 );
@@ -44,8 +45,8 @@ module.exports = {
         console.log(er3);
         throw er3;
       }
-
-      if(res3[0]['s_' + semester]) {
+      //console.log(res3);
+      if(res3[0]['s_' + semester]=='1') {
         console.log(res3[0]['s_' + semester]);
         var obj = {'message' : "You have already filled your feedback, Thanks!"}
         console.log("user found in dump");
@@ -199,6 +200,9 @@ module.exports = {
 
   },
 
+
+//--------------------------feedback------------------------------//
+
   feedbackform : function(req,res) {
       console.log("Hit Feedback Form");
       //console.log(req.session.student);
@@ -232,18 +236,24 @@ module.exports = {
   feedback:function(req,res) {
 
       console.log(req.session.student);
-      var tablename = req.session.student.college_name + '_feedback_2017'; //Changes Every Year
+      var tablename = req.session.student.college_name +"_feedback_"+req.session.student.year_of_admission; //Changes Every Year
+      //console.log("feedback year : "+req.session.year);
       var feedbacks = req.body.teacherFeedback;
+      console.log("Feedback object" + feedbacks)
+      //console.log("Feed backs : "+feedbacks);
 
-      var dumptable = req.session.student.college_name + '_dump_2017' ;
+      var dumptable = req.session.student.college_name + '_dump_'+ req.session.student.year_of_admission;
       var enrollment_no = req.session.student.enrollment_no.toString();
       var year =req.session.student.year_of_admission;
       var semester  = req.session.student.semester;
       var table3 = req.session.student.college_name + '_student_' + year;
 
       console.log(enrollment_no);
-      console.log(semester);
+
+      //------------------semester ----------------------//
+      console.log("Semester : "+semester);
       //var hanu =0;
+      console.log("Feedback score  : ");
       if(req.session.student.college_name==null||feedbacks==null||req.session.student.enrollment_no==null) {
         console.log("Not All Fields set");
         res.send("400");
@@ -254,6 +264,7 @@ module.exports = {
             hanu =0;
             //console.log(feedback);
             var result = feedback.score;
+            console.log("Result : "+result);
             if(result.length==15 && feedback.feedbackId!=null) {
               var query='update '+ tablename+' set'+
                  ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
@@ -274,6 +285,7 @@ module.exports = {
            result[13]+','+ result[14]+  ')';
           // console.log(query2);
 
+          //total student calculation
             var sum=0;
 
             for(i=0;i<=14;i++) {
@@ -288,7 +300,7 @@ module.exports = {
 
               }
             };
-
+            console.log("results : "+result);
             con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],sum],function(err,Result){
               if(err)
                 console.log(err);
@@ -359,17 +371,19 @@ module.exports = {
                 console.log(err);
               else {
                // console.log("practical query 1", Result);
+               console.log("insertion in feedback table");
                 student.dumpInsert(result, dumptable, enrollment_no, feedback.subject_code, feedback.instructor_code.toString(), function(err3, result3) {
                   if(err3) {
                     console.log(err3);
                     throw err3;
                   }
-
+                  console.log("insertion in dump table");
                   student.markStudentEntry(table3, semester, Number(enrollment_no), function(err4, res4) {
                     if(err4) {
                       console.log(err4);
                       throw err4;
                     }
+                    console.log("student entry marked");
                       console.log("theory feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ');
                   })
                 })
@@ -428,7 +442,7 @@ module.exports = {
     var course  = req.query.course;
     var stream  = req.query.stream;
 
-    var year = 2017 - (semester + odd_even )/2;
+    var year = 2017 - (semester + odd_even)/2;
 
 
 
@@ -457,7 +471,7 @@ module.exports = {
 
     var collegeName = req.query.collegeName;
     var semester = parseInt(req.query.semester);
-    var year = 2017 - (semester + odd_even )/2;
+    var year = 2018 - (semester + odd_even )/2;
 
     var userDetails = {
       stream:[],
@@ -493,5 +507,84 @@ module.exports = {
         return;
       })
     })
- }
+ },
+
+
+
+
+ studentData: function(req, res) {
+
+  console.log(req.query);
+  var college_name = req.query.college;
+  var course = req.query.course;
+  var stream = req.query.stream;
+
+  if (process.env.year == 2018) {
+    var tableName = `${college_name}_student_${process.env.year}`;
+    var initQuery =
+      "CREATE TABLE IF NOT EXISTS ?? (`enrollment_no` bigint(20) NOT NULL,`name` varchar(100) NOT NULL,`email` varchar(100) DEFAULT NULL,`phone` varchar(100) DEFAULT NULL,`year_of_admission` int(4) NOT NULL,`password` varchar(600) NOT NULL,`course` varchar(100) NOT NULL,`stream` varchar(100) NOT NULL,`s_1` int(11) DEFAULT '0',`s_9` int(11) DEFAULT '0',`s_8` int(11) DEFAULT '0',`s_5` int(11) DEFAULT '0',`s_6` int(11) DEFAULT '0',`s_4` int(11) DEFAULT '0',`s_3` int(11) DEFAULT '0',`s_2` int(11) DEFAULT '0',`s_7` int(11) DEFAULT '0',`s_10` int(11) DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+    con.query(initQuery, [tableName], err => {
+      if (err) {
+        res.status(500).send(
+          JSON.stringify({
+            err,
+            dataInserted: false,
+            message: "Init Query Failed"
+          })
+        );
+      }
+    });
+    // console.log(req.query.data, typeof req.query.data);
+    // var data = JSON.parse(req.query.data);
+
+    // console.log(req.query.data, typeof req.query.data);
+    async.each(
+        req.query.data,
+      (singleStudent, callback) => {
+
+        var student = JSON.parse(singleStudent);
+        // console.log(student.enrollment_no, typeof student);
+
+        var query =
+          "INSERT INTO ?? (`enrollment_no`, `name`, `email`, `phone`, `year_of_admission`, `password`, `course`, `stream`, `s_1`, `s_9`, `s_8`, `s_5`, `s_6`, `s_4`, `s_3`, `s_2`, `s_7`, `s_10`) VALUES " +
+          "(?,?,?,?,?,0000,?,?, 0 ,0,0,0,0,0,0,0,0,0)";
+        con.query(
+          query,
+          [
+            tableName,
+            student.enrollment_no,
+            student.name,
+            student.email,
+            student.phone,
+            process.env.year,
+            course,
+            stream
+          ],
+          err => {
+            if (err) {
+              callback(err);
+            } else {
+              callback();
+            }
+          }
+        );
+      },
+      err => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("Query Insertion Failed");
+        } else {
+          console.log("Insertion Complete");
+          res.status(200).json({
+            dataInserted: true,
+            message: "Success"
+          });
+        }
+      }
+    );
+  } else {
+    res.status(500).send("Server Down");
+  }
+}
+
 }
