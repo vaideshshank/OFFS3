@@ -10,6 +10,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 	$scope.buttonToggler = true;
 	$scope.disabled = false;
 	$scope.checkDisabled = false;
+	$scope.disablenextattributes = false;
 
 	$scope.teacherFeedback = [
 		// Theory: {},
@@ -18,34 +19,54 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 	$scope.attributesList = {
 		theory: [
-			"Coverage of all the topics prescribed in the syllabus, with adequate depth and detail.",
-			"Compliance with the number of teaching hours allotted and actual hours taught.",
-			"Clarity of speech, pace of teaching, logical flows as well as continuity of thought and expression in lectures.",
-			"Ability to explain the concepts clearly.",
-	    	"Teaching methodology and the use of teaching aids (blackboard/power point presentation/OHP) adequately served your learning needs.",
-	    	"Knowledge of the teacher in the subject.",
-	    	"The extent of interaction students involvement students participation in discussing the subject matter.",
-			"Encourages and makes you feel comfortable about asking questions. ",
-			"Provides enthusiastic, clear and satisfactory response to students questions.",
-			"Teacher generated enough interest and stimulated your intellectual curiosity.",
-			"Teacher enhanced your capability to critically analyze and scrutinize scientific information.",
-			"Stimulates and maintains interest and attention of students throughout the course.",
-			"Because of the teacher you felt enthusiastic about studying the subject.",
-			"How much enriched did you feel at the end of the course.",
-			"Teaching helped you to develop an independent thinking/perspective about the subject."
+			"The teacher comes prepared for classes.",
+			"The teacher is effective in communicatiing in class.",
+			"The teacher makes the subject practically relevant by linking it with real life business situations.",
+			"The teacher seemed enthusiastic about taking classes.",
+	    	"The teaching sessions have been participative and interactive.",
+	    	"The teacher's presentations have enhanced my understanding of the subject.",
+			"I have enjoyed attending classes of this teacher.",
+			"The teacher adequately answers questions asked in the class.",
+			"Students pay attention to what the teacher teaches in class. ",
+			"The teacher seems to have a command over the subjects.",
+			"Teaching of the course has been well organised.",
+			"The teacher seems to care whether the students have learned.",
+			"Help from teacher has been readily available for questions and/or other problems/assignments outside the class.",
+			"The teacher has stimulated my interest in the subject.",
+			"I feel it is worth attending classes of this teacher.",
+			"The teacher is regular in taking lecture classes.",
+			"The teaching adequately covers all the topics listed in the syllabus.",
+			"The internal assesment system and its components were made clear at the beginning if this course.",
+			"The internal assesment system used by the teacher has contributed to my learning experience.",
+			"Overall performance of the teacher."
+			
 		],
 		practicals: [
-			"The extent of direct supervision by the teacher throughout the practical.",
-			"The theoretical basis technical considerations related to the experimental practical exercises were explained well.",
-			"The experiments generated enough interest and helped in developing/strengthening your concepts.",
-		    "Created sufficient opportunity for students to practice their skill.",
-		    "Adequate time was devoted to interactive sessions to discuss analyze the results and clarify doubts of students.",
-			"The teacher helped you build your capability to think and plan the experiments independently and analyze the results critically",
-			"Encourages and makes you feel comfortable about asking questions.",
-			"Provides enthusiastic, clear and satisfactory response to student s questions."
+			"The teacher comes prepared for classes.",
+			"The teacher is effective in communicatiing in class.",
+			"The teacher makes the subject practically relevant by linking it with real life business situations.",
+			"The teacher seemed enthusiastic about taking classes.",
+	    	"The teaching sessions have been participative and interactive.",
+	    	"The teacher's presentations have enhanced my understanding of the subject.",
+			"I have enjoyed attending classes of this teacher.",
+			"The teacher adequately answers questions asked in the class.",
+			"Students pay attention to what the teacher teaches in class. ",
+			"The teacher seems to have a command over the subjects.",
+			"Teaching of the course has been well organised.",
+			"The teacher seems to care whether the students have learned.",
+			"Help from teacher has been readily available for questions and/or other problems/assignments outside the class.",
+			"The teacher has stimulated my interest in the subject.",
+			"I feel it is worth attending classes of this teacher.",
+			"The teacher is regular in taking lecture classes.",
+			"The teaching adequately covers all the topics listed in the syllabus.",
+			"The internal assesment system and its components were made clear at the beginning if this course.",
+			"The internal assesment system used by the teacher has contributed to my learning experience.",
+			"Overall performance of the teacher."
 		]
 
 	}
+	// 
+	// localStorage.clear();
 
 	$scope.getInstructorsForFeedback = function() {
 
@@ -62,14 +83,26 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		// var course = "B.Arch";
 		// var stream = "Section A";
 		// var semester = "1";
-
-		var course = $rootScope.userInfo.course;;
-
+		var i=0;
+		var course = $rootScope.userInfo.course;
+		// localStorage.setItem("course", JSON.stringify($rootScope.userInfo.course));
+		
 		var stream = $rootScope.userInfo.stream;
+		// localStorage.setItem("stream", JSON.stringify($rootScope.userInfo.stream));
 		var semester = $rootScope.semester;
-
+		// localStorage.setItem("semester", JSON.stringify($rootScope.semester));
+		// var data = ["course", "stream", "semester"];
+		// localStorage.setItem("studentInfo",JSON.stringify(data));
 		console.log($rootScope);
-
+		
+		// var obj = {
+		//     email: userInfo.email,
+		//     course: userInfo.course,
+		//     stream: userInfo.stream,
+		//     semester: userInfo.semester
+		// };	
+		// localStorage.setItem("studentInfo",JSON.stringify(obj));
+		// console.log(studentInfo);
 		console.log(course, stream, semester);
 		userService.getInstructorsForFeedback($scope.college_name, course, stream, semester, function(response) {
 			$scope.feedback = response;
@@ -107,18 +140,39 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
         	console.log($scope.practicalTeacher)
 		})
 	}
-
+	var j=0;
+	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToTheoryTeacher = function(theoryTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
+		// console.log("Proceed");
+		if(isNaN($scope.feedbackGivenByTheUser[index])){
+		alert("Invalid Feedback Entry!");
+		// console.log("Compare, not a number");
+		return;
+		}
+		
+		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
+			alert("Invalid Feedback Entry!");
+			// console.log("Reached else if");
+			return;
+		}
 
+		
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', theoryTeacher.feedback_id]);
+		// var feedback = function($scope.feedbackGivenByTheUser);
 
+		localStorage.setItem('Feedback'+j, $scope.feedbackGivenByTheUser);
+				j++;
+		
+		// localStorage.setItem("stringFeedback[i]", JSON.stringify(feedback));
 		// console.log(foundTeacher);
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				
+				// co = JSON.parse(localStorage.getItem('stringFeedback');
 			} else {
 				// console.log("yaham takk aagya abh aage kaya hoga")
 				foundTeacher.score[$scope.pointer] = $scope.feedbackGivenByTheUser[index];
@@ -137,18 +191,37 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		}
 
 		$scope.checkOccurence++;
+		i++;
 	}
-
+	// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
+	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToPracticalTeacher = function(practicalTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
+		// console.log("Proceed");
+		if(isNaN($scope.feedbackGivenByTheUser[index])){
+		alert("Invalid Feedback Entry!");
+		// console.log("compare, not a number");
+
+		return;
+		}
+		else if($scope.feedbackGivenByTheUser[index]<1 && $scope.feedbackGivenByTheUser[index]>5 ){
+			alert("Invalid Feedback Entry!");
+			// console.log("Reached else if");
+			return;
+		
+		}
 
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', practicalTeacher.feedback_id]);
-
+		
+		
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer2] == null) {
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
+				// const data = JSON.parse(localStorage.getItem('stringFeedback');
+				
 			} else {
 				foundTeacher.score[$scope.pointer2] = $scope.feedbackGivenByTheUser[index];
 			}
@@ -162,7 +235,18 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 			})
 		}
 		$scope.checkOccurence++;
-
+		
+		
+		$scope.checkIndex = function(){
+		
+			for(var x=0; x<$scope.feedbackGivenByTheUser.length; x++){
+				if($scope.feedbackGivenByTheUser[x]==null){
+				alert("Please fill all the entries first");
+				return;
+				}	
+			}
+		}
+		
 		if ($scope.practicalTeacher.length <= $scope.checkOccurence) {
 			$scope.buttonToggler = false;
 		}
@@ -187,6 +271,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 			}
 		}
 	}
+	
 
 	$scope.decreasePointer = function() {
 		$scope.pointer -=1;
@@ -258,7 +343,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 	$scope.sendFeedbackEvaluation = function() {
 
-
+	
 
 		$scope.disabled = true;
 
@@ -278,12 +363,18 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 				$location.path("/thankYouPage");
 			}
 		})
+
+		
 	}
 
 
 	$scope.getInstructorsForFeedback();
 
-
+	
+	
+	
+	
+	
 
 
 	$scope.open = function() {
