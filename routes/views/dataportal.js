@@ -107,9 +107,9 @@ module.exports = {
 			console.log(subjectId);
 			console.log(subjectName);
 			console.log(type);
-			var subjectAllocationTable = school+'_subject_allocation';
+			var subjectAllocationTable = school+'_subject_allocation_'+process.env.year;
 			var batchAllocatiomTable=school+'_batch_allocation';
-			var feedbackTable=school+'_feedback_2017';
+			var feedbackTable=school+'_feedback_'+process.env.year;
 			var getBatch='select batch_id from ' + batchAllocatiomTable + ' where course=? and stream=? and semester = ?';
 			var insertSA = 'INSERT INTO '+subjectAllocationTable+
 							' (`feedback_id`, `batch_id`,`subject_code`, `instructor_code`, `subject_name`, `type`) VALUES'+
@@ -157,7 +157,9 @@ module.exports = {
 
 			}
 			else{
+				console.log("Data recorded");
 				var obj = { status: 200, message: 'Your data is recorded' };
+				console.log(obj);
 				res.json(obj);
 			}
 		})

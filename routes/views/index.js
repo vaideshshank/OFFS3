@@ -211,7 +211,7 @@ module.exports = {
           console.log(req.session.student);
           var college_name  = req.session.student.college_name;
 
-          var tablename1    = college_name + '_subject_allocation'  ;  //Changes Every Year
+          var tablename1    = college_name + '_subject_allocation_'+process.env.year  ;  //Changes Every Year
           var tablename2    = college_name + '_batch_allocation';
           var tablename3    = 'employee';
           var course        = req.session.student.course;
@@ -236,13 +236,13 @@ module.exports = {
   feedback:function(req,res) {
 
       console.log(req.session.student);
-      var tablename = req.session.student.college_name +"_feedback_"+req.session.student.year_of_admission; //Changes Every Year
+      var tablename = req.session.student.college_name +"_feedback_"+process.env.year ; //Changes Every Year
       //console.log("feedback year : "+req.session.year);
       var feedbacks = req.body.teacherFeedback;
       console.log("Feedback object" + feedbacks)
       //console.log("Feed backs : "+feedbacks);
 
-      var dumptable = req.session.student.college_name + '_dump_'+ req.session.student.year_of_admission;
+      var dumptable = req.session.student.college_name + '_dump_'+process.env.year ;
       var enrollment_no = req.session.student.enrollment_no.toString();
       var year =req.session.student.year_of_admission;
       var semester  = req.session.student.semester;
@@ -272,17 +272,19 @@ module.exports = {
                  ' at_7 = concat(at_7,?),  at_8 = concat(at_8,?),  at_9 = concat(at_9,?), '  +
                  ' at_10 = concat(at_10,?),at_11 = concat(at_11,?),at_12 = concat(at_12,?), '+
                  ' at_13 = concat(at_13,?),at_14 = concat(at_14,?),at_15 = concat(at_15,?) ,'+
+                 ' at_13 = concat(at_16,?),at_14 = concat(at_17,?),at_15 = concat(at_18,?) ,'+
+                 ' at_13 = concat(at_19,?),at_14 = concat(at_20,?),'+
                  ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                  ' total = total + ? ' +
                     'where feedback_id = ' +feedback.feedbackId;
            // console.log("something");
             var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
-          'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
+          'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15,attribute_16,attribute_17,attribute_18,attribute_19,attribute_20) '+
           'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
-           result[13]+','+ result[14]+  ')';
+           result[13]+','+ result[14]+ ','+ result[15] +','+result[16]+','+result[17]+','+result[18]+','+result[19]+')';
           // console.log(query2);
 
           //total student calculation
@@ -301,7 +303,7 @@ module.exports = {
               }
             };
             console.log("results : "+result);
-            con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],sum],function(err,Result){
+            con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],result[15],result[16],result[17],result[18],result[19],sum],function(err,Result){
               if(err)
                 console.log(err);
               else{
@@ -340,6 +342,10 @@ module.exports = {
                    ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
                    ' at_4 = concat(at_4,?),  at_5 = concat(at_5,?),  at_6 = concat(at_6,?), '  +
                    ' at_7 = concat(at_7,?),  at_8 = concat(at_8,?), '+
+                   ' at_9 = concat(at_9,?),  at_10 = concat(at_10,?),  at_11 = concat(at_11,?), '  +
+                   ' at_12 = concat(at_12,?),  at_13 = concat(at_13,?),  at_14 = concat(at_14,?), '  +
+                   ' at_15 = concat(at_15,?),  at_16 = concat(at_16,?),  at_17 = concat(at_17,?), '  +
+                   ' at_18 = concat(at_18,?),  at_19 = concat(at_19,?),  at_20 = concat(at_20,?), '  +
                    ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                    ' total = total + ? ' +
                       'where feedback_id = ' +feedback.feedbackId;
@@ -442,7 +448,7 @@ module.exports = {
     var course  = req.query.course;
     var stream  = req.query.stream;
 
-    var year = 2017 - (semester + odd_even)/2;
+    var year = process.env.year - (semester - odd_even)/2;
 
 
 
@@ -471,7 +477,7 @@ module.exports = {
 
     var collegeName = req.query.collegeName;
     var semester = parseInt(req.query.semester);
-    var year = 2018 - (semester + odd_even )/2;
+    var year = process.env.year - (semester - odd_even )/2;
 
     var userDetails = {
       stream:[],

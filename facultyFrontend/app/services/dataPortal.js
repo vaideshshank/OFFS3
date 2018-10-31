@@ -1,4 +1,4 @@
-faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope) {
+faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope','$window','$location', function($http, $timeout, $rootScope,$window,$location){
 	return {
 		getCourse: function(college, callback) {
 			$http({
@@ -12,7 +12,6 @@ faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope', function
 					console.log(response.data);
 					console.log(typeof response.data);
 					callback(response.data);
-					
 				}
 			}, function(response) {
 				if (callback) {
@@ -95,7 +94,11 @@ faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope', function
 				}
 			}).then(function(response) {
 				if (callback) {
+					//console.log("RESPONSE : "+response);
+					$window.alert("Data inserted");
+
 					callback(response.data);
+					$location.path("/");
 				}
 			}, function(response) {
 				if (callback) {

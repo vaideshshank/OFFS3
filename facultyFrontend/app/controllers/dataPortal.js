@@ -1,4 +1,4 @@
-faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, $location) {
+faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$location',function($http, $scope, dataPortalService, $location) {
 
 	$scope.disabled = false;
 
@@ -151,12 +151,13 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 	$scope.submit = function() {
 
 		$scope.disabled = true;
-
+		//$window.alert("Data recorded");
 		dataPortalService.sendSubjectData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, $scope.subjects_data, function(res) {
 			if (res.data) {
 				if (res.data.status == 200) {
-					alert(res.data.message);
-					$location.path("/");
+					//console.log("Data recorded");
+					//$window.alert("Data recorded");
+					
 				} else {
 					alert(res.data.message);
 					$location.path("/dataPortal");
@@ -177,4 +178,4 @@ faculty.controller('dataPortalCtrl', function($http, $scope, dataPortalService, 
 		$scope.getTeachers();
 	}
 
-})
+}])
