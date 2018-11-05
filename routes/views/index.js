@@ -114,7 +114,7 @@ module.exports = {
     }
 
     var year = process.env.year - (req.query.semester - process.env.odd_even)/2;
-    year = Math.floor(year).toString();
+    year = year.toString();
     var tablename = req.query.tablename + '_' + year;
     var enrollment_no = Number(req.query.enrollment_no);
     var password = req.query.password;
@@ -239,12 +239,12 @@ module.exports = {
       var tablename = req.session.student.college_name +"_feedback_"+process.env.year ; //Changes Every Year
       //console.log("feedback year : "+req.session.year);
       var feedbacks = req.body.teacherFeedback;
-      console.log("Feedback object" + feedbacks)
+      console.log("Feedback object : " + feedbacks)
       //console.log("Feed backs : "+feedbacks);
 
-      var dumptable = req.session.student.college_name + '_dump_'+process.env.year ;
-      var enrollment_no = req.session.student.enrollment_no.toString();
       var year =req.session.student.year_of_admission;
+      var dumptable = req.session.student.college_name + '_dump_'+year ;
+      var enrollment_no = req.session.student.enrollment_no.toString();
       var semester  = req.session.student.semester;
       var table3 = req.session.student.college_name + '_student_' + year;
 
@@ -262,9 +262,9 @@ module.exports = {
             var error=0;
             async.each(feedbacks,function(feedback,callback) {
             hanu =0;
-            //console.log(feedback);
+            console.log("Feedbacks of teacher : "+feedback);
             var result = feedback.score;
-            console.log("Result : "+result);
+            //console.log("Result : "+result);
             if(result.length==15 && feedback.feedbackId!=null) {
               var query='update '+ tablename+' set'+
                  ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
@@ -272,8 +272,8 @@ module.exports = {
                  ' at_7 = concat(at_7,?),  at_8 = concat(at_8,?),  at_9 = concat(at_9,?), '  +
                  ' at_10 = concat(at_10,?),at_11 = concat(at_11,?),at_12 = concat(at_12,?), '+
                  ' at_13 = concat(at_13,?),at_14 = concat(at_14,?),at_15 = concat(at_15,?) ,'+
-                 ' at_13 = concat(at_16,?),at_14 = concat(at_17,?),at_15 = concat(at_18,?) ,'+
-                 ' at_13 = concat(at_19,?),at_14 = concat(at_20,?),'+
+                 ' at_16 = concat(at_16,?),at_17 = concat(at_17,?),at_18 = concat(at_18,?) ,'+
+                 ' at_19 = concat(at_19,?),at_20 = concat(at_20,?),'+
                  ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                  ' total = total + ? ' +
                     'where feedback_id = ' +feedback.feedbackId;
@@ -290,7 +290,7 @@ module.exports = {
           //total student calculation
             var sum=0;
 
-            for(i=0;i<=14;i++) {
+            for(i=0;i<=20;i++) {
               result[i]=Math.round(Number(result[i]));
 
               if(result[i]>5&&result[i]<1) {

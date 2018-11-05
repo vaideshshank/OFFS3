@@ -55,7 +55,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 	$scope.findSemister = function() {
 		var roll = _.clone($scope.user.rollno);
 		var	year = roll.substring(roll.length -2, roll.length);
-		$scope.user.semister = (17 - year)*2 + 1;
+		$scope.user.semister = (18 - year)*2 + 1;
 		$rootScope.semester = $scope.user.semister;
 	}
 
