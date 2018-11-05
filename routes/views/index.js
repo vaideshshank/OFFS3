@@ -262,10 +262,10 @@ module.exports = {
             var error=0;
             async.each(feedbacks,function(feedback,callback) {
             hanu =0;
-            console.log("Feedbacks of teacher : "+feedback);
+            //console.log("Feedbacks of teacher : "+ feedback);
             var result = feedback.score;
-            //console.log("Result : "+result);
-            if(result.length==15 && feedback.feedbackId!=null) {
+            console.log("Result : "+result.length);
+            if(result.length==20 && feedback.feedbackId!=null) {
               var query='update '+ tablename+' set'+
                  ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
                  ' at_4 = concat(at_4,?),  at_5 = concat(at_5,?),  at_6 = concat(at_6,?), '  +
@@ -290,7 +290,7 @@ module.exports = {
           //total student calculation
             var sum=0;
 
-            for(i=0;i<=20;i++) {
+            for(i=0;i<20;i++) {
               result[i]=Math.round(Number(result[i]));
 
               if(result[i]>5&&result[i]<1) {

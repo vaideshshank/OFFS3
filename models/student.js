@@ -99,7 +99,7 @@ module.exports = {
 	markStudentEntry: function(table, semester, enrollment_no, callback) {
 		var query = 'update ?? set s_? = 1 where enrollment_no = ?';
 
-		con.query(query, [table, semester, enrollment_no.toString()], function(err, rows) {
+		con.query(query, [table, semester.toString(), enrollment_no.toString()], function(err, rows) {
 			if (err) {
 				console.log(err);
 				throw err;
