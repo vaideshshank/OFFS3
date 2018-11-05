@@ -1,4 +1,4 @@
-faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope) {
+faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope,$location) {
 	return {
 		send_details: function(collegeName, user, callback) {
 		  $http({
@@ -107,6 +107,11 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($htt
             }).then(function(response) {
                 if (callback) {
                     callback(response.data);
+                    
+                    console.log(response);
+                
+                    $location.path("/thankYouPage");
+                
                 }
             }, function(response) {
                 console.error(response);

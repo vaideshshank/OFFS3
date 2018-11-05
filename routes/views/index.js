@@ -323,7 +323,7 @@ module.exports = {
                         throw err4;
                       } else {
                         console.log("theory feedback id " +feedback.feedbackId + ' of length '+ result.length +' updated ');
-
+                        console.log("user feedback recorded set true");
                       }
 
                     })
