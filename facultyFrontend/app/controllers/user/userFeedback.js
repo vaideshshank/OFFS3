@@ -356,12 +356,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
 			console.log(response);
-			if (response == 400) {
-				alert("something wrong happened");
-				// $location.path("/")
-			} else {
-				$location.path("/thankYouPage");
-			}
+			
 		})
 
 		

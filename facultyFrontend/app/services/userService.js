@@ -1,4 +1,4 @@
-faculty.factory('userService', ['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope,$location) {
+faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', function($http, $timeout, $rootScope,$location) {
 	return {
 		send_details: function(collegeName, user, callback) {
 		  $http({
