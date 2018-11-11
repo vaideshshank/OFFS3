@@ -1,4 +1,4 @@
-var connection=require('express-myconnection');
+//var connection=require('express-myconnection');
 var mysql=require('mysql');
 
 

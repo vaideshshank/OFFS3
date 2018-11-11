@@ -1,4 +1,4 @@
-faculty.factory('studentDataService',['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope) {
+faculty.factory('studentDataService',['$http', '$timeout', '$rootScope','$location','$window', function($http, $timeout, $rootScope,$location,$window) {
 	return {
 		getCourse: function(college, callback) {
 			$http({
@@ -72,12 +72,16 @@ faculty.factory('studentDataService',['$http', '$timeout', '$rootScope', functio
 				}
 			}).then(function(response) {
 				if (callback) {
+					$window.alert("Student data recorded");
 					callback(response.data);
+					//$location.path("/");
 				}
 			}, function(response) {
 				if (callback) {
+					$window.alert("Student Entry exists");
 					console.error(response);
 					callback(response);
+					//$location.path("/studentData");
 				}
 			})
 		}

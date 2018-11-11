@@ -1,4 +1,4 @@
-faculty.controller('studentDataCtrl', function ($http, $scope, dataPortalService, studentDataService, $location) {
+faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', 'studentDataService', '$location', '$window',function ($http, $scope, dataPortalService, studentDataService, $location, $window) {
 
 	$scope.disabled = false;
 	$scope.data = [];
@@ -141,12 +141,13 @@ faculty.controller('studentDataCtrl', function ($http, $scope, dataPortalService
 
 		studentDataService.sendData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear, $scope.data, function (res) {
 			if (res.data) {
+				
 				if (res.data.status == 200) {
-					alert(res.data.message);
-					$location.path("/");
+					$window.alert("Student data recorded");
+					//$location.path("/");
 				} else {
-					alert(res.data.message);
-					$location.path("/studentData");
+					$window.alert("Student Entry exists");
+					//$location.path("/studentData");
 				}
 			}
 		})
@@ -333,4 +334,4 @@ faculty.controller('studentDataCtrl', function ($http, $scope, dataPortalService
 		return true;
 	}
 
-})
+}])
