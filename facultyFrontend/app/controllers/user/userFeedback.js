@@ -1,4 +1,4 @@
-faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, $document, $location, userService) {
+faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', '$document', '$location', 'userService',function($scope, $rootScope, $uibModal, $log, $document, $location, userService) {
 
 
 	$scope.feedback;
@@ -355,6 +355,8 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
 		}
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
+			$location.path('/thankYouPage');
+			alert("Feedback recorded");
 			console.log(response);
 			
 		})
@@ -390,7 +392,7 @@ faculty.controller('feedbackCtrl',function($scope, $rootScope, $uibModal, $log, 
         });
     };
 
-});
+}]);
 
 
 faculty.controller('SaveFilterCtrl', function ($uibModal, $uibModalInstance, $scope, $window, $sce, $route, $location, $rootScope, $http, $templateCache, userService) {

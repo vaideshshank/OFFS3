@@ -109,6 +109,7 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', f
                     callback(response.data);
                     
                     console.log(response);
+                    alert("Feedback recorded");
                     $location.path("/thankYouPage");
                 
                 }

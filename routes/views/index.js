@@ -72,7 +72,7 @@ module.exports = {
 
             } else {
               console.log('ssssssssssssssssssssaaaaaaaaaaaaaaarrrrrrrrrrrrrrr');
-               nodemailer.createTestAccount((err, account) => {
+               /*nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
                    service: 'gmail',
                    auth: {
@@ -96,7 +96,7 @@ module.exports = {
                      res.send("200");
                    }
                  });
-               });
+               });*/
 
               res.send("200");
             }
@@ -243,7 +243,7 @@ module.exports = {
       //console.log("Feed backs : "+feedbacks);
 
       var year =req.session.student.year_of_admission;
-      var dumptable = req.session.student.college_name + '_dump_'+year ;
+      var dumptable = req.session.student.college_name + '_dump_'+process.env.year ;
       var enrollment_no = req.session.student.enrollment_no.toString();
       var semester  = req.session.student.semester;
       var table3 = req.session.student.college_name + '_student_' + year;
@@ -405,7 +405,7 @@ module.exports = {
                 res.status(err);
               }
               else{
-                   nodemailer.createTestAccount((err, account) => {
+                   /*nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -431,7 +431,7 @@ module.exports = {
                     }
                   });
 
-                  });
+                  });*/
                   console.log("Thanks for the feedback")
               }
 
@@ -520,13 +520,17 @@ module.exports = {
 
  studentData: function(req, res) {
 
+ 
   console.log(req.query);
+  var enrNo=JSON.parse(req.query.data[0]).enrollment_no;
+  var admYr="20"+enrNo.slice(enrNo.length-2);
+  //var year= process.env.year - ( - process.env.odd_even)/2;
   var college_name = req.query.college;
   var course = req.query.course;
   var stream = req.query.stream;
 
   if (process.env.year == 2018) {
-    var tableName = `${college_name}_student_${process.env.year}`;
+    var tableName = `${college_name}_student_${admYr}`;
     var initQuery =
       "CREATE TABLE IF NOT EXISTS ?? (`enrollment_no` bigint(20) primary key,`name` varchar(100) NOT NULL,`email` varchar(100) DEFAULT NULL,`phone` varchar(100) DEFAULT NULL,`year_of_admission` int(4) NOT NULL,`password` varchar(600) DEFAULT NULL,`course` varchar(100) NOT NULL,`stream` varchar(100) NOT NULL,`s_1` int(11) DEFAULT '0',`s_9` int(11) DEFAULT '0',`s_8` int(11) DEFAULT '0',`s_5` int(11) DEFAULT '0',`s_6` int(11) DEFAULT '0',`s_4` int(11) DEFAULT '0',`s_3` int(11) DEFAULT '0',`s_2` int(11) DEFAULT '0',`s_7` int(11) DEFAULT '0',`s_10` int(11) DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;";
     con.query(initQuery, [tableName], err => {
@@ -559,7 +563,7 @@ module.exports = {
                  student.name,
                  student.email,
                  student.phone,
-                 process.env.year,
+                 Number(admYr),
                  course,
                  stream
                ],

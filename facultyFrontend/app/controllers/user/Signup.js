@@ -1,4 +1,4 @@
-faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
+faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userService', 'facultyService', 'vcService', 'pvcService', 'teacherService',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
 
 	$scope.user = {};
 	$scope.name = "";
@@ -128,15 +128,17 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response == 400) {
-					$location.path('/')
+					$location.path("/");
 
 				} else if(response.message) {
-					alert(response.message)
+					alert(response.message);
+					$location.path("/thankYouPage");
+					
 				}else {
 					$rootScope.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
 					$rootScope.rollno = $scope.user.rollno;
 					console.log($rootScope);
-					$location.path('/verify');
+					$location.path("/verify");
 				}
 			})
 		}
@@ -155,13 +157,13 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 		userService.verifyUser($scope.otp, tablename, rollno, $rootScope.semester, function(response) {
 			if (response == 400) {
 				alert('User is not verified');
-				$location.path('/');
+				$location.path("/");
 			} else {
 				$rootScope.userDetails = response;
 				console.log($rootScope);
-				$location.path('/dashboard');
+				$location.path("/dashboard");
 			}
 
 		})
 	}
-})
+}])
