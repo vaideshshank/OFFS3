@@ -13,7 +13,7 @@ var express = require("express"),
 controller = require("./models/config");
 require("dotenv").config();
 
-process.env.year = 2018;
+
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 

@@ -1,4 +1,4 @@
-window.faculty = angular.module('faculty', ['ngAnimate', 'ngRoute', 'ui.bootstrap'])
+window.faculty = angular.module('faculty', ["ngStorage",'ngAnimate', 'ngRoute', 'ui.bootstrap'])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider

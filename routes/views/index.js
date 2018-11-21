@@ -134,6 +134,7 @@ module.exports = {
         if(password != result[0].password) {
           console.log("Password Did Not match");
           res.status(400);
+          
         } else {
           console.log(result[0]);
           var temp=tablename.split("_");

@@ -1,4 +1,4 @@
-faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userService) {
+faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userService,$localStorage) {
 
 	$scope.user = {}
 
@@ -11,20 +11,20 @@ faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userS
 	}
 
 	$scope.getUser = function() {
-		console.log($rootScope);
+		console.log($localStorage);
 
-		var enrollment_no = $rootScope.rollno;
-		var tablename = $rootScope.userDetails.tablename;
+		var enrollment_no = $localStorage.rollno;
+		var tablename = $localStorage.userDetails.tablename;
 
 		var table=tablename.split("_");
 		$scope.college_name=table[0];
 
-		$scope.tablename = $rootScope.userDetails.tablename;
+		$scope.tablename = $localStorage.userDetails.tablename;
 		console.log(enrollment_no + ' ' + tablename);
 		userService.getUser(enrollment_no, tablename, function(response) {
 			$scope.user = response[0];
-			$rootScope.userInfo = response[0];
-			console.log($rootScope);
+			$localStorage.userInfo = response[0];
+			console.log($localStorage);
 		})
 	}
 

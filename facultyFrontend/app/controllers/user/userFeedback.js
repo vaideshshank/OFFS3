@@ -1,4 +1,4 @@
-faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', '$document', '$location', 'userService',function($scope, $rootScope, $uibModal, $log, $document, $location, userService) {
+faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', '$document', '$location', 'userService','$localStorage',function($scope, $rootScope, $uibModal, $log, $document, $location, userService,$localStorage) {
 
 
 	$scope.feedback;
@@ -70,30 +70,30 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 	$scope.getInstructorsForFeedback = function() {
 
-		console.log($rootScope);
+		console.log($localStorage);
 
-		var tablename = $rootScope.tablename;
+		var tablename = $localStorage.tablename;
 		var table=tablename.split("_");
 
 		$scope.college_name=table[0];
 		// $scope.college_name = "usap";
 
-		$scope.email = $rootScope.userInfo.email;
+		$scope.email = $localStorage.userInfo.email;
 		// $scope.email = "hanugautam96@gmail.com";
 		// var course = "B.Arch";
 		// var stream = "Section A";
 		// var semester = "1";
-		var i=0;
-		var course = $rootScope.userInfo.course;
+		
+		var course = $localStorage.userInfo.course;
 		// localStorage.setItem("course", JSON.stringify($rootScope.userInfo.course));
 		
-		var stream = $rootScope.userInfo.stream;
+		var stream = $localStorage.userInfo.stream;
 		// localStorage.setItem("stream", JSON.stringify($rootScope.userInfo.stream));
-		var semester = $rootScope.semester;
+		var semester = $localStorage.semester;
 		// localStorage.setItem("semester", JSON.stringify($rootScope.semester));
 		// var data = ["course", "stream", "semester"];
 		// localStorage.setItem("studentInfo",JSON.stringify(data));
-		console.log($rootScope);
+		console.log($localStorage);
 		
 		// var obj = {
 		//     email: userInfo.email,
@@ -140,7 +140,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
         	console.log($scope.practicalTeacher)
 		})
 	}
-	var j=0;
+	var j=0,i=0;
 	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToTheoryTeacher = function(theoryTeacher, index) {
 		if ($scope.feedbackGivenByTheUser[index] == null) {
@@ -351,7 +351,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			college_name: $scope.college_name,
 			teacherFeedback: $scope.teacherFeedback,
 			email: $scope.email,
-			enrollment_no: 	$rootScope.userInfo.enrollment_no
+			enrollment_no: 	$localStorage.userInfo.enrollment_no
 		}
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
@@ -395,7 +395,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 }]);
 
 
-faculty.controller('SaveFilterCtrl', function ($uibModal, $uibModalInstance, $scope, $window, $sce, $route, $location, $rootScope, $http, $templateCache, userService) {
+faculty.controller('SaveFilterCtrl', function ($uibModal, $uibModalInstance, $scope, $window, $sce, $route, $location, $localStorage, $http, $templateCache, userService) {
 
     $scope.dismiss = function() {
 		$uibModalInstance.dismiss();

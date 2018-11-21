@@ -6,8 +6,7 @@ var mysql = require("mysql");
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  database: "sdc",
-  password: "silentlad"
+  database: "sdc"
 });
 con.connect(function(err) {
   if (err) throw err;
