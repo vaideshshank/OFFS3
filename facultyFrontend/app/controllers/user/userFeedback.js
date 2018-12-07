@@ -363,7 +363,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			$location.path('/thankYouPage');
 			alert("Feedback recorded");
 			console.log(response);
-			
+			$localStorage.clear();	
 		})
 
 		
