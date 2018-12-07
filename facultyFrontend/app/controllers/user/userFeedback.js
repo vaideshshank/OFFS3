@@ -1,12 +1,13 @@
 faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', '$document', '$location', 'userService','$localStorage',function($scope, $rootScope, $uibModal, $log, $document, $location, userService,$localStorage) {
 
-	$scope.local=$localStorage;
-
+	//$scope.pointer=$scope.pointer;
+	//$scope.pointer2=$scope.pointer2;
+	
 	$scope.feedback;
 	$scope.pointer  = 0;
 	$scope.pointer2 = -1;
-	$localStorage.pointer=$scope.pointer;
-	$localStorage.pointer2=$scope.pointer2;
+	//$scope.pointer=$locaStorage.pointer;
+	//$scope.pointer2=$scope.pointer2;
 	$scope.seggregatedTeacherType = {}
 	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
@@ -169,12 +170,14 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		localStorage.setItem('Feedback'+j, $scope.feedbackGivenByTheUser);
 				j++;
+		//console.log(localStorage);
 		
 		// localStorage.setItem("stringFeedback[i]", JSON.stringify(feedback));
 		// console.log(foundTeacher);
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				
 				console.log("Score : "+foundTeacher.score)
 				// co = JSON.parse(localStorage.getItem('stringFeedback');
 			} else {
@@ -360,11 +363,12 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		}
 
 		userService.sendFeedbackForEvaluation(object, function(response) {
-			$location.path('/thankYouPage');
-			alert("Feedback recorded");
+			
 			console.log(response);
 			$localStorage.clear();	
-		})
+		});
+		$location.path("/thankYouPage");
+		alert("Feedback recorded");
 
 		
 	}

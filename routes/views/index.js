@@ -133,7 +133,8 @@ module.exports = {
 
         if(password != result[0].password) {
           console.log("Password Did Not match");
-          res.status(400);
+          res.json({"err":"wrongpass"})
+          return;
           
         } else {
           console.log(result[0]);

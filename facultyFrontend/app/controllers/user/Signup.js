@@ -158,15 +158,19 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		console.log($localStorage.tablename);
 
 		userService.verifyUser($scope.otp, tablename, rollno, $localStorage.semester, function(response) {
-			console.log(response)
-			if (response == 400) {
+			//console.log("RESPONSE is : "+response.status)
+			
+			if (response.err=="wrongpass") {
 				$window.alert('User is not verified');
-				$location.path("/");
+				$location.path('/');
 			} else {
 				$localStorage.userDetails = response;
 				console.log($localStorage);
 				$location.path("/dashboard");
 			}
+
+			
+
 
 		})
 	}
