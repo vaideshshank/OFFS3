@@ -1,9 +1,12 @@
 faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', '$document', '$location', 'userService','$localStorage',function($scope, $rootScope, $uibModal, $log, $document, $location, userService,$localStorage) {
 
+	$scope.local=$localStorage;
 
 	$scope.feedback;
 	$scope.pointer  = 0;
 	$scope.pointer2 = -1;
+	$localStorage.pointer=$scope.pointer;
+	$localStorage.pointer2=$scope.pointer2;
 	$scope.seggregatedTeacherType = {}
 	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
@@ -155,6 +158,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Invalid Feedback Entry!");
+			$scope.feedbackGivenByTheUser.splice(index,1)
 			// console.log("Reached else if");
 			return;
 		}
@@ -171,7 +175,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
-				
+				console.log("Score : "+foundTeacher.score)
 				// co = JSON.parse(localStorage.getItem('stringFeedback');
 			} else {
 				// console.log("yaham takk aagya abh aage kaya hoga")
@@ -208,6 +212,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		}
 		else if($scope.feedbackGivenByTheUser[index]<1 && $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Invalid Feedback Entry!");
+			$scope.feedbackGivenByTheUser[index]=""
 			// console.log("Reached else if");
 			return;
 		
@@ -221,7 +226,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
 				// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
 				// const data = JSON.parse(localStorage.getItem('stringFeedback');
-				
+				console.log("Score : "+foundTeacher.score)
 			} else {
 				foundTeacher.score[$scope.pointer2] = $scope.feedbackGivenByTheUser[index];
 			}

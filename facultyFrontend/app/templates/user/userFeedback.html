@@ -60,7 +60,7 @@
                     <div class="row">  
                       <div class="col s12">
 
-                          <input placeholder="1-5" type="text" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)" style="text-align: center">
+                          <input placeholder="1-5" type="text" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)" style="text-align: center" required>
                           <!--<input type="radio" name="score" value="1" id="n1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)"><label for="n1">1</label>
                           <br><input type="radio" name="score" value="2" id="n2" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)"><label for="n2">2</label>
                           <br><input type="radio" name="score" value="3" id="n3" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToTheoryTeacher(singleTheoryTeacher, $index)"><label for="n3">3</label>
@@ -102,7 +102,7 @@
                       <div class="row">
                         <div class="col s12">
 
-                          <input type="text" placeholder="1-5" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher, $index)" style="text-align: center;">
+                          <input type="text" placeholder="1-5" min="1" max="5" maxlength="1" ng-model="feedbackGivenByTheUser[$index]" ng-blur="addFeedbackToPracticalTeacher(singlePracticalTeacher, $index)" style="text-align: center;" required>
                       </div>
                     </div>
                   </div>
