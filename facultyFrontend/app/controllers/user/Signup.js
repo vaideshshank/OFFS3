@@ -130,9 +130,10 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		} else {
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
-				if (response == 400) {
-					$location.path("/");
-
+				if (response.res == "noinfo") {
+					alert("No information exists for the student in the entered college");
+					location.reload();
+					return;
 				} else if(response.message) {
 					alert(response.message);
 					$location.path("/thankYouPage");

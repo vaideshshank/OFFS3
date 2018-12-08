@@ -17,7 +17,7 @@ module.exports = {
 
     if(req.query.college_name==null||req.query.enrollment_no==null||req.query.email==null||req.query.type==null||req.query.semester==null) {
       console.log("Not all Fields Set");
-      res.send("400");
+      res.status(400);
       return;
 
     }
@@ -43,7 +43,12 @@ module.exports = {
     student.checkLogin(college_name, year, semester, enrollment_no, function(er3, res3) {
       if(er3) {
         console.log(er3);
-        throw er3;
+        return ;
+      }
+
+      if(res3[0]==undefined){
+        res.json({"res":"noinfo"});
+        return;
       }
       //console.log(res3);
       if(res3[0]['s_' + semester]=='1') {
