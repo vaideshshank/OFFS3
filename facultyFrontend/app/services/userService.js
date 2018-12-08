@@ -101,6 +101,8 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', f
         },
 
         sendFeedbackForEvaluation: function(teachersFeedback, callback) {
+            console.log("****************");
+            //console.log("Feedback for teachers"+teachersFeedback);
             $http.post(BACKEND + '/feedback',
                        teachersFeedback, {
                        headers: { 'Content-Type': 'application/json' }

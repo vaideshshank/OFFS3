@@ -142,7 +142,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Invalid Feedback Entry!");
-			$scope.feedbackGivenByTheUser.splice(index,1)
+			$scope.feedbackGivenByTheUser.splice(index,1);
 			// console.log("Reached else if");
 			return;
 		}
@@ -345,6 +345,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			enrollment_no: 	$localStorage.userInfo.enrollment_no
 		}
 
+		console.log($scope.teacherFeedback);		//teacherFeedback.score
 		userService.sendFeedbackForEvaluation(object, function(response) {
 			
 			console.log(response);
