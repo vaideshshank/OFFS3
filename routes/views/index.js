@@ -77,7 +77,7 @@ module.exports = {
 
             } else {
               console.log('ssssssssssssssssssssaaaaaaaaaaaaaaarrrrrrrrrrrrrrr');
-               /*nodemailer.createTestAccount((err, account) => {
+               nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
                    service: 'gmail',
                    auth: {
@@ -101,7 +101,7 @@ module.exports = {
                      res.send("200");
                    }
                  });
-               });*/
+               });
 
               res.send("200");
             }
@@ -272,45 +272,58 @@ module.exports = {
             //console.log("Feedbacks of teacher : "+ feedback);
             var result = feedback.score;
             console.log("Result : "+result.length);
-            if(result.length==20 && feedback.feedbackId!=null) {
+            var attr_len=result.length;
+            if(attr_len==15 && feedback.feedbackId!=null) {
+
+              
               var query='update '+ tablename+' set'+
                  ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
                  ' at_4 = concat(at_4,?),  at_5 = concat(at_5,?),  at_6 = concat(at_6,?), '  +
                  ' at_7 = concat(at_7,?),  at_8 = concat(at_8,?),  at_9 = concat(at_9,?), '  +
                  ' at_10 = concat(at_10,?),at_11 = concat(at_11,?),at_12 = concat(at_12,?), '+
                  ' at_13 = concat(at_13,?),at_14 = concat(at_14,?),at_15 = concat(at_15,?) ,'+
-                 ' at_16 = concat(at_16,?),at_17 = concat(at_17,?),at_18 = concat(at_18,?) ,'+
-                 ' at_19 = concat(at_19,?),at_20 = concat(at_20,?),'+
                  ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                  ' total = total + ? ' +
                     'where feedback_id = ' +feedback.feedbackId;
            // console.log("something");
+
+          //to be set
+
             var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
-          'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15,attribute_16,attribute_17,attribute_18,attribute_19,attribute_20) '+
+          'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
           'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
-           result[13]+','+ result[14]+ ','+ result[15] +','+result[16]+','+result[17]+','+result[18]+','+result[19]+')';
+           result[13]+','+ result[14]+')';
           // console.log(query2);
 
           //total student calculation
             var sum=0;
+            
 
-            for(i=0;i<20;i++) {
-              result[i]=Math.round(Number(result[i]));
 
-              if(result[i]>5&&result[i]<1) {
-                console.log("Incorrect Data");
-                res.send("400");
+          for(i=0;i<attr_len;i++) {
+            result[i]=Math.round(Number(result[i]));
 
-              } else {
-                sum=sum+Number(result[i]);
+            if(result[i]>5&&result[i]<1) {
+              console.log("Incorrect Data");
+              res.send("400");
 
-              }
-            };
+            } else {
+              sum=sum+Number(result[i]);
+
+            }
+          };
+
+            var theory=[result[0],result[1],result[2],result[3],result[4],result[5],
+                        result[6],result[7],result[8],result[9],result[10],result[11],
+                        result[12],result[13],result[14],sum];
+            
+
+
             console.log("results : "+result);
-            con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],result[15],result[16],result[17],result[18],result[19],sum],function(err,Result){
+            con.query(query,theory,function(err,Result){
               if(err)
                 console.log(err);
               else{
@@ -343,16 +356,12 @@ module.exports = {
 
 
               }
-              else if(result.length==8&&feedback.feedbackId!=null)
+              else if(attr_len==8 &&feedback.feedbackId!=null)
               {
                 var query='update '+ tablename+' set'+
                    ' at_1 = concat(at_1,?),  at_2 = concat(at_2,?),  at_3 = concat(at_3,?), '  +
                    ' at_4 = concat(at_4,?),  at_5 = concat(at_5,?),  at_6 = concat(at_6,?), '  +
                    ' at_7 = concat(at_7,?),  at_8 = concat(at_8,?), '+
-                   ' at_9 = concat(at_9,?),  at_10 = concat(at_10,?),  at_11 = concat(at_11,?), '  +
-                   ' at_12 = concat(at_12,?),  at_13 = concat(at_13,?),  at_14 = concat(at_14,?), '  +
-                   ' at_15 = concat(at_15,?),  at_16 = concat(at_16,?),  at_17 = concat(at_17,?), '  +
-                   ' at_18 = concat(at_18,?),  at_19 = concat(at_19,?),  at_20 = concat(at_20,?), '  +
                    ' no_of_students_evaluated =  no_of_students_evaluated + 1 ,'+
                    ' total = total + ? ' +
                       'where feedback_id = ' +feedback.feedbackId;
@@ -368,7 +377,7 @@ module.exports = {
                 // console.log("Something");
 
             var sum=0;
-            for(i=0;i<=7;i++)    //check;
+            for(i=0;i<attr_len;i++)    //check;
             {   result[i]=Math.round(Number(result[i]));
               if(result[i]>5&&result[i]<1)
               {
@@ -379,7 +388,9 @@ module.exports = {
             };
             //coo
 
-            con.query(query,[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],sum],function(err,Result){
+            var practical=[result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],sum];
+
+            con.query(query,practical,function(err,Result){
               if(err)
                 console.log(err);
               else {
@@ -412,7 +423,7 @@ module.exports = {
                 res.status(err);
               }
               else{
-                   /*nodemailer.createTestAccount((err, account) => {
+                  nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -438,7 +449,7 @@ module.exports = {
                     }
                   });
 
-                  });*/
+                  });
                   console.log("Thanks for the feedback")
               }
 
