@@ -45,11 +45,12 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
     	"student", "Dean", "VC", "Pro VC", "Teacher"
     ];
 
+    $scope.user.category = "student";
+	
   	$scope.setCollege = function(singleCollege) {
 		$scope.college = singleCollege;
 		$localStorage.college = singleCollege;
 	}
-
 
 	$scope.setUserCategory =  function(userCategory) {
 		$scope.user.category = userCategory;
