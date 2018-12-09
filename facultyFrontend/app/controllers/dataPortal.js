@@ -128,6 +128,10 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 	}
 
 	$scope.search = function() {
+		
+	
+		
+		  
 		dataPortalService.getSubjects($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, function(response) {
 			console.log(response)
 			if (response) {
@@ -142,6 +146,10 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 			}
 		})
+
+		
+		
+		
 	}
 
 	$scope.deleteSubject = function(index) {
