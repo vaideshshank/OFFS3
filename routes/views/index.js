@@ -77,7 +77,7 @@ module.exports = {
 
             } else {
               console.log('ssssssssssssssssssssaaaaaaaaaaaaaaarrrrrrrrrrrrrrr');
-               /*nodemailer.createTestAccount((err, account) => {
+               nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
                    service: 'gmail',
                    auth: {
@@ -101,7 +101,7 @@ module.exports = {
                      res.send("200");
                    }
                  });
-               });*/
+               });
 
               res.send("200");
             }
@@ -423,7 +423,7 @@ module.exports = {
                 res.status(err);
               }
               else{
-                   /*nodemailer.createTestAccount((err, account) => {
+                  nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -449,7 +449,7 @@ module.exports = {
                     }
                   });
 
-                  });*/
+                  });
                   console.log("Thanks for the feedback")
               }
 
