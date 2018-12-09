@@ -194,6 +194,12 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 
 	}
 
+     $scope.logout = function(req,res) {
+		vcService.logout(function(response) {
+			
+		})
+		$location.path("/");
+	}
 
 	$scope.t = function () {
 		console.log($scope.selected.Teacher);

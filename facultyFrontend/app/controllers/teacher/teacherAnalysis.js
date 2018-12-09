@@ -23,6 +23,14 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		})
 	}
 
+
+     $scope.logout = function(req,res) {
+		teacherService.logout(function(response) {
+			
+		})
+		$location.path("/");
+	}
+
 	$rootScope.attributesList = {
 		theory: [
 			"Coverage of all the topics prescribed in the syllabus, with adequate depth and detail.",

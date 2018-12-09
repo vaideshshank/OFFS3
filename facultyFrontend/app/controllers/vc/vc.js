@@ -1,9 +1,12 @@
 faculty.controller("vcCtrl", function($scope, $rootScope, $location, vcService) {
 	$scope.vc  = [];
 
-	$scope.logout = function() {
-		$location.path('/')
-	}
+	$scope.logout = function(req,res) {
+		vcService.logout(function(response) {
+			
+		}
+		$location.path("/");
+	}		
 
 	$scope.getDetails = function() {
 		vcService.getDetails(function(response) {

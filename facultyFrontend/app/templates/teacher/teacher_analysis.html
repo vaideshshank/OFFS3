@@ -1,7 +1,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
 <br>
-
+    <div class="row">
+            <a class="logout btn waves-effect waves-light right" ng-click="logout()">LOG OUT </a>
+</div>
 <div class="row">
     <div class="col m2">
         <select ng-model="selectedYear" ng-options="option for option in ['2016', '2017']" ng-change="yearChange()">
@@ -38,7 +40,9 @@
 <div class="center">
     <a class="waves-effect white black-text btn" ng-click="search()">SEARCH</a>
 </div>
-
+</div><br>
+<div class="center">
+    <a class="waves-effect white black-text btn" ng-click="search(selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject)">Print as PDF</a>
 <div class="" style="padding: 2em;">
     <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em">
         <div class="row inforow">

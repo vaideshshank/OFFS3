@@ -183,6 +183,18 @@ module.exports = {
       res.json(result);
     })
   },
+  logout: function(req, res) {
+    console.log("logout")
+    if (req.session.student) {
+         req.session.destroy();
+         var obj={status:200,message:"Logged Out"};
+         console.log(obj);
+         res.json(obj);
+     } else{
+      console.log("No session detected");
+      var obj = { status: 200, message: "No session detected" };
+    }
+  },
 
   edit: function(req,res) {
 

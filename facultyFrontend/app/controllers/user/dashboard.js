@@ -2,7 +2,10 @@ faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userS
 
 	$scope.user = {}
 
-	$scope.logout = function() {
+	$scope.logout = function(req,res) {
+		studentDataService.logout(function(response) {
+			
+		})
 		$location.path("/");
 	}
 

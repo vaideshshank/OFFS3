@@ -11,6 +11,18 @@ module.exports = {
 	 * @return {[type]}     [description]
 	 */
 	index: function(req, res) {},
+	logout: function(req, res) {
+    console.log("logout")
+    if (req.session.pvc) {
+         req.session.destroy();
+         var obj={status:200,message:"Logged Out"};
+         console.log(obj);
+         res.json(obj);
+     } else{
+      console.log("No session detected");
+      var obj = { status: 200, message: "No session detected" };
+    }
+  },
 
 	/**
 	 * [initials description]
