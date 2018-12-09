@@ -43,6 +43,8 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 	$scope.stream = [];
 
+	$scope.searched = false;
+
 	$scope.collegeSelected = function() {
 		if (!$scope.selectedCollege) {
 			return;
@@ -129,9 +131,8 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 	$scope.search = function() {
 		
-	
-		
-		  
+		$scope.searched = true;
+
 		dataPortalService.getSubjects($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, function(response) {
 			console.log(response)
 			if (response) {
