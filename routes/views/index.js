@@ -248,7 +248,7 @@ module.exports = {
       var feedbacks = req.body.teacherFeedback;
       console.log("Feedback object : " + feedbacks)
       //console.log("Feed backs : "+feedbacks);
-
+      
       var year =req.session.student.year_of_admission;
       var dumptable = req.session.student.college_name + '_dump_'+process.env.year ;
       var enrollment_no = req.session.student.enrollment_no.toString();
