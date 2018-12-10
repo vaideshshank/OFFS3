@@ -77,13 +77,13 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 
 		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 			return;
-			console.log("disable submit");
 			
+
 		}
 
 		console.log($scope.college, $scope.user);
 		if ($scope.user.category == "Dean") {
-
+			
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
