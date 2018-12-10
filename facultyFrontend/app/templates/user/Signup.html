@@ -22,11 +22,16 @@
 
 
         <div id='dropdown2' class='dropdown-content' style="background-color: white;color: black; width: 34em">
-          <ul class="school_list">
-            <li ng-repeat="userCategory in userCategoryList"><a class="single_school" ng-click="setUserCategory(userCategory)"> {{ userCategory }}</a></li>
+          <ul class="school_list" ng-repeat="userCategory in userCategoryList">
+            <span ng-if = "$index == 0">
+              <li><a ng-click="setUserCategory(userCategory)"> {{ userCategory }}</a></li>
+            </span>
+            <span ng-if = "$index != 0">
+              <li><a class="div-disabled" ng-click="setUserCategory(userCategory)"> {{ userCategory }}</a></li>
+            </span>
           </ul>
-        </div>
-      </div>
+        </div> 
+      </div> 
 
     <div class="card" id="Signup">
         <div class="Signup_head" style="height: 3em">
