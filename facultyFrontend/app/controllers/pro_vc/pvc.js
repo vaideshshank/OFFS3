@@ -13,9 +13,13 @@ faculty.controller("pvcCtrl", function($scope, $rootScope, $location, pvcService
 		$location.path("/pvcAnalysis");
 	}
 
-	$scope.logout = function() {
-		$location.path('/')
-	}
+	$scope.logout = function(req,res) {
+		pvcService.logout(function(response) {
+			
+		})
+		$location.path("/");
+	}		
+
 
 	$scope.getDetails();
 })

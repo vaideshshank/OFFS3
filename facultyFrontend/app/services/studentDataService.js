@@ -17,7 +17,21 @@ faculty.factory('studentDataService',['$http', '$timeout', '$rootScope','$locati
 				}
 			})
 		},
-
+logout : function(){
+		 	$http({
+		 		method:"GET",
+		 		url: BACKEND + "/slogout",
+		 	}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response.data);
+					callback(data);
+				}
+			})
+		},
 		getStream:  function(college, course, callback) {
 			$http({
 				method: "GET",

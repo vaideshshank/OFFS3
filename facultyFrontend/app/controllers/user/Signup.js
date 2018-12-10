@@ -44,6 +44,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
     $scope.userCategoryList = [
     	"student", "Dean", "VC", "Pro VC", "Teacher"
     ];
+      $scope.user.category = "student";
 
     $scope.user.category = "student";
 	
@@ -171,7 +172,6 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 				$location.path("/dashboard");
 			}
 
-			
 
 
 		})

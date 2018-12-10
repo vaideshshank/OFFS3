@@ -21,6 +21,22 @@ faculty.factory('vcService', ['$http', '$timeout', '$rootScope', function($http,
 				}
 			})
 		},
+		logout : function(){
+		 	$http({
+		 		method:"GET",
+		 		url: BACKEND + "/vlogout",
+		 	}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response.data);
+					callback(data);
+				}
+			})
+		},
+    
 
 		getDetails: function(callback) {
 			$http({

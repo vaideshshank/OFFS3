@@ -137,6 +137,13 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 	$scope.updateSubjects = function () {
 
 	}
+	$scope.logout = function(req,res) {
+		facultyService.logout(function(response) {
+			
+		})
+		$location.path("/");
+	}
+
 
 	$scope.search  = function () {
 

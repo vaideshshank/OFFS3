@@ -132,7 +132,12 @@ faculty.controller("pvcAnalysisCtrl", function($scope, $rootScope, $location, pv
 		})
 	}
 
-
+$scope.logout = function(req,res) {
+		pvcService.logout(function(response) {
+			
+		})
+		$location.path("/");
+	}
 
 	$scope.streamList = function(course) {
 		if (!course) {
