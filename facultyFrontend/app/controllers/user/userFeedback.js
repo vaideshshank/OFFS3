@@ -137,7 +137,9 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 		alert("Invalid Feedback Entry!");
 		// console.log("Compare, not a number");
+		$scope.feedbackGivenByTheUser.splice(index,1);
 		return;
+		
 		}
 		
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
