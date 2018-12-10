@@ -144,7 +144,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 				
 				if (res.data.status == 200) {
 					$window.alert("Student data recorded");
-					//$location.path("/");
+					$location.path("/");
 				} else {
 					$window.alert("Student Entry exists");
 					//$location.path("/studentData");

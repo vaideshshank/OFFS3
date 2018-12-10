@@ -5,6 +5,8 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 
 	$scope.user = {};
 	$scope.name = "";
+	$scope.disablebtn=true;
+
 
 	$scope.collegeList = [ {
 		collegeName : "University School of Law and Legal Studies",
@@ -61,26 +63,34 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		var	year = roll.substring(roll.length -2, roll.length);
 		$scope.user.semister = (18 - year)*2 + 1;
 		$localStorage.semester = $scope.user.semister;
+		
+		
 	}
 
 	$scope.updateSemester = function() {
 		$localStorage.semester = $scope.user.semister;
 		console.log($localStorage.semester);
 		console.log($scope.user);
+		$scope.disablebtn=false;
 	}
 
-	$scope.LoginUser = function() {
 
+	
+	$scope.LoginUser = function() {
+			
 			$scope.hidebutton  = true;
 			$scope.showSpinner = true;
-
+			
 		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
+
+			
 			return;
 			
 
 		}
 
 		console.log($scope.college, $scope.user);
+		
 		if ($scope.user.category == "Dean") {
 			
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
@@ -131,6 +141,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 				}
 			})
 		} else {
+			
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.res == "noinfo") {
@@ -142,6 +153,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 					$location.path("/thankYouPage");
 					
 				}else {
+					
 					$localStorage.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
 					$localStorage.rollno = $scope.user.rollno;
 					console.log($localStorage);
