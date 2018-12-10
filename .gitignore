@@ -3,3 +3,5 @@ node_modules/**
 m/node_modules/**
 **/node_modules/**
 .env
+models/mysql.js
+models/offs-13-07-2017.sql
