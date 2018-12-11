@@ -48,7 +48,7 @@ h3 {
 <h3>
   Confirmation Email Sent to your email ID.
 </h3><br><br>
-<a class="btn waves-effect waves-light left" href="http://localhost:8080/#/" style="position: relative; left : 35%">Back to Home Page</a>
+<button class="btn waves-effect waves-light left" style="position: relative; left : 35%" id="redirect">Back to Home Page</button>
 </div>
 
 <script type="text/javascript">
@@ -62,9 +62,11 @@ $( document ).ready(function() {
     $( this ).removeClass("animated infinite pulse");
     // we remove the pulse
   });
-
-  $
-
+  $("#redirect").click(function(){
+    window.location.href="/#/";
+  })
 });
+
+
 
 </script>
