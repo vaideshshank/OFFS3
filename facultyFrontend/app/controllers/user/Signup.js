@@ -63,6 +63,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		var	year = roll.substring(roll.length -2, roll.length);
 		$scope.user.semister = (18 - year)*2 + 1;
 		$localStorage.semester = $scope.user.semister;
+		$scope.disablebtn=false;
 		
 		
 	}
@@ -71,7 +72,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		$localStorage.semester = $scope.user.semister;
 		console.log($localStorage.semester);
 		console.log($scope.user);
-		$scope.disablebtn=false;
+		
 	}
 
 
@@ -80,14 +81,21 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 			
 			$scope.hidebutton  = true;
 			$scope.showSpinner = true;
-			
-		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
+			//console.log($scope.collegeName+"---"+$scope.user.category+"---"+$scope.user.rollno+"---"+$scope.user.email);
+			var user=$scope.user;
+			/*if ($scope.u="" && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 
 			
 			return;
 			
 
-		}
+		}*/
+
+		if(user.category||user.rollno||user.email||user.semister){
+			alert("Fill all the required fields in the form");
+			location.reload();
+			return;
+		}else{
 
 		console.log($scope.college, $scope.user);
 		
@@ -161,6 +169,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 				}
 			})
 		}
+	}
 	}
 
 	$scope.verifyUser = function() {

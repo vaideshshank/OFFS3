@@ -4,8 +4,8 @@ faculty.controller("vcCtrl", function($scope, $rootScope, $location, vcService) 
 	$scope.logout = function(req,res) {
 		vcService.logout(function(response) {
 			
-		}
-		$location.path("/");
+		},
+		$location.path("/"));
 	}		
 
 	$scope.getDetails = function() {
