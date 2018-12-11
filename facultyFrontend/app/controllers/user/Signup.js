@@ -59,8 +59,10 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 	}
 
 	$scope.findSemister = function() {
-		var roll = _.clone($scope.user.rollno);
+		var roll = ($scope.user.rollno);
 		var	year = roll.substring(roll.length -2, roll.length);
+		
+		//var year=roll.s
 		$scope.user.semister = (18 - year)*2 + 1;
 		$localStorage.semester = $scope.user.semister;
 		$scope.disablebtn=false;
@@ -91,7 +93,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 
 		}*/
 
-		if(user.category||user.rollno||user.email||user.semister){
+		if(user.category==""||user.rollno==""||user.email==undefined||user.semister==null||$scope.college==undefined){
 			alert("Fill all the required fields in the form");
 			location.reload();
 			return;
