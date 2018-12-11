@@ -1,12 +1,7 @@
-//only student data fed in local storage
-
-
-faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userService', 'facultyService', 'vcService', 'pvcService', 'teacherService','$localStorage','$window',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService,$localStorage,$window) {
+faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
 
 	$scope.user = {};
 	$scope.name = "";
-	$scope.disablebtn=true;
-
 
 	$scope.collegeList = [ {
 		collegeName : "University School of Law and Legal Studies",
@@ -47,12 +42,11 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
     	"student", "Dean", "VC", "Pro VC", "Teacher"
     ];
 
-    $scope.user.category = "student";
-	
   	$scope.setCollege = function(singleCollege) {
 		$scope.college = singleCollege;
-		$localStorage.college = singleCollege;
+		$rootScope.college = singleCollege;
 	}
+
 
 	$scope.setUserCategory =  function(userCategory) {
 		$scope.user.category = userCategory;
@@ -61,46 +55,28 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 	$scope.findSemister = function() {
 		var roll = _.clone($scope.user.rollno);
 		var	year = roll.substring(roll.length -2, roll.length);
-		$scope.user.semister = (18 - year)*2 + 1;
-		$localStorage.semester = $scope.user.semister;
-		$scope.disablebtn=false;
-		
-		
+		$scope.user.semister = (17 - year)*2 + 1;
+		$rootScope.semester = $scope.user.semister;
 	}
 
 	$scope.updateSemester = function() {
-		$localStorage.semester = $scope.user.semister;
-		console.log($localStorage.semester);
+		$rootScope.semester = $scope.user.semister;
+		console.log($rootScope.semester);
 		console.log($scope.user);
-		
 	}
 
-
-	
 	$scope.LoginUser = function() {
-			
+
 			$scope.hidebutton  = true;
 			$scope.showSpinner = true;
-			//console.log($scope.collegeName+"---"+$scope.user.category+"---"+$scope.user.rollno+"---"+$scope.user.email);
-			var user=$scope.user;
-			/*if ($scope.u="" && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 
-			
+		if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
 			return;
-			
-
-		}*/
-
-		if(user.category||user.rollno||user.email||user.semister){
-			alert("Fill all the required fields in the form");
-			location.reload();
-			return;
-		}else{
+		}
 
 		console.log($scope.college, $scope.user);
-		
 		if ($scope.user.category == "Dean") {
-			
+
 			facultyService.send_details($scope.college.collegeCode, $scope.user, function(response) {
 				if (response.status == 400) {
 					alert(response.message);
@@ -118,8 +94,8 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 					$location.path("/");
 				} else  {
 				
-					$localStorage.teacher = response.teacher;
-					console.log($localStorage.teacher);
+					$rootScope.teacher = response.teacher;
+					console.log($rootScope.teacher);
 					$location.path("/teacherDashboard")
 				}
 			})
@@ -149,27 +125,21 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 				}
 			})
 		} else {
-			
 			console.log($scope.user)
 			userService.send_details($scope.college.collegeCode, $scope.user, function(response) {
-				if (response.res == "noinfo") {
-					alert("No information exists for the student in the entered college");
-					location.reload();
-					return;
+				if (response == 400) {
+					$location.path('/')
+
 				} else if(response.message) {
-					alert(response.message);
-					$location.path("/thankYouPage");
-					
+					alert(response.message)
 				}else {
-					
-					$localStorage.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
-					$localStorage.rollno = $scope.user.rollno;
-					console.log($localStorage);
-					$location.path("/verify");
+					$rootScope.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
+					$rootScope.rollno = $scope.user.rollno;
+					console.log($rootScope);
+					$location.path('/verify');
 				}
 			})
 		}
-	}
 	}
 
 	$scope.verifyUser = function() {
@@ -178,24 +148,20 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		if (!$scope.otp) {
 			return;
 		}
-		var tablename = $localStorage.tablename;
-		var rollno = $localStorage.rollno;
-		console.log($localStorage.tablename);
+		var tablename = $rootScope.tablename;
+		var rollno = $rootScope.rollno;
+		console.log($rootScope.tablename);
 
-		userService.verifyUser($scope.otp, tablename, rollno, $localStorage.semester, function(response) {
-			//console.log("RESPONSE is : "+response.status)
-			
-			if (response.err=="wrongpass") {
-				$window.alert('User is not verified');
+		userService.verifyUser($scope.otp, tablename, rollno, $rootScope.semester, function(response) {
+			if (response == 400) {
+				alert('User is not verified');
 				$location.path('/');
 			} else {
-				$localStorage.userDetails = response;
-				console.log($localStorage);
-				$location.path("/dashboard");
+				$rootScope.userDetails = response;
+				console.log($rootScope);
+				$location.path('/dashboard');
 			}
-
-
 
 		})
 	}
-}])
+})

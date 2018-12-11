@@ -44,10 +44,11 @@ div class="row">
 
 <div class="center">
     <a class="waves-effect white black-text btn" ng-click="search()">SEARCH</a>
+<br><br>
+    <a class="waves-effect white black-text btn" ng-click="print()">Print as PDF</a>
 </div>
-</div><br>
-<div class="center">
-    <a class="waves-effect white black-text btn" ng-click="search(selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject)">Print as PDF</a>
+
+<div class="wrapper" id="mycanvas">
 <div class="" style="padding: 2em;">
     <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em">
         <div class="row inforow">
@@ -168,7 +169,7 @@ div class="row">
         </div>
     </div>
 </div>
-<br>
+</div>
 
 <style type="text/css">
     .select-wrapper input.select-dropdown {

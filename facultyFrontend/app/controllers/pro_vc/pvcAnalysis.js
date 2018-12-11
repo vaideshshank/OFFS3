@@ -139,6 +139,45 @@ $scope.logout = function(req,res) {
 		$location.path("/");
 	}
 
+$scope.print = function(req,res) {
+	var pdf = new jsPDF('p', 'pt', 'letter')
+
+	       
+	            , source = $('#mycanvas')[0];
+
+	             specialElementHandlers = {
+	                 // element with id of "bypass" - jQuery style selector
+	                '#bypassme': function(element, renderer)
+	                {
+	                    // true = "handled elsewhere, bypass text extraction"
+	                    return true
+	                }
+	            };
+
+	            margins = {
+	                top: 40,
+	                bottom: 30,
+	                left: 40,
+	                width: '100%'
+	            };
+	            pdf.fromHTML
+	            (
+	                source // HTML string or DOM elem ref.
+	              , margins.left // x coord
+	              , margins.top // y coord
+	              , {'width': margins.width // max width of content on PDF
+	                 , 'elementHandlers': specialElementHandlers
+	                }
+	              , function (dispose) 
+	                {
+	                   // dispose: object with X, Y of the last line add to the PDF
+	                   // this allow the insertion of new lines after html
+	                   pdf.save('feedback.pdf');
+	                }
+	              , margins
+	            )
+    }
+
 	$scope.streamList = function(course) {
 		if (!course) {
 			return;
