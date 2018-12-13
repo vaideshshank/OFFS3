@@ -71,6 +71,15 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	$scope.courseList = [];
 	$scope.stream = [];
 
+	// $(function () {
+	// 	var i = 0;
+	// 	$('table thead tr').prepend('<th>#</th>');
+	// 	$('table tbody tr').each(function () {
+	// 		i += 1;
+	// 		$(this).prepend('<td>' + i + '</td>');
+	// 	});
+	// });
+
 	$scope.collegeSelected = function () {
 		if (!$scope.selectedCollege) {
 			return;
@@ -217,6 +226,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	$scope.data   = [];
 	$scope.addRow = function (enrollment_no, name, email, phone, password) {
 
+		window.scrollBy(0, 1000);
 		// $scope.isHome = false;
 		// $scope.isEdit = false;
 		// $scope.isAdd = true;

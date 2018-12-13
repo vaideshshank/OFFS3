@@ -1,6 +1,6 @@
 faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$location',function($http, $scope, dataPortalService, $location) {
 
-	$scope.disabled = false;
+	
 
 	$scope.collegeList = [ {
 		collegeName : "University School of Law and Legal Studies",
@@ -42,9 +42,9 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 	$scope.courseList = [];
 
 	$scope.stream = [];
-
+	var data_value  = {};
 	$scope.searched = false;
-
+	// $scope.disabledataPortal=true;
 	$scope.collegeSelected = function() {
 		if (!$scope.selectedCollege) {
 			return;
@@ -103,10 +103,10 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 		}
 	}
 
-
+	
 	$scope.getTeachers = function() {
 		dataPortalService.getTeacher(function(res) {
-			var data_value  = {}
+			
 			res.forEach(function(val) {
 				data_value[val.name + ' ' + val.instructor_id] = null;
 
@@ -114,12 +114,15 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 				$(document).ready(function(){
 					 $('input.autocomplete').autocomplete({
 						 data : data_value,
+						 
 					 });
+					 
 				 });
 
 
 			})
 		})
+		
 	}
 
 
@@ -157,9 +160,19 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 		$scope.subjects_data.splice(index, 1);
 	}
 
+	// function checkData(){
+		
+	// 	if(Object.getOwnPropertyNames(data).length>0)
+	// 	$scope.disabledataPortal=false;
+
+	// }
+
+		
+
+	
 	$scope.submit = function() {
 
-		$scope.disabled = true;
+		
 		//$window.alert("Data recorded");
 		dataPortalService.sendSubjectData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, $scope.subjects_data, function(res) {
 			if (res.data) {

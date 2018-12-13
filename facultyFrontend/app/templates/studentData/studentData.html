@@ -46,28 +46,41 @@
                     <th ng-repeat="col in table.columns">{{ col.value }}</th>
                 </tr>
             </thead>
+            
             <tbody>
+               
                 <tr ng-repeat="studentData in data">
-                    <td>
-                        <input type="text"  placeholder="Enrollment Number" ng-model="enrollment_no" ng-required="true" ng-blur="addRollNumber(studentData, enrollment_no)"/>
+                    
+                   
+                   <td>
+                      <input type="text"  placeholder="Enrollment Number" ng-model="enrollment_no" ng-required="true" ng-blur="addRollNumber(studentData, enrollment_no)">
                         <!-- <small style="color: red; display: block; text-align: center;" ng-show="!enrollment_no">Field missing</small> -->
                     </td>
-                    <td>
-                        <input type="text" placeholder="Student Name" ng-model="name" ng-required="true" ng-blur="addName(studentData, name)">
+                        
+                   <td>
+                       <input type="text" placeholder="Student Name" ng-model="name" ng-required="true" ng-blur="addName(studentData, name)">
                         <!-- <small style="color: red; display: block; text-align: center;" ng-show="!enrollment_no">Field missing</small> -->
                     </td>
+
                     <td>
-                        <input type="text" placeholder="Student Email" type="email" ng-model="email" ng-required="true" ng-blur="addEmail(studentData, email)">
+                       <input type="text" placeholder="Student Email" type="email" ng-model="email" ng-required="true" ng-blur="addEmail(studentData, email)">
                         <!-- <small style="color: red; display: block; text-align: center;" ng-show="!enrollment_no">Field missing</small> -->
                     </td>
+
                     <td>
                         <input type="number" placeholder="Phone Number" pattern="[789][0-9]{9}" ng-model="phone" ng-required="true" ng-blur="addphone(studentData, phone)">
                         <!-- <small style="color: red; display: block; text-align: center;" ng-show="!enrollment_no">Field missing</small> -->
-                    </td>
+                    </td>  
+                   
+                
+               
                     <td>
                         <button type="button" class="btn btn-sm btn-danger" ng-click="removeRow(studentData)">Remove Record</button>
                     </td>
+                
+                
                 </tr>
+            
             </tbody>
         </table>
     </div>
