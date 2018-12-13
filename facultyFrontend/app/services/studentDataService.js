@@ -88,14 +88,14 @@ logout : function(){
 				if (callback) {
 					$window.alert("Student data recorded");
 					callback(response.data);
-					//$location.path("/");
+					$location.path("/");
 				}
 			}, function(response) {
 				if (callback) {
 					$window.alert("Student Entry exists");
 					console.error(response);
 					callback(response);
-					//$location.path("/studentData");
+					$location.path("/studentData");
 				}
 			})
 		}
