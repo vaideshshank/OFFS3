@@ -147,7 +147,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 					$location.path("/");
 				} else {
 					$window.alert("Student Entry exists");
-					//$location.path("/studentData");
+					$location.path("/studentData");
 				}
 			}
 		})
