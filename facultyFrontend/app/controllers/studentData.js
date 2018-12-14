@@ -70,6 +70,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 
 	$scope.courseList = [];
 	$scope.stream = [];
+	$scope.searched = false;
 
 	// $(function () {
 	// 	var i = 0;
@@ -80,7 +81,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	// 	});
 	// });
 
-	$scope.collegeSelected = function () {
+	$scope.collegeSelected = function() {
 		if (!$scope.selectedCollege) {
 			return;
 		}
@@ -135,6 +136,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 		if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
 			return;
 		}
+		$scope.searched = true;
 	}
 
 	$scope.submit = function () {
