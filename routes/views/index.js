@@ -559,7 +559,7 @@ module.exports = {
   var course = req.query.course;
   var stream = req.query.stream;
 
-  if (process.env.year == 2018) {
+  if (process.env.year) {
     var tableName = `${college_name}_student_${admYr}`;
     var initQuery =
       "CREATE TABLE IF NOT EXISTS ?? (`enrollment_no` bigint(20) primary key,`name` varchar(100) NOT NULL,`email` varchar(100) DEFAULT NULL,`phone` varchar(100) DEFAULT NULL,`year_of_admission` int(4) NOT NULL,`password` varchar(600) DEFAULT NULL,`course` varchar(100) NOT NULL,`stream` varchar(100) NOT NULL,`s_1` int(11) DEFAULT '0',`s_9` int(11) DEFAULT '0',`s_8` int(11) DEFAULT '0',`s_5` int(11) DEFAULT '0',`s_6` int(11) DEFAULT '0',`s_4` int(11) DEFAULT '0',`s_3` int(11) DEFAULT '0',`s_2` int(11) DEFAULT '0',`s_7` int(11) DEFAULT '0',`s_10` int(11) DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;";
