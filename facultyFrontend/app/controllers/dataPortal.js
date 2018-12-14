@@ -41,6 +41,8 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 	$scope.courseList = [];
 
+	$scope.check = 0;
+
 	$scope.stream = [];
 	var data_value  = {};
 	$scope.searched = false;
@@ -140,6 +142,8 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 			console.log(response)
 			if (response) {
 				$scope.subjects_data = response;
+				$scope.check = $scope.subjects_data.length;
+				console.log($scope.check);
 				$(document).ready(function () {
 					$('select').material_select();
 				})
@@ -158,6 +162,7 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 	$scope.deleteSubject = function(index) {
 		$scope.subjects_data.splice(index, 1);
+		$scope.check = ($scope.check)-1;
 	}
 
 	// function checkData(){

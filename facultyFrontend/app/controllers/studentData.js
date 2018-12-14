@@ -303,7 +303,10 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	function buildTable () {
 		return {
 			columns: [{
-					value: 'Enrollment No.'
+				value: 'S. No.'
+				},
+				{
+				value: 'Enrollment No.'
 				},
 				{
 					value: 'Name'
@@ -316,6 +319,8 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 				}],
 			rows: [{
 				cells: [{
+					value: ''
+				},{
 					value: ''
 				}, {
 					value: ''

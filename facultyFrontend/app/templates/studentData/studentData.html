@@ -51,7 +51,10 @@
                
                 <tr ng-repeat="studentData in data">
                     
-                   
+                    <td>
+                        {{$index+1}}
+                    </td>
+
                    <td>
                       <input type="text"  placeholder="Enrollment Number" ng-model="enrollment_no" ng-required="true" ng-blur="addRollNumber(studentData, enrollment_no)">
                         <!-- <small style="color: red; display: block; text-align: center;" ng-show="!enrollment_no">Field missing</small> -->

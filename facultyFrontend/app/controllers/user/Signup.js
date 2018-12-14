@@ -7,7 +7,6 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 	$scope.name = "";
 	$scope.disablebtn=true;
 
-
 	$scope.collegeList = [ {
 		collegeName : "University School of Law and Legal Studies",
 		collegeCode :"uslls"},
@@ -92,6 +91,8 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 			
 
 		}*/
+
+		alert("i am here")
 
 		if(user.category==""||user.rollno==""||user.email==undefined||user.semister==null||$scope.college==undefined){
 			alert("Fill all the required fields in the form");
