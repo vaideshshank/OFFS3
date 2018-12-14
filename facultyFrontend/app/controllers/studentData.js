@@ -337,15 +337,15 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 
 		if (!$scope.collegeCode || !$scope.selectedCourse || !$scope.selectedStream || !$scope.selectedYear) {
 			alert("please select dropdowns correctly");
+			return false;
 		}
-
+		console.log($scope.data);
 		// $scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear,
 		for (var x = 0;x<$scope.data.length;x++) {
 			if (!$scope.data[x].enrollment_no || !$scope.data[x].name || !$scope.data[x].email || !$scope.data[x].phone) {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
