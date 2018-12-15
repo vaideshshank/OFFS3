@@ -184,7 +184,7 @@ module.exports = {
     })
   },
   logout: function(req, res) {
-    console.log("logout")
+    console.log("logout");
     if (req.session.student) {
          req.session.destroy();
          var obj={status:200,message:"Logged Out"};
