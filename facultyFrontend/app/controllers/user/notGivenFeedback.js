@@ -112,7 +112,7 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $location, userServ
 		userService.getStudentStatus($scope.collegeCode, $scope.selectedSem, $scope.selectedCourse, $scope.selectedStream,  function(response) {
 			if (response == "400") {
 				alert("something wrong happened")
-				$location.path("/notGivenFeedback");
+				$location.path("/status");
 
 			} else {
 				console.log(response);
