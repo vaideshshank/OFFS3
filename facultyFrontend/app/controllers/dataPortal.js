@@ -201,6 +201,7 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 			}
 			else if($scope.subjects_data[i].flag == 1){
 				alert("Kindly fill names from dropdown only");
+				$scope.subjects_data[i].flag = 0;
 				return;
 			}
 		}
