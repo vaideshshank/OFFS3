@@ -50,7 +50,7 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 	$scope.changeFlag = function(item) {
 		console.log(item.teacher_name);
-		if(!(angular.isUndefined(item.teacher_name)) && !(angular.isNull(item.teacher_name))) {
+		if(!(angular.isUndefined(item.teacher_name))) {
 			item.flag = 1;
 		}
 	}
