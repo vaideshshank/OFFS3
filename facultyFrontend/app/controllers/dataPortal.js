@@ -49,9 +49,16 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 	// $scope.disabledataPortal=true;
 
 	$scope.changeFlag = function(item) {
-		console.log(item.teacher_name);
 		if(!(angular.isUndefined(item.teacher_name))) {
 			item.flag = 1;
+			dataPortalService.getTeacher(function(res) {
+				res.forEach(function(val) {
+					if(item.teacher_name == (val.name + ' ' + val.instructor_id)){
+						item.flag = 2;
+						return;
+					}
+				})
+			})
 		}
 	}
 
@@ -190,6 +197,10 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 		for(var i=0; i<$scope.check; i++){
 			if($scope.subjects_data[i].flag == 0){
 				alert("Kindly fill names of all faculty members");
+				return;
+			}
+			else if($scope.subjects_data[i].flag == 1){
+				alert("Kindly fill names from dropdown only");
 				return;
 			}
 		}
