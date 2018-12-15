@@ -61,7 +61,7 @@
 
       <div class="col m3">
         <div class="input-field col s12">
-          <input id="teacher_name" type="text" class="autocomplete no-margin" ng-model="item.teacher_name" ng-required="true" placeholder="Faculty Name">
+          <input id="teacher_name" type="text" class="autocomplete no-margin" ng-model="item.teacher_name" ng-blur="changeFlag(item)" ng-required="true" placeholder="Faculty Name">
         </div>
       </div>
 

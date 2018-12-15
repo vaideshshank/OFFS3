@@ -47,6 +47,14 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 	var data_value  = {};
 	$scope.searched = false;
 	// $scope.disabledataPortal=true;
+
+	$scope.changeFlag = function(item) {
+		console.log(item.teacher_name);
+		if(!(angular.isUndefined(item.teacher_name)) && !(angular.isNull(item.teacher_name))) {
+			item.flag = 1;
+		}
+	}
+
 	$scope.collegeSelected = function() {
 		if (!$scope.selectedCollege) {
 			return;
@@ -143,7 +151,9 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 			if (response) {
 				$scope.subjects_data = response;
 				$scope.check = $scope.subjects_data.length;
-				console.log($scope.check);
+				for(var i=0; i<$scope.check; i++){
+					$scope.subjects_data[i].flag = 0;
+				}
 				$(document).ready(function () {
 					$('select').material_select();
 				})
@@ -177,6 +187,12 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 	
 	$scope.submit = function() {
 
+		for(var i=0; i<$scope.check; i++){
+			if($scope.subjects_data[i].flag == 0){
+				alert("Kindly fill names of all faculty members");
+				return;
+			}
+		}
 		
 		//$window.alert("Data recorded");
 		dataPortalService.sendSubjectData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, $scope.subjects_data, function(res) {
@@ -202,6 +218,7 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 			'subject_code' : '',
 			'teacher_name' : '',
 		})
+		$scope.check = ($scope.check)+1;
 		$scope.getTeachers();
 	}
 
