@@ -105,14 +105,11 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $location, userServ
 
 	$scope.getStudentList = function() {
 		$scope.searched = true;
-
-		var college 	= $scope.college.collegeCode;
-		var semester 	= $scope.semester;
-		var course 		= $scope.courseName.course;
-		var stream 		= $scope.streamName.stream;
-		console.log(college, semester, course, stream);
-		console.log("1111");
-		userService.getStudentStatus(college, semester, course, stream,  function(response) {
+		console.log($scope.selectedCollege);
+		console.log($scope.selectedSem);
+		console.log($scope.selectedCourse);
+		console.log($scope.selectedStream);
+		userService.getStudentStatus($scope.collegeCode, $scope.selectedSem, $scope.selectedCourse, $scope.selectedStream,  function(response) {
 			if (response == "400") {
 				alert("something wrong happened")
 				$location.path("/notGivenFeedback");
