@@ -118,7 +118,8 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $location, userServ
 				console.log(response);
 
 				var seggregatedStudentList = _.groupBy(response, function(result) {
-            		var type = "s_" + semester;
+					console.log(result);
+            		var type = "s_" + $scope.selectedSem;
             		console.log(type);
             		return result[type];
         		});
