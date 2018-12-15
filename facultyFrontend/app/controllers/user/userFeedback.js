@@ -312,7 +312,11 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	}
 
 	$scope.logout = function() {
-		$location.path("/");
+		userService.logout(function(response) {
+			$location.path("/");
+		})
+		
+	}
 	}
 
 	$scope.increasePointer2 = function() {
