@@ -93,7 +93,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		}*/
 
 		
-
+		//alert shifted down
 		if(user.category==""||user.rollno==""||user.email==undefined||user.semister==null||$scope.college==undefined){
 			alert("Fill all the required fields in the form");
 			location.reload();
