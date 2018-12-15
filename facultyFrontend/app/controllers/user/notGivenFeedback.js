@@ -1,4 +1,4 @@
-faculty.controller('notGivenFeedbackCtrl', function ($scope, $rootScope, $location, userService) {
+faculty.controller('notGivenFeedbackCtrl', function ($scope, $location, userService, dataPortalService) {
 
 	$scope.collegeList = [ {
 		collegeName : "University School of Law and Legal Studies",
@@ -38,14 +38,73 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $rootScope, $locati
 
 	$scope.semesterList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-
 	$scope.listOfStudents = [];
 
-	$scope.getStudenelist = function() {
-		if (!$scope.college || !$scope.semester || !$scope.courseName || !$scope.streamName) {
-			alert("all field are not set. Set them completely");
+	$scope.searched = false;
+
+	$scope.collegeSelected = function() {
+		if (!$scope.selectedCollege) {
 			return;
 		}
+
+		var college = $scope.selectedCollege;
+		var collegeCode = "";
+
+		var CollegeCodes = _.where($scope.collegeList, { collegeName: college });
+		_.forEach($scope.collegeList, function(value, key) {
+
+			if ((value.collegeName) == (college)) {
+				$scope.collegeCode = value.collegeCode;
+			 }
+
+		})
+
+		if ($scope.collegeCode) {
+			dataPortalService.getCourse($scope.collegeCode, function(responce) {
+				if (responce) {
+                    console.log(responce);
+					$scope.courseList = responce;
+					// $scope.courseList = JSON.parse(responce);
+					console.log(typeof $scope.courseList);
+					//console.log("Courses:: "+$scope.courseList);
+				$(document).ready(function () {
+					$('select').material_select();
+				})
+
+				}
+			})
+
+		}
+
+		 console.log($scope.selectedCollege);
+	}
+
+	$scope.courseSelected = function() {
+		if (!$scope.selectedCourse || !$scope.selectedCollege) {
+			return;
+		}
+
+		if ($scope.collegeCode && $scope.selectedCourse) {
+			dataPortalService.getStream($scope.collegeCode, $scope.selectedCourse, function(responce) {
+				if (responce) {
+					console.log(responce);
+					$scope.streamList = responce;
+					$(document).ready(function () {
+						$('select').material_select();
+					})
+				}
+			})
+		}
+	}
+
+	$scope.streamSelected = function() {
+		if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
+			return;
+		}
+	}
+
+	$scope.getStudentList = function() {
+		$scope.searched = true;
 
 		var college 	= $scope.college.collegeCode;
 		var semester 	= $scope.semester;
@@ -86,51 +145,6 @@ faculty.controller('notGivenFeedbackCtrl', function ($scope, $rootScope, $locati
 				$scope.listOfStudents = response;
 			}
 		})
-	}
-
-	$scope.setCollege = function(singleCollege) {
-		if (!singleCollege) {
-			return;
-		}
-		if (!$scope.semester) {
-			alert("Please fill the semester block first");
-			return;
-		}
-
-		$scope.college = singleCollege;
-		userService.getStudentDetails($scope.college.collegeCode,$scope.semester, function(response) {
-			if (response == "400") {
-				alert("something wrong happened")
-			} else {
-				console.log("Asdasdasd");
-				$scope.courseList = response.course;
-				$scope.streamList = response.stream;
-			}
-		})
-	}
-
-	$scope.setCourseName = function(courseName) {
-	 	if (!courseName) {
-	 		return;
-	 	}
-
-	 	$scope.courseName = courseName;
-	}
-
-	$scope.setStreamName = function(streamName) {
-		if (!streamName) {
-			return;
-		}
-
-		$scope.streamName = streamName;
-	}
-
-	$scope.setSemester = function(semester) {
-		if (!semester) {
-			return;
-		}
-
-		$scope.semester = semester;
 	}
 
 });

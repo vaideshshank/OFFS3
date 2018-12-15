@@ -478,7 +478,7 @@ module.exports = {
     var course  = req.query.course;
     var stream  = req.query.stream;
 
-    var year = process.env.year - (semester - odd_even)/2;
+    var year = process.env.year - (semester - process.env.odd_even)/2;
 
 
 
@@ -507,7 +507,7 @@ module.exports = {
 
     var collegeName = req.query.collegeName;
     var semester = parseInt(req.query.semester);
-    var year = process.env.year - (semester - odd_even )/2;
+    var year = process.env.year - (semester - process.env.odd_even)/2;
 
     var userDetails = {
       stream:[],
