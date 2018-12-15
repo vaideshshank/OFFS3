@@ -64,7 +64,11 @@ window.faculty = angular.module('faculty', ["ngStorage",'ngAnimate', 'ngRoute', 
         .when('/studentData', {
             controller: 'studentDataCtrl',
             templateUrl: './app/templates/studentData/studentData.html'
-        });
+        })
+        .when('/dataStatus',{
+            controller:'dataStatusCtrl',
+            templateUrl: './app/templates/user/dataStatus.html'
+        })
 
     }
 ]);
