@@ -162,7 +162,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
-				
+				console.log(foundTeacher);
 				console.log("Score : "+foundTeacher.score)
 				// co = JSON.parse(localStorage.getItem('stringFeedback');
 			} else {
@@ -180,6 +180,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 				instructor_code: theoryTeacher.instructor_code
 
 			})
+			console.log($scope.teacherFeedback);	//stores info about teacher and his feedback  teacherFeedback[].feedbackId
 		}
 
 		$scope.checkOccurence++;

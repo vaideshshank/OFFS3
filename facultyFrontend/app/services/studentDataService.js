@@ -89,6 +89,7 @@ logout : function(){
 					$window.alert("Student data recorded");
 					callback(response.data);
 					$location.path("/");
+					location.reload();
 				}
 			}, function(response) {
 				if (callback) {
