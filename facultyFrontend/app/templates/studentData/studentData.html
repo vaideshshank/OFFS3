@@ -46,8 +46,8 @@
     </tbody>
 </table>
  -->
-
-<div class="container" ng-show="searched">
+<div  ng-show="searched">
+<div class="container">
     <div class="table-responsive">
         <table class="table table-condensed table-striped">
             <thead>
@@ -93,12 +93,13 @@
 
     <hr>
     <form>
-        <button type="button" class="btn btn-success" ng-disabled="!searched" ng-show="isHome" ng-click="addRow()">Add Row</button>
+        <button type="button" class="btn btn-success" ng-show="isHome" ng-click="addRow()">Add Row</button>
         <button type="button" class="btn btn-default" ng-disabled="data.length < 2 || !selectedCollege || !selectedStream || !selectedCourse" ng-show="isHome" ng-click="submit()">Submit</button>
     <!--     <br>
         <br>
         <button type="button" class="btn btn-default" ng-show="isHome" ng-click="submit()">Submit</button> -->
     </form>
+</div>
 <br>
 <br>
 
