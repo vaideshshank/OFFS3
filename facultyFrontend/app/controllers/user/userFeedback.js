@@ -202,12 +202,12 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			
 			}
 			
-			else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
-				alert("Invalid Feedback Entry!");
-				$scope.feedbackGivenByTheUser.splice(index,1);
-				// console.log("Reached else if");
-				return;
-			}
+		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
+			alert("Invalid Feedback Entry!");
+			$scope.feedbackGivenByTheUser.splice(index,1);
+			// console.log("Reached else if");
+			return;
+		}
 
 		
 		

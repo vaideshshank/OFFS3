@@ -8,6 +8,8 @@ var con         = require("../../models/mysql"),
   handlebars = require('handlebars'),
      fs = require('fs');
 
+     
+
 //  year=18;
 module.exports = {
 
@@ -80,17 +82,21 @@ module.exports = {
 
             } else {
               console.log('ssssssssssssssssssssaaaaaaaaaaaaaaarrrrrrrrrrrrrrr');
+              var email=process.env.email.split('/');
+              var pass=process.env.password.split('/');
+              var mailNo=process.env.mailNo;         
+
                nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
                    service: 'gmail',
                    auth: {
-                     user:process.env.email,
-                     pass: process.env.password,
+                     user:email[mailNo],
+                     pass: pass[mailNo],
                    }
                  });
 
                  var mailOptions = {
-                   from: process.env.email,
+                   from: email[mailNo],
                    to: req.query.email,
                    subject: 'Noreply@FacultyFeedbackSystem',
                    text: 'Hi, Please Use this OTP : ' +random
@@ -438,17 +444,21 @@ module.exports = {
                 res.status(err);
               }
               else{
+                var email=process.env.email.split('/');
+                var pass=process.env.password.split('/');
+                var mailNo=process.env.mailNo;
+     
                   nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                      user: process.env.email,
-                      pass: process.env.password,
+                      user: email[mailNo],
+                      pass: pass[mailNo],
                     }
                   });
-
+                 
                   var mailOptions = {
-                    from: process.env.email,
+                    from: email[mailNo],
                     to: req.session.student.email,   //Require user email at last as well
                     subject: 'Noreply@ffs',
                     html: '<h1>Thank You For Your feedback</h1><br><b>your feedback has been recorded anonymously.</b><br><br> you can confirm it at 139.59.84.178/#/status'
@@ -459,6 +469,8 @@ module.exports = {
                       console.log(error);
                       res.send("400")
                     } else {
+                      process.env.mailNo=Number(process.env.mailNo)+1;
+                      if(process.env.mailNo==email.length){process.env.mailNo=0;}
                       console.log('Email sent: ' + info.response);
                       res.send("200");
                     }
