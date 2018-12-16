@@ -193,19 +193,25 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			return;
 		}
 		// console.log("Proceed");
-		if(isNaN($scope.feedbackGivenByTheUser[index])){
-		alert("Invalid Feedback Entry!");
-		// console.log("compare, not a number");
-
-		return;
-		}
-		else if($scope.feedbackGivenByTheUser[index]<1 && $scope.feedbackGivenByTheUser[index]>5 ){
-			alert("Invalid Feedback Entry!");
-			$scope.feedbackGivenByTheUser[index]=""
-			// console.log("Reached else if");
-			return;
 		
-		}
+		if(isNaN($scope.feedbackGivenByTheUser[index])){
+			alert("Invalid Feedback Entry!");
+			// console.log("Compare, not a number");
+			$scope.feedbackGivenByTheUser.splice(index,1);
+			return;
+			
+			}
+			
+			else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
+				alert("Invalid Feedback Entry!");
+				$scope.feedbackGivenByTheUser.splice(index,1);
+				// console.log("Reached else if");
+				return;
+			}
+
+		
+		
+		
 
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', practicalTeacher.feedback_id]);
 		
