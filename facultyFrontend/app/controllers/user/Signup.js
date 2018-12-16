@@ -164,7 +164,6 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 					$location.path("/thankYouPage");
 					
 				}else {
-					alert("You are registered to fill the feedback!")
 					$localStorage.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
 					$localStorage.rollno = $scope.user.rollno;
 					console.log($localStorage);
