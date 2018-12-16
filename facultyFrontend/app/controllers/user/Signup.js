@@ -61,8 +61,8 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 		var roll = ($scope.user.rollno);
 		var	year = roll.substring(roll.length -2, roll.length);
 		
-		//var year=roll.s
 		$scope.user.semister = (18 - year)*2 + 1;
+		if($scope.user.semester>10){$scope.user.semester="";}
 		$localStorage.semester = $scope.user.semister;
 		$scope.disablebtn=false;
 		
@@ -92,8 +92,8 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 
 		}*/
 
-		alert("i am here")
-
+		
+		//alert shifted down
 		if(user.category==""||user.rollno==""||user.email==undefined||user.semister==null||$scope.college==undefined){
 			alert("Fill all the required fields in the form");
 			location.reload();
@@ -164,7 +164,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 					$location.path("/thankYouPage");
 					
 				}else {
-					
+					alert("You are registered to fill the feedback!")
 					$localStorage.tablename = $scope.college.collegeCode + '_' + $scope.user.category;
 					$localStorage.rollno = $scope.user.rollno;
 					console.log($localStorage);

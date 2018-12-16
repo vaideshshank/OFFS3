@@ -213,6 +213,7 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 					//console.log("Data recorded");
 					//$window.alert("Data recorded");
 					
+					
 				} else {
 					alert(res.data.message);
 					$location.path("/dataPortal");

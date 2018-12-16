@@ -22,6 +22,22 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', f
             });
         },
 
+        logout : function(){
+            $http({
+                method:"GET",
+                url: BACKEND + "/slogout",
+            }).then(function(response) {
+                if (callback) {
+                    callback(response.data);
+                }
+            }, function(response) {
+                if (callback) {
+                    console.error(response.data);
+                    callback(data);
+                }
+            })
+        },
+
         verifyUser: function(otp, tablename, enrollment_no, semester, callback) {
             $http({
                 method:'POST',
