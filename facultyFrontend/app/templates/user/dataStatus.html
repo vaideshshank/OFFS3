@@ -16,7 +16,7 @@
     <div class="col s2">
         <select ng-model="selectedStream" ng-change="streamSelected()">
             <option value="" selected>Choose Stream</option>
-            <option ng-repeat="stream in streamList">>{{stream.stream}}</option>
+            <option ng-repeat="stream in streamList">{{stream.stream}}</option>
         </select>
     </div>
     <div class="col s2">
@@ -26,11 +26,13 @@
         </select>
     </div>
 </div>
-<div class="left">
-    <a class="waves-effect white black-text btn" ng-click="search()" ng-disabled="!selectedCollege">SEARCH TEACHER PORTAL</a>
-</div>
-<div class="right">
-    <a class="waves-effect white black-text btn" ng-click="search()" ng-disabled="!selectedCollege">SEARCH STUDENT DATA</a>
+<div class="row center">
+    <div class="col m6">
+        <a class="waves-effect white black-text btn" ng-click="search()" ng-disabled="!selectedCollege">SEARCH TEACHER PORTAL</a>
+    </div>
+    <div class="col m6">
+        <a class="waves-effect white black-text btn" ng-click="search()" ng-disabled="!selectedCollege">SEARCH STUDENT DATA</a>
+    </div>
 </div>
 <div class="container" ng-show="searched">
     <div class="table-responsive">
@@ -58,6 +60,7 @@
             
             </tbody>
         </table>
+    </div>
     </div>
 
 
