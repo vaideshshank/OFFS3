@@ -304,10 +304,10 @@ module.exports = {
 
           //to be set
 
-            var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+            var query2 =   'insert into ' + dumptable +' (enrollment_no,student_name,course,stream,semester,subject_code,subject_name,type,instructor_id,instructor_name,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
           'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
-          'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
+          'values ( ' + req.session.student.enrollment_no +',\'\',\'\',\'\',? , ? ,\'\',\'\', ? ,\'\','+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
            result[13]+','+ result[14]+')';
@@ -344,7 +344,7 @@ module.exports = {
               else{
 
                 //console.log("query1",Result);
-                con.query(query2,[feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
+                con.query(query2,[semester,feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
                   if(err3)
                   {
                     console.log(err3);
@@ -381,9 +381,9 @@ module.exports = {
                    ' total = total + ? ' +
                       'where feedback_id = ' +feedback.feedbackId;
                // console.log("nothing");
-             var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+             var query2 =   'insert into ' + dumptable +' (enrollment_no,student_name,course,stream,semester,subject_code,subject_name,type,instructor_id,instructor_name,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8) '+
-          'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
+          'values ( ' + req.session.student.enrollment_no +',\'\',\'\',\'\',? , ? ,\'\',\'\', ? ,\'\','+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] + ')';
 
@@ -411,7 +411,7 @@ module.exports = {
               else {
                // console.log("practical query 1", Result);
                console.log("insertion in feedback table");
-                student.dumpInsert(result, dumptable, enrollment_no, feedback.subject_code, feedback.instructor_code.toString(), function(err3, result3) {
+                student.dumpInsert(result, dumptable, enrollment_no,semester, feedback.subject_code, feedback.instructor_code.toString(), function(err3, result3) {
                   if(err3) {
                     console.log(err3);
                     throw err3;
