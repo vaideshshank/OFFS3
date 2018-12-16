@@ -314,7 +314,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.logout = function() {
 		userService.logout(function(response) {
 			$location.path("/");
-		})
+		});
 		
 	}
 
