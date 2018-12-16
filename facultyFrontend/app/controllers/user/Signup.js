@@ -188,7 +188,7 @@ faculty.controller('SignupCtrl',['$scope', '$rootScope', '$location', 'userServi
 			//console.log("RESPONSE is : "+response.status)
 			
 			if (response.err=="wrongpass") {
-				$window.alert('User is not verified');
+				$window.alert('Wrong OTP');
 				$location.path('/');
 			} else {
 				$localStorage.userDetails = response;
