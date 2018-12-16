@@ -2,8 +2,11 @@ var con         = require("../../models/mysql"),
     ses         = require('node-ses'),
     async       = require('async'),
     controller  = require("../../models/config"),
-    nodemailer  = require('nodemailer');
-    student     = require('../../models/student');
+    nodemailer  = require('nodemailer'),
+    student     = require('../../models/student'),
+     smtpTransport = require('nodemailer-smtp-transport'),
+  handlebars = require('handlebars'),
+     fs = require('fs');
 
 //  year=18;
 module.exports = {
@@ -448,7 +451,7 @@ module.exports = {
                     from: process.env.email,
                     to: req.session.student.email,   //Require user email at last as well
                     subject: 'Noreply@ffs',
-                    text: 'Thank You For Your feedback. Your feedback has been recorded .'
+                    html: '<h1>Thank You For Your feedback</h1><br><b>your feedback has been recorded anonymously.</b><br><br> you can confirm it at 139.59.84.178/#/status'
                   };
 
                   transporter.sendMail(mailOptions, function(error, info){
@@ -462,6 +465,45 @@ module.exports = {
                   });
 
                   });
+                  /*var readHTMLFile = function(path, callback) {
+                      fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+                          if (err) {
+                              throw err;
+                              callback(err);
+                          }
+                          else {
+                              callback(null, html);
+                          }
+                      });
+                  };
+
+                  smtpTransport = nodemailer.createTransport(smtpTransport({
+                      service: 'gmail',
+                    auth: {
+                      user: process.env.email,
+                      pass: process.env.password,
+                    }
+                  }));
+
+                  readHTMLFile('./facultyFrontend/app/templates/feedback_email.html', function(err, html) {
+                      var template = handlebars.compile(html);
+                      var replacements = {
+                           username: req.session.student.name
+                      };
+                      var htmlToSend = template(replacements);
+                      var mailOptions = {
+                         from: process.env.email,
+                         to: req.session.student.email,   //Require user email at last as well
+                         subject: 'Noreply@ffs',
+                          html : htmlToSend
+                       };
+                      smtpTransport.sendMail(mailOptions, function (error, response) {
+                          if (error) {
+                              console.log(error);
+                              callback(error);
+                          }
+                      });
+                  });*/
                   console.log("Thanks for the feedback")
               }
 
