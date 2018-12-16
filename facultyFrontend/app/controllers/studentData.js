@@ -3,6 +3,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	$scope.disabled = false;
 	$scope.data = [];
 	$scope.selectedYear = 2018;
+	$scope.file = "";
 
 	$scope.collegeList = [{
 			collegeName: "University School of Law and Legal Studies",
@@ -150,9 +151,10 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 			return;
 		}
 
+
 		studentDataService.sendData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear, $scope.data, function (res) {
 			if (res.data) {
-				
+
 				if (res.data.status == 200) {
 					$window.alert("Student data recorded");
 					$location.path("/");
@@ -196,6 +198,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 			return;
 		}
 
+		console.log($scope.data);
 		studentData.name = name;
 	}
 
@@ -226,6 +229,22 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 
 	$scope.length = 0;
 	$scope.data   = [];
+
+	function addData() {
+		console.log($scope.uploadedData);
+		for (var x = 0; x < $scope.uploadedData.length;x++) {
+			var obj = {};
+			obj.phone = $scope.uploadedData[x].Phone;
+			obj.email = $scope.uploadedData[x].Email;
+			obj.enrollment_no = $scope.uploadedData[x].Enrollment_number;
+			obj.name = $scope.uploadedData[x].Name;
+			$scope.data.push(obj);
+		}
+		console.log($scope.data);
+		// $scope.addRow();
+ 	}
+
+
 	$scope.addRow = function (enrollment_no, name, email, phone, password) {
 
 		window.scrollBy(0, 1000);
@@ -334,6 +353,42 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 			}]
 		};
 	}
+
+	var oFileIn;
+
+	$(function() {
+	    oFileIn = document.getElementById('my_file_input');
+	    if(oFileIn.addEventListener) {
+	        oFileIn.addEventListener('change', filePicked, false);
+	    }
+	});
+
+
+	function filePicked(oEvent) {
+	    var oFile = oEvent.target.files[0];
+
+	    var sFilename = oFile.name;
+	    // Create A File Reader HTML5
+	    var reader = new FileReader();
+
+	    // Ready The Event For When A File Gets Selected
+	    reader.onload = function(e) {
+	        var data = e.target.result;
+	        var cfb = XLS.CFB.read(data, {type: 'binary'});
+	        var wb = XLS.parse_xlscfb(cfb);
+	        // Loop Over Each Sheet
+	        wb.SheetNames.forEach(function(sheetName) {
+	            // Obtain The Current Row As CSV
+	            var sCSV = XLS.utils.make_csv(wb.Sheets[sheetName]);
+	            $scope.uploadedData = XLS.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
+	            addData();
+	        });
+	    };
+
+	        // Tell JS To Start Reading The File.. You could delay this if desired
+	    reader.readAsBinaryString(oFile);
+	}
+
 
 	function checkData() {
 
