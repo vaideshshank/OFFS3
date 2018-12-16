@@ -78,14 +78,14 @@ module.exports = {
         })
     },
 
-    dumpInsert: function(result, dumptable, enrollment_no, subject_code, instructor_code, callback) {
-        var query =   'insert into ?? (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+    dumpInsert: function(result, dumptable, enrollment_no,semester, subject_code, instructor_code, callback) {
+        var query =   'insert into ?? (enrollment_no,student_name,course,stream,semester,subject_code,subject_name,type,instructor_id,instructor_name,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8) '+
-          'values ( ? , ? , ? ,'+
+          'values ( ? ,\'\',\'\',\'\',? , ? ,\'\',\'\', ? ,\'\','+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] + ')';
 
-		con.query(query,[dumptable, enrollment_no, subject_code,instructor_code.toString()],function(err, rows) {
+		con.query(query,[dumptable, enrollment_no, semester, subject_code,instructor_code.toString()],function(err, rows) {
 			if (err) {
 				console.log(err);
 				throw err;
