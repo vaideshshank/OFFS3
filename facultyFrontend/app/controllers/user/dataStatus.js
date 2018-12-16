@@ -35,12 +35,16 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
             collegeCode : "usict"}
         ];
     
-        $scope.semesterList= [1,2,3,4,5,6,7,8]
-    
         $scope.courseList = [];
     
-        $scope.check = 0;
-    
+        $scope.searchedTeacherData = false;
+
+        $scope.searchedStudentData = false;
+
+        $scope.selectedData = null;
+
+        $scope.flag = -1;
+
         $scope.stream = [];
         var data_value  = {};
 
@@ -96,6 +100,12 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
                         })
                     }
                 })
+                if($scope.flag == 0) {
+                    $scope.searchStudentData();
+                }
+                else if($scope.flag == 1){
+                    $scope.searchTeacherData();
+                }
             }
         }
 
@@ -103,5 +113,27 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
             if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
                 return;
             }
+            if($scope.flag == 0) {
+                $scope.searchStudentData();
+            }
+            else if($scope.flag == 1){
+                $scope.searchTeacherData();
+            }
+        }
+
+        $scope.searchStudentData = function() {
+            console.log("Student");
+            $scope.searchedTeacherData = false;
+            $scope.searchedStudentData = true;
+            $scope.selectedData = null;
+            $scope.flag = 0;
+        }
+
+        $scope.searchTeacherData = function() {
+            console.log("Teacher");
+            $scope.searchedTeacherData = true;
+            $scope.searchedStudentData = false;
+            $scope.selectedData = null;
+            $scope.flag = 1;
         }
     }])
