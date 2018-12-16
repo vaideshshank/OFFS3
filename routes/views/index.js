@@ -2,8 +2,11 @@ var con         = require("../../models/mysql"),
     ses         = require('node-ses'),
     async       = require('async'),
     controller  = require("../../models/config"),
-    nodemailer  = require('nodemailer');
-    student     = require('../../models/student');
+    nodemailer  = require('nodemailer'),
+    student     = require('../../models/student'),
+     smtpTransport = require('nodemailer-smtp-transport'),
+  handlebars = require('handlebars'),
+     fs = require('fs');
 
 //  year=18;
 module.exports = {
@@ -301,10 +304,10 @@ module.exports = {
 
           //to be set
 
-            var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+            var query2 =   'insert into ' + dumptable +' (enrollment_no,student_name,course,stream,semester,subject_code,subject_name,type,instructor_id,instructor_name,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8,attribute_9,'+
           'attribute_10,attribute_11,attribute_12,attribute_13,attribute_14,attribute_15) '+
-          'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
+          'values ( ' + req.session.student.enrollment_no +',\'\',\'\',\'\',? , ? ,\'\',\'\', ? ,\'\','+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] +','+result[8] +','+result[9] +','+result[10] +','+result[11] +','+result[12] +','+
            result[13]+','+ result[14]+')';
@@ -341,7 +344,7 @@ module.exports = {
               else{
 
                 //console.log("query1",Result);
-                con.query(query2,[feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
+                con.query(query2,[semester,feedback.subject_code,feedback.instructor_code.toString()],function(err3,result3){
                   if(err3)
                   {
                     console.log(err3);
@@ -378,9 +381,9 @@ module.exports = {
                    ' total = total + ? ' +
                       'where feedback_id = ' +feedback.feedbackId;
                // console.log("nothing");
-             var query2 =   'insert into ' + dumptable +' (enrollment_no,subject_code,instructor_id,attribute_1,attribute_2,'+
+             var query2 =   'insert into ' + dumptable +' (enrollment_no,student_name,course,stream,semester,subject_code,subject_name,type,instructor_id,instructor_name,attribute_1,attribute_2,'+
           'attribute_3,attribute_4,attribute_5,attribute_6,attribute_7,attribute_8) '+
-          'values ( ' + req.session.student.enrollment_no +' , ? , ? ,'+
+          'values ( ' + req.session.student.enrollment_no +',\'\',\'\',\'\',? , ? ,\'\',\'\', ? ,\'\','+
            result[0]+','+ result[1]+','+ result[2]+','+ result[3]+','+result[4] +','+result[5] +
           ','+ result[6]+','+result[7] + ')';
 
@@ -408,7 +411,7 @@ module.exports = {
               else {
                // console.log("practical query 1", Result);
                console.log("insertion in feedback table");
-                student.dumpInsert(result, dumptable, enrollment_no, feedback.subject_code, feedback.instructor_code.toString(), function(err3, result3) {
+                student.dumpInsert(result, dumptable, enrollment_no,semester, feedback.subject_code, feedback.instructor_code.toString(), function(err3, result3) {
                   if(err3) {
                     console.log(err3);
                     throw err3;
@@ -448,7 +451,7 @@ module.exports = {
                     from: process.env.email,
                     to: req.session.student.email,   //Require user email at last as well
                     subject: 'Noreply@ffs',
-                    text: 'Thank You For Your feedback. Your feedback has been recorded .'
+                    html: '<h1>Thank You For Your feedback</h1><br><b>your feedback has been recorded anonymously.</b><br><br> you can confirm it at 139.59.84.178/#/status'
                   };
 
                   transporter.sendMail(mailOptions, function(error, info){
@@ -462,6 +465,45 @@ module.exports = {
                   });
 
                   });
+                  /*var readHTMLFile = function(path, callback) {
+                      fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+                          if (err) {
+                              throw err;
+                              callback(err);
+                          }
+                          else {
+                              callback(null, html);
+                          }
+                      });
+                  };
+
+                  smtpTransport = nodemailer.createTransport(smtpTransport({
+                      service: 'gmail',
+                    auth: {
+                      user: process.env.email,
+                      pass: process.env.password,
+                    }
+                  }));
+
+                  readHTMLFile('./facultyFrontend/app/templates/feedback_email.html', function(err, html) {
+                      var template = handlebars.compile(html);
+                      var replacements = {
+                           username: req.session.student.name
+                      };
+                      var htmlToSend = template(replacements);
+                      var mailOptions = {
+                         from: process.env.email,
+                         to: req.session.student.email,   //Require user email at last as well
+                         subject: 'Noreply@ffs',
+                          html : htmlToSend
+                       };
+                      smtpTransport.sendMail(mailOptions, function (error, response) {
+                          if (error) {
+                              console.log(error);
+                              callback(error);
+                          }
+                      });
+                  });*/
                   console.log("Thanks for the feedback")
               }
 

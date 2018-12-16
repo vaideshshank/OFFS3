@@ -25,6 +25,8 @@
     "express": "^4.16.2",
     "express-myconnection": "^1.0.4",
     "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "handlebars": "^4.0.12",
     "ip": "^1.1.5",
     "method-override": "^2.3.10",
     "mssql": "^4.1.0",
@@ -32,7 +34,8 @@
     "mysql": "^2.15.0",
     "node-ses": "^2.0.5",
     "nodemailer": "^4.6.4",
-    "request": "^2.83.0",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "request": "^2.88.0",
     "sshpk": "^1.14.1"
   }
 }
