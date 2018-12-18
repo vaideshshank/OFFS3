@@ -8,6 +8,7 @@ module.exports = {
   getSubjectStatus: function(req, res) {
     var payload = {};
     let college = req.query.college;
+
     //Check if subject allocation 2018 even exists
     var initQuery = "SHOW TABLES LIKE ?";
     con.query(
