@@ -72,7 +72,20 @@ module.exports = {
               }
             );
           } else {
-            res.status(404).json({ error: "No Data For this College" });
+            var noDataQuery = "SELECT * FROM ?? where semester % 2 <> 0;";
+            con.query(noDataQuery, [college + "_batch_allocation"], function(
+              err,
+              List
+            ) {
+              if (err) {
+                console.log(err);
+                res.status(500).send("SERVER FAILURE");
+              } else {
+                payload.noData = List;
+                payload.data = [];
+                res.status(200).json(payload);
+              }
+            });
           }
         }
       }
