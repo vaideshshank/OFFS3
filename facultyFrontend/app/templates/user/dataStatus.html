@@ -26,52 +26,34 @@
         </select>
     </div>
 </div>
-<div class="row center" ng-hide="!selectedCollege">
+<div class="center" ng-hide="!selectedCollege">
     <div class="col m6">
-        <a class="waves-effect white black-text btn" ng-click="searchTeacherData()" ng-disabled="!selectedCollege">SEARCH TEACHER PORTAL</a>
-    </div>
-    <div class="col m6">
-        <a class="waves-effect white black-text btn" ng-click="searchStudentData()" ng-disabled="!selectedCollege">SEARCH STUDENT DATA</a>
+        <a class="waves-effect white black-text btn" ng-click="searchSubjectDataStatus()" ng-disabled="!selectedCollege">SEARCH SUBJECT DATA</a>
     </div>
 </div>
 <div class="container">
-    <div class="table-responsive" ng-show="searchedTeacherData">
+    <div class="table-responsive" ng-show="searchedSubjectData">
         <table>
             <thead>
               <th>S.No.</th>
-              <th>College</th>
               <th>Course</th>
               <th>Stream</th>
               <th>Semester</th>
               <th>Status</th>
             </thead>
-            <tr ng-repeat="value in selectedData track by $index">
+            <tr ng-repeat="value in selectedData.data track by $index">
               <td>{{ $index  + 1}}</td>
-              <td>{{ value.enrollment_no }}</td>
-              <td>{{ value.name }}</td>
-              <td>{{ value.enrollment_no }}</td>
-              <td>{{ value.name }}</td>
-              <td>{{ value.name }}</td>
+              <td>{{ value.course }}</td>
+              <td>{{ value.stream }}</td>
+              <td>{{ value.semester }}</td>
+              <td>Submitted</td>
             </tr>
-          </table>
-    </div>
-    <div class="table-responsive" ng-show="searchedStudentData">
-        <table>
-            <thead>
-                <th>S.No.</th>
-                <th>College</th>
-                <th>Course</th>
-                <th>Stream</th>
-                <th>Semester</th>
-                <th>Status</th>
-              </thead>
-              <tr ng-repeat="value in selectedData track by $index">
+            <tr ng-repeat="value in selectedData.noData track by $index">
                 <td>{{ $index  + 1}}</td>
-                <td>{{ value.enrollment_no }}</td>
-                <td>{{ value.name }}</td>
-                <td>{{ value.enrollment_no }}</td>
-                <td>{{ value.name }}</td>
-                <td>{{ value.name }}</td>
+                <td>{{ value.course }}</td>
+                <td>{{ value.stream }}</td>
+                <td>{{ value.semester }}</td>
+                <td>Not Submitted</td>
             </tr>
           </table>
     </div>
