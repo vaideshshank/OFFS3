@@ -7,7 +7,7 @@ var con = require("../../models/mysql"),
 module.exports = {
   getSubjectStatus: function(req, res) {
     var payload = {};
-    let college = req.body.college;
+    let college = req.query.college;
     //Check if subject llocation 2018 even exists
     var initQuery = "SHOW TABLES LIKE ?";
     con.query(
