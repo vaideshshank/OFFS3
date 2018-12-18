@@ -1,0 +1,81 @@
+var con = require("../../models/mysql"),
+  ses = require("node-ses"),
+  async = require("async"),
+  controller = require("../../models/config"),
+  nodemailer = require("nodemailer");
+
+module.exports = {
+  getSubjectStatus: function(req, res) {
+    var payload = {};
+    let college = req.body.college;
+    //Check if subject llocation 2018 even exists
+    var initQuery = "SHOW TABLES LIKE ?";
+    con.query(
+      initQuery,
+      [college + "_subject_allocation_" + process.env.year],
+      function(err, List) {
+        if (err) {
+          console.log(err);
+          res.status(500).send("SERVER FAILURE");
+        } else {
+          if (List.length != 0) {
+            // That means the tables exists s we will query further
+
+            var queryNoData =
+              "SELECT DISTINCT a.batch_id,a.course,a.stream,a.semester " +
+              "FROM " +
+              "?? as a " +
+              "left join ?? as b " +
+              "on b.batch_id = a.batch_id " +
+              "where b.instructor_code is null and semester%2<>0;";
+            con.query(
+              queryNoData,
+              [
+                college + "_batch_allocation",
+                college + "_subject_allocation_2018"
+              ],
+              function(err, List) {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send("SERVER FAILURE");
+                } else {
+                  //inserted into payload under noData
+                  payload.noData = List;
+                  //query to return batch information whose teacher data portal is filled
+                  var queryData =
+                    "SELECT DISTINCT b.batch_id ,b.course,b.semester,b.stream " +
+                    "FROM " +
+                    "?? as a " +
+                    "left join ?? as b " +
+                    "on b.batch_id = a.batch_id " +
+                    "where b.semester % 2 <> 0 " +
+                    "order by batch_id asc;";
+                  con.query(
+                    queryData,
+                    [
+                      college + "_subject_allocation_" + process.env.year,
+                      college + "_batch_allocation"
+                    ],
+                    function(err, List) {
+                      if (err) {
+                        console.log(err);
+                        res.status(500).send("SERVER FAILURE");
+                      } else {
+                        //inserted into payload under data
+                        payload.data = List;
+                        //payload returned jsonified
+                        res.status(200).json(payload);
+                      }
+                    }
+                  );
+                }
+              }
+            );
+          } else {
+            res.status(404).json({ error: "No Data For this College" });
+          }
+        }
+      }
+    );
+  }
+};

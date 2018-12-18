@@ -1,17 +1,17 @@
 var express = require("express");
-var router  = express.Router();
+var router = express.Router();
 
 var routes = {
   views: {
-	index: require("./views/index"),
-	dean : require("./views/dean"),
-	vc : require("./views/vc"),
-	pvc : require("./views/pvc"),
-	teacher : require("./views/teacher"),
-	dataportal : require("./views/dataportal")
+    index: require("./views/index"),
+    dean: require("./views/dean"),
+    vc: require("./views/vc"),
+    pvc: require("./views/pvc"),
+    teacher: require("./views/teacher"),
+    dataportal: require("./views/dataportal"),
+    dataStatus: require("./views/dataStatus")
   }
-}
-
+};
 
 router.get("/", routes.views.index.index);
 router.post("/initials", routes.views.index.initials);
@@ -31,33 +31,34 @@ router.get("/slogout", routes.views.index.logout);
 	Erase this after you understand !
 */
 
+router.post("/dinitials", routes.views.dean.initials); //To authenticate the dean
+router.get("/dchecksession", routes.views.dean.checksession); //This is a temporary route.
+router.get("/ddashboard", routes.views.dean.dashboard); // To get details of a BACH .
+router.get("/dlogout", routes.views.dean.logout);
 
-router.post("/dinitials",routes.views.dean.initials);  //To authenticate the dean
-router.get("/dchecksession",routes.views.dean.checksession);  //This is a temporary route.
-router.get("/ddashboard",routes.views.dean.dashboard);    // To get details of a BACH .
-router.get("/dlogout",routes.views.dean.logout);
+router.post("/vinitials", routes.views.vc.initials); //To authenticate the dean
+router.get("/vchecksession", routes.views.vc.checksession); //This is a temporary route.
+router.get("/vdashboard", routes.views.vc.dashboard); // To get details of a BACH .
+router.get("/vlogout", routes.views.vc.logout);
 
-router.post("/vinitials",routes.views.vc.initials);  //To authenticate the dean
-router.get("/vchecksession",routes.views.vc.checksession);  //This is a temporary route.
-router.get("/vdashboard",routes.views.vc.dashboard);    // To get details of a BACH .
-router.get("/vlogout",routes.views.vc.logout);
+router.post("/pvinitials", routes.views.pvc.initials); //To authenticate the dean
+router.get("/pvchecksession", routes.views.pvc.checksession); //This is a temporary route.
+router.get("/pvdashboard", routes.views.pvc.dashboard); // To get details of a BACH .
+router.get("/pvclogout", routes.views.pvc.logout);
 
-router.post("/pvinitials",routes.views.pvc.initials);  //To authenticate the dean
-router.get("/pvchecksession",routes.views.pvc.checksession);  //This is a temporary route.
-router.get("/pvdashboard",routes.views.pvc.dashboard);    // To get details of a BACH .
-router.get("/pvclogout",routes.views.pvc.logout);
+router.post("/tinitials", routes.views.teacher.initials); //To authenticate the teacher
+router.get("/tchecksession", routes.views.teacher.checksession); //This is a temporary route: profile details
+router.get("/tpopulate", routes.views.teacher.populate); // To populate the dropdowns
+router.get("/tdashboard", routes.views.teacher.dashboard); // To view the feedback of a BACH .
+router.get("/tlogout", routes.views.teacher.logout);
 
-router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the teacher
-router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details
-router.get("/tpopulate",routes.views.teacher.populate);    // To populate the dropdowns
-router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
-router.get("/tlogout",routes.views.teacher.logout);
-
-router.get("/getTeacher",routes.views.dataportal.getTeacher);
-router.get('/getCourse', routes.views.dataportal.getCourse);
-router.get('/getStream', routes.views.dataportal.getStream);
-router.get('/getSubjects', routes.views.dataportal.getSubjects);
-router.post("/createFeedback",routes.views.dataportal.createFeedback);
+router.get("/getTeacher", routes.views.dataportal.getTeacher);
+router.get("/getCourse", routes.views.dataportal.getCourse);
+router.get("/getStream", routes.views.dataportal.getStream);
+router.get("/getSubjects", routes.views.dataportal.getSubjects);
+router.post("/createFeedback", routes.views.dataportal.createFeedback);
 router.post("/sendStudent", routes.views.index.studentData);
+
+router.post("/getSubjectStatus", routes.views.dataStatus.getSubjectStatus);
 
 module.exports = router;
