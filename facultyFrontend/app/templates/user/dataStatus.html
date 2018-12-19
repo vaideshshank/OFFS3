@@ -8,19 +8,19 @@
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selectedCourse" ng-change="courseSelected()">
+        <select ng-model="selectedCourse" ng-change="courseSelected()" ng-disabled="true">
             <option value="" selected>Choose Course</option>    
             <option ng-repeat="course in courseList">{{course.course}}</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selectedStream" ng-change="streamSelected()">
+        <select ng-model="selectedStream" ng-change="streamSelected()" ng-disabled="true">
             <option value="" selected>Choose Stream</option>
             <option ng-repeat="stream in streamList">{{stream.stream}}</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selectedSem" ng-change="semSelected()">
+        <select ng-model="selectedSem" ng-change="semSelected()" ng-disabled="true">
             <option value="" selected>Choose Semester</option>
             <option ng-repeat="semester in [1,2,3,4,5,6,7,8,9,10]">{{semester}}</option>
         </select>
