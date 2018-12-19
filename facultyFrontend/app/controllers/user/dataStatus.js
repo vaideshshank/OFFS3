@@ -1,4 +1,4 @@
-faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','studentDataService','$location','$window',function($http, $scope, dataPortalService, studentDataService, $location, $window){
+faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService', 'dataStatusService', '$location','$window',function($http, $scope, dataPortalService, dataStatusService, $location, $window){
 
         $scope.collegeList = [ {
             collegeName : "University School of Law and Legal Studies",
@@ -37,13 +37,11 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
     
         $scope.courseList = [];
     
-        $scope.searchedTeacherData = false;
-
-        $scope.searchedStudentData = false;
+        $scope.searchedSubjectData = false;
 
         $scope.selectedData = null;
 
-        $scope.flag = -1;
+        $scope.key = 0;
 
         $scope.stream = [];
         var data_value  = {};
@@ -68,11 +66,7 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
             if ($scope.collegeCode) {
                 dataPortalService.getCourse($scope.collegeCode, function(responce) {
                     if (responce) {
-                        console.log(responce);
                         $scope.courseList = responce;
-                        // $scope.courseList = JSON.parse(responce);
-                        console.log(typeof $scope.courseList);
-                        //console.log("Courses:: "+$scope.courseList);
                     $(document).ready(function () {
                         $('select').material_select();
                     })
@@ -81,31 +75,22 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
                 })
     
             }
-    
-             console.log($scope.selectedCollege);
         }
     
         $scope.courseSelected = function() {
             if (!$scope.selectedCourse || !$scope.selectedCollege) {
                 return;
             }
-    
             if ($scope.collegeCode && $scope.selectedCourse) {
                 dataPortalService.getStream($scope.collegeCode, $scope.selectedCourse, function(responce) {
                     if (responce) {
-                        console.log(responce);
                         $scope.streamList = responce;
                         $(document).ready(function () {
                             $('select').material_select();
                         })
                     }
                 })
-                if($scope.flag == 0) {
-                    $scope.searchStudentData();
-                }
-                else if($scope.flag == 1){
-                    $scope.searchTeacherData();
-                }
+                $scope.key = 1;
             }
         }
 
@@ -113,27 +98,88 @@ faculty.controller('dataStatusCtrl',['$http','$scope','dataPortalService','stude
             if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
                 return;
             }
-            if($scope.flag == 0) {
-                $scope.searchStudentData();
-            }
-            else if($scope.flag == 1){
-                $scope.searchTeacherData();
-            }
+            $scope.key = 2;
         }
 
-        $scope.searchStudentData = function() {
-            console.log("Student");
-            $scope.searchedTeacherData = false;
-            $scope.searchedStudentData = true;
-            $scope.selectedData = null;
-            $scope.flag = 0;
+        $scope.semSelected = function() {
+            if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream || !$scope.selectedSem) {
+                return;
+            }
+            $scope.key = 3;
         }
 
-        $scope.searchTeacherData = function() {
-            console.log("Teacher");
-            $scope.searchedTeacherData = true;
-            $scope.searchedStudentData = false;
-            $scope.selectedData = null;
-            $scope.flag = 1;
+        $scope.searchSubjectDataStatus = function() {
+            $scope.searchedSubjectData = true;
+            if($scope.key == 0) {
+                dataStatusService.getSubjectDataStatus($scope.collegeCode, function(response) {
+                    if (response == "400") {
+                        alert("something wrong happened")
+                        $location.path("/dataStatus");  
+                    }
+                    else {
+                        $scope.selectedData = response;
+                        for(var i=0; i<$scope.selectedData.data.length; ++i) {
+                            $scope.selectedData.data[i].flag = 0;
+                        }
+                        for(var i=0; i<$scope.selectedData.noData.length; ++i) {
+                            $scope.selectedData.noData[i].flag = 1;
+                        }
+                    }
+                })
+            }
+            else if($scope.key == 1) {
+                dataStatusService.getSubjectDataStatusByCourse($scope.collegeCode, $scope.selectedCourse, function(response) {
+                    console.log(response);
+                    if (response == "400") {
+                        alert("something wrong happened")
+                        $location.path("/dataStatus");   
+                    }
+                    else {
+                        $scope.selectedData = response;
+                        for(var i=0; i<$scope.selectedData.data.length; ++i) {
+                            $scope.selectedData.data[i].flag = 0;
+                        }
+                        for(var i=0; i<$scope.selectedData.noData.length; ++i) {
+                            $scope.selectedData.noData[i].flag = 1;
+                        }
+                    }
+                })
+            }
+            else if($scope.key == 2) {
+                dataStatusService.getSubjectDataStatusByStream($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, function(response) {
+                    console.log(response);
+                    if (response == "400") {
+                        alert("something wrong happened")
+                        $location.path("/dataStatus");   
+                    }
+                    else {
+                        $scope.selectedData = response;
+                        for(var i=0; i<$scope.selectedData.data.length; ++i) {
+                            $scope.selectedData.data[i].flag = 0;
+                        }
+                        for(var i=0; i<$scope.selectedData.noData.length; ++i) {
+                            $scope.selectedData.noData[i].flag = 1;
+                        }
+                    }
+                })
+            }
+            else if($scope.key == 3) {
+                dataStatusService.getSubjectDataStatusBySemester($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedSem, function(response) {
+                    console.log(response);
+                    if (response == "400") {
+                        alert("something wrong happened")
+                        $location.path("/dataStatus");   
+                    }
+                    else {
+                        $scope.selectedData = response;
+                        for(var i=0; i<$scope.selectedData.data.length; ++i) {
+                            $scope.selectedData.data[i].flag = 0;
+                        }
+                        for(var i=0; i<$scope.selectedData.noData.length; ++i) {
+                            $scope.selectedData.noData[i].flag = 1;
+                        }
+                    }
+                })
+            }
         }
     }])
