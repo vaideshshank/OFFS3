@@ -81,10 +81,12 @@ module.exports = {
               res.json("400");
 
             } else {
-              console.log('ssssssssssssssssssssaaaaaaaaaaaaaaarrrrrrrrrrrrrrr');
+              console.log('EMAIL');
               var email=process.env.email.split('/');
               var pass=process.env.password.split('/');
               var mailNo=process.env.mailNo;         
+		console.log(email[mailNo]);
+		console.log(pass[mailNo]);
 
                nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
@@ -447,7 +449,8 @@ module.exports = {
                 var email=process.env.email.split('/');
                 var pass=process.env.password.split('/');
                 var mailNo=process.env.mailNo;
-     
+     			console.log(email[mailNo]);
+			console.log(pass[mailNo]);
                   nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',

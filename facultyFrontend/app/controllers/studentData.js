@@ -154,7 +154,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 
 		studentDataService.sendData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear, $scope.data, function (res) {
 			if (res.data) {
-
+				console.log(res.data);
 				if (res.data.status == 200) {
 					$window.alert("Student data recorded");
 					
