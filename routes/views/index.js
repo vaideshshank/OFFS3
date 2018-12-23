@@ -449,9 +449,9 @@ module.exports = {
                 var email=process.env.email.split('/');
                 var pass=process.env.password.split('/');
                 var mailNo=process.env.mailNo;
-     			console.log(email[mailNo]);
-			console.log(pass[mailNo]);
-                  nodemailer.createTestAccount((err, account) => {
+     			      console.log(email[mailNo]);
+			          console.log(pass[mailNo]);
+                  /* nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -464,7 +464,7 @@ module.exports = {
                     from: email[mailNo],
                     to: req.session.student.email,   //Require user email at last as well
                     subject: 'Noreply@ffs',
-                    html: '<h1>Thank You For Your feedback</h1><br><b>your feedback has been recorded anonymously.</b><br><br> you can confirm it at 139.59.84.178/#/status'
+                    html: '<h1>ThankYou For Your feedback</h1><br><b>Your feedback has been recorded anonymously.</b><br><br> you can confirm it at 142.93.210.160/#/status'
                   };
 
                   transporter.sendMail(mailOptions, function(error, info){
@@ -479,8 +479,8 @@ module.exports = {
                     }
                   });
 
-                  });
-                  /*var readHTMLFile = function(path, callback) {
+                  });*/
+                 var readHTMLFile = function(path, callback) {
                       fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
                           if (err) {
                               throw err;
@@ -492,13 +492,14 @@ module.exports = {
                       });
                   };
 
-                  smtpTransport = nodemailer.createTransport(smtpTransport({
-                      service: 'gmail',
+               nodemailer.createTestAccount((err, account) => {
+                  var transporter = nodemailer.createTransport({
+                    service: 'gmail',
                     auth: {
-                      user: process.env.email,
-                      pass: process.env.password,
+                      user: email[mailNo],
+                      pass: pass[mailNo],
                     }
-                  }));
+                  });
 
                   readHTMLFile('./facultyFrontend/app/templates/feedback_email.html', function(err, html) {
                       var template = handlebars.compile(html);
@@ -512,13 +513,19 @@ module.exports = {
                          subject: 'Noreply@ffs',
                           html : htmlToSend
                        };
-                      smtpTransport.sendMail(mailOptions, function (error, response) {
-                          if (error) {
-                              console.log(error);
-                              callback(error);
-                          }
+                       transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                      res.send("400")
+                    } else {
+                      process.env.mailNo=Number(process.env.mailNo)+1;
+                      if(process.env.mailNo==email.length){process.env.mailNo=0;}
+                      console.log('Email sent: ' + info.response);
+                      res.send("200");
+                    }
                       });
-                  });*/
+                  });
+              });
                   console.log("Thanks for the feedback")
               }
 
