@@ -4,7 +4,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.pointer  = 0;
 	$scope.pointer2 = -1;
 	$scope.seggregatedTeacherType = {}
-	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
 	$scope.disablenextattributes = true;
 
@@ -173,7 +172,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		$scope.disablenextattributes = false;
 
-		$scope.checkOccurence++;
 		i++;
 	}
 	// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
@@ -220,7 +218,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 				instructor_code: practicalTeacher.instructor_code
 			})
 		}
-		$scope.checkOccurence++;
 		
 		$scope.disablenextattributes = false;
 
@@ -228,10 +225,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 	$scope.increasePointer = function() {
 		$scope.disablenextattributes = true;
-		if($scope.check()) {
-			location.reload();
-			return;
-		}
 		$scope.pointer += 1;
 		
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
@@ -306,10 +299,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 	$scope.increasePointer2 = function() {
 		$scope.disablenextattributes = true;
-		if($scope.check()) {
-			location.reload();
-			return;
-		}
 		$scope.pointer2 += 1;
 		
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
@@ -347,12 +336,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		
 	}
-
-	$scope.check = function() {
-		console.log("Here");
-		return false;
-	}
-
 
 	$scope.getInstructorsForFeedback();
 
