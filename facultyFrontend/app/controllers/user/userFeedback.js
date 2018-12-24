@@ -11,15 +11,10 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.seggregatedTeacherType = {}
 	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
-	$scope.theoryTeacherFlag = [];
-	$scope.practicalTeacherFlag = [];
 	$scope.buttonToggler = true;
 	$scope.disabled = false;
 	$scope.checkDisabled = false;
 	$scope.disablenextattributes = false;
-	$scope.flag = true;
-	$scope.length1 = 0;
-	$scope.length2 = 0;
 
 	$scope.teacherFeedback = [
 		// Theory: {},
@@ -103,6 +98,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 			for (var x=0;x<$scope.feedback.length;x++) {
 				$scope.feedback[x].type = $scope.feedback[x].type;
+
 			}
 
 			var seggregatedTeacherType = _.groupBy(response, function(result) {
@@ -126,20 +122,18 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
         		$scope.practicalTeacher = seggregatedTeacherType.PRACTICAL;
         	}
 
-			$scope.length1 = $scope.theoryTeacher.length;
-			$scope.length2 = $scope.practicalTeacher.length;
+
+        	console.log($scope.theoryTeacher);
+        	console.log($scope.practicalTeacher)
 		})
 	}
 	var j=0,i=0;
 	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToTheoryTeacher = function(theoryTeacher, index) {
-		// if ($scope.feedbackGivenByTheUser[index] == null) {
-		// 	return;
-		// }
+		if ($scope.feedbackGivenByTheUser[index] == null) {
+			return;
+		}
 		// console.log("Proceed");
-
-		$scope.theoryTeacherFlag[index] = 0;
-
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 		alert("Invalid Feedback Entry!");
 		// console.log("Compare, not a number");
@@ -155,8 +149,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			return;
 		}
 
-		$scope.theoryTeacherFlag[index] = 1;
-
+		
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', theoryTeacher.feedback_id]);
 		// var feedback = function($scope.feedbackGivenByTheUser);
 
@@ -192,25 +185,14 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		$scope.checkOccurence++;
 		i++;
-
-		if((index+1) == $scope.length1) {
-			for(var i=0; i<$scope.length1; i++) {
-				if($scope.theoryTeacherFlag[i] == 0) {
-					return;
-				}
-			}
-			$scope.flag = false;
-		}
 	}
 	// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
 	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToPracticalTeacher = function(practicalTeacher, index) {
-		// if ($scope.feedbackGivenByTheUser[index] == null) {
-		// 	return;
-		// }
+		if ($scope.feedbackGivenByTheUser[index] == null) {
+			return;
+		}
 		// console.log("Proceed");
-
-		$scope.practicalTeacherFlag[index] = 0;
 		
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 			alert("Invalid Feedback Entry!");
@@ -227,7 +209,9 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			return;
 		}
 
-		$scope.practicalTeacherFlag[index] = 1;
+		
+		
+		
 
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', practicalTeacher.feedback_id]);
 		
@@ -252,14 +236,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		}
 		$scope.checkOccurence++;
 		
-		if((index+1) == $scope.length2) {
-			for(var i=0; i<$scope.length2; i++) {
-				if($scope.practicalTeacherFlag[i] == 0) {
-					return;
-				}
-			}
-			$scope.flag = false;
-		}
 		
 		$scope.checkIndex = function(){
 		
@@ -281,7 +257,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		$scope.pointer += 1;
 		$scope.buttonToggler = true;
 		$scope.checkOccurence = 0;
-		$scope.flag = true;
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
 			if ($scope.teacherFeedback[x].type=="Theory") {
 				if(!$scope.teacherFeedback[x].score[$scope.pointer]) {
@@ -338,7 +313,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		// }
 		// for (var x=0; x< )
-		$scope.flag = true;
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
 	}
@@ -354,7 +328,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		$scope.pointer2 += 1;
 		$scope.buttonToggler = true;
 		$scope.checkOccurence = 0;
-		$scope.flag = true;
+
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
 			if ($scope.teacherFeedback[x].type=="Practical") {
 				if(!$scope.teacherFeedback[x].score[$scope.pointer2]) {
