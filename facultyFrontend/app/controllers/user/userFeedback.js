@@ -302,6 +302,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 	$scope.decreasePointer = function() {
 		$scope.pointer -=1;
+		$scope.flag = false;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer];
 
 		for (var x=0; x<$scope.teacherFeedback.length;x++) {
@@ -311,6 +312,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 	$scope.decreasePointer2 = function() {
 		$scope.pointer2 -= 1;
+		$scope.flag = false;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer + $scope.pointer2];
 
 		console.log($scope.teacherFeedback);
