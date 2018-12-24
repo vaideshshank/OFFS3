@@ -143,6 +143,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 		alert("Invalid Feedback Entry!");
 		// console.log("Compare, not a number");
+		$scope.flag = true;
 		$scope.feedbackGivenByTheUser.splice(index,1);
 		return;
 		
@@ -150,6 +151,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Invalid Feedback Entry!");
+			$scope.flag = true;
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			// console.log("Reached else if");
 			return;
@@ -214,7 +216,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 			alert("Invalid Feedback Entry!");
-			// console.log("Compare, not a number");
+			$scope.flag = true;
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			return;
 			
@@ -222,8 +224,8 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Invalid Feedback Entry!");
+			$scope.flag = true;
 			$scope.feedbackGivenByTheUser.splice(index,1);
-			// console.log("Reached else if");
 			return;
 		}
 
