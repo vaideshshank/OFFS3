@@ -1,24 +1,14 @@
 faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', '$document', '$location', 'userService','$localStorage',function($scope, $rootScope, $uibModal, $log, $document, $location, userService,$localStorage) {
-
-	//$scope.pointer=$scope.pointer;
-	//$scope.pointer2=$scope.pointer2;
 	
 	$scope.feedback;
 	$scope.pointer  = 0;
 	$scope.pointer2 = -1;
-	//$scope.pointer=$locaStorage.pointer;
-	//$scope.pointer2=$scope.pointer2;
 	$scope.seggregatedTeacherType = {}
 	$scope.checkOccurence = 0;
 	$scope.feedbackGivenByTheUser = [];
-	$scope.buttonToggler = true;
-	$scope.disabled = false;
-	$scope.checkDisabled = false;
-	$scope.disablenextattributes = false;
+	$scope.disablenextattributes = true;
 
 	$scope.teacherFeedback = [
-		// Theory: {},
-		// Practical: {}
 	];
 
 	$scope.attributesList = {
@@ -122,7 +112,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
         		$scope.practicalTeacher = seggregatedTeacherType.PRACTICAL;
         	}
 
-
         	console.log($scope.theoryTeacher);
         	console.log($scope.practicalTeacher)
 		})
@@ -133,17 +122,16 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		if ($scope.feedbackGivenByTheUser[index] == null) {
 			return;
 		}
-		// console.log("Proceed");
-		if(isNaN($scope.feedbackGivenByTheUser[index])){
-		alert("Invalid Feedback Entry!");
-		// console.log("Compare, not a number");
-		$scope.feedbackGivenByTheUser.splice(index,1);
-		return;
 		
+		if(isNaN($scope.feedbackGivenByTheUser[index])){
+			alert("Please enter a number between 1-5");
+			// console.log("Compare, not a number");
+			$scope.feedbackGivenByTheUser.splice(index,1);
+			return;
 		}
 		
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
-			alert("Invalid Feedback Entry!");
+			alert("Please enter a number between 1-5");
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			// console.log("Reached else if");
 			return;
@@ -183,6 +171,8 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			console.log($scope.teacherFeedback);	//stores info about teacher and his feedback  teacherFeedback[].feedbackId
 		}
 
+		$scope.disablenextattributes = false;
+
 		$scope.checkOccurence++;
 		i++;
 	}
@@ -195,7 +185,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		// console.log("Proceed");
 		
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
-			alert("Invalid Feedback Entry!");
+			alert("Please enter a number between 1-5");
 			// console.log("Compare, not a number");
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			return;
@@ -203,15 +193,11 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			}
 			
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
-			alert("Invalid Feedback Entry!");
+			alert("Please enter a number between 1-5");
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			// console.log("Reached else if");
 			return;
 		}
-
-		
-		
-		
 
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', practicalTeacher.feedback_id]);
 		
@@ -236,27 +222,18 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		}
 		$scope.checkOccurence++;
 		
-		
-		$scope.checkIndex = function(){
-		
-			for(var x=0; x<$scope.feedbackGivenByTheUser.length; x++){
-				if($scope.feedbackGivenByTheUser[x]==null){
-				alert("Please fill all the entries first");
-				return;
-				}	
-			}
-		}
-		
-		if ($scope.practicalTeacher.length <= $scope.checkOccurence) {
-			$scope.buttonToggler = false;
-		}
+		$scope.disablenextattributes = false;
 
 	}
 
 	$scope.increasePointer = function() {
+		$scope.disablenextattributes = true;
+		if($scope.check()) {
+			location.reload();
+			return;
+		}
 		$scope.pointer += 1;
-		$scope.buttonToggler = true;
-		$scope.checkOccurence = 0;
+		
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
 			if ($scope.teacherFeedback[x].type=="Theory") {
 				if(!$scope.teacherFeedback[x].score[$scope.pointer]) {
@@ -274,6 +251,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	
 
 	$scope.decreasePointer = function() {
+		$scope.disablenextattributes = false;
 		$scope.pointer -=1;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer];
 
@@ -283,6 +261,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	}
 
 	$scope.decreasePointer2 = function() {
+		$scope.disablenextattributes = false;
 		$scope.pointer2 -= 1;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer + $scope.pointer2];
 
@@ -313,6 +292,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		// }
 		// for (var x=0; x< )
+		$scope.disablenextattributes = true;
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
 	}
@@ -325,10 +305,13 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	}
 
 	$scope.increasePointer2 = function() {
+		$scope.disablenextattributes = true;
+		if($scope.check()) {
+			location.reload();
+			return;
+		}
 		$scope.pointer2 += 1;
-		$scope.buttonToggler = true;
-		$scope.checkOccurence = 0;
-
+		
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
 			if ($scope.teacherFeedback[x].type=="Practical") {
 				if(!$scope.teacherFeedback[x].score[$scope.pointer2]) {
@@ -345,10 +328,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	}
 
 	$scope.sendFeedbackEvaluation = function() {
-
-	
-
-		$scope.disabled = true;
 
 		var object = {
 			college_name: $scope.college_name,
@@ -369,15 +348,13 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 	}
 
+	$scope.check = function() {
+		console.log("Here");
+		return false;
+	}
+
 
 	$scope.getInstructorsForFeedback();
-
-	
-	
-	
-	
-	
-
 
 	$scope.open = function() {
 

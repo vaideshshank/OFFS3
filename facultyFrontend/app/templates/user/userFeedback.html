@@ -105,7 +105,7 @@
         </div>
         <br>
         <div class="container">
-          <a id="button" onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="increasePointer()" ng-if="pointer < attributesList.theory.length">
+          <a id="button" onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="increasePointer()" ng-if="pointer < attributesList.theory.length" ng-disabled="disablenextattributes">
               Next Attribute
               <i class="material-icons right">navigate_next</i>
           </a>
@@ -120,7 +120,7 @@
               <i class="material-icons right">navigate_next</i>
           </a>
 
-          <a  onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="increasePointer2()" ng-if="pointer2>=0&&pointer==attributesList.theory.length&&pointer2 < attributesList.practicals.length">
+          <a  onclick="myFunction()" class="proceed-to-feedback btn waves-effect waves-light right" ng-click="increasePointer2()" ng-if="pointer2>=0&&pointer==attributesList.theory.length&&pointer2 < attributesList.practicals.length" ng-disabled="disablenextattributes">
               Next Attributes
               <i class="material-icons right">navigate_next</i>
           </a>
@@ -130,7 +130,7 @@
               <i class="material-icons right">navigate_before</i>
           </a>
 
-          <a class="proceed-to-feedback btn waves-effect waves-light" ng-click="sendFeedbackEvaluation()" ng-if="pointer2==attributesList.practicals.length" ng-disabled="disabled">
+          <a class="proceed-to-feedback btn waves-effect waves-light" ng-click="sendFeedbackEvaluation()" ng-if="pointer2==attributesList.practicals.length">
               Complete your Evaluation
               <i class="material-icons right">navigate_next</i>
           </a>
