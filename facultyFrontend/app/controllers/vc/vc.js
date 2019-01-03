@@ -1,5 +1,11 @@
-faculty.controller("vcCtrl", function($scope, $rootScope, $location, vcService) {
-	$scope.vc  = [];
+faculty.controller("vcCtrl", function(
+  $scope,
+  $rootScope,
+  $location,
+  vcService
+) {
+  $scope.vc = [];
+
 
 	$scope.logout = function(req,res) {
 		vcService.logout(function(response) {
@@ -18,9 +24,10 @@ faculty.controller("vcCtrl", function($scope, $rootScope, $location, vcService) 
 		})
 	}
 
-	$scope.checkStatus = function() {
-		$location.path("/vcAnalysis");
-	}
 
-	$scope.getDetails();
-})
+  $scope.checkStatus = function() {
+    $location.path("/vcAnalysis");
+  };
+
+  $scope.getDetails();
+});
