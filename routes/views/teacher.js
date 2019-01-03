@@ -105,7 +105,7 @@ module.exports = {
           var storage = multer.diskStorage({
            destination: function (req, file, cb) {
            	console.log("destination");
-          cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.college_name+'/')
+          cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.school+'/')
           },
           filename: function (req, file, cb) {
           cb(null, req.session.ins.instructor_id + '.jpg')
@@ -127,35 +127,7 @@ module.exports = {
     },
 
 
-    /*upload_photo: function(req, res) {
-      
-       console.log("in upload section");
-        var storage = multer.diskStorage({
-         destination: function (req, file, cb) {
-        cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.school+'/')
-        },
-        filename: function (req, file, cb) {
-        cb(null, req.session.ins.instructor_id + '.jpg')
-       }
-     });
-
-      var upload = multer({ storage: storage }).single('photo');
-      upload(req, res, function (err) {
-          if(err) {
-            console.log(err);
-          }
-          else{
-           console.log("Image uploaded");
-       }
-          })
-
-  },  */
-	/**
-	 * [populate description]
-	 * @param  {[type]} req [description]
-	 * @param  {[type]} res [description]
-	 * @return {[type]}     [description]
-	 */
+    
 	populate: function(req, res) {
 		console.log("populate function called");
 		//console.log(req.session.ins);

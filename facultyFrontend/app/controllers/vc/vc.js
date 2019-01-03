@@ -13,11 +13,6 @@ faculty.controller("vcCtrl", function(
 		},
 		$location.path("/"));
 	}		
-    
-    $scope.upload = function() {
-    	alert('photo uploaded,Refresh the page.');
-    }
-    
 	$scope.getDetails = function() {
 		vcService.getDetails(function(response) {
 			$scope.vc = response;

@@ -19,8 +19,8 @@
 
                 <div style="margin-bottom: 0px !important;" class="row">
 
-                   <form name="form" action="/tupload_photo" method="post" enctype="multipart/form-data" ng-submit="upload()">
-                        <input class="file-input" id="photo" type='file' ng-model="photo" name="photo" value="file" ng-required="true">
+                   <form name="form" action="/pvcupload_photo" class="uploadImage" method="post" enctype="multipart/form-data" ng-submit="upload()">
+                        <input class="file-input" id="file" type='file' ng-model="photo" name="photo" value="file" ng-required="true">
                         <br><br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">
                     </form>
@@ -81,3 +81,34 @@
 </div>
 </div>
 </div>
+<script>
+
+    $("#file").on('change', function () {
+        console.log("image change section");
+        var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("stud-img").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+ });
+
+   $('.uploadImage').submit(function(e){
+     e.preventDefault();
+    
+     
+     $(this).ajaxSubmit({
+       contentType: 'application/json',
+       success: function(response){
+         console.log('image uploaded');
+         alert(response.message); 
+       }
+   });
+     
+
+     return false;
+});
+</script>

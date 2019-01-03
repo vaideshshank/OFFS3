@@ -6,11 +6,6 @@ faculty.controller("tCtrl", function($scope, $rootScope, $location, teacherServi
 			$scope.teacher = response;
 		})
 	}
-    
-    $scope.upload = function() {
-    	alert('photo uploaded,Refresh the page.');
-    }
-	
 
 	$scope.checkStatus = function() {
 		$location.path("/teacherAnalysis");

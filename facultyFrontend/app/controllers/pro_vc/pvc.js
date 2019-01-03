@@ -8,9 +8,6 @@ faculty.controller("pvcCtrl", function($scope, $rootScope, $location, pvcService
 			$scope.pvc = response;
 		})
 	}
-	$scope.upload = function() {
-    	alert('photo uploaded,Refresh the page.');
-    }
 
 	$scope.checkStatus = function() {
 		$location.path("/pvcAnalysis");

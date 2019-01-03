@@ -29,6 +29,8 @@ module.exports = {
             else{
             	
              console.log("Image uploaded");
+             var obj = { status: 200, message: "Image uploaded successfully" };
+             res.json(obj);
          }
             })
 
