@@ -1,13 +1,4 @@
-faculty.controller("SignupCtrl", function(
-  $scope,
-  $rootScope,
-  $location,
-  userService,
-  facultyService,
-  vcService,
-  pvcService,
-  teacherService
-) {
+faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
   $scope.user = {};
   $scope.name = "";
 
@@ -22,9 +13,13 @@ faculty.controller("SignupCtrl", function(
       collegeCode: "usms"
     },
 
-    { collegeName: "University School of Education", collegeCode: "use" },
+    { collegeName: "University School of Education", 
+    collegeCode: "use" 
+    },
 
-    { collegeName: "University School of BioTechnology", collegeCode: "usbt" },
+    { collegeName: "University School of BioTechnology", 
+    collegeCode: "usbt" 
+    },
 
     {
       collegeName: "University School of Chemical Technology",
@@ -77,7 +72,7 @@ faculty.controller("SignupCtrl", function(
     var roll = _.clone($scope.user.rollno);
     var year = roll.substring(roll.length - 2, roll.length);
     $scope.user.semister = (18 - year) * 2 + 1;
-    $localStorage.semester = $scope.user.semister;
+    $rootScope.semester = $scope.user.semister;
   };
 
   $scope.updateSemester = function() {
@@ -91,20 +86,9 @@ faculty.controller("SignupCtrl", function(
     $scope.hidebutton = true;
     $scope.showSpinner = true;
 
-    if (
-      !$scope.collegeName &&
-      !$scope.user.category &&
-      !$scope.user.rollno &&
-      !$scope.user.email
-    ) {
-      if (
-        !$scope.collegeName &&
-        !$scope.user.category &&
-        !$scope.user.rollno &&
-        !$scope.user.email
-      ) {
-        return;
-      }
+    if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
+      return;
+    }
 
       console.log($scope.college, $scope.user);
       if ($scope.user.category == "Dean") {
@@ -179,11 +163,11 @@ faculty.controller("SignupCtrl", function(
               console.log($rootScope);
               $location.path("/verify");
             }
-          }
-        );
+          })
+        
       }
     }
-  };
+
 
   $scope.verifyUser = function() {
     $scope.v1 = true;

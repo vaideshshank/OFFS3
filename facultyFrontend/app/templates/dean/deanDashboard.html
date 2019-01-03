@@ -13,13 +13,14 @@
         </div>
         <div class="col s4">
             <center>
-
+                <div id=showImage>
                 <img height=100 width=100 id="stud-img" class="student-main-image" ng-src="./app/instructor_images/{{dean.college_name}}/{{dean.instructor_id}}.jpg" onerror="this.src='http://placehold.it/180x200'"style="height: 200px; width: 200px;">
+                 </div>
                 <br><br>
 
                 <div style="margin-bottom: 0px !important;" class="row">
 
-                    <form name="form" action="/tupload_photo" method="post" enctype="multipart/form-data" ng-submit="upload()">
+                    <form class="uploadImage" action="/dupload_photo" method="post" enctype="multipart/form-data">
                         <input class="file-input" id="photo" type='file' ng-model="photo" name="photo" value="file" ng-required="true">
                         <br><br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">
@@ -80,3 +81,19 @@
 </div>
 </div>
 </div>
+
+<script>
+   $('.uploadImage').submit(function(e){
+     e.preventDefault();
+    
+     
+     $(this).ajaxSubmit({
+       contentType: 'application/json',
+       success: function(response){
+         console.log('image uploaded');
+         alert(response.message); 
+       }
+   });
+     return false;
+});
+</script>

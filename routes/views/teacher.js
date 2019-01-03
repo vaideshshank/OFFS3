@@ -105,7 +105,7 @@ module.exports = {
           var storage = multer.diskStorage({
            destination: function (req, file, cb) {
            	console.log("destination");
-          cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.school+'/')
+          cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.college_name+'/')
           },
           filename: function (req, file, cb) {
           cb(null, req.session.ins.instructor_id + '.jpg')
@@ -119,7 +119,7 @@ module.exports = {
             }
             else{	
              console.log("Image uploaded");
-             var obj = { status: 200, message: "Photo uploaded successfully" };
+             var obj = { status: 200, message: "Image uploaded successfully" };
              res.json(obj);
          }
             })

@@ -41,10 +41,12 @@ module.exports = {
             else{
             	
              console.log("Image uploaded");
+             var obj = { status: 200, message: "Image uploaded successfully" };
+             res.json(obj);
          }
-            })
-
+            })    
     },
+
 	initials: function(req, res) {
 		console.log('dean initials');
 		console.log(req.query);
