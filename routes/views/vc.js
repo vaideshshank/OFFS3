@@ -2,7 +2,8 @@ var con 	   = require("../../models/mysql"),
  	ses        =   require('node-ses'),
  	async      =  require('async'),
  	controller = require("../../models/config"),
-    nodemailer = require('nodemailer');
+    nodemailer = require('nodemailer'),
+    multer=require('multer');
 
 module.exports = {
 
@@ -12,7 +13,7 @@ module.exports = {
 
     logout: function(req, res) {
     console.log("logout")
-    if (req.session.pvc) {
+    if (req.session.vc) {
          req.session.destroy();
          var obj={status:200,message:"Logged Out"};
          console.log(obj);
@@ -22,13 +23,38 @@ module.exports = {
       var obj = { status: 200, message: "No session detected" };
     }
   },
+  upload_photo: function(req, res) {
+        
+         console.log("in upload section");
+          var storage = multer.diskStorage({
+           destination: function (req, file, cb) {
+           	console.log("destination");
+          cb(null, './facultyFrontend/app/instructor_images/vc/')
+          },
+          filename: function (req, file, cb) {
+          cb(null, 'vc.jpg')
+         }
+       });
+
+        var upload = multer({ storage: storage }).single('photo');
+        upload(req, res, function (err) {
+            if(err) {
+              console.log(err);
+            }
+            else{
+            	
+             console.log("Image uploaded");
+         }
+            })
+
+    },
 	initials: function(req,res) {
 		console.log('vc initials');
 		console.log(req.query);
 		var college_name = req.query.college_name;
 		var vc_id 	 = req.query.vc_id;
 		var password	 = req.query.password;
-		var query 		 = 'select * from '+ 'vc where instructor_id = ? and password = ?';
+		var query 		 = 'select * from '+'vc where instructor_id = ? and password = ?';
 		console.log(college_name, vc_id, password);
 	    if(college_name != null && vc_id != null && password != null) {		//Check For all fields
 			con.query(query,[vc_id,password],function(error,result) {

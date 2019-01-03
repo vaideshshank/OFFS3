@@ -24,6 +24,22 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 			})
 		},
 
+		getDetails: function(callback) {
+			$http({
+				method: "GET",
+				url: BACKEND + "/tchecksession",
+			}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response.data);
+					callback(data);
+				}
+			})
+		},
+
 		logout : function(){
 		 	$http({
 		 		method:"GET",

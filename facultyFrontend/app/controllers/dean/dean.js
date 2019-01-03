@@ -11,6 +11,9 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 		})
 
 	}
+	$scope.upload = function() {
+    	alert('photo uploaded,Refresh the page.');
+    }
 
 	$scope.checkStatus = function() {
 		$location.path("/deanAnalysis");

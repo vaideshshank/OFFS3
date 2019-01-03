@@ -1,7 +1,7 @@
 faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, facultyService) {
 
 	$scope.dean = [];
-	$scope.selectedYear = '2017';
+	$scope.selectedYear = '2018';
 
 	$scope.getFeedback = function() {
 		console.log($rootScope);
@@ -59,8 +59,8 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 		arr[1] = {course: $scope.selectedCourse}
 		arr[2] = {stream: $scope.selectedStream}
 		arr[3] = {name: $scope.selectedTeacher}
-
 		var	subjectDetails = _.clone($scope.deanfb);
+		console.log(subjectDetails);
 
 		for (var x =0;x<arr.length;x++) {
 			var key = Object.keys(arr[x]);
@@ -70,7 +70,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 			}
 			 
 		}
-
+        console.log(subjectDetails);
 		$scope.subjects =  _.chain(subjectDetails).pluck('subject_name').uniq().value().sort();
 
 		$(document).ready(function () {
@@ -144,7 +144,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 		})
 		$location.path("/");
 	}
-	$scope.print = function(req,res) {
+	/*$scope.print = function(req,res) {
 		var pdf = new jsPDF('p', 'pt', 'letter')
 
 		       
@@ -181,48 +181,59 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 		                }
 		              , margins
 		            )
-	    }
+	    }*/
 
-$scope.print = function ()
-           {
-               var pdf = new jsPDF('p', 'pt', 'letter')
+$scope.print = function (){
+     var quotes = document.getElementById('mycanvas');
 
-                      
-                           , source = $('#mycanvas')[0];
+             html2canvas(quotes, {
+                 onrendered: function(canvas) {
 
-                            specialElementHandlers = {
-                                // element with id of "bypass" - jQuery style selector
-                               '#bypassme': function(element, renderer)
-                               {
-                                   // true = "handled elsewhere, bypass text extraction"
-                                   return true
-                               }
-                           };
+                 //! MAKE YOUR PDF
+                 var pdf = new jsPDF('p', 'pt', 'letter');
 
-                           margins = {
-                               top: 40,
-                               bottom: 30,
-                               left: 40,
-                               width: '100%'
-                           };
-                           pdf.fromHTML
-                           (
-                               source // HTML string or DOM elem ref.
-                             , margins.left // x coord
-                             , margins.top // y coord
-                             , {'width': margins.width // max width of content on PDF
-                                , 'elementHandlers': specialElementHandlers
-                               }
-                             , function (dispose) 
-                               {
-                                  // dispose: object with X, Y of the last line add to the PDF
-                                  // this allow the insertion of new lines after html
-                                  pdf.save('feedback.pdf');
-                               }
-                             , margins
-                           )
-           }
+                 for (var i = 0; i <= quotes.clientHeight/1065; i++) {
+                     //! This is all just html2canvas stuff
+                     var srcImg  = canvas;
+                     var sX      = 0;
+                     var sY      = 1065*i; // start 1065 pixels down for every new page
+                     var sWidth  = 900;
+                     var sHeight = 1065;
+                     var dX      = 0;
+                     var dY      = 0;
+                     var dWidth  = 900;
+                     var dHeight = 1065;
 
+                     window.onePageCanvas = document.createElement("canvas");
+                     onePageCanvas.setAttribute('width', 900);
+                     onePageCanvas.setAttribute('height', 1065);
+                     var ctx = onePageCanvas.getContext('2d');
+                     // details on this usage of this function: 
+                     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+                     ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+
+                     // document.body.appendChild(canvas);
+                     var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+
+                     var width         = onePageCanvas.width;
+                     var height        = onePageCanvas.clientHeight;
+
+                     //! If we're on anything other than the first page,
+                     // add another page
+                     if (i > 0) {
+                         pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                     }
+                     //! now we declare that we're working on that page
+                     pdf.setPage(i+1);
+                     //! now we add content to that page!
+                     pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
+
+                 }
+                 //! after the for loop is finished running, we save the pdf.
+                 pdf.save('feedback.pdf');
+             }
+           });
+         }
 	$scope.search  = function () {
 
 		console.log($scope.deanfb);

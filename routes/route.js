@@ -36,22 +36,26 @@ router.post("/dinitials",routes.views.dean.initials);  //To authenticate the dea
 router.get("/dchecksession",routes.views.dean.checksession);  //This is a temporary route.
 router.get("/ddashboard",routes.views.dean.dashboard);    // To get details of a BACH .
 router.get("/dlogout",routes.views.dean.logout);
+router.post("/dupload_photo",routes.views.dean.upload_photo);
 
 router.post("/vinitials",routes.views.vc.initials);  //To authenticate the dean
 router.get("/vchecksession",routes.views.vc.checksession);  //This is a temporary route.
 router.get("/vdashboard",routes.views.vc.dashboard);    // To get details of a BACH .
 router.get("/vlogout",routes.views.vc.logout);
+router.post("/vupload_photo",routes.views.vc.upload_photo);
 
 router.post("/pvinitials",routes.views.pvc.initials);  //To authenticate the dean
 router.get("/pvchecksession",routes.views.pvc.checksession);  //This is a temporary route.
 router.get("/pvdashboard",routes.views.pvc.dashboard);    // To get details of a BACH .
 router.get("/pvclogout",routes.views.pvc.logout);
+router.post("/pvcupload_photo",routes.views.pvc.upload_photo);
 
 router.post("/tinitials",routes.views.teacher.initials);  //To authenticate the teacher
 router.get("/tchecksession",routes.views.teacher.checksession);  //This is a temporary route: profile details
 router.get("/tpopulate",routes.views.teacher.populate);    // To populate the dropdowns
 router.get("/tdashboard",routes.views.teacher.dashboard);    // To view the feedback of a BACH .
 router.get("/tlogout",routes.views.teacher.logout);
+router.post("/tupload_photo",routes.views.teacher.upload_photo);
 
 router.get("/getTeacher",routes.views.dataportal.getTeacher);
 router.get('/getCourse', routes.views.dataportal.getCourse);

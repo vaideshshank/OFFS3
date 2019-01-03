@@ -2,16 +2,17 @@ var express = require("express"),
   app = express(),
   bodyparser = require("body-parser"),
   bcrypt = require("bcrypt-nodejs"),
-  session = require("express-session"),
+  session = require("express-session"),  
   sessionStore = new session.MemoryStore(),
   request = require("request"),
   methodOverride = require("method-override"),
   sql = require("mysql"),
   con = require("./models/mysql"),
   routes = require("./routes/route"),
+  multer= require("multer");
   ip = require("ip");
-controller = require("./models/config");
-require("dotenv").config();
+  controller = require("./models/config");
+  require("dotenv").config();
 
 
 app.use(bodyparser.json());

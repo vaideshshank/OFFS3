@@ -2,10 +2,12 @@ var con = require('../../models/mysql'),
 	ses = require('node-ses'),
 	async = require('async'),
 	controller = require('../../models/config'),
-	nodemailer = require('nodemailer');
+	nodemailer = require('nodemailer'),
+	multer=require('multer');
 
 module.exports = {
 	index: function(req, res) {},
+	
 	 logout: function(req, res) {
     console.log("logout")
     if (req.session.dean) {
@@ -18,7 +20,31 @@ module.exports = {
       var obj = { status: 200, message: "No session detected" };
     }
   },
+  upload_photo: function(req, res) {
+        
+         console.log("in upload section");
+          var storage = multer.diskStorage({
+           destination: function (req, file, cb) {
+           	console.log("destination");
+          cb(null, './facultyFrontend/app/instructor_images/'+req.session.dean.college_name+'/')
+          },
+          filename: function (req, file, cb) {
+          cb(null, req.session.dean.instructor_id + '.jpg')
+         }
+       });
 
+        var upload = multer({ storage: storage }).single('photo');
+        upload(req, res, function (err) {
+            if(err) {
+              console.log(err);
+            }
+            else{
+            	
+             console.log("Image uploaded");
+         }
+            })
+
+    },
 	initials: function(req, res) {
 		console.log('dean initials');
 		console.log(req.query);

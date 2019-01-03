@@ -1,7 +1,8 @@
 var con = require('../../models/mysql'),
 	ses = require('node-ses'),
 	async = require('async'),
-	controller = require('../../models/config');
+	controller = require('../../models/config'),
+    multer=require('multer');
 
 module.exports = {
 	/**
@@ -11,18 +12,8 @@ module.exports = {
 	 * @return {[type]}     [description]
 	 */
 	index: function(req, res) {},
-	logout: function(req, res) {
-    console.log("logout")
-    if (req.session.pvc) {
-         req.session.destroy();
-         var obj={status:200,message:"Logged Out"};
-         console.log(obj);
-         res.json(obj);
-     } else{
-      console.log("No session detected");
-      var obj = { status: 200, message: "No session detected" };
-    }
-  },
+
+	
 
 	/**
 	 * [initials description]
@@ -95,7 +86,70 @@ module.exports = {
 			var obj = { status: 200, message: 'No session detected' };
 		}
 	},
+    logout: function(req, res) {
+    console.log("logout")
+    if (req.session.ins) {
+         req.session.destroy();
+         var obj={status:200,message:"Logged Out"};
+         console.log(obj);
+         res.json(obj);
+     } else{
+      console.log("No session detected");
+      var obj = { status: 200, message: "No session detected" };
+    }
+  },
 
+  upload_photo: function(req, res) {
+        
+         console.log("in upload section");
+          var storage = multer.diskStorage({
+           destination: function (req, file, cb) {
+           	console.log("destination");
+          cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.school+'/')
+          },
+          filename: function (req, file, cb) {
+          cb(null, req.session.ins.instructor_id + '.jpg')
+         }
+       });
+
+        var upload = multer({ storage: storage }).single('photo');
+        upload(req, res, function (err) {
+            if(err) {
+              console.log(err);
+            }
+            else{	
+             console.log("Image uploaded");
+             var obj = { status: 200, message: "Photo uploaded successfully" };
+             res.json(obj);
+         }
+            })
+
+    },
+
+
+    /*upload_photo: function(req, res) {
+      
+       console.log("in upload section");
+        var storage = multer.diskStorage({
+         destination: function (req, file, cb) {
+        cb(null, './facultyFrontend/app/instructor_images/'+req.session.ins.school+'/')
+        },
+        filename: function (req, file, cb) {
+        cb(null, req.session.ins.instructor_id + '.jpg')
+       }
+     });
+
+      var upload = multer({ storage: storage }).single('photo');
+      upload(req, res, function (err) {
+          if(err) {
+            console.log(err);
+          }
+          else{
+           console.log("Image uploaded");
+       }
+          })
+
+  },  */
 	/**
 	 * [populate description]
 	 * @param  {[type]} req [description]
@@ -107,7 +161,7 @@ module.exports = {
 		//console.log(req.session.ins);
 		console.log(req.query);
 		var ins_id = req.query.instructor_id;
-		var year = '2017';
+		var year = req.query.year;
 		var college_name = req.query.school;
 
 		console.log('In populate');
@@ -150,10 +204,27 @@ module.exports = {
 	dashboard: function(req, res) {
 		console.log('In dashboard');
 		var year = req.query.year;
-		//<<<<<<< HEAD
+		var semester = Number(req.query.semester);
+		var college_name = req.query.school;
+		if (year == null || semester == null || college_name == null) {
+			var obj = { status: 400, message: 'Not All Fields Set' };
+			res.json(obj);
+		} else {
+			var tables = {
+				batch_allocation: college_name + '_batch_allocation',
+				subject_allocation: college_name + '_subject_allocation_' + year,
+				feedback: college_name + '_feedback_' + year,
+				employee: 'employee',
+			};
+ 
+         var ins_id = req.query.instructor_id;
+
+		
+		/*<<<<<<< HEAD
 		//		var college_name = req.query..college_name;
 		//		var subject_type  =req.query.subject_type;
 		//=======
+		var year = req.query.year;
 		var college_name = req.query.school;
 		//>>>>>>> a066d0d19f09d6fe28085ea6aff24763700e4738
 		var subject_name = req.query.subject_name;
@@ -176,7 +247,7 @@ module.exports = {
 				employee: 'employee',
 			};
 
-			console.log(tables);
+			console.log(tables);*/
 
 var fin = `s.feedback_id,
 s.batch_id,
@@ -225,13 +296,10 @@ f.no_of_students_evaluated`
 				' as e on s.instructor_code =e.instructor_id ' +
 				' inner join  ' +
 				tables.feedback +
-				' as f on s.feedback_id = f.feedback_id' +
-				' where b.course = ? and b.stream = ? and b.semester = ? and s.instructor_code =' +
-				ins_id +
-				' ;';
+				' as f on s.feedback_id = f.feedback_id where f.no_of_students_evaluated !=0 and s.instructor_code =' + ins_id;
 			console.log(query);
-
-			con.query(query, [course, stream, semester], function(error, result) {
+			con.query(query, function(error, result) {
+				console.log(result);
 				if (error) {
 					console.log(error);
 					var obj = { status: 400, message: 'There is error in query!' };
@@ -246,6 +314,8 @@ f.no_of_students_evaluated`
 					res.json(result);
 				}
 			});
+
+			
 		}
 	},
 };

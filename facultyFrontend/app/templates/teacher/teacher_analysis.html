@@ -6,22 +6,22 @@
 </div>
 <div class="row">
     <div class="col m2">
-        <select ng-model="selectedYear" ng-options="option for option in ['2016', '2017']" ng-change="yearChange()">
+        <select ng-model="selectedYear" ng-options="option for option in ['2016', '2017','2018']" ng-change="yearChange()">
             <option value="" disabled selected>Choose Academic Year</option>
         </select>
     </div>
     <div class="col s2">
-         <select ng-model="selectedCourse" ng-options="option for option in course" ng-change="streamList();teacherList();subjectLists()">
+         <select ng-model="selectedCourse" ng-options="option for option in course" ng-change="streamList();subjectLists()">
             <option value=""  selected>All Course</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selectedStream" ng-options="option for option in stream" ng-change="teacherList();subjectLists()">
+        <select ng-model="selectedStream" ng-options="option for option in stream" ng-change="subjectLists()">
             <option value=""  selected>All Stream</option>
         </select>
     </div>
     <div class="col s2">
-        <select ng-model="selectedSem" ng-options="option for option in semester" ng-change="teacherList();subjectLists()">
+        <select ng-model="selectedSem" ng-options="option for option in semester" ng-change="subjectLists()">
             <option value=""  selected>All Semester</option>
         </select>
     </div>

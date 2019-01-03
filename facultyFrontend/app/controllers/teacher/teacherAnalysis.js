@@ -1,13 +1,14 @@
 faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teacherService) {
 
 	$scope.teacher = [];
-	$scope.selectedYear = '2017';
+	$scope.selectedYear = '2018';
+	//$scope.steacher=$rootScope.teacher.instrctor_id;
 
-	$scope.getFeedback = function() {
+	$scope.populate = function() {
 		console.log($rootScope);
 
 
-		teacherService.populate(selectedYear, function(response) {
+		teacherService.populate($scope.selectedYear, function(response) {
 			$scope.teacherfb = response;
 			console.log($scope.teacherfb);
 
@@ -15,7 +16,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 			$scope.course 	= _.chain($scope.teacherfb.data).pluck('course').uniq().value();
 			$scope.stream 	= _.chain($scope.teacherfb.data).pluck('stream').uniq().value();
 			$scope.semester = _.chain($scope.teacherfb.data).pluck('semester').uniq().value();
-			$scope.years 	= ['2014', '2015', '2016', '2017'];
+			//$scope.years 	= ['2014', '2015', '2016', '2017','2018'];
 			// init all selects
 			$(document).ready(function () {
 				$('select').material_select();
@@ -23,13 +24,15 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		})
 	}
 
+    
 
      $scope.logout = function(req,res) {
-		teacherService.logout(function(response) {
+     	$location.path("/");
+	teacherService.logout(function(response) {
 			
 		})
 		$location.path("/");
-	}
+	}		
 
 	$rootScope.attributesList = {
 		theory: [
@@ -65,6 +68,45 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 	$scope.updateSubjects = function () {
 
 	}
+	$scope.subjectLists = function() {
+		var arr = [3];
+		arr[0] = {semester: $scope.selectedSem}
+		arr[1] = {course: $scope.selectedCourse}
+		arr[2] = {stream: $scope.selectedStream}
+        console.log("in subject");
+        console.log(arr[0],arr[1],arr[2]);
+		var	subjectDetails = _.clone($scope.teacherfb.data);
+		console.log(subjectDetails);
+
+		for (var x =0;x<arr.length;x++) {
+			var key = Object.keys(arr[x]);
+			var val = key[0];
+			if (arr[x][key[0]] !=undefined){
+				console.log(arr[x][key[0]]);
+				subjectDetails = _.where(subjectDetails, { [val]: arr[x][key[0]]  } )
+			}
+			 
+		}
+         console.log(subjectDetails);
+		$scope.subjects =  _.chain(subjectDetails).pluck('subject_name').uniq().value().sort();
+
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
+
+
+
+	$scope.streamList = function() {
+		var course = $scope.selectedCourse;
+		var StreamDetails = _.where($scope.teacherfb.data, {course:course});
+		console.log(StreamDetails);
+		$scope.stream =  _.chain(StreamDetails).pluck('stream').uniq().value().sort();
+		console.log($scope.stream);
+		$(document).ready(function () {
+			$('select').material_select();
+		})
+	}
 
 	$scope.search = function () {
 		var course 	= $scope.selectedCourse;
@@ -72,19 +114,88 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		var stream 	= $scope.selectedStream;
 		var subject = $scope.selectedSubject;
 		var year  	= $scope.selectedYear;
+		var teacher = $rootScope.teacher.name;
 
-		console.log(sem, course, stream);
+		console.log(sem, course, stream,subject);
 
-		if (!subject || !course || !stream || !sem || !year) {
+		/*if (!subject || !course || !stream || !sem || !year) {
 			return;
+		}*/
+		mdict = {}
+		if (teacher != null || teacher != undefined) {
+				mdict['name'] = teacher
+		}
+
+		if ( course != null || course != undefined) {
+			mdict['course'] = course
+		}
+
+		if ( sem != null || sem != undefined) {
+			mdict['semester'] = sem
+		}
+
+		if ( stream != null || stream != undefined) {
+			mdict['stream'] = stream
+		}
+
+		if ( subject != null || subject != undefined) {
+			mdict['subject_name'] = subject
 		}
 
 		teacherService.getTeacherfb(course, sem, stream, subject, year, function(response) {
 			console.log(response);
-		 	var final_res = response;
+		 	var final_res = _.where(response, mdict);
 
 
-  // One Time Preprocessing
+		 	final_res.forEach(function (val) {
+			if (!_.isObject(val['at_1']) && _.isString(val['at_1'])) {
+
+
+			if (val['at_15'].length!=1) {
+				val.type="Theory"
+			} else {
+				val.type="Practical"
+			}
+
+
+			if(val.type=="Theory") {
+				var atts = []
+				for (var i = 0; i < 15; i++) {
+					atts.push('at_' + (+i+1));
+				}
+			} else {
+				var atts = []
+				for (var i = 0; i < 8; i++) {
+					atts.push('at_' + (+i+1));
+				}
+			}
+		//	console.log(val)
+			//console.log(atts);
+				atts.forEach(function (att) {
+					val[att] = val[att].split('');
+
+					val[att].shift();
+
+					tmp = {
+						1: 0,
+						2: 0,
+						3: 0,
+						4: 0,
+						5: 0
+					}
+					val[att].forEach(function (v) {
+						tmp[+v]++;
+					});
+
+					val[att] = tmp;
+				})
+			}
+		});
+
+		$scope.final_res = final_res;
+
+
+  /*One Time Preprocessing
 
 		final_res.forEach(function(val) {
 			if (!_.isObject(val['at_1']) && _.isString(val['at_1'])) {
@@ -131,7 +242,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 			}
 		});
 
-		$scope.final_res = final_res;
+		$scope.final_res = final_res;*/
 
 	//		console.log(final_res);
 
@@ -139,44 +250,57 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 	}
 
-	$scope.print = function(req,res) {
-		var pdf = new jsPDF('p', 'pt', 'letter')
+	$scope.print = function (){
+     var quotes = document.getElementById('mycanvas');
 
-		       
-		            , source = $('#mycanvas')[0];
+             html2canvas(quotes, {
+                 onrendered: function(canvas) {
 
-		             specialElementHandlers = {
-		                 // element with id of "bypass" - jQuery style selector
-		                '#bypassme': function(element, renderer)
-		                {
-		                    // true = "handled elsewhere, bypass text extraction"
-		                    return true
-		                }
-		            };
+                 //! MAKE YOUR PDF
+                 var pdf = new jsPDF('p', 'pt', 'letter');
 
-		            margins = {
-		                top: 40,
-		                bottom: 30,
-		                left: 40,
-		                width: '100%'
-		            };
-		            pdf.fromHTML
-		            (
-		                source // HTML string or DOM elem ref.
-		              , margins.left // x coord
-		              , margins.top // y coord
-		              , {'width': margins.width // max width of content on PDF
-		                 , 'elementHandlers': specialElementHandlers
-		                }
-		              , function (dispose) 
-		                {
-		                   // dispose: object with X, Y of the last line add to the PDF
-		                   // this allow the insertion of new lines after html
-		                   pdf.save('feedback.pdf');
-		                }
-		              , margins
-		            )
-	    }
+                 for (var i = 0; i <= quotes.clientHeight/1065; i++) {
+                     //! This is all just html2canvas stuff
+                     var srcImg  = canvas;
+                     var sX      = 0;
+                     var sY      = 1065*i; // start 1065 pixels down for every new page
+                     var sWidth  = 900;
+                     var sHeight = 1065;
+                     var dX      = 0;
+                     var dY      = 0;
+                     var dWidth  = 900;
+                     var dHeight = 1065;
+
+                     window.onePageCanvas = document.createElement("canvas");
+                     onePageCanvas.setAttribute('width', 900);
+                     onePageCanvas.setAttribute('height', 1065);
+                     var ctx = onePageCanvas.getContext('2d');
+                     // details on this usage of this function: 
+                     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+                     ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+
+                     // document.body.appendChild(canvas);
+                     var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+
+                     var width         = onePageCanvas.width;
+                     var height        = onePageCanvas.clientHeight;
+
+                     //! If we're on anything other than the first page,
+                     // add another page
+                     if (i > 0) {
+                         pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                     }
+                     //! now we declare that we're working on that page
+                     pdf.setPage(i+1);
+                     //! now we add content to that page!
+                     pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
+
+                 }
+                 //! after the for loop is finished running, we save the pdf.
+                 pdf.save('feedback.pdf');
+             }
+           });
+         }
 
 
  $scope.getTotal = function (value) {
@@ -202,6 +326,11 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
  			})
  }
 
+    $scope.yearChange = function () {
+ 	     console.log('changed');
+ 	     $scope.populate();
+    }
+
 	$scope.getDetails = function() {
 		teacherService.getDetails(function(response) {
 			$scope.teacher = response;
@@ -211,5 +340,5 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 	}
 
 	$scope.getDetails();
-	$scope.getFeedback();
+	$scope.populate();
 })

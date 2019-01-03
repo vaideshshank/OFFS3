@@ -14,19 +14,16 @@
         <div class="col s4">
             <center>
 
-                <img height=100 width=100 id="stud-img" class="student-main-image" ng-src="./app/instructor_images/{{dean.college_name}}/{{dean.instructor_id}}.jpg" onerror="this.src='http://placehold.it/180x200'">
+                <img height=100 width=100 id="stud-img" class="student-main-image" ng-src="./app/instructor_images/{{dean.college_name}}/{{dean.instructor_id}}.jpg" onerror="this.src='http://placehold.it/180x200'"style="height: 200px; width: 200px;">
+                <br><br>
 
                 <div style="margin-bottom: 0px !important;" class="row">
 
-                    <form name="name" action="savefile" method="post" enctype="multipart/form-data">
-                        <input class="file-input" id="upload-photo" type='file' name="file" value="file"/>
-                        <label id="upload-photo-label" for="upload-photo" class="custom-file-upload"> Choose Image </label>
-                        <br>
-                        <br>
+                    <form name="form" action="/tupload_photo" method="post" enctype="multipart/form-data" ng-submit="upload()">
+                        <input class="file-input" id="photo" type='file' ng-model="photo" name="photo" value="file" ng-required="true">
+                        <br><br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">
                     </form>
-                    <div class="form-instructions">FORMAT: your-instructorId.jpg
-                    </div>
                 </div>
             </center>
 
