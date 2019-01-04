@@ -22,6 +22,5 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 		})
 		$location.path("/");
 	}
-
 	$scope.getDetails();
 })

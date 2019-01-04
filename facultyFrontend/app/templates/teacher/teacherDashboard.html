@@ -83,18 +83,26 @@
 
 <script>
 
-    $("#file").on('change', function () {
+   $("#file").on('change', function () {
         console.log("image change section");
-        var reader = new FileReader();
+        var countFiles = $(this)[0].files.length;
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            var reader = new FileReader();
+            reader.onload = function (e){
+            // get loaded data and render thumbnail.
+           document.getElementById("stud-img").src = e.target.result;
+           };
 
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("stud-img").src = e.target.result;
-    };
-
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
- });
+          // read the image file as a data URL.
+          reader.readAsDataURL(this.files[0]);
+        }
+        else{ 
+            alert("Pls select only images");
+         }    
+        
+    });
 
    $('.uploadImage').submit(function(e){
      e.preventDefault();

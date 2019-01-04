@@ -2,7 +2,7 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 
 	$scope.vc = [];
 	$scope.viewElements = false;
-	$scope.selectedYear = '2017';
+	$scope.selectedYear = '2018';
 	$scope.selected = {};
 	$scope.progress = false;
 
@@ -203,27 +203,26 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 	$scope.print = function (){
      var quotes = document.getElementById('mycanvas');
 
-             html2canvas(quotes, {
-                 onrendered: function(canvas) {
+             html2canvas(quotes).then((canvas) => {
 
                  //! MAKE YOUR PDF
                  var pdf = new jsPDF('p', 'pt', 'letter');
 
-                 for (var i = 0; i <= quotes.clientHeight/1065; i++) {
+                 for (var i = 0; i <= quotes.clientHeight/1200; i++) {
                      //! This is all just html2canvas stuff
                      var srcImg  = canvas;
                      var sX      = 0;
-                     var sY      = 1065*i; // start 1065 pixels down for every new page
-                     var sWidth  = 900;
-                     var sHeight = 1065;
+                     var sY      = 1200*i; // start 1065 pixels down for every new page
+                     var sWidth  = 1500;
+                     var sHeight = 1200;
                      var dX      = 0;
                      var dY      = 0;
-                     var dWidth  = 900;
-                     var dHeight = 1065;
+                     var dWidth  = 1500;
+                     var dHeight = 1200;
 
                      window.onePageCanvas = document.createElement("canvas");
-                     onePageCanvas.setAttribute('width', 900);
-                     onePageCanvas.setAttribute('height', 1065);
+                     onePageCanvas.setAttribute('width', 1500);
+                     onePageCanvas.setAttribute('height', 1200);
                      var ctx = onePageCanvas.getContext('2d');
                      // details on this usage of this function: 
                      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
@@ -239,18 +238,18 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
                      // add another page
                      if (i > 0) {
                          pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
-                     }
+                        }
                      //! now we declare that we're working on that page
                      pdf.setPage(i+1);
                      //! now we add content to that page!
-                     pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
+                     pdf.addImage(canvasDataURL, 'PNG', 40, 40, (width*.62) - 400, (height*.62)-120);
 
-                 }
+                    }
                  //! after the for loop is finished running, we save the pdf.
-                 pdf.save('feedback.pdf');
-             }
+                pdf.save('feedback4.pdf');         
            });
-         }
+    }
+
 
 
 
