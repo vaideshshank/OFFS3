@@ -61,7 +61,7 @@
 
       <div class="col m3">
         <div class="input-field col s12">
-          <input id="teacher_name" type="text" class="autocomplete no-margin" ng-model="item.teacher_name" placeholder="Faculty Name">
+          <input id="teacher_name" type="text" class="autocomplete no-margin" ng-model="item.teacher_name" ng-blur="changeFlag(item)" ng-required="true" placeholder="Faculty Name">
         </div>
       </div>
 
@@ -73,12 +73,12 @@
 
 <br>
 
-<div class="row center">
+<div class="row center" ng-show="searched">
   <div class="col m6">
       <a class="waves-effect white black-text btn" ng-click="add()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege">ADD SUBJECT</a>
   </div>
   <div class="col m6">
-      <a class="waves-effect white black-text btn" ng-click="submit()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege || disabled">SUBMIT</a>
+      <a class="waves-effect white black-text btn" ng-click="submit()" ng-disabled="!selectedSem || !selectedCourse || !selectedStream || !selectedCollege || disabledataPortal || (check < 2) ">SUBMIT</a>
   </div>
 </div>
 <div class="center">

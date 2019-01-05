@@ -136,7 +136,7 @@ module.exports = {
           var insertF =
             "INSERT INTO " +
             feedbackTable +
-            ' (`feedback_id`, `instructor_id`, `subject_code`, `type`, `total`, `at_1`, `at_2`, `at_3`, `at_4`, `at_5`, `at_6`, `at_7`, `at_8`, `at_9`, `at_10`, `at_11`, `at_12`, `at_13`, `at_14`, `at_15`, `at_16`, `at_17`, `at_18`, `at_19`, `at_20`, `no_of_students_evaluated`) VALUES (?, ?,"","",0,"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0",0)';
+            ' (`feedback_id`, `instructor_id`, `subject_code`, `type`, `total`, `at_1`, `at_2`, `at_3`, `at_4`, `at_5`, `at_6`, `at_7`, `at_8`, `at_9`, `at_10`, `at_11`, `at_12`, `at_13`, `at_14`, `at_15`, `no_of_students_evaluated`) VALUES (?, ?,"","",0,"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0",0)';
           console.log(getBatch);
           console.log("****************************************************");
           con.query(getBatch, [course, stream, semester], function(

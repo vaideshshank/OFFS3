@@ -99,7 +99,10 @@ faculty.factory('dataPortalService',['$http', '$timeout', '$rootScope','$window'
 					$window.alert("Teachers Information recorded");
 
 					callback(response.data);
+					
 					$location.path("/");
+					location.reload();
+					
 				}
 			}, function(response) {
 				if (callback) {

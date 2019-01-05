@@ -1,17 +1,17 @@
 var express = require("express");
-var router  = express.Router();
+var router = express.Router();
 
 var routes = {
   views: {
-	index: require("./views/index"),
-	dean : require("./views/dean"),
-	vc : require("./views/vc"),
-	pvc : require("./views/pvc"),
-	teacher : require("./views/teacher"),
-	dataportal : require("./views/dataportal")
+    index: require("./views/index"),
+    dean: require("./views/dean"),
+    vc: require("./views/vc"),
+    pvc: require("./views/pvc"),
+    teacher: require("./views/teacher"),
+    dataportal: require("./views/dataportal"),
+    dataStatus: require("./views/dataStatus")
   }
-}
-
+};
 
 router.get("/", routes.views.index.index);
 router.post("/initials", routes.views.index.initials);
@@ -30,7 +30,6 @@ router.get("/slogout", routes.views.index.logout);
  	and the url start with prefix d as /initials is converted to /dinitials
 	Erase this after you understand !
 */
-
 
 router.post("/dinitials",routes.views.dean.initials);  //To authenticate the dean
 router.get("/dchecksession",routes.views.dean.checksession);  //This is a temporary route.
@@ -62,6 +61,12 @@ router.get('/getCourse', routes.views.dataportal.getCourse);
 router.get('/getStream', routes.views.dataportal.getStream);
 router.get('/getSubjects', routes.views.dataportal.getSubjects);
 router.post("/createFeedback",routes.views.dataportal.createFeedback);
+
 router.post("/sendStudent", routes.views.index.studentData);
+
+router.get("/getSubjectStatus", routes.views.dataStatus.getSubjectStatus);
+router.get("/getSubjectStatusByCourse", routes.views.dataStatus.getSubjectStatusByCourse);
+router.get("/getSubjectStatusByStream", routes.views.dataStatus.getSubjectStatusByStream);
+router.get("/getSubjectStatusBySemester", routes.views.dataStatus.getSubjectStatusBySemester);
 
 module.exports = router;

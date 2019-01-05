@@ -8,6 +8,7 @@ var express = require("express"),
   methodOverride = require("method-override"),
   sql = require("mysql"),
   con = require("./models/mysql"),
+  multer = require("multer"),
   routes = require("./routes/route"),
   multer= require("multer");
   ip = require("ip");

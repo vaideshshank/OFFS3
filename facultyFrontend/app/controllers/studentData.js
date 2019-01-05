@@ -3,6 +3,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	$scope.disabled = false;
 	$scope.data = [];
 	$scope.selectedYear = 2018;
+	$scope.file = "";
 
 	$scope.collegeList = [{
 			collegeName: "University School of Law and Legal Studies",
@@ -70,8 +71,18 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 
 	$scope.courseList = [];
 	$scope.stream = [];
+	$scope.searched = false;
 
-	$scope.collegeSelected = function () {
+	// $(function () {
+	// 	var i = 0;
+	// 	$('table thead tr').prepend('<th>#</th>');
+	// 	$('table tbody tr').each(function () {
+	// 		i += 1;
+	// 		$(this).prepend('<td>' + i + '</td>');
+	// 	});
+	// });
+
+	$scope.collegeSelected = function() {
 		if (!$scope.selectedCollege) {
 			return;
 		}
@@ -126,6 +137,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 		if (!$scope.selectedCollege || !$scope.selectedCourse || !$scope.selectedStream) {
 			return;
 		}
+		$scope.searched = true;
 	}
 
 	$scope.submit = function () {
@@ -139,15 +151,16 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 			return;
 		}
 
+
 		studentDataService.sendData($scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear, $scope.data, function (res) {
 			if (res.data) {
-				
+				console.log(res.data);
 				if (res.data.status == 200) {
 					$window.alert("Student data recorded");
-					$location.path("/");
+					
 				} else {
 					$window.alert("Student Entry exists");
-					//$location.path("/studentData");
+					$location.path("/studentData");
 				}
 			}
 		})
@@ -185,6 +198,7 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 			return;
 		}
 
+		console.log($scope.data);
 		studentData.name = name;
 	}
 
@@ -215,8 +229,25 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 
 	$scope.length = 0;
 	$scope.data   = [];
+
+	function addData() {
+		console.log($scope.uploadedData);
+		for (var x = 0; x < $scope.uploadedData.length;x++) {
+			var obj = {};
+			obj.phone = $scope.uploadedData[x].Phone;
+			obj.email = $scope.uploadedData[x].Email;
+			obj.enrollment_no = $scope.uploadedData[x].Enrollment_number;
+			obj.name = $scope.uploadedData[x].Name;
+			$scope.data.push(obj);
+		}
+		console.log($scope.data);
+		// $scope.addRow();
+ 	}
+
+
 	$scope.addRow = function (enrollment_no, name, email, phone, password) {
 
+		window.scrollBy(0, 1000);
 		// $scope.isHome = false;
 		// $scope.isEdit = false;
 		// $scope.isAdd = true;
@@ -293,7 +324,10 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 	function buildTable () {
 		return {
 			columns: [{
-					value: 'Enrollment No.'
+				value: 'S. No.'
+				},
+				{
+				value: 'Enrollment No.'
 				},
 				{
 					value: 'Name'
@@ -307,6 +341,8 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 			rows: [{
 				cells: [{
 					value: ''
+				},{
+					value: ''
 				}, {
 					value: ''
 				}, {
@@ -318,19 +354,55 @@ faculty.controller('studentDataCtrl', ['$http', '$scope', 'dataPortalService', '
 		};
 	}
 
+	var oFileIn;
+
+	$(function() {
+	    oFileIn = document.getElementById('my_file_input');
+	    if(oFileIn.addEventListener) {
+	        oFileIn.addEventListener('change', filePicked, false);
+	    }
+	});
+
+
+	function filePicked(oEvent) {
+	    var oFile = oEvent.target.files[0];
+
+	    var sFilename = oFile.name;
+	    // Create A File Reader HTML5
+	    var reader = new FileReader();
+
+	    // Ready The Event For When A File Gets Selected
+	    reader.onload = function(e) {
+	        var data = e.target.result;
+	        var cfb = XLS.CFB.read(data, {type: 'binary'});
+	        var wb = XLS.parse_xlscfb(cfb);
+	        // Loop Over Each Sheet
+	        wb.SheetNames.forEach(function(sheetName) {
+	            // Obtain The Current Row As CSV
+	            var sCSV = XLS.utils.make_csv(wb.Sheets[sheetName]);
+	            $scope.uploadedData = XLS.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
+	            addData();
+	        });
+	    };
+
+	        // Tell JS To Start Reading The File.. You could delay this if desired
+	    reader.readAsBinaryString(oFile);
+	}
+
+
 	function checkData() {
 
 		if (!$scope.collegeCode || !$scope.selectedCourse || !$scope.selectedStream || !$scope.selectedYear) {
 			alert("please select dropdowns correctly");
+			return false;
 		}
-
+		console.log($scope.data);
 		// $scope.collegeCode, $scope.selectedCourse, $scope.selectedStream, $scope.selectedYear,
 		for (var x = 0;x<$scope.data.length;x++) {
 			if (!$scope.data[x].enrollment_no || !$scope.data[x].name || !$scope.data[x].email || !$scope.data[x].phone) {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
