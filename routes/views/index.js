@@ -452,15 +452,9 @@ module.exports = {
                 var email=process.env.email.split('/');
                 var pass=process.env.password.split('/');
                 var mailNo=process.env.mailNo;
-<<<<<<< Updated upstream
-     			      console.log(email[mailNo]);
-			          console.log(pass[mailNo]);
-                  /* nodemailer.createTestAccount((err, account) => {
-=======
                   console.log(email[mailNo]);
                   console.log(pass[mailNo]);
                   nodemailer.createTestAccount((err, account) => {
->>>>>>> Stashed changes
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -488,7 +482,7 @@ module.exports = {
                     }
                   });
 
-                  });*/
+                  });
                  var readHTMLFile = function(path, callback) {
                       fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
                           if (err) {
