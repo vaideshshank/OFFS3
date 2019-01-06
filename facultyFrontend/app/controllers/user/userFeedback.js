@@ -146,13 +146,17 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		// localStorage.setItem("stringFeedback[i]", JSON.stringify(feedback));
 		// console.log(foundTeacher);
+
+
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
 				
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
 				
 				console.log(foundTeacher);
-				console.log("Score : "+foundTeacher.score)
+				console.log("Score : "+foundTeacher.score);
+				console.log("Length : "+foundTeacher.score.length);
+				
 				// co = JSON.parse(localStorage.getItem('stringFeedback');
 			} else {
 				// console.log("yaham takk aagya abh aage kaya hoga")
@@ -204,7 +208,12 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer2] == null) {
-				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				//foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				
+				foundTeacher.score.push[$rootScope.pLength]=$scope.feedbackGivenByTheUser[index];
+					//foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				//foundTeacher.score.push[$rootScope.pLength]="";
+					
 				// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
 				// const data = JSON.parse(localStorage.getItem('stringFeedback');
 				console.log(foundTeacher);
@@ -249,6 +258,8 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.decreasePointer = function() {
 		$scope.disablenextattributes = false;
 		$scope.pointer -=1;
+		$rootScope.tLength--;
+		console.log("Practical decrease : "+$rootScope.tLength);
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer];
 
 		for (var x=0; x<$scope.teacherFeedback.length;x++) {
@@ -259,8 +270,11 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.decreasePointer2 = function() {
 		$scope.disablenextattributes = false;
 		$scope.pointer2 -= 1;
+		$rootScope.pLength--;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer + $scope.pointer2];
-
+		
+		console.log("Theory decrease : "+$rootScope.tLength);
+		
 		console.log($scope.teacherFeedback);
 
 		for (var x=0; x<$scope.teacherFeedback.length;x++) {
