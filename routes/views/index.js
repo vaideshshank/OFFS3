@@ -90,7 +90,7 @@ module.exports = {
 
                nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
-                   service: 'gmail',
+                   service:'gmail',
                    auth: {
                      user:email[mailNo],
                      pass: pass[mailNo],
@@ -437,6 +437,9 @@ module.exports = {
 
               }
             })
+              }else if(attr_len!=0 && feedback.feedbackId!=null){
+                console.log("Missing entries");
+                res.json({"filled" : false});
               }
 
             callback();
@@ -494,7 +497,7 @@ module.exports = {
 
                nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
-                    service: 'gmail',
+                    service:'gmail',
                     auth: {
                       user: email[mailNo],
                       pass: pass[mailNo],

@@ -6,7 +6,7 @@ var con = require("../../models/mysql"),
 
 module.exports = {
   getTeacher: function(req, res) {
-    var query = "select * from employee";
+    var query = "select instructor_id,name,designation,school from employee";
     con.query(query, function(err, Employees) {
       if (err) {
         console.log(err);

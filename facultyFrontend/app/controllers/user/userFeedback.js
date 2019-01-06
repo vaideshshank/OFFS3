@@ -148,7 +148,9 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		// console.log(foundTeacher);
 		if (foundTeacher) {
 			if (foundTeacher.score[$scope.pointer] == null) {
+				
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
+				
 				console.log(foundTeacher);
 				console.log("Score : "+foundTeacher.score)
 				// co = JSON.parse(localStorage.getItem('stringFeedback');
@@ -205,6 +207,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 				foundTeacher.score.push($scope.feedbackGivenByTheUser[index]);
 				// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
 				// const data = JSON.parse(localStorage.getItem('stringFeedback');
+				console.log(foundTeacher);
 				console.log("Score : "+foundTeacher.score)
 			} else {
 				foundTeacher.score[$scope.pointer2] = $scope.feedbackGivenByTheUser[index];

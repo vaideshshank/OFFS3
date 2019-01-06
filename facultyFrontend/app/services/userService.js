@@ -123,6 +123,9 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', f
                        teachersFeedback, {
                        headers: { 'Content-Type': 'application/json' }
             }).then(function(response) {
+                if(response.filled==false){
+                    alert("fill all the required entries in the form");
+                }
                 if (callback) {
                     callback(response.data);
                     
