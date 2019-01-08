@@ -88,7 +88,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
     $scope.showSpinner = true;
 
     console.log(`data : ${$scope.college}, ${$scope.user.category}, ${$scope.user.rollno}, ${$scope.user.email}`)
-    if ($scope.college==undefined || $scope.college=="" || $scope.user.category==undefined || $scope.user.category=="" || $scope.user.rollno==undefined || $scope.user.rollno=="" || $scope.user.email==undefined || $scope.user.email=="") {
+    if ($scope.college==undefined || $scope.college=="" || $scope.user.category==undefined || $scope.user.category=="" || $scope.user.rollno==undefined || $scope.user.rollno=="" /*|| $scope.user.email==undefined*/ || $scope.user.email=="") {
       alert("Fill all the fields of the form");
       $scope.hidebutton = false;
       $scope.showSpinner = false;
