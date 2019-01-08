@@ -5,8 +5,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.pointer2 = -1;
 	$scope.seggregatedTeacherType = {}
 	$scope.feedbackGivenByTheUser = [];
-	$scope.disablenextattributes = true;
-
+	
 	$scope.teacherFeedback = [
 	];
 
@@ -176,8 +175,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			console.log($scope.teacherFeedback);	//stores info about teacher and his feedback  teacherFeedback[].feedbackId
 		}
 
-		$scope.disablenextattributes = false;
-
+		
 		i++;
 	}
 	// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
@@ -231,12 +229,10 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			})
 		}
 		
-		$scope.disablenextattributes = false;
-
+		
 	}
 
 	$scope.increasePointer = function() {
-		$scope.disablenextattributes = true;
 		$scope.pointer += 1;
 		
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {
@@ -256,7 +252,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	
 
 	$scope.decreasePointer = function() {
-		$scope.disablenextattributes = false;
 		$scope.pointer -=1;
 		$rootScope.tLength--;
 		console.log("Practical decrease : "+$rootScope.tLength);
@@ -268,7 +263,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	}
 
 	$scope.decreasePointer2 = function() {
-		$scope.disablenextattributes = false;
 		$scope.pointer2 -= 1;
 		$rootScope.pLength--;
 		var foundTeacher = $scope.teacherFeedback[$scope.pointer + $scope.pointer2];
@@ -302,7 +296,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		// }
 		// for (var x=0; x< )
-		$scope.disablenextattributes = true;
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
 	}
@@ -315,7 +308,6 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	}
 
 	$scope.increasePointer2 = function() {
-		$scope.disablenextattributes = true;
 		$scope.pointer2 += 1;
 		
 		for(var x=0;x<$scope.teacherFeedback.length;x++) {

@@ -162,6 +162,13 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
               $location.path("/");
             } else if (response.message) {
               alert(response.message);
+              $scope.college="";
+              $scope.user.category="";
+              $scope.user.rollno="";
+              $scope.user.email="";
+              $scope.user.semister="";
+              $scope.showSpinner=false;
+              $scope.hidebutton=false;
             } else {
               $rootScope.tablename =
                 $scope.college.collegeCode + "_" + $scope.user.category;

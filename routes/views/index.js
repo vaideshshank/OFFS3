@@ -63,8 +63,6 @@ module.exports = {
         res.send(obj);
 
       } else {
-          // var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
-
           console.log(req.query.enrollment_no.substr(10,12));
           console.log(req.query);
           console.log(tablename);
@@ -87,7 +85,7 @@ module.exports = {
               var mailNo=process.env.mailNo;         
 		console.log(email[mailNo]);
 		console.log(pass[mailNo]);
-
+                /*
                nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
                    service:'gmail',
@@ -112,7 +110,7 @@ module.exports = {
                      res.send("200");
                    }
                  });
-               });
+               });*/
 
               res.send("200");
             }
@@ -454,7 +452,7 @@ module.exports = {
                 var mailNo=process.env.mailNo;
                   console.log(email[mailNo]);
                   console.log(pass[mailNo]);
-                  nodemailer.createTestAccount((err, account) => {
+                  /*nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -482,7 +480,7 @@ module.exports = {
                     }
                   });
 
-                  });
+                  });*/
                  var readHTMLFile = function(path, callback) {
                       fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
                           if (err) {
@@ -495,7 +493,7 @@ module.exports = {
                       });
                   };
 
-               nodemailer.createTestAccount((err, account) => {
+               /*nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service:'gmail',
                     auth: {
@@ -528,7 +526,7 @@ module.exports = {
                     }
                       });
                   });
-              });
+              });*/
                   console.log("Thanks for the feedback")
               }
 
