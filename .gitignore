@@ -6,3 +6,4 @@ m/node_modules/**
 models/mysql.js
 models/offs-13-07-2017.sql
 facultyFrontend/app/config.js
+facultyFrontend/app/instructor_images

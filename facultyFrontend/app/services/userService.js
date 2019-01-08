@@ -117,12 +117,15 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', f
         },
 
         sendFeedbackForEvaluation: function(teachersFeedback, callback) {
-            console.log("****************");
             //console.log("Feedback for teachers"+teachersFeedback);
             $http.post(BACKEND + '/feedback',
                        teachersFeedback, {
                        headers: { 'Content-Type': 'application/json' }
             }).then(function(response) {
+                console.log("RESPONSE : "+JSON.stringify(response,undefined,2));
+                if(response.data.config.data.teacherFeedback.length==0){
+                    alert("fill all the required entries in the form");
+                }
                 if (callback) {
                     callback(response.data);
                     

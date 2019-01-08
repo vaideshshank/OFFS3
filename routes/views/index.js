@@ -63,8 +63,6 @@ module.exports = {
         res.send(obj);
 
       } else {
-          // var year = (req.query.enrollment_no.substr(req.query.enrollment_no.length-2,2));
-
           console.log(req.query.enrollment_no.substr(10,12));
           console.log(req.query);
           console.log(tablename);
@@ -87,10 +85,10 @@ module.exports = {
               var mailNo=process.env.mailNo;         
 		console.log(email[mailNo]);
 		console.log(pass[mailNo]);
-
+                
                nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
-                   service: 'gmail',
+                   service:'gmail',
                    auth: {
                      user:email[mailNo],
                      pass: pass[mailNo],
@@ -437,6 +435,9 @@ module.exports = {
 
               }
             })
+              }else if(attr_len!=0 && feedback.feedbackId!=null){
+                console.log("Missing entries");
+                res.json({"filled" : false});
               }
 
             callback();
@@ -449,9 +450,9 @@ module.exports = {
                 var email=process.env.email.split('/');
                 var pass=process.env.password.split('/');
                 var mailNo=process.env.mailNo;
-     			      console.log(email[mailNo]);
-			          console.log(pass[mailNo]);
-                  /* nodemailer.createTestAccount((err, account) => {
+                  console.log(email[mailNo]);
+                  console.log(pass[mailNo]);
+                  /*nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -494,7 +495,7 @@ module.exports = {
 
                nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
-                    service: 'gmail',
+                    service:'gmail',
                     auth: {
                       user: email[mailNo],
                       pass: pass[mailNo],

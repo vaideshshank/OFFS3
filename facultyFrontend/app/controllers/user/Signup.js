@@ -1,4 +1,4 @@
-faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
+faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
   $scope.user = {};
   $scope.name = "";
 
@@ -70,6 +70,7 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
 
   $scope.findSemister = function() {
     var roll = _.clone($scope.user.rollno);
+    //var roll=$scope.user.rollno;
     var year = roll.substring(roll.length - 2, roll.length);
     $scope.user.semister = (18 - year) * 2 + 1;
     $rootScope.semester = $scope.user.semister;
@@ -86,8 +87,13 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
     $scope.hidebutton = true;
     $scope.showSpinner = true;
 
-    if (!$scope.collegeName && !$scope.user.category && !$scope.user.rollno && !$scope.user.email) {
+    console.log(`data : ${$scope.college}, ${$scope.user.category}, ${$scope.user.rollno}, ${$scope.user.email}`)
+    if ($scope.college==undefined || $scope.college=="" || $scope.user.category==undefined || $scope.user.category=="" || $scope.user.rollno==undefined || $scope.user.rollno=="" || $scope.user.email==undefined || $scope.user.email=="") {
+      alert("Fill all the fields of the form");
+      $scope.hidebutton = false;
+      $scope.showSpinner = false;
       return;
+      
     }
 
       console.log($scope.college, $scope.user);
@@ -156,6 +162,13 @@ faculty.controller('SignupCtrl',function($scope, $rootScope, $location, userServ
               $location.path("/");
             } else if (response.message) {
               alert(response.message);
+              $scope.college="";
+              $scope.user.category="";
+              $scope.user.rollno="";
+              $scope.user.email="";
+              $scope.user.semister="";
+              $scope.showSpinner=false;
+              $scope.hidebutton=false;
             } else {
               $rootScope.tablename =
                 $scope.college.collegeCode + "_" + $scope.user.category;
