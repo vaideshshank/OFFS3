@@ -85,7 +85,7 @@ module.exports = {
               var mailNo=process.env.mailNo;         
 		console.log(email[mailNo]);
 		console.log(pass[mailNo]);
-                /*
+                
                nodemailer.createTestAccount((err, account) => {
                  var transporter = nodemailer.createTransport({
                    service:'gmail',
@@ -110,7 +110,7 @@ module.exports = {
                      res.send("200");
                    }
                  });
-               });*/
+               });
 
               res.send("200");
             }
@@ -493,7 +493,7 @@ module.exports = {
                       });
                   };
 
-               /*nodemailer.createTestAccount((err, account) => {
+               nodemailer.createTestAccount((err, account) => {
                   var transporter = nodemailer.createTransport({
                     service:'gmail',
                     auth: {
@@ -526,7 +526,7 @@ module.exports = {
                     }
                       });
                   });
-              });*/
+              });
                   console.log("Thanks for the feedback")
               }
 
