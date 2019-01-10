@@ -32,7 +32,7 @@ router.get("/slogout", routes.views.index.logout);
 	Erase this after you understand !
 */
 
-router.get("/resetpassword/otp/", routes.views.resetPassword.reset);
+router.post("/resetpassword/otp/", routes.views.resetPassword.reset);
 router.post("/resetpassword/", routes.views.resetPassword.resetRequest);
 
 router.post("/dinitials", routes.views.dean.initials); //To authenticate the dean
