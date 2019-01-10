@@ -11,8 +11,8 @@ module.exports = {
       err,
       result
     ) {
-      if ((result[0].resetVar = token)) {
-        if (result[0].resetVarExpirs > Date.now()) {
+      if (result[0].resetVar == token) {
+        if (result[0].resetVarExpires > Date.now()) {
           con.query(
             "UPDATE employee SET resetVar='test',password=? WHERE email=?",
             [newPassword, email],
