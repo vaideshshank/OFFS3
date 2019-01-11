@@ -4,7 +4,7 @@ faculty.controller('resetPasswordCtrl','resetService',function($route,$scope, $r
     $scope.check=0;
     $scope.disableReset = true;
     $scope.disableOTP=true;
-
+    $scope.disableNewPassword = true;
     $scope.changeFlag = function(item) {
 		if(!(angular.isUndefined(item.instructor_name))) {
 			item.flag = 1;
@@ -12,7 +12,7 @@ faculty.controller('resetPasswordCtrl','resetService',function($route,$scope, $r
 				res.forEach(function(val) {
 					if(item.instructor_name == (val.name + ' ' + val.instructor_id)){
                         item.flag = 2;
-                        $scope.disableReset = true;
+                        $scope.disableReset = false;
 						return;
 					}
 				})
