@@ -80,15 +80,21 @@
               <div class="g-recaptcha hide" data-sitekey="6LcW-CcUAAAAAMSs6yu89PgIMvFyOT4Bps651gYE"></div>
                 <div class="input-field col s12">
                   <p ng-if="user.category=='student'"><strong>This feedback is anonymous</strong></p>
-                  <button  ng-click="LoginUser()" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
+                  <button ng-if="user.category=='student'" ng-click="LoginUser()" ng-disabled= "!college.collegeName || !user.category || !user.rollno || !user.email || !user.semister" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
                     <!--<i class="material-icons right">send</i>-->
                   </button>
+                  <button ng-if="user.category!='student'" ng-click="LoginUser()" ng-disabled= "!college.collegeName || !user.category || !user.rollno || !user.password" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
+                    <!--<i class="material-icons right">send</i>-->
+                    
+                  </button>
+                  <a  ng-if="user.category!='student'" href="#/resetPassword">Forgot/Reset Password</a>
                 </div>
                 <div ng-show="showSpinner" class="pull-right" id="loaddiv" style="margin: auto; width: 17%;">
                     <img style="margin-top:5px;" src="./app/resources/images/5.gif" width="60px" />
                 </div>
               </div>
             </form>
+         
           </div>
         </div>
       </div>
