@@ -248,7 +248,7 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 
                     }
                  //! after the for loop is finished running, we save the pdf.
-                pdf.save('test.pdf');         
+                pdf.save('feedback_report.pdf');         
            });
     }
 

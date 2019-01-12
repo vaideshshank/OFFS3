@@ -232,7 +232,7 @@ $scope.print = function (){
 
                     }
                  //! after the for loop is finished running, we save the pdf.
-                pdf.save('test.pdf');         
+                pdf.save('feedback_report.pdf');         
            });
     }
 
