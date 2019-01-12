@@ -251,30 +251,32 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 	}
 
 	$scope.print = function (){
+	alert("PDF is getting downloaded,it may take some Time.");
      var quotes = document.getElementById('mycanvas');
 
-             html2canvas(quotes).then((canvas) => {
+
+             html2canvas(quotes,{scale: 2}
+						 ).then(canvas => {
 
                  //! MAKE YOUR PDF
-                 var pdf = new jsPDF('p', 'pt', 'letter');
-
-                 for (var i = 0; i <= quotes.clientHeight/1200; i++) {
+                 var pdf = new jsPDF('l', 'pt','a4');
+                 for (var i = 0; i <= quotes.clientHeight/1300; i++) {
                      //! This is all just html2canvas stuff
                      var srcImg  = canvas;
                      var sX      = 0;
-                     var sY      = 1200*i; // start 1065 pixels down for every new page
-                     var sWidth  = 1500;
-                     var sHeight = 1200;
+                     var sY      = 1300*i; 
+                     var sWidth  = 2500;
+                     var sHeight = 1300;
                      var dX      = 0;
                      var dY      = 0;
-                     var dWidth  = 1500;
-                     var dHeight = 1200;
+                     var dWidth  = 2500;
+                     var dHeight = 1300;
 
                      window.onePageCanvas = document.createElement("canvas");
-                     onePageCanvas.setAttribute('width', 1500);
-                     onePageCanvas.setAttribute('height', 1200);
+                     onePageCanvas.setAttribute('width', 2500);
+                     onePageCanvas.setAttribute('height', 1300);
                      var ctx = onePageCanvas.getContext('2d');
-                     // details on this usage of this function: 
+
                      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
                      ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
 
@@ -287,18 +289,19 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
                      //! If we're on anything other than the first page,
                      // add another page
                      if (i > 0) {
-                         pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                         pdf.addPage(843, 612); //8.5" x 11" in pts (in*72)
                         }
                      //! now we declare that we're working on that page
                      pdf.setPage(i+1);
                      //! now we add content to that page!
-                     pdf.addImage(canvasDataURL, 'PNG', 40, 40, (width*.62) - 400, (height*.62)-120);
+                     pdf.addImage(canvasDataURL, 'JPEG', 30, 40, (width*.62) - 400, (height*.62)-175);
 
                     }
                  //! after the for loop is finished running, we save the pdf.
-                pdf.save('f1.pdf');         
+                pdf.save('test.pdf');         
            });
     }
+
 
 
  $scope.getTotal = function (value) {

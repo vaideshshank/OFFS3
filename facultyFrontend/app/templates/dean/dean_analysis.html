@@ -43,11 +43,18 @@
 </div>
 
 <div class="center">
+ <div class="g-recaptcha hide" data-sitekey="6LcW-CcUAAAAAMSs6yu89PgIMvFyOT4Bps651gYE"></div>
     <a class="waves-effect white black-text btn" ng-click="search()">SEARCH</a>
 <br><br>
-    <a class="waves-effect white black-text btn" ng-click="print(mycanvas)">Print as PDF</a>
+    <!--<a class="waves-effect white black-text btn" ng-click="print()">Print as PDF</a>-->
+    <button  ng-click="print()" ng-hide="hidebutton" class="waves-effect white black-text btn" id="form_button" type="submit" name="action">Print as PDF</button>
+ </div>  
+                
 </div>
 
+<div ng-show="showSpinner" class="pull-right" id="loaddiv" style="margin: auto; width: 17%;">
+    <img style="margin-top:5px;" src="./app/resources/images/5.gif" width="60px" />
+</div>                    
 <div class="wrapper" id="mycanvas">
 <div class="" style="padding: 2em;">
     <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em">
@@ -237,4 +244,5 @@ th:nth-child(7), td:nth-child(7) {
     $(document).ready(function () {
                 $('select').material_select();
     })
+
 </script>

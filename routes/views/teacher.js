@@ -112,18 +112,34 @@ module.exports = {
          }
        });
 
-        var upload = multer({ storage: storage }).single('photo');
-        upload(req, res, function (err) {
+        var upload = multer({ 
+        	fileFilter: function (req, file, cb) {
+        		console.log("check");
+
+                  var filetypes = /jpeg|jpg/;
+                  var mimetype = filetypes.test(file.mimetype);
+                  var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+                         if (mimetype && extname) {
+                             return cb(null, true);
+                         }else{
+                   cb("Error: File upload only supports the following filetypes - " + filetypes);
+                    console.log("nvalidate");}
+             }, storage: storage }).single('photo');
+
+         upload(req, res, function (err) {
             if(err) {
               console.log(err);
+              var obj = { status: 400, message: "Image can't be uploaded" };
+                    res.json(obj);
             }
-            else{	
+            else{
+            	
              console.log("Image uploaded");
              var obj = { status: 200, message: "Image uploaded successfully" };
              res.json(obj);
-         }
-            })
-
+            }
+        })    
     },
 
 

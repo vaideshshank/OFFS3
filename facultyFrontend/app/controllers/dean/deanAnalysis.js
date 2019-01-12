@@ -1,4 +1,5 @@
 faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, facultyService) {
+    
 
 	$scope.dean = [];
 	$scope.selectedYear = '2018';
@@ -184,30 +185,32 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 	    }*/
 
 $scope.print = function (){
+	alert("PDF is getting downloaded,it may take some Time.");
      var quotes = document.getElementById('mycanvas');
 
-             html2canvas(quotes).then((canvas) => {
+
+             html2canvas(quotes,{scale: 2}
+						 ).then(canvas => {
 
                  //! MAKE YOUR PDF
-                 var pdf = new jsPDF('p', 'pt', 'letter');
-
-                 for (var i = 0; i <= quotes.clientHeight/1200; i++) {
+                 var pdf = new jsPDF('l', 'pt','a4');
+                 for (var i = 0; i <= quotes.clientHeight/1300; i++) {
                      //! This is all just html2canvas stuff
                      var srcImg  = canvas;
                      var sX      = 0;
-                     var sY      = 1200*i; // start 1065 pixels down for every new page
-                     var sWidth  = 1500;
-                     var sHeight = 1200;
+                     var sY      = 1300*i; 
+                     var sWidth  = 2500;
+                     var sHeight = 1300;
                      var dX      = 0;
                      var dY      = 0;
-                     var dWidth  = 1500;
-                     var dHeight = 1200;
+                     var dWidth  = 2500;
+                     var dHeight = 1300;
 
                      window.onePageCanvas = document.createElement("canvas");
-                     onePageCanvas.setAttribute('width', 1500);
-                     onePageCanvas.setAttribute('height', 1200);
+                     onePageCanvas.setAttribute('width', 2500);
+                     onePageCanvas.setAttribute('height', 1300);
                      var ctx = onePageCanvas.getContext('2d');
-                     // details on this usage of this function: 
+
                      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
                      ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
 
@@ -220,18 +223,112 @@ $scope.print = function (){
                      //! If we're on anything other than the first page,
                      // add another page
                      if (i > 0) {
-                         pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                         pdf.addPage(843, 612); //8.5" x 11" in pts (in*72)
                         }
                      //! now we declare that we're working on that page
                      pdf.setPage(i+1);
                      //! now we add content to that page!
-                     pdf.addImage(canvasDataURL, 'PNG', 40, 40, (width*.62) - 400, (height*.62)-120);
+                     pdf.addImage(canvasDataURL, 'JPEG', 30, 40, (width*.62) - 400, (height*.62)-175);
 
                     }
                  //! after the for loop is finished running, we save the pdf.
-                pdf.save('f1.pdf');         
+                pdf.save('test.pdf');         
            });
     }
+
+
+      /*
+
+
+const filename  = 'ThisIsYourPDFFilename.pdf';
+
+		html2canvas(document.querySelector('#mycanvas'), 
+								{scale: quality}
+						 ).then(canvas => {
+			let pdf = new jsPDF('landscape');
+			pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 290, 620);
+			pdf.save(filename);
+		});  
+
+
+      Here are the numbers (paper width and height) that I found to work. 
+      It still creates a little overlap part between the pages, but good enough for me.
+      if you can find an official number from jsPDF, use them.
+     
+      var imgWidth = 300; 
+      var pageHeight = 295;  
+      var imgHeight = canvas.height * (imgWidth) / canvas.width;
+      var heightLeft = imgHeight; 
+
+      var position = 0;
+
+      doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save( 'file.pdf');﻿
+
+		}
+	});
+	
+
+
+  var pdf = new jsPDF('p', 'pt', 'a4');
+  pdf.setFontSize(18);
+  pdf.fromHTML(document.getElementById('mycanvas'), 
+    margins.left, // x coord
+    margins.top,
+    {
+      // y coord
+      width: margins.width// max width of content on PDF
+    },function(dispose) {
+      var totalPages  = pdf.internal.getNumberOfPages();
+
+    for(var i = totalPages; i >= 1; i--)
+    { //make this page, the current page we are currently working on.
+        pdf.setPage(i);      
+                      
+    pdf.setFontSize(30);
+    pdf.setTextColor(40);
+    pdf.setFontStyle('normal');
+  
+    if (base64Img) {
+       pdf.addImage(base64Img, 'JPEG', margins.left, 10, 40,40);        
+    }
+      
+    pdf.text("Report Header Template", margins.left + 50, 40 );
+  
+    pdf.line(3, 70, margins.width + 43,70); // horizontal line
+
+    var str = "Page " + i + " of " + totalPages
+   
+    pdf.setFontSize(10);
+    pdf.text(str, margins.left, pdf.internal.pageSize.height - 20);
+    
+}
+
+   }
+, 
+    margins);
+    
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:650px; padding:20px;');
+  document.body.appendChild(iframe);
+  
+  iframe.src = pdf.output('datauristring');
+} */
+       
+
+
+   
+
+
+    
 
 	$scope.search  = function () {
 

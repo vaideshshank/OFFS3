@@ -111,7 +111,7 @@
      $(this).ajaxSubmit({
        contentType: 'application/json',
        success: function(response){
-         console.log('image uploaded');
+         console.log(response.message);
          alert(response.message); 
        }
    });

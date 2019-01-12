@@ -104,8 +104,9 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
           function(response) {
             if (response.status == 400) {
               alert(response.message);
-
               $location.path("/");
+              $scope.hidebutton = false;
+              $scope.showSpinner = false;
             } else {
               $location.path("/deanDashboard");
             }
@@ -119,6 +120,9 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
             if (response.status == 400) {
               alert(response.message);
               $location.path("/");
+              $scope.hidebutton = false;
+              $scope.showSpinner = false;
+
             } else {
               $rootScope.teacher = response.teacher;
               console.log($rootScope.teacher);
@@ -134,6 +138,8 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
             if (response.status == 400) {
               alert(response.message);
               $location.path("/");
+              $scope.hidebutton = false;
+              $scope.showSpinner = false;
             } else {
               $location.path("/vcDashboard");
             }
@@ -146,6 +152,8 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
           function(response) {
             if (response.status == 400) {
               alert(response.message);
+              $scope.hidebutton = false;
+              $scope.showSpinner = false;
               $location.path("/");
             } else {
               $location.path("/pvcDashboard");
@@ -159,6 +167,8 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
           $scope.user,
           function(response) {
             if (response == 400) {
+              $scope.hidebutton = false;
+              $scope.showSpinner = false;
               $location.path("/");
             } else if (response.message) {
               alert(response.message);
