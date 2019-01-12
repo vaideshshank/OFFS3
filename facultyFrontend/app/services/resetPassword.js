@@ -2,7 +2,7 @@ faculty.factory('resetService',['$http', '$timeout', '$rootScope','$window','$lo
 	
 	return {
 		
-		getInstructors: function(callback) {
+		getInstructor: function(callback) {
 			$http({
 				method:'GET',
 				url: BACKEND + '/getTeacher'

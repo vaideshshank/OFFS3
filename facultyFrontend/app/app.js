@@ -81,11 +81,3 @@ window.faculty = angular.module('faculty', ["ngStorage",'ngAnimate', 'ngRoute', 
 faculty.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
-
-
-// bhai eakk min mila hai kuch let me try
-//okay
-//samajh rha hun..
-//ab upload karten hain..
-// bhai mei he kar deta hun
-//but isse previous data erase to nhi hoga ?
