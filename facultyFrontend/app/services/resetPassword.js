@@ -2,21 +2,67 @@ faculty.factory('resetService',['$http', '$timeout', '$rootScope','$window','$lo
 	
 	return {
 		
-		getInstructor: function(callback) {
-			$http({
-				method:'GET',
-				url: BACKEND + '/getTeacher'
-			}).then(function(response) {
-				if (callback) {
-					callback(response.data);
-				}
-			}, function(response) {
-				if (callback) {
-					console.error(response);
-					callback(response);
-				}
-			})
-		}
+		getInstructor: function(){
+							$http({
+								method:"GET",
+								url:BACKEND+"/getTeacher",
+							})
+							.then(function(res){
+								//console.log(res.data);
+								var data=res.data;
+								$(document).ready(function(){
+									console.log(data.length);
+									var data_val={};
+						
+									data.forEach(function(val){
+										data_val[`${val.name} - ${val.instructor_id}`]=null;
+										$('input#instructor_name').autocomplete({
+											data:data_val         
+										});
+									})
+									
+								});
+							},function(err){
+								console.log(err);   
+							})
+						},
+
+
+		getEmail:	function(instructor_id,email,callback){
+						$http({
+							method:"POST",
+							url:BACKEND+'/resetpassword',
+							data:{
+								instructor_id:instructor_id,
+								email:email
+							}
+						})
+						.then(function(res){
+							callback(res);
+						},(err)=>{
+							callback(err);
+						})
+
+
+						
+					},
+
+		resetPassword:		function(otp,password,email,callback){
+								$http({
+									method:"POST",
+									url:BACKEND+'/resetpassword/otp',
+									data:{
+										resetVar: otp,
+										password:password,
+										email:email
+									}
+								})
+								.then((res)=>{
+									callback(res);
+								},(err)=>{
+									callback(undefined,err);
+								})
+							}
 
 
     }	
