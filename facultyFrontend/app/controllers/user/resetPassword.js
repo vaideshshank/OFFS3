@@ -1,8 +1,8 @@
-faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope', '$location','resetService',function($route,$scope, $http,$rootScope, $location, resetService){
-    $scope.searched = false;
+faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope', '$location','resetService',function($route,$scope, $http,$rootScope, $location, resetService){
     $scope.check=0;
 
-    $scope.disableSecondFields=true;
+    $scope.disableSecondFields = true;
+    $scope.disableSentEmail = false;
     $scope.item={};
 
     // init autocomplete
@@ -38,13 +38,22 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
     
 //Verify Email    
      $scope.getEmail = function(item){
+        $scope.disableSentEmail = true;
          resetService.getEmail(item.instructor_id,item.instructor_email,(res,err)=>{
             if(err){console.log(err);return;}
-            console.log(res);
             
-            if(res.data.response=='sentMail'){
-                alert("Email for OTP send to " + item.instructor_email);
-                $scope.disableSecondFields=false;
+            if(res.data.response=='wrongId') {
+                alert("Wrong email id entered. Please try again");
+                location.reload();
+            }
+
+            else if(res.data.response=='sentMail'){
+                alert("OTP send to " + item.instructor_email);
+                $scope.disableSecondFields = false;
+            }
+            else {
+                alert("Server Failure. Please try again");
+                location.reload();
             }
          })
          
@@ -53,16 +62,32 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
 
 //Reset Password   
     $scope.resetPassword = function(item){
-        //define this function to reset password
         $scope.disableNewPassword = false;
         //append new password
         console.log(item);
         resetService.resetPassword(item.instructor_otp,item.instructor_newPassword,item.instructor_email,function(res,err){
             if(err){console.log(err);return;}
+
             if(res.data.response=="reset"){
-                alert("Password set");
+                alert("Password changed successfully");
                 $location.path("/")
             }
+
+            else if(res.data.response=='expire') {
+                alert("OTP has expired. Please try again");
+                location.reload();
+            }
+
+            else if(res.data.response=='wrongOTP') {
+                alert("Wrong OTP. Please try again");
+                item.instructor_otp = "";
+            }
+
+            else {
+                alert("Server Failure. Please try again");
+                location.reload();
+            }
+            
         })
         
         

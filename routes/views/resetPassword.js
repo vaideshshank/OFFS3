@@ -114,6 +114,11 @@ module.exports = {
                 );
               });
             }
+            else {
+              res.json({
+                response: 'wrongId'
+              });
+            }
           }
         }
       }
