@@ -3,11 +3,7 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
     $scope.check=0;
 
     $scope.disableSecondFields=true;
-    /*$scope.disableReset = true;
-    $scope.disableOTP=true;
-    $scope.disableNewPassword = true;*/
     $scope.item={};
-
 
     // init autocomplete
     $http({
@@ -17,7 +13,6 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
     .then(function(res){
         var data=res.data;
         $(document).ready(function(){
-            console.log(data.length);
             var data_val={};
 
             data.forEach(function(val){
@@ -40,14 +35,9 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
         $scope.item.instructor_id = infoParsed[1];
         $scope.info = $scope.item.instructor_name;
 	}
-
-//Autocomplete name from database---autocalled
-	
     
 //Verify Email    
      $scope.getEmail = function(item){
-         console.log(item);
-        
          resetService.getEmail(item.instructor_id,item.instructor_email,(res,err)=>{
             if(err){console.log(err);return;}
             console.log(res);
@@ -60,14 +50,6 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
          
         
      }
-    
-//Verify OTP
-    // $scope.sendOTP = function(){
-
-    //     if(instructor_otp==resetVar){
-    //         resetPassword();
-    //     }
-    // }
 
 //Reset Password   
     $scope.resetPassword = function(item){
@@ -79,6 +61,7 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
             if(err){console.log(err);return;}
             if(res.data.response=="reset"){
                 alert("Password set");
+                $location.path("/")
             }
         })
         

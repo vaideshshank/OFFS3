@@ -87,7 +87,7 @@
                     <!--<i class="material-icons right">send</i>-->
                     
                   </button>
-                  <a  ng-if="user.category!='student'" href="#/resetPassword">Forgot/Reset Password</a>
+                  <a ng-if="user.category=='Teacher' || user.category=='Dean' || user.category=='VC' || user.category=='Pro VC'" href="#/resetPassword">Forgot/Reset Password</a>
                 </div>
                 <div ng-show="showSpinner" class="pull-right" id="loaddiv" style="margin: auto; width: 17%;">
                     <img style="margin-top:5px;" src="./app/resources/images/5.gif" width="60px" />
