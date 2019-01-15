@@ -33,7 +33,7 @@ router.get("/slogout", routes.views.index.logout);
 */
 
 router.post("/resetpassword/otp/", routes.views.resetPassword.reset);
-router.post("/resetpassword/", routes.views.resetPassword.resetRequest);
+router.post("/resetpassword", routes.views.resetPassword.resetRequest);
 
 router.post("/dinitials", routes.views.dean.initials); //To authenticate the dean
 router.get("/dchecksession", routes.views.dean.checksession); //This is a temporary route.

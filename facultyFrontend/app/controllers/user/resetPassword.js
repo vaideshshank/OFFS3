@@ -15,7 +15,6 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
         url:BACKEND+"/getTeacher",
     })
     .then(function(res){
-        //console.log(res.data);
         var data=res.data;
         $(document).ready(function(){
             console.log(data.length);
@@ -35,41 +34,26 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
     
     
     $scope.changeFlag = function(info) {
-		/*if(!(angular.isUndefined(item.instructor_name))) {
-			item.flag = 1;
-			resetService.getInstructor(function(res) {
-				res.forEach(function(val) {
-					if(item.instructor_name == (val.name + ' ' + val.instructor_id)){
-                        console.log("Check");
-                        item.flag = 2;
-                        $scope.disableReset = false;
-						return;
-					}
-				})
-			})
-        }*/
         if(info==undefined){return};
-        var infoParsed=info.split(' - ');
-        $scope.item.instructor_name=infoParsed[0];
-        $scope.item.instructor_id=infoParsed[1];
-        $scope.info=$scope.item.instructor_name;
-        console.log($scope.item);
+        var infoParsed = info.split(' - ');
+        $scope.item.instructor_name = infoParsed[0];
+        $scope.item.instructor_id = infoParsed[1];
+        $scope.info = $scope.item.instructor_name;
 	}
 
 //Autocomplete name from database---autocalled
 	
     
 //Verify Email    
-     $scope.getEmail = function(){
-         console.log($scope.item);
+     $scope.getEmail = function(item){
+         console.log(item);
         
-         resetService.getEmail($scope.item.instructor_id,$scope.item.instructor_email,(res,err)=>{
+         resetService.getEmail(item.instructor_id,item.instructor_email,(res,err)=>{
             if(err){console.log(err);return;}
             console.log(res);
             
             if(res.data.response=='sentMail'){
-                alert("Email for OTP send to "+$scope.item.instructor_email);
-                //$scope.disableOTP=false;
+                alert("Email for OTP send to " + item.instructor_email);
                 $scope.disableSecondFields=false;
             }
          })
@@ -86,12 +70,12 @@ faculty.controller('resetPasswordCtrl',['$route','$scope','$http', '$rootScope',
     // }
 
 //Reset Password   
-    $scope.resetPassword = function(){
+    $scope.resetPassword = function(item){
         //define this function to reset password
         $scope.disableNewPassword = false;
         //append new password
-        console.log($scope.item);
-        resetService.resetPassword($scope.item.instructor_otp,$scope.item.instructor_newPassword,$scope.item.instructor_email,function(res,err){
+        console.log(item);
+        resetService.resetPassword(item.instructor_otp,item.instructor_newPassword,item.instructor_email,function(res,err){
             if(err){console.log(err);return;}
             if(res.data.response=="reset"){
                 alert("Password set");
