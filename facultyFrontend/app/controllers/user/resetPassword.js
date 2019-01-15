@@ -1,7 +1,6 @@
 faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope', '$location','resetService',function($route,$scope, $http,$rootScope, $location, resetService){
     $scope.check=0;
 
-    $scope.disableSecondFields = true;
     $scope.disableSentEmail = false;
     $scope.item={};
 
@@ -49,7 +48,6 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
 
             else if(res.data.response=='sentMail'){
                 alert("OTP send to " + item.instructor_email);
-                $scope.disableSecondFields = false;
             }
             else {
                 alert("Server Failure. Please try again");
@@ -86,16 +84,8 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
             else {
                 alert("Server Failure. Please try again");
                 location.reload();
-            }
-            
+            }  
         })
-        
-        
         return;
     }
-
-
-
-
-
 }]);
