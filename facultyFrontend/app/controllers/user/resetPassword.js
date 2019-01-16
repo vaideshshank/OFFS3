@@ -43,7 +43,8 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
             
             if(res.data.response=='wrongId') {
                 alert("Wrong email id entered. Please try again");
-                location.reload();
+                $scope.disableSentEmail = false;
+                item.instructor_email = "";
             }
 
             else if(res.data.response=='sentMail'){
