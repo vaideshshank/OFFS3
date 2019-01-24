@@ -4,7 +4,7 @@ var mailer = require("nodemailer");
 
 module.exports = {
   reset: function(req, res) {
-    console.log("/hot /rsetPassword/otp");
+    console.log("hit /resetPassword/otp");
     //console.log(req.body);
     var token = req.body.resetVar;
     //token.slice(0,-3);
@@ -18,7 +18,12 @@ module.exports = {
 
       console.log("actual OTP : "+result[0].resetVar);
       
-      if (result[0].resetVar== token) {
+     /* console.log(`${result[0].resetVar.slice(0,3)}  +  ${token.slice(-4,-1)}`);
+      console.log(`${result[0].resetVar.slice(-4,-1)}  +  ${token.slice(0,3)}`);
+    */
+      resetVar=result[0].resetVar;
+
+      if (resetVar.slice(0,3)== token.slice(token.length-3) && resetVar.slice(resetVar.length-3)== token.slice(0,3)) {
         //console.log("Time now : "+Date.now()+"\n recorded time : "+result[0].resetVarExpires);
         if (result[0].resetVarExpires > Date.now()) {
 
@@ -70,6 +75,8 @@ module.exports = {
             if (result[0].email == inputEmail) {
               crypto.randomBytes(20, function(err, buf) {
                 var token = buf.toString("hex");
+                var otp=token.slice(token.length-3,token.length)+token.slice(0,3);
+                console.log(otp);
                 var expire = Date.now() + 3600000;
                 /*console.log("now : "+Date.now());
                 console.log("expire : "+expire);*/
@@ -94,7 +101,7 @@ module.exports = {
                         subject: "PasswordReset@FacultyFeedbackSystem",
                         text:
                           "Hi, Here is your Reset Password OTP [CAUTION: It will expire in 1 hour]  -> " +
-                          token
+                          otp
                       };
 
                       transporter.sendMail(mailOptions, function(error, info) {

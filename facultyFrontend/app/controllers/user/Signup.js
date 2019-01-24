@@ -1,7 +1,7 @@
 faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
   $scope.user = {};
   $scope.name = "";
-
+  $scope.user.category='student';
   $scope.collegeList = [
     {
       collegeName: "University School of Law and Legal Studies",
@@ -66,6 +66,9 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
 
   $scope.setUserCategory = function(userCategory) {
     $scope.user.category = userCategory;
+
+    //to be disabled later
+    $scope.user.category='student';
   };
 
   $scope.findSemister = function() {
