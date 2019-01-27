@@ -52,7 +52,7 @@ module.exports = {
       }
 
       if(res3[0]==undefined){
-        res.json({"res":"noinfo"});
+        res.json({"message":"No information exists for the student with entered enrollment number"});
         return;
       }
       //console.log(res3);

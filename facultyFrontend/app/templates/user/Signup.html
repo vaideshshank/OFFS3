@@ -23,12 +23,12 @@
 
         <div id='dropdown2' class='dropdown-content' style="background-color: white;color: black; width: 34em">
           <ul class="school_list">
-            <li ng-repeat="userCategory in userCategoryList"><a class="single_school" ng-click="setUserCategory(userCategory)"> {{ userCategory }}</a></li>
+            <li ng-repeat="userCategory in userCategoryList" id="disableSome"><a class="single_school" ng-click="setUserCategory(userCategory)" ng-disabled="userCategory=='student'"> {{ userCategory }}</a></li>
           </ul>
         </div>
       </div>
 
-    <div class="card" id="Signup">
+    <div class="card" id="Signup" ng-hide="user.category==undefined">
         <div class="Signup_head" style="height: 3em">
           <div class="row">
             <div class="col s12">
@@ -48,10 +48,18 @@
                   <input id="rollno" type="text" class="validate" ng-model="user.rollno" ng-blur="findSemister()">
                   <label for="rollno"> Your 11 Digit Enrollment Number</label>
                 </div>
+
                 <div class="input-field col s12" ng-if="user.category!=='student'">
-                  <input id="rollno" type="text" class="validate" ng-model="user.rollno">
-                  <label for="rollno"> {{ $scope.audience || 'User Id' }}</label>
-                </div>
+                    <input id="userName" type="text" class="validate" ng-model="user.name" ng-blur="getNameId(user.name)">
+                    <label for="rollno"> {{ $scope.audience || 'Type initials of your name' }}</label>
+                  </div>
+
+                <div class="input-field col s12" ng-if="user.category!=='student'">
+                    <input id="rollno" type="text" class="validate" ng-model="user.rollno" ng-disabled="true" placeholder="UserId">
+                    <label for="rollno"> {{ $scope.audience }}</label>
+                  </div>
+
+                
               </div>
 
               <div class="row" ng-if="user.category=='student'">
@@ -113,5 +121,11 @@
     }
   );
 </script>
-
+<style>
+  #disableSome:nth-child(2),#disableSome:nth-child(3),#disableSome:nth-child(4),#disableSome:nth-child(5){
+    color: #ccc;
+    pointer-events:none;
+    background-color: rgba(128, 128, 128, 0.349);
+  }
+</style>
 <script src='https://www.google.com/recaptcha/api.js'></script>
