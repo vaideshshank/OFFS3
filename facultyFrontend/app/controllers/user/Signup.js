@@ -1,7 +1,7 @@
 faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
   $scope.user = {};
   $scope.name = "";
-  //$scope.user.category='student';
+  $scope.user.category='student';
   
   $scope.collegeList = [
     {
@@ -70,7 +70,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
 
   $scope.setUserCategory = function(userCategory) {
     $scope.user.category = userCategory;
-
+    $scope.user.category="student";
     // init autocomplete
       if($scope.user.category!='student'){
         $http({
