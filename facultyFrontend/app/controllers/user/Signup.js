@@ -214,7 +214,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
             } else if (response.message) {
               alert(response.message);
               $scope.college="";
-              $scope.user.category="";
+              $scope.user.category="student";
               $scope.user.rollno="";
               $scope.user.email="";
               $scope.user.semister="";
