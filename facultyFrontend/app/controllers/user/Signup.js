@@ -1,7 +1,8 @@
-faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
+faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
   $scope.user = {};
   $scope.name = "";
-  $scope.user.category='student';
+  //$scope.user.category='student';
+  
   $scope.collegeList = [
     {
       collegeName: "University School of Law and Legal Studies",
@@ -57,6 +58,9 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
     }
   ];
 
+
+  
+
   $scope.userCategoryList = ["student", "Dean", "VC", "Pro VC", "Teacher"];
 
   $scope.setCollege = function(singleCollege) {
@@ -67,8 +71,34 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
   $scope.setUserCategory = function(userCategory) {
     $scope.user.category = userCategory;
 
+    // init autocomplete
+      if($scope.user.category!='student'){
+        $http({
+          method:"GET",
+          url:BACKEND+"/getTeacher",
+        })
+        .then(function(res){
+            var data=res.data;
+            $(document).ready(function(){
+              
+                var data_val={};
+
+                data.forEach(function(val){
+                    data_val[`${val.name} - ${val.instructor_id}`]=null;
+                    $('input#userName').autocomplete({
+                        data:data_val         
+                    });
+                })
+                
+            });
+        },function(err){
+            console.log(err);   
+        }) 
+        
+      }
+
     //to be disabled later
-    $scope.user.category='student';
+   // $scope.user.category='student';
   };
 
   $scope.findSemister = function() {
@@ -85,6 +115,14 @@ faculty.controller('SignupCtrl',function($route,$scope, $rootScope, $location, u
     console.log($scope.user);
     $scope.disablebtn = false;
   };
+
+  $scope.getNameId=function(info){
+    if(info==undefined){return};
+        var infoParsed = info.split(' - ');
+        $scope.user.name = infoParsed[0];
+        $scope.user.rollno = infoParsed[1];
+        
+  }
 
   $scope.LoginUser = function() {
     $scope.hidebutton = true;

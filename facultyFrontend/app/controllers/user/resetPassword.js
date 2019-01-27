@@ -1,5 +1,8 @@
 faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope', '$location','resetService',function($route,$scope, $http,$rootScope, $location, resetService){
-    $scope.check=0;
+    $scope.check=0; 
+    $scope.disableGif1=true;
+    $scope.disableGif2=true;
+    $scope.secondSect=false;
 
     $scope.disableSentEmail = false;
     $scope.item={};
@@ -30,27 +33,32 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
     $scope.changeFlag = function(info) {
         if(info==undefined){return};
         var infoParsed = info.split(' - ');
-        $scope.item.instructor_name = infoParsed[0];
+        $scope.user.name = infoParsed[0];
         $scope.item.instructor_id = infoParsed[1];
-        $scope.info = $scope.item.instructor_name;
+       
 	}
     
 //Verify Email    
      $scope.getEmail = function(item){
-        $scope.disableSentEmail = true;
+       // $scope.disableSentEmail = true;
+         $scope.disableGif1=false;
          resetService.getEmail(item.instructor_id,item.instructor_email,(res,err)=>{
             if(err){console.log(err);return;}
             
             if(res.data.response=='wrongId') {
                 alert("Wrong email id entered. Please try again");
-                $scope.disableSentEmail = false;
+                //$scope.disableSentEmail = false;
+                $scope.disableGif1=true;
                 item.instructor_email = "";
             }
 
             else if(res.data.response=='sentMail'){
+                $scope.disableGif1=true;
+                $scope.secondSect=true;
                 alert("OTP send to " + item.instructor_email);
             }
             else {
+                $scope.disableGif1=true;
                 alert("Server Failure. Please try again");
                 location.reload();
             }
@@ -61,28 +69,33 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
 
 //Reset Password   
     $scope.resetPassword = function(item){
-        $scope.disableNewPassword = false;
+        //$scope.disableNewPassword = false;
         //append new password
+        $scope.disableGif2=false;
         console.log(item);
         resetService.resetPassword(item.instructor_otp,item.instructor_newPassword,item.instructor_email,function(res,err){
             if(err){console.log(err);return;}
 
             if(res.data.response=="reset"){
+                $scope.disableGif2=true;
                 alert("Password changed successfully");
                 $location.path("/")
             }
 
             else if(res.data.response=='expire') {
+                $scope.disableGif2=true;
                 alert("OTP has expired. Please try again");
                 location.reload();
             }
 
             else if(res.data.response=='wrongOTP') {
+                $scope.disableGif2=true;
                 alert("Wrong OTP. Please try again");
                 item.instructor_otp = "";
             }
 
             else {
+                $scope.disableGif2=true;
                 alert("Server Failure. Please try again");
                 location.reload();
             }  
