@@ -110,10 +110,21 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
   };
 
   $scope.updateSemester = function() {
-    $rootScope.semester = $scope.user.semister;
-    console.log($rootScope.semester);
-    console.log($scope.user);
-    $scope.disablebtn = false;
+    var decimal=  /^[-+]?[0-9]+\.[0-9]+$/; 
+    if($scope.user.semister.match(decimal)) {
+      alert("Please enter an integer");
+      $scope.user.semister = "";
+    }
+    else {
+      if ($scope.user.semister%2 == 0 || $scope.user.semister>8 || $scope.user.semister<1 || !angular.isNumber(parseInt($scope.user.semister))) {
+        $scope.user.semister = "";
+        alert("Kindly fill the correct semester");
+      }
+      else {
+        $rootScope.semester = $scope.user.semister;
+        $scope.disablebtn = false;
+      }
+    }
   };
 
   $scope.getNameId=function(info){
