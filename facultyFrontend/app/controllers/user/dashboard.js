@@ -15,10 +15,7 @@ faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userS
 
 	$scope.getUser = function() {
 		$localStorage.userDetails = $rootScope.userDetails;
-		console.log("Yeh dekhna hai");
-		console.log($localStorage);
-		console.log("Yeh bhi");
-		console.log($localStorage.userDetails);		
+		console.log($localStorage);		
 
 		var enrollment_no = $localStorage.rollno;
 		var tablename = $localStorage.userDetails.tablename;
