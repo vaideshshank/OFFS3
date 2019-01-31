@@ -47,7 +47,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		console.log($localStorage);
 
-		var tablename = $localStorage.tablename;
+		var tablename = $localStorage.userDetails.tablename;
 		var table=tablename.split("_");
 
 		$scope.college_name=table[0];
