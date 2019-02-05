@@ -105,12 +105,18 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
     var roll = _.clone($scope.user.rollno);
     //var roll=$scope.user.rollno;
     var year = parseInt(roll.substring(roll.length - 2, roll.length));
-    if(year == 13 || year == 14) {
+    /*if(year == 13 || year == 14) {
       console.log(typeof(year));
       year = year + 4;
-    }
+    }*/
     $scope.user.semister = (18 - year) * 2 + 1;
+
+    //for students with more than 8 sems MTECH
+    if($scope.user.semister>8){
+      $scope.user.semister-=8;
+    }
     $rootScope.semester = $scope.user.semister;
+    
   };
 
   $scope.updateSemester = function() {

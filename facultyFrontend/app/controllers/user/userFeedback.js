@@ -62,6 +62,8 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		var course = $localStorage.userInfo.course;
 		// localStorage.setItem("course", JSON.stringify($rootScope.userInfo.course));
 		
+		
+
 		var stream = $localStorage.userInfo.stream;
 		// localStorage.setItem("stream", JSON.stringify($rootScope.userInfo.stream));
 		var semester = $localStorage.semester;

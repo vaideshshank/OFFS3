@@ -47,6 +47,17 @@ module.exports = {
 	  	})
 	},
 
+	updateInformation:function(tablename,enrollment_no,course,callback){
+		var query='update ?? set course=? where enrollment_no=?';
+		con.query(query,[tablename,course,enrollment_no],function(err){
+			if(err){
+				throw err;
+			}
+			console.log("Information updated");
+			callback(null);
+		})
+	},
+
 	editDetails: function(tablename, phone, enrollment_no, callback) {
 		var query = 'update  ?? set phone = ? where enrollment_no = ?';
 

@@ -30,6 +30,10 @@ module.exports = {
     var type          = req.query.type;
     var semester      = req.query.semester;
     var year          = process.env.year - (req.query.semester - process.env.odd_even)/2;
+    var masters_year  = Number('20'+req.query.enrollment_no.slice(req.query.enrollment_no.length-2));
+    if(masters_year==year-4 || masters_year==year-5){
+          year=masters_year;
+    };
     console.log("Year is : "+year);
     //year              = (Math.floor(year)).toString();
     var college_name  = req.query.college_name;
@@ -37,7 +41,9 @@ module.exports = {
     var random        = Math.floor(Math.random()*(98989 - 12345 + 1) + 12345 );
     var email         = req.query.email.toString();
     var password      = random;
+    //if(Number(req.query.enrollment_no.slice(req.query.enrollment_no.length-2))
     var enrollment_no = Number(req.query.enrollment_no);
+
 
     console.log(process.env.year);
     console.log(req.query.semester);
@@ -128,6 +134,10 @@ module.exports = {
     }
 
     var year = process.env.year - (req.query.semester - process.env.odd_even)/2;
+    var masters_year  = Number('20'+req.query.enrollment_no.slice(req.query.enrollment_no.length-2));
+    if(masters_year==year-4 || masters_year==year-5){
+          year=masters_year;
+    };
     year = year.toString();
     var tablename = req.query.tablename + '_' + year;
     var enrollment_no = Number(req.query.enrollment_no);
@@ -154,6 +164,16 @@ module.exports = {
           console.log(result[0]);
           var temp=tablename.split("_");
 
+          if(result[0].year_of_admission==Number(process.env.year)-4 || 
+            result[0].year_of_admission==Number(process.env.year)-5
+             && result[0].course=="B. TECH"){              
+              result[0].course='M. TECH';    
+              student.updateInformation(tablename,enrollment_no,"M. TECH",function(err){
+              if(err){throw err;}
+              
+            });
+          
+         }
           var Userinfo = {
             enrollment_no: Number(result[0].enrollment_no),
             name:result[0].name,
@@ -168,7 +188,7 @@ module.exports = {
           }
 
           req.session.student=Userinfo;
-          console.log(req.session.student);
+          console.log("Student info : "+JSON.stringify(req.session.student,undefined,2));
           //console.log(Userinfo);
           res.json(Userinfo);
         }
@@ -275,7 +295,6 @@ module.exports = {
       var enrollment_no = req.session.student.enrollment_no.toString();
       var semester  = req.session.student.semester;
       var table3 = req.session.student.college_name + '_student_' + year;
-
       console.log(enrollment_no);
 
       //------------------semester ----------------------//
@@ -481,6 +500,7 @@ module.exports = {
                   });
 
                   });*/
+                
                  var readHTMLFile = function(path, callback) {
                       fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
                           if (err) {
@@ -542,9 +562,11 @@ module.exports = {
     var semester = parseInt(req.query.semester);
     var course  = req.query.course;
     var stream  = req.query.stream;
+    var result;
 
     var year = process.env.year - (semester - process.env.odd_even)/2;
-
+    var masters_year  = Number('20'+(year-2000))-4;
+    
 
 
     var query = "select enrollment_no, name, s_" + semester + " from "  + collegeName + "_student_" + year + " where" +
@@ -560,11 +582,35 @@ module.exports = {
         return;
       }
 
+      
+      result=userStatus;
+      console.log(result);
+      if(course=="M. TECH"){
+        year=masters_year;
+        var query = "select enrollment_no, name, s_" + semester + " from "  + collegeName + "_student_" + year + " where" +
+     " course='" + course + "' AND stream='" + stream + "'";
 
-      //console.log(userStatus)
-      res.json(userStatus);
-      return;
+        console.log(query);
+        con.query(query, function(err, userst) {
+          if (err) {
+            console.log(err);
+            res.json("400");
+            return;
+          }
+          console.log(userst);
+          userst.forEach(function(val){
+            result.push(val);           
+          });
+          console.log(result);
+          res.json(result);
+          return;
+      });
+    }else{
 
+        res.json(result);
+        return; 
+        
+      }
     })
   },
 
