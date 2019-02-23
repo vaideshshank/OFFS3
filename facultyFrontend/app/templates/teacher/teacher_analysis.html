@@ -1,9 +1,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-<br>
-    <div class="row">
-            <a class="logout btn waves-effect waves-light right" ng-click="logout()">LOG OUT </a>
-</div>
 <div class="row">
     <div class="col m2">
         <select ng-model="selectedYear" ng-options="option for option in ['2016', '2017','2018']" ng-change="yearChange()">
@@ -151,6 +147,12 @@
         </div>
     </div>
 </div>
+</div>
+<div>
+    <center>
+        <a class="logout btn waves-effect waves-light center-align" ng-click="logout()">LOG OUT </a>
+    </center>
+    <br><br>
 </div>
 
 <style type="text/css">

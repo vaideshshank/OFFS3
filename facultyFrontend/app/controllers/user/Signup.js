@@ -146,7 +146,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
     $scope.hidebutton = true;
     $scope.showSpinner = true;
 
-    if ($scope.user.category != 'student' && $scope.user.category != 'Dean' && ($scope.college==undefined || $scope.college=="")) {
+    if ($scope.user.category == 'VC' || $scope.user.category == 'Pro VC' && ($scope.college==undefined || $scope.college=="")) {
       var checker = 
       {
         collegeName: "University School of Info.,Comm. and Technology",
