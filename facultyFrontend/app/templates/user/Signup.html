@@ -91,9 +91,11 @@
                   <button ng-if="user.category=='student'" ng-click="LoginUser()" ng-disabled= "!college.collegeName || !user.category || !user.rollno || !user.email || !user.semister" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
                     <!--<i class="material-icons right">send</i>-->
                   </button>
-                  <button ng-if="user.category!='student'" ng-click="LoginUser()" ng-disabled= "!college.collegeName || !user.category || !user.rollno || !user.password" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
+                  <button ng-if="user.category=='Dean'" ng-click="LoginUser()" ng-disabled= "!college.collegeName || !user.category || !user.rollno || !user.password" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
                     <!--<i class="material-icons right">send</i>-->
-                    
+                  </button>
+                  <button ng-if="user.category!='Dean' && user.category!='student'" ng-click="LoginUser()" ng-disabled= "!user.category || !user.rollno || !user.password" ng-hide="hidebutton" class="btn waves-effect waves-light pull-right" id="form_button" type="submit" name="action">Submit
+                      <!--<i class="material-icons right">send</i>-->
                   </button>
                   <a ng-if="user.category=='Teacher' || user.category=='Dean' || user.category=='VC' || user.category=='Pro VC'" href="#/resetPassword">Forgot/Reset Password</a>
                 </div>
@@ -121,11 +123,12 @@
     }
   );
 </script>
+<!--
 <style>
   #disableSome:nth-child(2),#disableSome:nth-child(3),#disableSome:nth-child(4),#disableSome:nth-child(5){
     color: #ccc;
     pointer-events:none;
     background-color: rgba(128, 128, 128, 0.349);
   }
-</style>
+</style> -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
