@@ -146,6 +146,15 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
     $scope.hidebutton = true;
     $scope.showSpinner = true;
 
+    if ($scope.user.category != 'student' && $scope.user.category != 'Dean' && ($scope.college==undefined || $scope.college=="")) {
+      var checker = 
+      {
+        collegeName: "University School of Info.,Comm. and Technology",
+        collegeCode: "usict"
+      }
+      $scope.setCollege(checker);
+    }
+
     console.log(`data : ${$scope.college}, ${$scope.user.category}, ${$scope.user.rollno}, ${$scope.user.email}`)
     if ($scope.college==undefined || $scope.college=="" || $scope.user.category==undefined || $scope.user.category=="" || $scope.user.rollno==undefined || $scope.user.rollno=="" /*|| $scope.user.email==undefined*/ || $scope.user.email=="") {
       alert("Fill all the fields of the form");
