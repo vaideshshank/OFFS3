@@ -57,7 +57,7 @@ module.exports = {
 		var college_name = req.query.college_name;
 		var pvc_id = req.query.pvc_id;
 		var password = req.query.password;
-		var query = 'select * from ' + 'pro_vc where instructor_id = ? and password = ?';
+		var query = 'select * from employee where instructor_id = ? and password = ?';
 		console.log(college_name, pvc_id, password);
 		if (college_name != null && pvc_id != null && password != null) {
 			//Check For all fields
@@ -67,7 +67,7 @@ module.exports = {
 					var obj = { status: 400, message: 'There is error in query!' };
 					res.json(obj);
 				} else if (result[0] == null) {
-					var obj = { status: 400, message: 'No Such User Found ! .' };
+					var obj = { status: 400, message: 'Wrong Password entered for ProVC' };
 					res.json(obj); // Invalid Password or username
 				} else {
 					req.session.pvc = result[0];

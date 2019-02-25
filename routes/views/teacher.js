@@ -46,7 +46,7 @@ module.exports = {
 					res.json(obj);
 				} else if (result[0] == null) {
 					console.log("No Teacher Found")
-					var obj = { status: 400, message: 'No Such Teacher Found ! .' };
+					var obj = { status: 400, message: 'Entered Password is wrong for the teacher' };
 					res.json(obj); // Invalid Password or username
 				} else {
 					req.session.ins = result[0];

@@ -75,7 +75,8 @@ module.exports = {
 		var dean_id = req.query.dean_id;
 		var password = req.query.password;
 		var query =
-			'select * from ' + college_name + '_dean where instructor_id = ? and password = ?';
+			/*'select * from ' + college_name + '_dean where instructor_id = ? and password = ?';*/
+			'select * from employee where instructor_id = ? and password = ?'
 		console.log(college_name, dean_id, password);
 		if (college_name != null && dean_id != null && password != null) {
 			//Check For all fields
@@ -88,13 +89,13 @@ module.exports = {
 					res.json(obj);
 				} else if (result[0] == null) {
 					console.log('No Dean Found');
-					var obj = { status: 400, message: 'No Such User Found ! .' };
+					var obj = { status: 400, message: 'Wrong Password entered for the Dean' };
 					res.json(obj); // Invalid Password or username
 				} else {
 					console.log(result[0]);
 					req.session.dean = result[0];
 					req.session.dean.college_name = req.query.college_name;
-					console.log(req.session.dean);
+					//console.log(req.session.dean);
 					var obj = { status: 200, message: 'Dean authentication Successfull' };
 					res.json(obj); //Successfull
 				}
@@ -109,7 +110,7 @@ module.exports = {
 	checksession: function(req, res) {
 		/*  This route is just to check if sessions are working .
 			Hit this url once you have logged in.	*/
-		if (req.session.dean) {
+		if (req.session.dean) {	
 			console.log(req.session.dean);
 			res.json(req.session.dean);
 		} else {
@@ -193,7 +194,7 @@ f.no_of_students_evaluated`
 					res.json(obj); // Connection Error
 				} else if (result[0] == null) {
 					console.log('No Dean Found');
-					var obj = { status: 400, message: 'No Such User Found ! .' };
+					var obj = { status: 400, message: 'Wrong Password entered for the Dean' };
 					res.json(obj); // Invalid Password or username
 				} else {
 					console.log('Data fetched');

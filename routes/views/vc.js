@@ -71,7 +71,7 @@ module.exports = {
 		var college_name = req.query.college_name;
 		var vc_id 	 = req.query.vc_id;
 		var password	 = req.query.password;
-		var query 		 = 'select * from '+'vc where instructor_id = ? and password = ?';
+		var query 		 = 'select * from employee where instructor_id = ? and password = ?';
 		console.log(college_name, vc_id, password);
 	    if(college_name != null && vc_id != null && password != null) {		//Check For all fields
 			con.query(query,[vc_id,password],function(error,result) {
@@ -82,7 +82,7 @@ module.exports = {
 				res.json(obj);
 
 			} else if(result[0] == null) {
-				var obj = { status:400 , message :"No Such User Found ! ."};
+				var obj = { status:400 , message :"'Wrong Password entered for VC'"};
 				res.json(obj);  		// Invalid Password or username
 
 			} else {
