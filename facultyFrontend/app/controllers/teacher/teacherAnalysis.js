@@ -1,14 +1,14 @@
-faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teacherService) {
+faculty.controller("tAnalysisCtrl",['$scope','$localStorage', function($scope, $rootScope, $location, teacherService,$localStorage) {
 
 	$scope.teacher = [];
 	$scope.selectedYear = '2018';
 	//$scope.steacher=$rootScope.teacher.instrctor_id;
 
 	$scope.populate = function() {
-		console.log($rootScope);
+		console.log($localStorage);
 
 
-		teacherService.populate($scope.selectedYear, function(response) {
+		teacherService.populate($localStorage.selectedYear, function(response) {
 			$scope.teacherfb = response;
 			console.log($scope.teacherfb);
 
@@ -34,7 +34,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		$location.path("/");
 	}		
 
-	$rootScope.attributesList = {
+	$scope.attributesList = {
 		theory: [
 			"Coverage of all the topics prescribed in the syllabus, with adequate depth and detail.",
 			"Compliance with the number of teaching hours allotted and actual hours taught.",
@@ -72,7 +72,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		var arr = [3];
 		arr[0] = {semester: $scope.selectedSem}
 		arr[1] = {course: $scope.selectedCourse}
-		arr[2] = {stream: $scope.selectedStream}
+		arr[2] = {stream:$scope.selectedStream}
         console.log("in subject");
         console.log(arr[0],arr[1],arr[2]);
 		var	subjectDetails = _.clone($scope.teacherfb.data);
@@ -102,7 +102,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		var StreamDetails = _.where($scope.teacherfb.data, {course:course});
 		console.log(StreamDetails);
 		$scope.stream =  _.chain(StreamDetails).pluck('stream').uniq().value().sort();
-		console.log($scope.stream);
+		console.log($localStorage.stream);
 		$(document).ready(function () {
 			$('select').material_select();
 		})
@@ -114,7 +114,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 		var stream 	= $scope.selectedStream;
 		var subject = $scope.selectedSubject;
 		var year  	= $scope.selectedYear;
-		var teacher = $rootScope.teacher.name;
+		var teacher = $scope.teacher.name;
 
 		console.log(sem, course, stream,subject);
 
@@ -342,4 +342,5 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 	$scope.getDetails();
 	$scope.populate();
-})
+	//$localStorage.clear();
+}]);

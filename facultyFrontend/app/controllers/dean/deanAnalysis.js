@@ -1,13 +1,13 @@
-faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, facultyService) {
+faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, $localStorage, facultyService) {
     
 
 	$scope.dean = [];
 	$scope.selectedYear = '2018';
 
 	$scope.getFeedback = function() {
-		console.log($rootScope);
+		console.log($localStorage);
 
-		facultyService.getFeedback($rootScope.college.collegeCode, $scope.selectedYear, function(response) {
+		facultyService.getFeedback($localStorage.college.collegeCode, $scope.selectedYear, function(response) {
 			$scope.deanfb = response;
 			console.log($scope.deanfb);
 
@@ -104,7 +104,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, f
 		$scope.getFeedback();
 	}
 
-	$rootScope.attributesList = {
+	$scope.attributesList = {
 		theory: [
 			"Coverage of all the topics prescribed in the syllabus, with adequate depth and detail.",
 			"Compliance with the number of teaching hours allotted and actual hours taught.",

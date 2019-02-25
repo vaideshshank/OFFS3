@@ -1,4 +1,4 @@
-faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $location, userService, facultyService, vcService, pvcService, teacherService) {
+faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'userService', 'facultyService', 'vcService', 'pvcService', 'teacherService','$localStorage','$window',function($scope, $http, $rootScope, $location, userService, facultyService, vcService, pvcService, teacherService,$localStorage,$window) {
   $scope.user = {};
   $scope.name = "";
   $scope.user.category='student';
@@ -62,7 +62,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
 
   $scope.setCollege = function(singleCollege) {
     $scope.college = singleCollege;
-    $rootScope.college = singleCollege;
+    $localStorage.college = singleCollege;
   };
 
   $scope.setUserCategory = function(userCategory) {
@@ -112,7 +112,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
     if($scope.user.semister>8){
       $scope.user.semister-=8;
     }
-    $rootScope.semester = $scope.user.semister;
+    $localStorage.semester = $scope.user.semister;
     
   };
 
@@ -128,7 +128,7 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
         alert("Kindly fill the correct semester");
       }
       else {
-        $rootScope.semester = $scope.user.semister;
+        $localStorage.semester = $scope.user.semister;
         $scope.disablebtn = false;
       }
     }
@@ -192,8 +192,8 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
               $scope.showSpinner = false;
 
             } else {
-              $rootScope.teacher = response.teacher;
-              console.log($rootScope.teacher);
+              $localStorage.teacher = response.teacher;
+              console.log($localStorage.teacher);
               $location.path("/teacherDashboard");
             }
           }
@@ -248,10 +248,10 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
               $scope.showSpinner=false;
               $scope.hidebutton=false;
             } else {
-              $rootScope.tablename =
+              $localStorage.tablename =
                 $scope.college.collegeCode + "_" + $scope.user.category;
-              $rootScope.rollno = $scope.user.rollno;
-              console.log($rootScope);
+              $localStorage.rollno = $scope.user.rollno;
+              console.log($localStorage);
               $location.path("/verify");
             }
           })
@@ -266,25 +266,25 @@ faculty.controller('SignupCtrl',function($route,$scope, $http,$rootScope, $locat
     if (!$scope.otp) {
       return;
     }
-    var tablename = $rootScope.tablename;
-    var rollno = $rootScope.rollno;
-    console.log($rootScope.tablename);
+    var tablename = $localStorage.tablename;
+    var rollno = $localStorage.rollno;
+    console.log($localStorage.tablename);
 
     userService.verifyUser(
       $scope.otp,
       tablename,
       rollno,
-      $rootScope.semester,
+      $localStorage.semester,
       function(response) {
         if (response == 400) {
           alert("User is not verified");
           $location.path("/");
         } else {
-          $rootScope.userDetails = response;
-          console.log($rootScope);
+          $localStorage.userDetails = response;
+          console.log($localStorage);
           $location.path("/dashboard");
         }
       }
     );
   };
-});
+}]);

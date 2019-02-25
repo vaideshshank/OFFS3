@@ -1,4 +1,4 @@
-faculty.controller("tCtrl", function($scope, $rootScope, $location, teacherService) {
+faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location, teacherService) {
 	$scope.teacher  = [];
 
     $scope.getDetails = function() {
