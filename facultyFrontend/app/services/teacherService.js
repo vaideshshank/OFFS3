@@ -1,4 +1,4 @@
-faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($http, $timeout, $rootScope) {
+faculty.factory('teacherService', ['$http','$localStorage', '$timeout', '$rootScope', function($http, $localStorage,$timeout, $rootScope) {
 	return  {
 
 		send_details : function(college, user, callback) {
@@ -59,14 +59,14 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 		populate: function(year,callback) {
 			console.log("$rootScope");
 			
-			console.log($rootScope);
+			console.log($localStorage);
 			$http({
 				method: "GET",
 				url: BACKEND + "/tpopulate",
 				params: {
 					year:year,
-					instructor_id:$rootScope.teacher.instructor_id,
-					school:$rootScope.teacher.school
+					instructor_id:$localStorage.teacher.instructor_id,
+					school:$localStorage.teacher.school
 				}
 			}).then(function(response) {
 				if (callback) {
@@ -89,8 +89,8 @@ faculty.factory('teacherService', ['$http', '$timeout', '$rootScope', function($
 					sem: sem,
 					stream: stream,
 					subject: subject,
-					instructor_id:$rootScope.teacher.instructor_id,
-					school:$rootScope.teacher.school,
+					instructor_id:$localStorage.teacher.instructor_id,
+					school:$localStorage.teacher.school,
 					year: year
 				}
 			}).then(function(response) {

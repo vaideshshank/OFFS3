@@ -1,4 +1,4 @@
-faculty.controller("tAnalysisCtrl",['$scope','$localStorage', function($scope, $rootScope, $location, teacherService,$localStorage) {
+faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teacherService,$localStorage) {
 
 	$scope.teacher = [];
 	$scope.selectedYear = '2018';
@@ -343,4 +343,4 @@ faculty.controller("tAnalysisCtrl",['$scope','$localStorage', function($scope, $
 	$scope.getDetails();
 	$scope.populate();
 	//$localStorage.clear();
-}]);
+});
