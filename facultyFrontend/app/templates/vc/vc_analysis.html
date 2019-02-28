@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col m5 offset-m1">
         <select ng-model="selectedSchool" ng-options="clg.collegeCode as clg.collegeName for clg in collegeList" ng-change="schoolChange()">
-            <option value="" disabled selected>Choose School</option>
+            <option value="" disabled selected>Choose College</option>
         </select>
     </div>
     <div class="col m5">
@@ -56,7 +56,7 @@
 <div class="center">
     <a class="waves-effect white black-text btn" ng-click="search(selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject)">SEARCH</a>
 <br><br>
-    <a class="waves-effect white black-text btn" ng-click="print()">Print as PDF</a>
+    <a class="waves-effect white black-text btn" ng-click="print()" ng-disabled="searched">Print as PDF</a>
 </div>
 </section>
 <div class="wrapper" id="mycanvas">

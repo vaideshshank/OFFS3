@@ -3,6 +3,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, $
 
 	$scope.dean = [];
 	$scope.selectedYear = '2018';
+	$scope.searched = true;
 
 	$scope.getFeedback = function() {
 		console.log($localStorage);
@@ -193,7 +194,7 @@ $scope.print = function (){
 						 ).then(canvas => {
 
                  //! MAKE YOUR PDF
-                 var pdf = new jsPDF('l', 'pt','a4');
+                 var pdf = new jsPDF('l', 'pt','a4','true');
                  for (var i = 0; i <= quotes.clientHeight/1300; i++) {
                      //! This is all just html2canvas stuff
                      var srcImg  = canvas;
@@ -228,7 +229,7 @@ $scope.print = function (){
                      //! now we declare that we're working on that page
                      pdf.setPage(i+1);
                      //! now we add content to that page!
-                     pdf.addImage(canvasDataURL, 'JPEG', 30, 40, (width*.62) - 400, (height*.62)-175);
+                     pdf.addImage(canvasDataURL, 'JPEG', 30, 40, (width*.62) - 400, (height*.62)-175,'','FAST');
 
                     }
                  //! after the for loop is finished running, we save the pdf.
@@ -334,6 +335,7 @@ const filename  = 'ThisIsYourPDFFilename.pdf';
 
 		console.log($scope.deanfb);
 
+		$scope.searched = false;
 		var course = $scope.selectedCourse;
 		var sem = $scope.selectedSem;
 		var stream = $scope.selectedStream;
