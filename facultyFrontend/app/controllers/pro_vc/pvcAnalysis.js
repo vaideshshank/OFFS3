@@ -5,7 +5,6 @@ faculty.controller("pvcAnalysisCtrl", function($scope, $rootScope, $location, pv
 	$scope.selectedYear = '2018';
 	$scope.selected = {};
 	$scope.progress = false;
-	$scope.searched = true;
 	$scope.searching = false;
 
 	$scope.collegeList = [
@@ -263,7 +262,6 @@ $scope.print = function (){
 
 		console.log($scope.pvcfb);
 
-		$scope.searched = false;
 		$scope.searching = true;		
 		var course = selectedCourse;
 		var sem = selectedSem;
@@ -343,9 +341,16 @@ $scope.print = function (){
 			}
 		});
 
-		$scope.searched = true;
 		$scope.searching = false;
-		$scope.final_res = final_res;
+
+		if (final_res.length == 0) {
+			$scope.final_res = null;
+			alert("No feedback data exists");
+		}
+
+		else {
+			$scope.final_res = final_res;
+		}
 
 	//		console.log(final_res);
 

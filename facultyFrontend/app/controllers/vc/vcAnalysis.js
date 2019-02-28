@@ -262,7 +262,6 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 
 	$scope.search  = function (selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject) {
 
-		$scope.searched = false;
 		$scope.searching = true;
 		var course = selectedCourse;
 		var sem = selectedSem;
@@ -342,9 +341,16 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 			}
 		});
 
-		$scope.searched = true;
 		$scope.searching = false;
-		$scope.final_res = final_res;
+
+		if (final_res.length == 0) {
+			$scope.final_res = null;
+			alert("No feedback data exists");
+		}
+
+		else {
+			$scope.final_res = final_res;
+		}
 
 	//		console.log(final_res);
 
