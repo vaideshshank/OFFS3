@@ -45,7 +45,7 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s12" ng-if="user.category=='student'">
-                  <input id="rollno" type="text" class="validate" ng-model="user.rollno" ng-blur="findSemister()">
+                  <input id="rollno" type="number" class="validate" ng-model="user.rollno" ng-blur="findSemister()">
                   <label for="rollno"> Your 11 Digit Enrollment Number</label>
                 </div>
 
@@ -64,7 +64,7 @@
 
               <div class="row" ng-if="user.category=='student'">
                 <div class="input-field col s12">
-                  <input id="email" type="text" class="validate" ng-model="user.email">
+                  <input id="email" type="email" class="validate" ng-model="user.email">
                   <label for="email"> Email </label>
                 </div>
               </div>
@@ -123,11 +123,11 @@
     }
   );
 </script>
-<style>
+<!-- <style>
   #disableSome:nth-child(2),#disableSome:nth-child(3),#disableSome:nth-child(4),#disableSome:nth-child(5){
     color: #ccc;
     pointer-events:none;
     background-color: rgba(128, 128, 128, 0.349);
   }
-</style> 
+</style>  -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
