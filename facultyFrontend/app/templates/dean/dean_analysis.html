@@ -39,14 +39,18 @@
     </div>
 </div>
 
-<div class="center">
+<div class="center" ng-hide="searching">
  <div class="g-recaptcha hide" data-sitekey="6LcW-CcUAAAAAMSs6yu89PgIMvFyOT4Bps651gYE"></div>
-    <a class="waves-effect white black-text btn" ng-click="search()">SEARCH</a>
+    <a class="waves-effect white black-text btn" ng-click="search()" >SEARCH</a>
 <br><br>
     <!--<a class="waves-effect white black-text btn" ng-click="print()">Print as PDF</a>-->
-    <button  ng-click="print()" ng-hide="hidebutton" class="waves-effect white black-text btn" id="form_button" type="submit" name="action" ng-disabled="searched">Print as PDF</button>
+    <button  ng-click="print()" ng-hide="hidebutton" class="waves-effect white black-text btn" id="form_button" type="submit" name="action">Print as PDF</button>
  </div>  
                 
+</div>
+
+<div class="center" ng-show="searching">
+    <p><h4><b>Data is being searched ... </b></h4></p>
 </div>
 
 <div ng-show="showSpinner" class="pull-right" id="loaddiv" style="margin: auto; width: 17%;">

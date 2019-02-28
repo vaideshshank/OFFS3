@@ -2,7 +2,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 	$scope.teacher = [];
 	$scope.selectedYear = '2018';
-	$scope.searched = true;
+	$scope.searching = false;
 	//$scope.steacher=$rootScope.teacher.instrctor_id;
 
 	$scope.populate = function() {
@@ -111,7 +111,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 	$scope.search = function () {
 
-		$scope.searched = false;
+		$scope.searching = true;
 		var course 	= $scope.selectedCourse;
 		var sem 	= $scope.selectedSem;
 		var stream 	= $scope.selectedStream;
@@ -195,7 +195,16 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 			}
 		});
 
-		$scope.final_res = final_res;
+		$scope.searching = false;
+
+		if (final_res.length == 0) {
+			$scope.final_res = null;
+			alert("No feedback data exists");
+		}
+
+		else {
+			$scope.final_res = final_res;
+		}
 
 
   /*One Time Preprocessing

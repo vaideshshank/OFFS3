@@ -5,7 +5,7 @@ faculty.controller("pvcAnalysisCtrl", function($scope, $rootScope, $location, pv
 	$scope.selectedYear = '2018';
 	$scope.selected = {};
 	$scope.progress = false;
-	$scope.searched = true;
+	$scope.searching = false;
 
 	$scope.collegeList = [
 		{collegeName : "University School of Law and Legal Studies",
@@ -262,7 +262,7 @@ $scope.print = function (){
 
 		console.log($scope.pvcfb);
 
-		$scope.searched = false;		
+		$scope.searching = true;		
 		var course = selectedCourse;
 		var sem = selectedSem;
 		var stream = selectedStream;
@@ -341,7 +341,16 @@ $scope.print = function (){
 			}
 		});
 
-		$scope.final_res = final_res;
+		$scope.searching = false;
+
+		if (final_res.length == 0) {
+			$scope.final_res = null;
+			alert("No feedback data exists");
+		}
+
+		else {
+			$scope.final_res = final_res;
+		}
 
 	//		console.log(final_res);
 

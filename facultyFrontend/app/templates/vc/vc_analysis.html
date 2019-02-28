@@ -53,12 +53,17 @@
 
     </div>
 </div>
-<div class="center">
+<div class="center" ng-hide="searching">
     <a class="waves-effect white black-text btn" ng-click="search(selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject)">SEARCH</a>
 <br><br>
-    <a class="waves-effect white black-text btn" ng-click="print()" ng-disabled="searched">Print as PDF</a>
+    <a class="waves-effect white black-text btn" ng-click="print()">Print as PDF</a>
 </div>
 </section>
+
+<div class="center" ng-show="searching">
+    <p><h4><b>Data is being searched ... </b></h4></p>
+</div>
+
 <div class="wrapper" id="mycanvas">
 <div class="" style="padding: 2em;">
     <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em"

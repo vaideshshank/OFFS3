@@ -3,7 +3,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, $
 
 	$scope.dean = [];
 	$scope.selectedYear = '2018';
-	$scope.searched = true;
+	$scope.searching = false;
 
 	$scope.getFeedback = function() {
 		console.log($localStorage);
@@ -335,7 +335,7 @@ const filename  = 'ThisIsYourPDFFilename.pdf';
 
 		console.log($scope.deanfb);
 
-		$scope.searched = false;
+		$scope.searching = true;
 		var course = $scope.selectedCourse;
 		var sem = $scope.selectedSem;
 		var stream = $scope.selectedStream;
@@ -417,7 +417,16 @@ const filename  = 'ThisIsYourPDFFilename.pdf';
 			}
 		});
 
-		$scope.final_res = final_res;
+		$scope.searching = false;
+
+		if (final_res.length == 0) {
+			$scope.final_res = null;
+			alert("No feedback data exists");
+		}
+
+		else {
+			$scope.final_res = final_res;
+		}
 
 	//		console.log(final_res);
 
