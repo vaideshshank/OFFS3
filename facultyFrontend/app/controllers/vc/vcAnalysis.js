@@ -5,6 +5,7 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 	$scope.selectedYear = '2018';
 	$scope.selected = {};
 	$scope.progress = false;
+	$scope.searching = false;
 
 	$scope.collegeList = [
 		{collegeName : "University School of Law and Legal Studies",
@@ -261,7 +262,8 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 
 	$scope.search  = function (selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject) {
 
-		$scope.searched = true;
+		$scope.searched = false;
+		$scope.searching = true;
 		var course = selectedCourse;
 		var sem = selectedSem;
 		var stream = selectedStream;
@@ -340,6 +342,8 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 			}
 		});
 
+		$scope.searched = true;
+		$scope.searching = false;
 		$scope.final_res = final_res;
 
 	//		console.log(final_res);

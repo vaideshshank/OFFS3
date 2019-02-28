@@ -6,6 +6,7 @@ faculty.controller("pvcAnalysisCtrl", function($scope, $rootScope, $location, pv
 	$scope.selected = {};
 	$scope.progress = false;
 	$scope.searched = true;
+	$scope.searching = false;
 
 	$scope.collegeList = [
 		{collegeName : "University School of Law and Legal Studies",
@@ -262,7 +263,8 @@ $scope.print = function (){
 
 		console.log($scope.pvcfb);
 
-		$scope.searched = false;		
+		$scope.searched = false;
+		$scope.searching = true;		
 		var course = selectedCourse;
 		var sem = selectedSem;
 		var stream = selectedStream;
@@ -341,6 +343,8 @@ $scope.print = function (){
 			}
 		});
 
+		$scope.searched = true;
+		$scope.searching = false;
 		$scope.final_res = final_res;
 
 	//		console.log(final_res);
