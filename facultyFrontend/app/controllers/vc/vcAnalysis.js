@@ -261,6 +261,7 @@ faculty.controller("vcAnalysisCtrl", function($scope, $rootScope, $location, vcS
 
 	$scope.search  = function (selectedCourse, selectedStream, selectedSem, selectedTeacher, selectedSubject) {
 
+		$scope.searched = true;
 		var course = selectedCourse;
 		var sem = selectedSem;
 		var stream = selectedStream;

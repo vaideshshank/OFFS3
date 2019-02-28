@@ -3,6 +3,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, $
 
 	$scope.dean = [];
 	$scope.selectedYear = '2018';
+	$scope.searched = true;
 
 	$scope.getFeedback = function() {
 		console.log($localStorage);
@@ -334,6 +335,7 @@ const filename  = 'ThisIsYourPDFFilename.pdf';
 
 		console.log($scope.deanfb);
 
+		$scope.searched = false;
 		var course = $scope.selectedCourse;
 		var sem = $scope.selectedSem;
 		var stream = $scope.selectedStream;

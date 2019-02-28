@@ -2,6 +2,7 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 	$scope.teacher = [];
 	$scope.selectedYear = '2018';
+	$scope.searched = true;
 	//$scope.steacher=$rootScope.teacher.instrctor_id;
 
 	$scope.populate = function() {
@@ -109,6 +110,8 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 	}
 
 	$scope.search = function () {
+
+		$scope.searched = false;
 		var course 	= $scope.selectedCourse;
 		var sem 	= $scope.selectedSem;
 		var stream 	= $scope.selectedStream;
