@@ -8,7 +8,10 @@
 
             <div class='greeting'>HELLO</div>
 
-            <div class="student-name"> {{ teacher.name }}</div>
+            <div class="student-name">
+                <input type="text" ng-model="teacher.name" ng-model="teacher.name" ng-disabled="editName" style="font-size:25px;"><br>
+            </div>
+            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase">Toggle Edit</a>
 
         </div>
         <div class="col s4">
@@ -39,20 +42,29 @@
             <div class="col s4">
                 <div class="small-title">COLLEGE</div>
 
-                <div class="small-content school">{{ teacher.school }}</div>
+                <div class="small-content school">
+                    <input type="text" ng-model="teacher.school" ng-disabled="editSchool"><br>
+                    <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false">Toggle Edit</a>
+                </div>
 
             </div>
 
             <div class="col s4">
                 <div class="small-title">ROOM NO</div>
 
-                <div class="small-content stream">{{ teacher.room_no }}</div>
+                <div class="small-content stream">
+                    <input type="text" ng-model="teacher.room_no" ng-disabled="editRoom"><br>
+                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false">Toggle Edit</a>
+                </div>
 
             </div>
             <div class="col s4">
                 <div class="small-title">DATE OF JOINING</div>
 
-                <div class="small-contenty yoa">{{ teacher.date_of_joining }}</div>
+                <div class="small-content date">
+                    <input type="text" ng-model="teacher.date_of_joining" ng-disabled="editDoj"><br>
+                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false">Toggle Edit</a>
+                </div>
 
             </div>
         </div>
@@ -62,15 +74,24 @@
         <div class="row">
             <div class="col s12">
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" disabled ng-model="teacher.email">
+                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" ng-disabled="editEmail" disabled ng-model="teacher.email">
+                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false">Toggle Edit</a>
                 </div>
 
                 <div class="input-field col s6">
-                    <input placeholder="phone number" id="last_name" type="text" class="validate editField phone" disabled ng-model="teacher.phone">
+                    <input placeholder="phone number" id="last_name" type="text" class="validate editField phone" ng-disabled="editPhone" ng-model="teacher.phone">
+                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false">Toggle Edit</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="card-action">
+            If the fields have been edit then save by pressing 
+            <a class="btn waves-effect waves-light" ng-click="updateTeacherInfo()">
+                update teacher information
+            </a>
+        </div>
 
     <div class="card-action">
         <a class="check-status btn waves-effect waves-light" ng-click="checkStatus()">

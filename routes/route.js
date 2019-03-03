@@ -59,6 +59,7 @@ router.get("/tpopulate", routes.views.teacher.populate); // To populate the drop
 router.get("/tdashboard", routes.views.teacher.dashboard); // To view the feedback of a BACH .
 router.get("/tlogout", routes.views.teacher.logout);
 router.post("/tupload_photo", routes.views.teacher.upload_photo);
+router.post("/tupdateInfo",routes.views.teacher.updateTeacherInfo);
 
 router.get("/getTeacher", routes.views.dataportal.getTeacher);
 router.get("/getCourse", routes.views.dataportal.getCourse);

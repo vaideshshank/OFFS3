@@ -56,6 +56,21 @@ faculty.factory('teacherService', ['$http','$localStorage', '$timeout', '$rootSc
 			})
 		},		
 
+		updateTeacherInfo:function(teacherData,callback){
+			$http({
+				method:"POST",
+				url:BACKEND + "/tupdateInfo",
+				data:{
+					teacherInfo:teacherData
+				}
+			})
+			.then(function(response){
+				if(callback){callback(response.data)}
+			},function(error){
+				if(callback){console.log(error);}
+			})
+		},
+
 		populate: function(year,callback) {
 			console.log("$rootScope");
 			

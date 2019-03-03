@@ -99,6 +99,19 @@ module.exports = {
     }
   },
 
+  	updateTeacherInfo   :   function(req,res){
+		var {name,email,phone,date_of_joining,designation,room_no,school,instructor_id}=req.body.teacherInfo;
+		var query="update ?? set name=?,email=?,phone=?,date_of_joining=?,designation=?,room_no=?,school=? where instructor_id=?"
+		con.query(query,['employee',name,email,phone,date_of_joining,designation,room_no,school,instructor_id],
+			function(err,done){
+				if(err){console.log(err);return;}
+				else if(done){
+				console.log("Teacher information updated");
+				res.status(200).json({'message':'Teacher Information Updated'});
+				}
+		})
+	},
+
   upload_photo: function(req, res) {
         
          console.log("in upload section");
