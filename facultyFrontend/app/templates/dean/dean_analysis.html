@@ -3,7 +3,7 @@
 <br>
 <div class="row">
     <div class="col m4 offset-m1">
-        <select ng-model="selectedYear" ng-options="option for option in ['2016', '2017', '2018']" ng-change="yearChange()">
+        <select ng-model="selectedYear" ng-options="option for option in ['2017', '2018']" ng-change="yearChange()">
             <option value="" disabled selected>Choose Academic Year</option>
         </select>
     </div>
@@ -58,7 +58,7 @@
 </div>                    
 <div class="wrapper" id="mycanvas">
 <div class="" style="padding: 2em;">
-    <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em">
+    <div class="card" ng-repeat="(key, value) in final_res" style="padding: 1em;margin-bottom: 100px;" >
         <div class="row inforow">
             <div class="infoelement">
                 <div class="small-title">
@@ -163,6 +163,7 @@
             <div ng-if="value.type=='Theory'" class="pct">{{ ((getTotal(value) / (value.no_of_students_evaluated * 75)) * 100 ).toFixed(2)}}</div>
             <div ng-if="value.type=='Practical'" class="pct">{{ ((getTotal(value) / (value.no_of_students_evaluated * 40)) * 100 ).toFixed(2)}}</div>
         </div>
+        
     </div>
 </div>
 </div>
