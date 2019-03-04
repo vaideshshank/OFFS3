@@ -40,6 +40,8 @@ router.get("/dchecksession", routes.views.dean.checksession); //This is a tempor
 router.get("/ddashboard", routes.views.dean.dashboard); // To get details of a BACH .
 router.get("/dlogout", routes.views.dean.logout);
 router.post("/dupload_photo", routes.views.dean.upload_photo);
+router.post("/dupdateInfo",routes.views.dean.updateDeanInfo);
+
 
 router.post("/vinitials", routes.views.vc.initials); //To authenticate the dean
 router.get("/vchecksession", routes.views.vc.checksession); //This is a temporary route.
@@ -60,6 +62,7 @@ router.get("/tdashboard", routes.views.teacher.dashboard); // To view the feedba
 router.get("/tlogout", routes.views.teacher.logout);
 router.post("/tupload_photo", routes.views.teacher.upload_photo);
 router.post("/tupdateInfo",routes.views.teacher.updateTeacherInfo);
+router.post("/taddNewTeacher",routes.views.teacher.addNewTeacher);
 
 router.get("/getTeacher", routes.views.dataportal.getTeacher);
 router.get("/getCourse", routes.views.dataportal.getCourse);

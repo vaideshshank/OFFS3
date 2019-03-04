@@ -21,7 +21,18 @@ module.exports = {
     }
   },
 
-
+	updateDeanInfo   :   function(req,res){
+		var {name,email,phone,date_of_joining,designation,room_no,school,instructor_id}=req.body.deanInfo;
+		var query="update ?? set name=?,email=?,phone=?,date_of_joining=?,designation=?,room_no=?,school=? where instructor_id=?"
+		con.query(query,['employee',name,email,phone,date_of_joining,designation,room_no,school,instructor_id],
+			function(err,done){
+				if(err){console.log(err);return;}
+				else if(done){
+				console.log("Dean information updated");
+				res.status(200).json({'message':'Dean Information Updated'});
+				}
+		})
+	},
 
   upload_photo: function(req, res) {
         

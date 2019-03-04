@@ -112,6 +112,33 @@ module.exports = {
 		})
 	},
 
+	addNewTeacher:function(req,res){
+		var {name,email,phone,date_of_joining,designation,room_no,school,password}=req.body.teacherData;
+		if(date_of_joining==""){date_of_joining="0000-00-00";}
+		con.query('select instructor_id from employee where instructor_id like "EMP%" order by instructor_id desc limit 1',function(err,found){
+			if(err){
+				console.log(err);
+				return
+			}else if(found){
+				var lastInsId=found[0].instructor_id;
+				var id=Number(lastInsId.substr(3));
+				id+=1;
+				var instructor_id=lastInsId.substring(0,3)+id;
+				
+				con.query('insert into ?? values (?,?,?,?,?,?,?,?,?,NULL,NULL)',
+					['employee',instructor_id,name,email,phone,date_of_joining,password,designation,room_no,school],
+				function(err,resp){
+					if(err){console.log(err);return;}
+					else if(resp){
+						console.log("Employee inserted");
+						res.status(200).json({'message':'New Employee Inserted'});
+					}
+				})
+			}
+		}) 
+		
+	},
+
   upload_photo: function(req, res) {
         
          console.log("in upload section");

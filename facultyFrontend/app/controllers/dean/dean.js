@@ -1,7 +1,6 @@
 faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultyService) {
 	$scope.dean  = [];
-
-
+	$scope.editCollege=$scope.editRoom=$scope.editDoj=$scope.editEmail=$scope.editPhone=$scope.editName=true;
 
 	$scope.getDetails = function() {
 		console.log('Get Details');
@@ -22,5 +21,13 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 		})
 		$location.path("/");
 	}
+
+	$scope.updateDeanInfo=function(){
+		
+		facultyService.updateDeanInfo($scope.dean,function(resp){
+			alert(resp.message);
+		})
+	}
+
 	$scope.getDetails();
 })

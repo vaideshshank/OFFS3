@@ -21,7 +21,7 @@ faculty.factory('facultyService', ['$http', '$timeout', '$rootScope', function($
 				}
 			})
 		},
-logout : function(){
+		logout : function(){
 		 	$http({
 		 		method:"GET",
 		 		url: BACKEND + "/dlogout",
@@ -36,6 +36,22 @@ logout : function(){
 				}
 			})
 		},
+
+		updateDeanInfo:function(deanData,callback){
+			$http({
+				method:"POST",
+				url:BACKEND + "/dupdateInfo",
+				data:{
+					deanInfo:deanData
+				}
+			})
+			.then(function(response){
+				if(callback){callback(response.data)}
+			},function(error){
+				if(callback){console.log(error);}
+			})
+		},
+
 		getDetails: function(callback) {
 			$http({
 				method: "GET",
