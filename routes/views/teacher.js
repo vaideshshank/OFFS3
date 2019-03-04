@@ -116,16 +116,20 @@ module.exports = {
 		var {name,email,phone,date_of_joining,designation,room_no,school,password}=req.body.teacherData;
 		if(date_of_joining==""){date_of_joining="0000-00-00";}
 		con.query('select instructor_id from employee where instructor_id like "EMP%" order by instructor_id desc limit 1',function(err,found){
+			var instructor_id="";
 			if(err){
 				console.log(err);
 				return
-			}else if(found){
+			}else if(found.length==1){
 				var lastInsId=found[0].instructor_id;
 				var id=Number(lastInsId.substr(3));
 				id+=1;
-				var instructor_id=lastInsId.substring(0,3)+id;
-				
-				con.query('insert into ?? values (?,?,?,?,?,?,?,?,?,NULL,NULL)',
+				instructor_id=lastInsId.substring(0,3)+id;
+			}else if(found.length==0){
+				instructor_id="EMP10000";
+			}
+
+			con.query('insert into ?? values (?,?,?,?,?,?,?,?,?,NULL,NULL)',
 					['employee',instructor_id,name,email,phone,date_of_joining,password,designation,room_no,school],
 				function(err,resp){
 					if(err){console.log(err);return;}
@@ -134,7 +138,6 @@ module.exports = {
 						res.status(200).json({'message':'New Employee Inserted'});
 					}
 				})
-			}
 		}) 
 		
 	},
