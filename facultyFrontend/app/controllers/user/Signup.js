@@ -65,10 +65,13 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
     $localStorage.college = singleCollege;
   };
 
+  var autocomp=false;
+
   $scope.setUserCategory = function(userCategory) {
     $scope.user.category = userCategory;
     //$scope.user.category="student";
     // init autocomplete
+    if(!autocomp){
       if($scope.user.category!='student'){
         $http({
           method:"GET",
@@ -86,6 +89,8 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
                         data:data_val         
                     });
                 })
+
+                console.log($('input#userName')[0]);
                 
             });
         },function(err){
@@ -93,6 +98,8 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
         }) 
         
       }
+      autocomp=true;
+    }
 
     //to be disabled later
    // $scope.user.category='student';
@@ -105,7 +112,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
     /*if(year == 13 || year == 14) {
       console.log(typeof(year));
       year = year + 4;
-    }*/
+    }*/ m  
     $scope.user.semister = (18 - year) * 2 + 1;
 
     //for students with more than 8 sems MTECH

@@ -87,7 +87,7 @@ module.exports = {
 		var password = req.query.password;
 		var query =
 			/*'select * from ' + college_name + '_dean where instructor_id = ? and password = ?';*/
-			'select * from employee where instructor_id = ? and password = ?'
+			'select * from employee where instructor_id = ? and password = ? and designation="dean"'
 		console.log(college_name, dean_id, password);
 		if (college_name != null && dean_id != null && password != null) {
 			//Check For all fields
@@ -100,7 +100,7 @@ module.exports = {
 					res.json(obj);
 				} else if (result[0] == null) {
 					console.log('No Dean Found');
-					var obj = { status: 400, message: 'Wrong Password entered for the Dean' };
+					var obj = { status: 400, message: 'Wrong credentials entered for the dean' };
 					res.json(obj); // Invalid Password or username
 				} else {
 					console.log(result[0]);
