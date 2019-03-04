@@ -118,6 +118,34 @@ faculty.factory('teacherService', ['$http','$localStorage', '$timeout', '$rootSc
 					callback(response.data);
 				}
 			})
-		}
+		},
+
+		addTeacher: function(name, email, phone, designation, room_no, school, password, callback) {
+			$http({
+				method:'POST',
+				url: BACKEND + '/taddNewTeacher',
+				data: {
+                    teacherData:{
+                        name : name,
+                        email : email,
+						phone : phone,
+						date_of_joining: '',
+                        designation : designation,
+                        room_no : room_no ,
+                        school : school,
+                        password : password
+                    }
+				}
+			}).then(function(response) {
+				if (callback) {
+					callback(response.data);
+				}
+			}, function(response) {
+				if (callback) {
+					console.error(response.data);
+					callback(response.data);
+				}
+			})
+        }
 	}
 }])

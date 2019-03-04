@@ -58,7 +58,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
     }
   ];
 
-  $scope.userCategoryList = ["student", "Dean", "VC", "Pro VC", "Teacher"];
+  $scope.userCategoryList = ["Student", "Dean", "VC", "Pro VC", "Teacher"];
 
   $scope.setCollege = function(singleCollege) {
     $scope.college = singleCollege;
@@ -142,6 +142,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
   };
 
   $scope.getNameId=function(info){
+    console.log(info)
     if(info==undefined){return};
         var infoParsed = info.split(' - ');
         $scope.user.name = infoParsed[0];
