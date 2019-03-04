@@ -135,7 +135,7 @@ module.exports = {
 					if(err){console.log(err);return;}
 					else if(resp){
 						console.log("Employee inserted");
-						res.status(200).json({'message':'New Employee Inserted'});
+						res.status(200).json({'message':'New Teacher Inserted'});
 					}
 				})
 		}) 

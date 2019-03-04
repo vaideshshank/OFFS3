@@ -73,6 +73,10 @@ window.faculty = angular.module('faculty', ["ngStorage",'ngAnimate', 'ngRoute', 
             controller:'resetPasswordCtrl',
             templateUrl:'./app/templates/resetPassword.html'
         })
+        .when('/newTeacher',{
+            controller:'newTeacherCtrl',
+            templateUrl:'./app/templates/teacher/newTeacher.html'
+        })
 
     }
 ]);
