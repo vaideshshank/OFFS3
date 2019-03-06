@@ -101,6 +101,7 @@ faculty.controller("deanAnalysisCtrl", function($scope, $rootScope, $location, $
 	// }
 
 	$scope.yearChange = function () {
+		$scope.selectedYear = $scope.year.slice(0,4);
 		console.log('changed');
 		$scope.getFeedback();
 	}

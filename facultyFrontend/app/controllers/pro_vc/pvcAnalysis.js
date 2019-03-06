@@ -67,6 +67,7 @@ faculty.controller("pvcAnalysisCtrl", function($scope, $rootScope, $location, pv
 	}
 
 	$scope.yearChange = function () {
+		$scope.selectedYear = $scope.year.slice(0,4);
 		$scope.final_res = {};
 		console.log('changed');
 		if($scope.selectedSchool) {

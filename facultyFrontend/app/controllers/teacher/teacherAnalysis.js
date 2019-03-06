@@ -340,8 +340,9 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
  }
 
     $scope.yearChange = function () {
- 	     console.log('changed');
- 	     $scope.populate();
+		$scope.selectedYear = $scope.year.slice(0,4);
+ 	    console.log('changed');
+ 	    $scope.populate();
     }
 
 	$scope.getDetails = function() {
