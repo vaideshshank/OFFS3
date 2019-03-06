@@ -349,4 +349,31 @@ f.no_of_students_evaluated`
 			
 		}
 	},
+
+	removePrefixes:			function(req,res){
+		var prefix=req.body.prefix+'%';
+		console.log(prefix);
+		con.query('select name from ?? where name like ?',['employee',prefix],(err,resp)=>{
+			if(err){
+				console.log(err);
+				return;
+			}
+			resp.forEach(function(ins,ind){
+				console.log(ins);
+				var newName=ins.name.substr(prefix.length);
+				console.log("Name : "+ins.name);
+				con.query('update ?? set name=? where name=?',['employee',newName,ins.name],function(err,resp2){
+					if(err){
+						console.log(err);
+						return;
+					}
+					console.log('updated');
+					if(ind==resp.length-1){
+						res.json({'message': 'updated','teachers':resp.length});
+					}
+				})
+			})
+			
+		})
+	}
 };
