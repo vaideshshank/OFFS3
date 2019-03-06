@@ -2,15 +2,11 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 
 	
 
-	$scope.collegeList = [ {
-		collegeName : "University School of Law and Legal Studies",
-		collegeCode :"uslls"},
+	$scope.collegeList = [ {collegeName :"University School of Architecture and Planning",
+		collegeCode : "usap"},
 
-		{ collegeName :"University School of Management Studies",
-		collegeCode: "usms" },
-
-	    { collegeName :"University School of Education",
-		collegeCode:  "use" },
+		{collegeName :"University School of Basic and Applied Sciences",
+		collegeCode :  "usbas"},
 
 		{collegeName :"University School of BioTechnology",
 		collegeCode : "usbt"},
@@ -18,23 +14,26 @@ faculty.controller('dataPortalCtrl', ['$http', '$scope', 'dataPortalService', '$
 		{collegeName :"University School of Chemical Technology",
 		collegeCode : "usct"},
 
+		{ collegeName :"University School of Education",
+		collegeCode:  "use" },
+
 		{collegeName :"University School of Environment Management",
 	    collegeCode : "usem"},
-
-	    {collegeName :"University School of Mass Communication",
-		collegeCode : "usmc"},
-
-		{collegeName :"University School of Basic and Applied Sciences",
-		collegeCode :  "usbas"},
-
-		{collegeName :"University School of Architecture and Planning",
-		collegeCode : "usap"},
 
 		{collegeName :"University School of Humanities and Social",
 		collegeCode : "ushss"},
 
 		{collegeName :"University School of Info.,Comm. and Technology",
-		collegeCode : "usict"}
+		collegeCode : "usict"},
+
+		{collegeName : "University School of Law and Legal Studies",
+		collegeCode :"uslls"},
+
+		{collegeName :"University School of Mass Communication",
+		collegeCode : "usmc"},
+
+		{ collegeName :"University School of Management Studies",
+		collegeCode: "usms" },
 	];
 
 	$scope.semesterList= [1,2,3,4,5,6,7,8]
