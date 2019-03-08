@@ -2,7 +2,41 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 	$scope.teacher  = [];
 	$scope.editSchool=$scope.editName=$scope.editDoj=$scope.editEmail=$scope.editPhone=$scope.editRoom=$scope.editName=true;
 
-  $scope.getDetails = function() {
+	$scope.collegeList = [ {collegeName :"University School of Architecture and Planning",
+	collegeCode : "usap"},
+
+	{collegeName :"University School of Basic and Applied Sciences",
+	collegeCode :  "usbas"},
+
+	{collegeName :"University School of BioTechnology",
+	collegeCode : "usbt"},
+
+	{collegeName :"University School of Chemical Technology",
+	collegeCode : "usct"},
+
+	{ collegeName :"University School of Education",
+	collegeCode:  "use" },
+
+	{collegeName :"University School of Environment Management",
+	collegeCode : "usem"},
+
+	{collegeName :"University School of Humanities and Social",
+	collegeCode : "ushss"},
+
+	{collegeName :"University School of Info.,Comm. and Technology",
+	collegeCode : "usict"},
+
+	{collegeName : "University School of Law and Legal Studies",
+	collegeCode :"uslls"},
+
+	{collegeName :"University School of Mass Communication",
+	collegeCode : "usmc"},
+
+	{ collegeName :"University School of Management Studies",
+	collegeCode: "usms" },
+	];
+	
+	$scope.getDetails = function() {
 		teacherService.getDetails(function(response) {
 			$scope.teacher = response;
 		})
@@ -24,6 +58,7 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 		teacherService.updateTeacherInfo($scope.teacher,function(resp){
 			console.log($scope.teacher);
 			alert(resp.message);
+			$location.path("/teacherDashboard");
 		})
 	}
 
