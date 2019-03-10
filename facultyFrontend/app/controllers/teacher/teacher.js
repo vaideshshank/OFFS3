@@ -1,6 +1,6 @@
 faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location, teacherService) {
 	$scope.teacher  = [];
-	$scope.editSchool=$scope.editName=$scope.editDoj=$scope.editEmail=$scope.editPhone=$scope.editRoom=$scope.editName=true;
+	$scope.editName=$scope.editDoj=$scope.editEmail=$scope.editPhone=$scope.editRoom=$scope.editName=true;
 
 	$scope.collegeList = [ {collegeName :"University School of Architecture and Planning",
 	collegeCode : "usap"},
