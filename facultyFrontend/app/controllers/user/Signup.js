@@ -85,25 +85,28 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
   };
 
   $scope.findSemister = function() {
-    var roll = _.clone($scope.user.rollno);
+    var roll = (_.clone($scope.user.rollno)).toString();
+    
     //var roll=$scope.user.rollno;
     var year = parseInt(roll.substring(roll.length - 2, roll.length));
+    
     /*if(year == 13 || year == 14) {
       console.log(typeof(year));
       year = year + 4;
-    }*/ m  
+    } */  
     $scope.user.semister = (18 - year) * 2 + 1;
-
+    
     //for students with more than 8 sems MTECH
     if($scope.user.semister>8){
       $scope.user.semister-=8;
     }
     $localStorage.semester = $scope.user.semister;
+    console.log($scope.user.semister);
     
   };
 
   $scope.updateSemester = function() {
-    var decimal=  /^[-+]?[0-9]+\.[0-9]+$/; 
+   /* var decimal=  /^[-+]?[0-9]+\.[0-9]+$/; 
     if($scope.user.semister.match(decimal)) {
       alert("Please enter an integer");
       $scope.user.semister = "";
@@ -113,11 +116,11 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
         $scope.user.semister = "";
         alert("Kindly fill the correct semester");
       }
-      else {
+      else {*/
         $localStorage.semester = $scope.user.semister;
         $scope.disablebtn = false;
-      }
-    }
+      /*}
+      }*/
   };
 
   $scope.getNameId=function(info){
@@ -267,8 +270,9 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
           alert("User is not verified");
           $location.path("/");
         } else {
+         // console.log("Response : "+JSON.stringify(response,null,2));
           $localStorage.userDetails = response;
-          console.log($localStorage);
+          console.log($localStorage.userDetails);
           $location.path("/dashboard");
         }
       }

@@ -454,9 +454,6 @@ module.exports = {
 
               }
             })
-              }else if(attr_len!=0 && feedback.feedbackId!=null){
-                console.log("Missing entries");
-                res.json({"filled" : false});
               }
 
             callback();
