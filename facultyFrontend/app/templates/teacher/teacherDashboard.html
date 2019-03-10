@@ -1,6 +1,6 @@
 <br>
 <div class="row">
-    <div>
+    <form>
     <div id="grad" class="container student-card card">
     <div class=" card-content row">
 
@@ -11,7 +11,8 @@
             <div class="student-name">
                 <input type="text" ng-model="teacher.name" ng-model="teacher.name" ng-disabled="editName" style="font-size:25px;"><br>
             </div>
-            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase">Toggle Edit</a>
+            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+            </a>
 
         </div>
         <div class="col s4">
@@ -22,7 +23,7 @@
                 <div style="margin-bottom: 0px !important;" class="row">
 
                     <form name="form" action="/tupload_photo" method="post" class="uploadImage" enctype="multipart/form-data">
-                        <input class="file-input" id="file" type='file' ng-model="photo" name="photo" value="file" ng-required="true">
+                        <input class="file-input" id="file" type='file' ng-model="photo" name="photo" value="file" >
                         <br><br>
                         <input name="submit" class="waves-effect waves-light  btn" type="submit" value="Upload File">
                     </form>
@@ -44,7 +45,7 @@
 
                 <div class="small-content school">
                     <input type="text" ng-model="teacher.school" ng-disabled="editSchool"><br>
-                    <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false">Toggle Edit</a>
+                    <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
 
             </div>
@@ -54,7 +55,7 @@
 
                 <div class="small-content stream">
                     <input type="text" ng-model="teacher.room_no" ng-disabled="editRoom"><br>
-                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false">Toggle Edit</a>
+                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
 
             </div>
@@ -63,7 +64,7 @@
 
                 <div class="small-content date">
                     <input type="text" ng-model="teacher.date_of_joining" ng-disabled="editDoj"><br>
-                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false">Toggle Edit</a>
+                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
 
             </div>
@@ -74,13 +75,13 @@
         <div class="row">
             <div class="col s12">
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" ng-disabled="editEmail" disabled ng-model="teacher.email">
-                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false">Toggle Edit</a>
+                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" ng-disabled="editEmail" required="true" ng-required="true" disabled ng-model="teacher.email">
+                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
 
                 <div class="input-field col s6">
-                    <input placeholder="phone number" id="last_name" type="text" class="validate editField phone" ng-disabled="editPhone" ng-model="teacher.phone">
-                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false">Toggle Edit</a>
+                    <input placeholder="phone number" id="last_name" type="number" class="validate editField phone" ng-disabled="editPhone" ng-model="teacher.phone">
+                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
             </div>
         </div>
@@ -88,10 +89,9 @@
 
     <div class="card-action">
             If the fields have been edited then save by pressing &nbsp&nbsp&nbsp 
-            <a class="btn waves-effect waves-light" ng-click="updateTeacherInfo()">
-                update teacher information
-            </a>
+            <input class="btn waves-effect waves-light" ng-click="updateTeacherInfo()" type="submit" value="update information" />
         </div>
+    
 
     <div class="card-action">
         <a class="check-status btn waves-effect waves-light" ng-click="checkStatus()">
@@ -99,6 +99,7 @@
         </a>
     </div>
 </div>
+</form>
 </div>
 </div>
 

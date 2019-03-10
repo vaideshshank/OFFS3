@@ -14,7 +14,7 @@ faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userS
 	}
 
 	$scope.getUser = function() {
-		$localStorage.userDetails = $rootScope.userDetails;
+		//$localStorage.userDetails = $rootScope.userDetails;
 		console.log($localStorage);		
 
 		var enrollment_no = $localStorage.rollno;
