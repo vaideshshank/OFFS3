@@ -42,17 +42,10 @@
 
             <div class="col s4">
                 <div class="small-title">USS</div>
-
-                <button class='dropdown-button btn btn-primary' ng-disabled="editSchool" id="input_field" data-activates='dropdown1' style="background-color: white !important;color: black; width: 14em">
-                    {{ college.collegeName || 'SELECT USS' }} <span class="caret pull-right">▼</span>
-                </button>
-                <input type="text" ng-model="college.collegeName" ng-disabled="editSchool">{{college.collegeName}}<br>
-                <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 
                 <div class="small-content school">
-                    <input type="text" ng-model="teacher.school" ng-disabled="editSchool"><br>
-                    <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
-                </div>
+                    {{teacher.school | uppercase}}<br>
+                </div> 
 
             </div>
 
@@ -61,7 +54,9 @@
 
                 <div class="small-content stream">
                     <input type="text" ng-model="teacher.room_no" ng-required="true" ng-disabled="editRoom"><br>
-                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <a href="" ng-show="editRoom" ng-click="editRoom==false ? editRoom=true:editRoom=false">Edit Field</a>
+                    <a href="" ng-hide="editRoom" ng-click="editRoom==true ? editRoom=false:editRoom=true">Done</a>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
 
             </div>
@@ -70,7 +65,10 @@
 
                 <div class="small-content date">
                     <input type="date" name="date" ng-required="true" ng-model="teacher.date_of_joining" ng-disabled="editDoj"><br>
-                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <a href="" ng-show="editDoj" ng-click="editDoj==false ? editDoj=true:editDoj=false">Edit Field</a>
+                    <a href="" ng-hide="editDoj" ng-click="editDoj==false ? editDoj=true:editDoj=false">Done</a>
+                   <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+
                     <div ng-show="date.$touched && date.$invalid">
                         <small style="color: red; display: block; text-align: center;">Enter a valid date of joining </small>
                       </div>
@@ -83,17 +81,22 @@
     <div class="card-action">
         <div class="row">
             <div class="col s12">
+                <div class="small-title">EMAIL ID</div>
                 <div class="input-field col s6">
                     <input placeholder="Email-Id" name="email" nameid="last_name" type="email" ng-required="true" class="validate editField email-id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ng-disabled="editEmail" disabled ng-model="teacher.email">
-                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <a href="" ng-show="editEmail" ng-click="editEmail==false ? editEmail=true:editEmail=false">Edit Field</a>
+                    <a href="" ng-hide="editEmail" ng-click="editEmail==false ? editEmail=true:editEmail=false">Done</a>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                      <div ng-show="email.$touched && email.$invalid">
                         <small style="color: red; display: block; text-align: center;">Enter a valid email </small>
                       </div> 
                 </div>
 
+                <div class="small-title">PHONE NUMBER</div>
                 <div class="input-field col s6">
                     <input placeholder="phone number" id="last_name" type="text" ng-required="true" class="validate editField phone" pattern="[789][0-9]{9}" ng-disabled="editPhone" ng-model="teacher.phone">
-                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <a href="" ng-show="editPhone" ng-click="editPhone==false ? editPhone=true:editPhone=false">Edit Field</a>
+                    <a href="" ng-hide="editPhone" ng-click="editPhone==false ? editPhone=true:editPhone=false">Done</a>
                 </div>
             </div>
         </div>
@@ -116,6 +119,19 @@
 </form>
 </div>
 </div>
+
+<script type="text/javascript">
+    $('.dropdown-button').dropdown({
+         inDuration: 300,
+         outDuration: 225,
+         constrainWidth: false, // Does not change width of dropdown to that of the activator
+         gutter: 0, // Spacing from edge
+         belowOrigin: false, // Displays dropdown below the button
+         alignment: 'left', // Displays dropdown with edge aligned to the left of button
+         stopPropagation: false // Stops event propagation
+       }
+     );
+</script>
 
 <script>
 
