@@ -53,7 +53,7 @@
                 <div class="small-title">ROOM NO</div>
 
                 <div class="small-content stream">
-                    <input type="text" ng-model="teacher.room_no" ng-required="true" ng-disabled="editRoom"><br>
+                    <input type="text" placeholder="Room no" ng-model="teacher.room_no" ng-required="true" name="roomno"  class="validate" ng-disabled="editRoom" pattern="[ABCDEFGHIJKLMNOPQRSTUVWXYZ][0-9]{3}">
                     <a href="" ng-show="editRoom" ng-click="editRoom==false ? editRoom=true:editRoom=false">Edit Field</a>
                     <a href="" ng-hide="editRoom" ng-click="editRoom==true ? editRoom=false:editRoom=true">Done</a>
                     <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
@@ -87,7 +87,7 @@
                     <a href="" ng-show="editEmail" ng-click="editEmail==false ? editEmail=true:editEmail=false">Edit Field</a>
                     <a href="" ng-hide="editEmail" ng-click="editEmail==false ? editEmail=true:editEmail=false">Done</a>
                     <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
-                     <div ng-show="email.$touched && email.$invalid">
+                     <div ng-show="email.$invalid">
                         <small style="color: red; display: block; text-align: center;">Enter a valid email </small>
                       </div> 
                 </div>
