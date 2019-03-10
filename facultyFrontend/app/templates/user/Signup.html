@@ -6,11 +6,11 @@
     <div id="Signup">
       <div class="login_dropdown">
         <button class='dropdown-button btn btn-primary' id="input_field" data-activates='dropdown1' style="background-color: white !important;color: black; width: 34em">
-            {{ college.collegeName || 'SELECT COLLEGE' }} <span class="caret pull-right">▼</span>
+            {{ college.collegeName || 'SELECT USS' }} <span class="caret pull-right">▼</span>
         </button>
 
           <ul id='dropdown1' class='dropdown-content' style="background-color: white;color: black; width: 34em">
-            <li><a class="single_school"> Select your college</a></li>
+            <li><a class="single_school"> Select USS</a></li>
             <li ng-repeat="singleCollege in collegeList"><a class="single_school" ng-click="setCollege(singleCollege)"> {{ singleCollege.collegeName }}</a></li>
           </ul>
       </div>

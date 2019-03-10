@@ -15,6 +15,12 @@ faculty.controller("tAnalysisCtrl", function($scope, $rootScope, $location, teac
 
 			$scope.subjects = _.chain($scope.teacherfb.data).pluck('subject_name').uniq().value();
 			$scope.course 	= _.chain($scope.teacherfb.data).pluck('course').uniq().value();
+			
+			var c=$scope.course;
+			//if(c==='BTECH')
+			//c='B.Tech';
+			//console.log(typeof"$scope.course");
+			//console.log(c);
 			$scope.stream 	= _.chain($scope.teacherfb.data).pluck('stream').uniq().value();
 			$scope.semester = _.chain($scope.teacherfb.data).pluck('semester').uniq().value();
 			//$scope.years 	= ['2014', '2015', '2016', '2017','2018'];

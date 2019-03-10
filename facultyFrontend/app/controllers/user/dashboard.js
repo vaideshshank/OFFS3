@@ -1,6 +1,6 @@
 faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userService,$localStorage) {
 
-	$scope.user = {}
+	$scope.user = {};
 
 	$scope.logout = function(req,res) {
 		userService.logout(function(response) {
@@ -14,8 +14,7 @@ faculty.controller('dashboardCtrl',function($scope, $location, $rootScope, userS
 	}
 
 	$scope.getUser = function() {
-		//$localStorage.userDetails = $rootScope.userDetails;
-		console.log($localStorage);		
+		console.log($localStorage);
 
 		var enrollment_no = $localStorage.rollno;
 		var tablename = $localStorage.userDetails.tablename;
