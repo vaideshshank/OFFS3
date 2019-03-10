@@ -47,7 +47,7 @@
                     {{ college.collegeName || 'SELECT USS' }} <span class="caret pull-right">▼</span>
                 </button>
                 <input type="text" ng-model="college.collegeName" ng-disabled="editSchool">{{college.collegeName}}<br>
-                <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false">Edit Field</a>
+                <a href="" ng-click="editSchool==false ? editSchool=true:editSchool=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 
                 <div class="small-content school">
                     <input type="text" ng-model="teacher.school" ng-disabled="editSchool"><br>
@@ -93,7 +93,7 @@
 
                 <div class="input-field col s6">
                     <input placeholder="phone number" id="last_name" type="text" ng-required="true" class="validate editField phone" pattern="[789][0-9]{9}" ng-disabled="editPhone" ng-model="teacher.phone">
-                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false">Edit Field</a>
+                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
                 </div>
             </div>
         </div>
