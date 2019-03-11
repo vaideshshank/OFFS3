@@ -45,7 +45,7 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s12" ng-if="user.category=='student'">
-                  <input id="rollno" type="number" class="validate" ng-model="user.rollno" ng-blur="findSemister()">
+                  <input id="rollno" type="text" class="validate" ng-model="user.rollno" pattern="[0-9]{11,13}"ng-blur="findSemister()">
                   <label for="rollno"> Your 11 Digit Enrollment Number</label>
                 </div>
 
@@ -66,7 +66,7 @@
 
               <div class="row" ng-if="user.category=='student'">
                 <div class="input-field col s12">
-                  <input id="email" type="email" class="validate" ng-model="user.email">
+                  <input id="email" type="email" class="validate" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ng-model="user.email">
                   <label for="email"> Email </label>
                 </div>
               </div>
@@ -80,7 +80,7 @@
 
               <div class="row">
                 <div class="input-field col s4" ng-if="user.category=='student'">
-                  <input  id="semister" type="text" class="validate" ng-model="user.semister" ng-blur="updateSemester()">
+                  <input  id="semister" type="text" class="validate" ng-model="user.semister" pattern="[0123456789]{1,2}" ng-blur="updateSemester()">
              <label for="semester" class="active">Current Semester</label>
                 </div>
               </div>
