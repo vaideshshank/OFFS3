@@ -5,6 +5,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.pointer2 = -1;
 	$scope.seggregatedTeacherType = {}
 	$scope.feedbackGivenByTheUser = [];
+	$scope.disablenextattributes = false;
 	
 	$scope.teacherFeedback = [
 	];
@@ -125,6 +126,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 			alert("Please enter a number between 1-5");
+			$scope.disablenextattributes = true;
 			// console.log("Compare, not a number");
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			return;
@@ -132,12 +134,14 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Please enter a number between 1-5");
+			$scope.disablenextattributes = true;
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			// console.log("Reached else if");
 			return;
 		}
 
-		
+		$scope.disablenextattributes = false;
+
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', theoryTeacher.feedback_id]);
 		// var feedback = function($scope.feedbackGivenByTheUser);
 
@@ -190,6 +194,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		
 		if(isNaN($scope.feedbackGivenByTheUser[index])){
 			alert("Please enter a number between 1-5");
+			$scope.disablenextattributes = true;
 			// console.log("Compare, not a number");
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			return;
@@ -198,10 +203,13 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 			
 		else if($scope.feedbackGivenByTheUser[index]<1 || $scope.feedbackGivenByTheUser[index]>5 ){
 			alert("Please enter a number between 1-5");
+			$scope.disablenextattributes = true;
 			$scope.feedbackGivenByTheUser.splice(index,1);
 			// console.log("Reached else if");
 			return;
 		}
+
+		$scope.disablenextattributes = false;
 
 		var foundTeacher = _.find($scope.teacherFeedback, ['feedbackId', practicalTeacher.feedback_id]);
 		
@@ -298,6 +306,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		// }
 		// for (var x=0; x< )
+		$scope.disablenextattributes = false;
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
 	}
