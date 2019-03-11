@@ -80,7 +80,7 @@
 
               <div class="row">
                 <div class="input-field col s4" ng-if="user.category=='student'">
-                  <input  id="semister" type="text" class="validate" ng-model="user.semister" pattern="[0123456789]{1,2}" ng-blur="updateSemester()">
+                  <input  id="semister" type="text" class="validate" ng-model="user.semister" pattern="^\d{1,2}$" ng-blur="updateSemester()">
              <label for="semester" class="active">Current Semester</label>
                 </div>
               </div>
