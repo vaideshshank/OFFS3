@@ -23,7 +23,7 @@
 
         <div id='dropdown2' class='dropdown-content' style="background-color: white;color: black; width: 34em">
           <ul class="school_list">
-            <li ng-repeat="userCategory in userCategoryList" id="disableSome"><a class="single_school" ng-click="setUserCategory(userCategory)" ng-disabled="userCategory=='student'"> {{ userCategory }}</a></li>
+            <li ng-repeat="userCategory in userCategoryList" id="disableSome"><a class="single_school" ng-click="setUserCategory(userCategory)"> {{ userCategory }}</a></li>
           </ul>
         </div>
       </div>
@@ -49,14 +49,14 @@
                   <label for="rollno"> Your 11 Digit Enrollment Number</label>
                 </div>
 
-                <span  ng-if="user.category!=='student'" style="color:blue; display: block;font-size:12px;margin:10px;">***Kindly select the teacher name from the dropdown which appears after typing initials</span>
+                <span  ng-if="user.category!='student'" style="color:blue; display: block;font-size:12px;margin:10px;">***Kindly select the teacher name from the dropdown which appears after typing initials</span>
                 
-                <div class="input-field col s12" ng-if="user.category!=='student'">
+                <div class="input-field col s12" ng-if="user.category!='student'">
                     <input id="userName" type="text" class="validate" ng-model="user.name" ng-blur="getNameId(user.name)">
                     <label for="rollno"> {{ $scope.audience || 'Type initials of your name' }}</label>
                   </div>
 
-                <div class="input-field col s12" ng-if="user.category!=='student'">
+                <div class="input-field col s12" ng-if="user.category!='student'">
                     <input id="rollno" type="text" class="validate" ng-model="user.rollno" ng-disabled="true" placeholder="UserId">
                     <label for="rollno"> {{ $scope.audience }}</label>
                   </div>

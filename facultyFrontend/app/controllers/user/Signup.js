@@ -47,6 +47,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
   var autocomp=false;
 
   $scope.setUserCategory = function(userCategory) {
+    console.log(userCategory);
     $scope.user.category = userCategory;
     //$scope.user.category="student";
     // init autocomplete
@@ -266,8 +267,9 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
       rollno,
       $localStorage.semester,
       function(response) {
-        if (response == 400) {
-          alert("User is not verified");
+        console.log(response)
+        if (response.err == 'wrongpass') {
+          alert("Wrong OTP. Please try again.");
           $location.path("/");
         } else {
          // console.log("Response : "+JSON.stringify(response,null,2));
