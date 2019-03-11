@@ -122,7 +122,7 @@ module.exports = {
 		
 		if(wrong_info.length>2){
 					console.log("Wrong teacher information");
-					res.status(400).json({'message' : 'Please provide valid input fields for '+wrong_info.substr(1)+' to record information'});
+					res.status(400).json({'message' : 'Please provide valid input for '+wrong_info.substr(1)+' to record information. Please hover over the input fields to check for format of information.'});
 					return;
 		}
 		console.log(name+" - "+email+" - "+phone+" - "+date_of_joining+" - "+designation+" - "+room_no+" - "+school+" - "+instructor_id);
