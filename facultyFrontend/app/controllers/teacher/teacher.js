@@ -36,11 +36,13 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 	collegeCode: "usms" },
 	];
 	
-	$scope.getDetails = function() {
-		teacherService.getDetails(function(response) {
-			$scope.teacher = response;
-		})
-	}
+	teacherService.getDetails(function(response) {
+		response.date_of_joining=response.date_of_joining.split('T')[0];
+		$scope.teacher = response;
+		console.log($scope.teacher.date_of_joining);
+	});
+
+	
 
 	$scope.checkStatus = function() {
 		$location.path("/teacherAnalysis");
@@ -55,14 +57,12 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 	
 	$scope.updateTeacherInfo=function(){
 		
-//		$scope.teacher.date_of_joining=($scope.teacher.date_of_joining).split(' 00:00:00 ')[0];
-		console.log($scope.teacher.date_of_joining);
+		//console.log($scope.teacher);
 		teacherService.updateTeacherInfo($scope.teacher,function(resp){
 			console.log($scope.teacher);
 			alert(resp.message);
-			$location.path("/teacherDashboard");
+			
 		})
 	}
 
-	$scope.getDetails();
 })

@@ -79,8 +79,16 @@ module.exports = {
 			console.log(req.body);
 
 		if (req.session.ins) {
-			console.log(req.session.ins);
-			res.json(req.session.ins);
+			con.query('SELECT * FROM ?? where instructor_id=? and password=?',
+						['employee',req.session.ins.instructor_id,req.session.ins.password],function(err,resp){
+							if(resp){
+								req.session.ins=resp[0];
+								res.json(req.session.ins);
+							}else if(err){
+								console.log("No session detected");
+							}
+						})
+			
 		} else {
 			console.log('No session detected');
 			var obj = { status: 200, message: 'No session detected' };
@@ -101,6 +109,22 @@ module.exports = {
 
   	updateTeacherInfo   :   function(req,res){
 		var {name,email,phone,date_of_joining,designation,room_no,school,instructor_id}=req.body.teacherInfo;
+		var wrong_info="";
+
+		if(name==undefined){wrong_info+=", Name";}
+		if(email==undefined){wrong_info+=", Email";} 
+		if(phone==undefined){wrong_info+=", Phone";} 
+		if(date_of_joining==undefined){wrong_info+=", Date of Joining";}
+		if(designation==undefined){wrong_info+=", Designation";}
+		if(room_no==undefined){wrong_info+=", Room Number";}
+		if(school==undefined){wrong_info+=", USS";}
+		if(instructor_id==undefined){wrong_info+="Instructor Id"}
+		
+		if(wrong_info.length>2){
+					console.log("Wrong teacher information");
+					res.status(400).json({'message' : 'Please provide valid input fields for '+wrong_info.substr(1)+' to record information'});
+					return;
+		}
 		console.log(name+" - "+email+" - "+phone+" - "+date_of_joining+" - "+designation+" - "+room_no+" - "+school+" - "+instructor_id);
 		var query="update ?? set name=?,email=?,phone=?,date_of_joining=?,designation=?,room_no=?,school=? where instructor_id=?"
 		con.query(query,['employee',name,email,phone,date_of_joining,designation,room_no,school,instructor_id],
@@ -157,6 +181,7 @@ module.exports = {
        });
 
         var upload = multer({ 
+					
         	fileFilter: function (req, file, cb) {
         		console.log("check");
 

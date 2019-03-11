@@ -67,7 +67,7 @@ faculty.factory('teacherService', ['$http','$localStorage', '$timeout', '$rootSc
 			.then(function(response){
 				if(callback){callback(response.data)}
 			},function(error){
-				if(callback){console.log(error);}
+				if(callback){callback(error.data)}
 			})
 		},
 
