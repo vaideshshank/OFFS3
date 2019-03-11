@@ -8,9 +8,13 @@
 
             <div class='greeting'>HELLO</div>
 
-            <input type="text" ng-model="dean.name" ng-disabled="editName" style="font-size:25px;"><br>
-            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase">Toggle Edit</a>
-
+            <div class="student-name">
+                <input type="text" ng-model="dean.name" ng-disabled="editName" style="font-size:25px;"><br>
+            </div>
+            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase">
+                <span ng-show="editName">Edit Field</span><span ng-show="!editName">Done</span> 
+                <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+            </a>
         </div>
         
         <div class="col s4">
@@ -43,9 +47,8 @@
                 <div class="small-title">USS</div>
 
                 <div class="small-content school">
-                    <input type="text" ng-model="dean.college_name" ng-disabled="editCollege"><br>
-                    <a href="" ng-click="editCollege==false ? editCollege=true:editCollege=false">Toggle Edit</a>
-                </div>
+                    {{dean.school | uppercase}}<br>
+                </div> 
 
             </div>
 
@@ -53,17 +56,27 @@
                 <div class="small-title">ROOM NO</div>
 
                 <div class="small-content stream">
-                    <input type="text" ng-model="dean.room_no" ng-disabled="editRoom"><br>
-                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false">Toggle Edit</a>
+                    <input type="text" ng-model="dean.room_no" ng-required="true" ng-disabled="editRoom" maxlength="5" pattern="[ABCDE]-[1-6][\d]{2}" title="Pattern should be {Block-Room_no}. Ex:- E-109. Available blocks : A,B,C,D,E"><br>
+                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false">
+                        <span ng-show="editRoom">Edit Field</span><span ng-show="!editRoom">Done</span>    
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
                 </div>
 
             </div>
             <div class="col s4">
                 <div class="small-title">DATE OF JOINING</div>
 
-                <div class="small-contenty yoa">
-                    <input type="text" ng-model="dean.date_of_joining" ng-disabled="editDoj"><br>
-                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false">Toggle Edit</a>
+                <div class="small-content date">
+                    <input type="date" name="date" ng-required="true" value="{{dean.date_of_joining}}" ng-model="dean.date_of_joining" ng-disabled="editDoj" title="Please select date from the dropdown button that appears on extreme right of this field"><br>
+                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false">
+                        <span ng-show="editDoj">Edit Field</span><span ng-show="!editDoj">Done</span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
+
+                    <div ng-show="date.$touched && date.$invalid">
+                        <small style="color: red; display: block; text-align: center;">Enter a valid date of joining </small>
+                      </div>
                 </div>
 
             </div>
@@ -73,27 +86,36 @@
     <div class="card-action">
         <div class="row">
             <div class="col s12">
+                <div class="small-title">EMAIL ID</div>
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" id="last_name" type="text" class="validate editField email-id" ng-disabled="editEmail" ng-model="dean.email">
-                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false">Toggle Edit</a>
-                </div>
-
+                    <input placeholder="Email-Id" name="email" nameid="last_name" type="email" ng-required="true" class="validate editField email-id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Enter valid email Id" ng-disabled="editEmail" ng-model="dean.email">
+                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false">
+                        <span ng-show="editEmail">Edit Field</span><span ng-show="!editEmail">Done</span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
+                     <div ng-show="email.$touched && email.$invalid">
+                        <small style="color: red; display: block; text-align: center;">Enter a valid email </small>
+                      </div> 
+                </div>  
+                <div class="small-title">PHONE NUMBER</div>
                 <div class="input-field col s6">
-                    <input placeholder="phone number" id="last_name" type="text" class="validate editField phone" ng-disabled="editPhone" ng-model="dean.phone">
-                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false">Toggle Edit</a>
+                    <input placeholder="phone number" id="last_name" type="text" ng-required="true" class="validate editField phone" pattern="[789][0-9]{9}" title="Enter 10 digit mobile number" ng-disabled="editPhone" ng-model="teacher.phone">
+                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false">                        
+                        <span ng-show="editPhone">Edit Field</span><span ng-show="!editPhone">Done</span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="card-action">
-        If the fields have been edited then save by pressing &nbsp&nbsp&nbsp 
-        <a class="btn waves-effect waves-light" ng-click="updateDeanInfo()">
-            update teacher information
-        </a>
-    </div>
-    <div class="card-action">
+        Edited fields can be saved by pressing &nbsp&nbsp&nbsp 
+         <input type="submit" class="btn waves-effect waves-light" ng-click="updateDeanInfo()" value="update information" type="submit" ng-disabled="!editName || !editRoom || !editDoj || !editPhone || !editEmail">
+     </div>
+ 
+     <div class="card-action">
         <a class="check-status btn waves-effect waves-light" ng-click="checkStatus()">
-            check Status
+            VIEW FEEDBACK
         </a>
     </div>
 </div>
