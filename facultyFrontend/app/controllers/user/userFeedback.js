@@ -346,13 +346,30 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 		}
 
 		console.log($scope.teacherFeedback);		//teacherFeedback.score
-		userService.sendFeedbackForEvaluation(object, function(response) {
+		userService.sendFeedbackForEvaluation(object, function(response,error) {
+			if(response){
+				console.log(response.message);
+				alert(response.message);
+				$location.path('/thankYouPage');
+				$localStorage.clear();
+			}else if(error){
+				console.log(error.message);
+				alert(error.message);
+				location.reload();
+			}
 			
-			console.log(response);
-			$localStorage.clear();	
+			// if(response.data.config.data.teacherFeedback.length==0){
+			// 	alert("Fill all the required entries in the form by logging in again");
+			// 	$location.path('/');
+			// 	return;
+			// }else{
+			// 	console.log(response);
+			// 	alert("Feedback recorded");
+			// 	$location.path("/thankYouPage");
+			// 	$localStorage.clear();
+			// }
 		});
-		$location.path("/thankYouPage");
-		alert("Feedback recorded");
+		
 
 		
 	}

@@ -40,7 +40,7 @@ faculty.factory('teacherService', ['$http','$localStorage', '$timeout', '$rootSc
 			})
 		},
 
-		logout : function(){
+		logout : function(callback){
 		 	$http({
 		 		method:"GET",
 		 		url: BACKEND + "/tlogout",

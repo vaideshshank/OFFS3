@@ -301,9 +301,10 @@ module.exports = {
       console.log("Semester : "+semester);
       //var hanu =0;
       console.log("Feedback score  : ");
-      if(req.session.student.college_name==null||feedbacks==null||req.session.student.enrollment_no==null) {
+      if(req.session.student.college_name==null||feedbacks.length==0||req.session.student.enrollment_no==null) {
         console.log("Not All Fields set");
-        res.send("400");
+        res.status(400).json({'message':'Empty feedback found. Please provide the feedbacks again'});
+        return;
 
       } else {
             var error=0;
@@ -421,7 +422,7 @@ module.exports = {
             {   result[i]=Math.round(Number(result[i]));
               if(result[i]>5&&result[i]<1)
               {
-                res.send("Incorrect Data");
+                //res.send("Incorrect Data");
               } else {
                 sum=sum+Number(result[i]);
               }
@@ -454,7 +455,11 @@ module.exports = {
 
               }
             })
-              }
+              }/*else if(attr_len!=0 &&feedback.feedbackId!=null){
+                console.log("Feedback not recorded");
+                res.status(400).json({'message':'Feedback not recorded. Please fill all the fields again.'});
+                return;
+              }*/
 
             callback();
             }, function(err) {
@@ -534,12 +539,12 @@ module.exports = {
                        transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
                       console.log(error);
-                      res.send("400")
+                      res.status(400).json({'message':'Email not sent'});
                     } else {
                       process.env.mailNo=Number(process.env.mailNo)+1;
                       if(process.env.mailNo==email.length){process.env.mailNo=0;}
                       console.log('Email sent: ' + info.response);
-                      res.send("200");
+                      res.status(200).json({'message':'Student Feedback recorded'});
                     }
                       });
                   });

@@ -45,7 +45,7 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s12" ng-if="user.category=='student'">
-                  <input id="rollno" type="text" class="validate" ng-model="user.rollno" pattern="[0-9]{11,13}"ng-blur="findSemister()">
+                  <input id="rollno" type="text" class="validate" title="Length of Roll Number should be between 9-11" ng-model="user.rollno" pattern="[0-9]{9,11}"ng-blur="findSemister()">
                   <label for="rollno"> Your 11 Digit Enrollment Number</label>
                 </div>
 
