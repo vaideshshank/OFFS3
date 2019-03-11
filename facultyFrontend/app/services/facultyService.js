@@ -21,7 +21,7 @@ faculty.factory('facultyService', ['$http', '$timeout', '$rootScope', function($
 				}
 			})
 		},
-		logout : function(){
+		logout : function(callback){
 		 	$http({
 		 		method:"GET",
 		 		url: BACKEND + "/dlogout",

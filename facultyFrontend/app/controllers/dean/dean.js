@@ -16,10 +16,9 @@ faculty.controller("deanCtrl", function($scope, $rootScope, $location, facultySe
 	}
 
 	$scope.logout = function(req,res) {
-		facultyService.logout(function(response) {
-			
+		facultyService.logout(function(response) {		
+			if(response){alert(response.message);$location.path("/");}
 		})
-		$location.path("/");
 	}
 
 	$scope.updateDeanInfo=function(){

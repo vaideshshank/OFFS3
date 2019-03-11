@@ -39,7 +39,7 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 	teacherService.getDetails(function(response) {
 		response.date_of_joining=response.date_of_joining.split('T')[0];
 		$scope.teacher = response;
-		console.log($scope.teacher.date_of_joining);
+		console.log($scope.teacher);
 	});
 
 	
@@ -49,19 +49,15 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 	}
 
 	$scope.logout = function(req,res) {
-	teacherService.logout(function(response) {
-			
+	teacherService.logout(function(response) {		
+		if(response){alert(response.message);$location.path("/");}
 		})
-		$location.path("/");
 	}	
 	
-	$scope.updateTeacherInfo=function(){
-		
+	$scope.updateTeacherInfo=function(){	
 		//console.log($scope.teacher);
 		teacherService.updateTeacherInfo($scope.teacher,function(resp){
-			console.log($scope.teacher);
-			alert(resp.message);
-			
+			alert(resp.message);	
 		})
 	}
 
