@@ -57,7 +57,7 @@
                 <div class="small-title">ROOM NO</div>
 
                 <div class="small-content stream">
-                    <input type="text" ng-model="teacher.room_no" ng-required="true" ng-disabled="editRoom" maxlength="5" pattern="[ABCDE]-[0-6]{3}" title="Pattern should be {Block-Room_no}. Ex:- E-109. Available blocks : A,B,C,D,E"><br>
+                    <input type="text" ng-model="teacher.room_no" ng-required="true" ng-disabled="editRoom" maxlength="5" pattern="[ABCDE]-[1-6][\d]{2}" title="Pattern should be {Block-Room_no}. Ex:- E-109. Available blocks : A,B,C,D,E"><br>
                     <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false">
                         <span ng-show="editRoom">Edit Field</span><span ng-show="!editRoom">Done</span>    
                         <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
