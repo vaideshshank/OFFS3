@@ -118,24 +118,15 @@ faculty.factory('userService', ['$http', '$timeout', '$rootScope','$location', f
 
         sendFeedbackForEvaluation: function(teachersFeedback, callback) {
             //console.log("Feedback for teachers"+teachersFeedback);
-            $http.post(BACKEND + '/feedback',
-                       teachersFeedback, {
-                       headers: { 'Content-Type': 'application/json' }
+            $http.post(
+                BACKEND + '/feedback',
+                teachersFeedback, {
+                headers: { 'Content-Type': 'application/json' }
             }).then(function(response) {
-                console.log("RESPONSE : "+JSON.stringify(response,undefined,2));
-                if(response.data.config.data.teacherFeedback.length==0){
-                    alert("fill all the required entries in the form");
-                }
-                if (callback) {
-                    callback(response.data);
-                    
-                    console.log(response);
-                    alert("Feedback recorded");
-                    $location.path("/thankYouPage");
-                
-                }
-            }, function(response) {
-                console.error(response);
+                callback(response.data);
+            }, function(error) {
+                console.error(error.data);
+                callback(null,error.data);
             })
         },
 

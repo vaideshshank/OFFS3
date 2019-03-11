@@ -270,7 +270,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
         console.log(response)
         if (response.err == 'wrongpass') {
           alert("Wrong OTP. Please try again.");
-          $location.path("/");
+          $location.path("/verify");
         } else {
          // console.log("Response : "+JSON.stringify(response,null,2));
           $localStorage.userDetails = response;
