@@ -55,6 +55,8 @@ faculty.controller("tCtrl", function($scope, $rootScope,$localStorage, $location
 	
 	$scope.updateTeacherInfo=function(){
 		
+//		$scope.teacher.date_of_joining=($scope.teacher.date_of_joining).split(' 00:00:00 ')[0];
+		console.log($scope.teacher.date_of_joining);
 		teacherService.updateTeacherInfo($scope.teacher,function(resp){
 			console.log($scope.teacher);
 			alert(resp.message);

@@ -1,6 +1,6 @@
 <br>
 <div class="row">
-    <form>
+    <form action="">
     <div id="grad" class="container student-card card">
     <div class=" card-content row">
 
@@ -11,7 +11,9 @@
             <div class="student-name">
                 <input type="text" ng-model="teacher.name" ng-model="teacher.name" ng-disabled="editName" style="font-size:25px;"><br>
             </div>
-            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+            <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase">
+                <span ng-show="editName">Edit Field</span><span ng-show="!editName">Done</span> 
+                <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
             </a>
 
         </div>
@@ -53,10 +55,12 @@
                 <div class="small-title">ROOM NO</div>
 
                 <div class="small-content stream">
-                    <input type="text" ng-model="teacher.room_no" ng-required="true" ng-disabled="editRoom"><br>
-                    <a href="" ng-show="editRoom" ng-click="editRoom==false ? editRoom=true:editRoom=false">Edit Field</a>
-                    <a href="" ng-hide="editRoom" ng-click="editRoom==true ? editRoom=false:editRoom=true">Done</a>
-                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <input type="text" ng-model="teacher.room_no" ng-required="true" ng-disabled="editRoom" pattern="(A-Za-z){1,3}+-(0-9){1,3}" title="Pattern should be MMM-NNN"><br>
+                    <a href="" ng-click="editRoom==false ? editRoom=true:editRoom=false">
+                        <span ng-show="editRoom">Edit Field</span><span ng-show="!editRoom">Done</span>    
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
+
                 </div>
 
             </div>
@@ -65,9 +69,10 @@
 
                 <div class="small-content date">
                     <input type="date" name="date" ng-required="true" ng-model="teacher.date_of_joining" ng-disabled="editDoj"><br>
-                    <a href="" ng-show="editDoj" ng-click="editDoj==false ? editDoj=true:editDoj=false">Edit Field</a>
-                    <a href="" ng-hide="editDoj" ng-click="editDoj==false ? editDoj=true:editDoj=false">Done</a>
-                   <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <a href="" ng-click="editDoj==false ? editDoj=true:editDoj=false">
+                        <span ng-show="editDoj">Edit Field</span><span ng-show="!editDoj">Done</span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
 
                     <div ng-show="date.$touched && date.$invalid">
                         <small style="color: red; display: block; text-align: center;">Enter a valid date of joining </small>
@@ -83,10 +88,11 @@
             <div class="col s12">
                 <div class="small-title">EMAIL ID</div>
                 <div class="input-field col s6">
-                    <input placeholder="Email-Id" name="email" nameid="last_name" type="email" ng-required="true" class="validate editField email-id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ng-disabled="editEmail" disabled ng-model="teacher.email">
-                    <a href="" ng-show="editEmail" ng-click="editEmail==false ? editEmail=true:editEmail=false">Edit Field</a>
-                    <a href="" ng-hide="editEmail" ng-click="editEmail==false ? editEmail=true:editEmail=false">Done</a>
-                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i></a>
+                    <input placeholder="Email-Id" name="email" nameid="last_name" type="email" ng-required="true" class="validate editField email-id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Enter valid email Id" ng-disabled="editEmail" ng-model="teacher.email">
+                    <a href="" ng-click="editEmail==false ? editEmail=true:editEmail=false">
+                        <span ng-show="editEmail">Edit Field</span><span ng-show="!editEmail">Done</span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
                      <div ng-show="email.$touched && email.$invalid">
                         <small style="color: red; display: block; text-align: center;">Enter a valid email </small>
                       </div> 
@@ -95,8 +101,10 @@
                 <div class="small-title">PHONE NUMBER</div>
                 <div class="input-field col s6">
                     <input placeholder="phone number" id="last_name" type="text" ng-required="true" class="validate editField phone" pattern="[789][0-9]{9}" ng-disabled="editPhone" ng-model="teacher.phone">
-                    <a href="" ng-show="editPhone" ng-click="editPhone==false ? editPhone=true:editPhone=false">Edit Field</a>
-                    <a href="" ng-hide="editPhone" ng-click="editPhone==false ? editPhone=true:editPhone=false">Done</a>
+                    <a href="" ng-click="editPhone==false ? editPhone=true:editPhone=false">                        
+                        <span ng-show="editPhone">Edit Field</span><span ng-show="!editPhone">Done</span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:22px"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -104,9 +112,7 @@
 
     <div class="card-action">
            Edited fields can be saved by pressing &nbsp&nbsp&nbsp 
-            <a class="btn waves-effect waves-light" ng-click="updateTeacherInfo()">
-                update teacher information
-            </a>
+            <input class="btn waves-effect waves-light" ng-click="updateTeacherInfo()" value="update information" type="submit"/>
         </div>
     
 
