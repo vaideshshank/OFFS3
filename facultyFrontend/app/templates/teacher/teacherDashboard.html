@@ -11,7 +11,7 @@
             <div class='greeting'>HELLO</div>
 
             <div class="student-name">
-                <input type="text" ng-model="teacher.name" ng-disabled="editName" style="font-size:25px;"><br>
+                <input type="text" pattern="[a-zA-Z]+" class="validate editField name" ng-pattern-restrict title="Please enter alphanets only" ng-model="teacher.name" ng-disabled="editName" style="font-size:25px;" ng-required="true"><br>
             </div>
             <a href="" ng-click="editName==false ? editName=true:editName=false" style="text-transform: uppercase">
                 <span ng-show="editName">Edit Field</span><span ng-show="!editName">Done</span> 
