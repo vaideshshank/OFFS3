@@ -5,7 +5,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	$scope.pointer2 = -1;
 	$scope.seggregatedTeacherType = {}
 	$scope.feedbackGivenByTheUser = [];
-	$scope.disablenextattributes = false;
+	$scope.disablenextattributes = true;
 	
 	$scope.teacherFeedback = [
 	];
@@ -120,7 +120,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	var j=0,i=0;
 	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToTheoryTeacher = function(theoryTeacher, index) {
-		if ($scope.feedbackGivenByTheUser[index] == null) {
+		if ($scope.feedbackGivenByTheUser[index] == null || $scope.feedbackGivenByTheUser[index] == "") {
 			return;
 		}
 		
@@ -187,7 +187,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 	// localStorage.setItem("stringFeedback", JSON.stringify($scope.feedbackGivenByTheUser));
 	// $scope.feedbackGivenByTheUser.push($scope.feedbackGivenByTheUser);
 	$scope.addFeedbackToPracticalTeacher = function(practicalTeacher, index) {
-		if ($scope.feedbackGivenByTheUser[index] == null) {
+		if ($scope.feedbackGivenByTheUser[index] == null || $scope.feedbackGivenByTheUser[index] == "") {
 			return;
 		}
 		// console.log("Proceed");
@@ -306,7 +306,7 @@ faculty.controller('feedbackCtrl',['$scope', '$rootScope', '$uibModal', '$log', 
 
 		// }
 		// for (var x=0; x< )
-		$scope.disablenextattributes = false;
+		$scope.disablenextattributes = true;
 		console.log($scope.teacherFeedback);
 		$scope.pointer2 += 1;
 	}
