@@ -10,8 +10,8 @@ module.exports = {
     //token.slice(0,-3);
     //console.log(token);
     var newPassword = req.body.password;
-    var email = req.body.email;
-    con.query("SELECT * FROM employee WHERE email=?", [email], function(
+    var instructorId = req.body.instructor_id; 
+    con.query("SELECT * FROM employee WHERE instructor_id=?", [instructorId], function(
       err,
       result
     ) {
@@ -28,8 +28,8 @@ module.exports = {
         if (result[0].resetVarExpires > Date.now()) {
 
           con.query(
-            "UPDATE employee SET resetVar='test',password=? WHERE email=?",
-            [newPassword, email],
+            "UPDATE employee SET resetVar='test',password=? instructor_id=?",
+            [newPassword, instructorId],
             function(error, complete) {
               //res.send("Password has been reset");
               res.json({
@@ -59,7 +59,6 @@ module.exports = {
     console.log(pass[mailNo]);
     
     var instructorId = req.body.instructor_id;
-    var inputEmail = req.body.email;
     console.log("hit /resetPassword")
     con.query(
       "SELECT * FROM employee WHERE instructor_id=?",
@@ -72,7 +71,6 @@ module.exports = {
           });
         } else {
           if (result.length != 0) {
-            if (result[0].email == inputEmail) {
               crypto.randomBytes(20, function(err, buf) {
                 var token = buf.toString("hex");
                 var otp=token.slice(token.length-3,token.length)+token.slice(0,3);
@@ -97,11 +95,11 @@ module.exports = {
 
                       var mailOptions = {
                         from: email[mailNo],
-                        to: inputEmail,
+                        to: result[0].email,
                         subject: "PasswordReset@FacultyFeedbackSystem",
                         text:
                           "Hi, Here is your Reset Password OTP [CAUTION: It will expire in 1 hour]  -> " +
-                          otp
+                          otp + "If you did not request this, kindly ignore this mail."
                       };
 
                       transporter.sendMail(mailOptions, function(error, info) {
@@ -123,12 +121,6 @@ module.exports = {
                   }
                 );
               });
-            }
-            else {
-              res.json({
-                response: 'wrongId'
-              });
-            }
           }
         }
       }

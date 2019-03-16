@@ -42,22 +42,15 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
      $scope.getEmail = function(item){
        // $scope.disableSentEmail = true;
          $scope.disableGif1=false;
-         resetService.getEmail(item.instructor_id,item.instructor_email,(res,err)=>{
+         resetService.getEmail(item.instructor_id,(res,err)=>{
             if(err){console.log(err);return;}
             
-            if(res.data.response=='wrongId') {
-                alert("Wrong email id entered. Please try again");
-                //$scope.disableSentEmail = false;
-                $scope.disableGif1=true;
-                item.instructor_email = "";
-            }
-
-            else if(res.data.response=='sentMail'){
+            if(res.data.response=='sentMail'){
                 $scope.disableGif1=true;
                 $scope.secondSect=true; 
                 var hider = "x";
                 var masked = item.instructor_email.replace(item.instructor_email.substring(3, item.instructor_email.indexOf('@')), hider.repeat(item.instructor_email.substring(3, item.instructor_email.indexOf('@')).length));
-                alert("OTP send to " + masked);
+                alert("OTP sent to " + masked);
             }
             else {
                 $scope.disableGif1=true;
@@ -85,7 +78,7 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
         //append new password
         $scope.disableGif2=false;
         console.log(item);
-        resetService.resetPassword(item.instructor_otp,item.instructor_newPassword,item.instructor_email,function(res,err){
+        resetService.resetPassword(item.instructor_id,item.instructor_otp,item.instructor_newPassword,function(res,err){
             if(err){console.log(err);return;}
 
             if(res.data.response=="reset"){

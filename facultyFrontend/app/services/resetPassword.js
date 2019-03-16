@@ -28,13 +28,12 @@ faculty.factory('resetService',['$http', '$timeout', '$rootScope','$window','$lo
 						},
 
 
-		getEmail:	function(instructor_id,email,callback){
+		getEmail:	function(instructor_id,callback){
 						$http({
 							method:"POST",
 							url:BACKEND+'/resetpassword',
 							data:{
 								instructor_id:instructor_id,
-								email:email
 							}
 						})
 						.then(function(res){
@@ -47,14 +46,14 @@ faculty.factory('resetService',['$http', '$timeout', '$rootScope','$window','$lo
 						
 					},
 
-		resetPassword:		function(otp,password,email,callback){
+		resetPassword:		function(instructor_id,otp,password,callback){
 								$http({
 									method:"POST",
 									url:BACKEND+'/resetpassword/otp',
 									data:{
+										instructor_id:instructor_id,
 										resetVar: otp,
 										password:password,
-										email:email
 									}
 								})
 								.then((res)=>{
