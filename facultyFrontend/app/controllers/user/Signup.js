@@ -2,6 +2,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
   $scope.user = {};
   $scope.name = "";
   $scope.user.category='student';
+  $scope.displayed = 'Student';
   
   $scope.collegeList = [ {collegeName :"University School of Architecture and Planning",
 		collegeCode : "usap"},
@@ -37,7 +38,7 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
 		collegeCode: "usms" },
 	];
 
-  $scope.userCategoryList = ["student", "Dean", "VC", "Pro VC", "Teacher"];
+  $scope.userCategoryList = ["Vice Chancellor", "Pro Vice Chancellor", "Dean", "Teacher", "Student"];
 
   $scope.setCollege = function(singleCollege) {
     $scope.college = singleCollege;
@@ -48,9 +49,19 @@ faculty.controller('SignupCtrl',['$scope','$http', '$rootScope', '$location', 'u
 
   $scope.setUserCategory = function(userCategory) {
     console.log(userCategory);
-    $scope.user.category = userCategory;
-    //$scope.user.category="student";
-    // init autocomplete
+    $scope.displayed = userCategory;
+    if(userCategory == 'Student') {
+      $scope.user.category = 'student';
+    }
+    else if(userCategory == 'Vice Chancellor') {
+      $scope.user.category = 'VC';
+    }
+    else if(userCategory == 'Pro Vice Chancellor') {
+      $scope.user.category = 'Pro VC';
+    }
+    else {
+      $scope.user.category = userCategory;
+    }
     if(!autocomp){
       if($scope.user.category!='student'){
         $http({

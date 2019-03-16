@@ -54,8 +54,10 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
 
             else if(res.data.response=='sentMail'){
                 $scope.disableGif1=true;
-                $scope.secondSect=true;
-                alert("OTP send to " + item.instructor_email);
+                $scope.secondSect=true; 
+                var hider = "x";
+                var masked = item.instructor_email.replace(item.instructor_email.substring(3, item.instructor_email.indexOf('@')), hider.repeat(item.instructor_email.substring(3, item.instructor_email.indexOf('@')).length));
+                alert("OTP send to " + masked);
             }
             else {
                 $scope.disableGif1=true;
@@ -67,6 +69,16 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
         
      }
 
+    $scope.checkPassword = function() {
+        if($scope.item.instructor_newPassword == $scope.item.instructor_newRepeatPassword) {
+            return;
+        }
+        else {
+            alert("Passwords do not match. Please try again");
+            $scope.item.instructor_newPassword = "";
+            $scope.item.instructor_newRepeatPassword = "";
+        }
+    }
 //Reset Password   
     $scope.resetPassword = function(item){
         //$scope.disableNewPassword = false;
@@ -103,3 +115,4 @@ faculty.controller('resetPasswordCtrl' ,['$route','$scope','$http', '$rootScope'
         return;
     }
 }]);
+
