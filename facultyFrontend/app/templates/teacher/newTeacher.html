@@ -26,32 +26,37 @@
 
     <div class="col l6 m10 s10">
         <div class="input-field col s12"> 
-          <input id="instructor_email" name="instructorEmail" class="validate" type="email" ng-model="email"  ng-required="true" placeholder="Enter the Email ID of instructor"><br>
+          <input id="instructor_email" name="instructorEmail" class="validate" type="email" ng-model="email"  ng-required="true" placeholder="Enter the Email ID of instructor" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><br>
         </div>
     </div>
 
     <div class="col l6 m10 s10">
         <div class="input-field col s12">
-          <input id="instructor_phone" name="instructorPhone" type="number" class="validate" ng-model="phone" ng-required="true" placeholder="Enter the phone number of instructor"><br>
+          <input id="instructor_phone" name="instructorPhone" type="text" class="validate" ng-model="phone" ng-required="true" placeholder="Enter the phone number of instructor" pattern="[789][0-9]{9}" title="Enter 10 digit mobile number" ><br>
         </div>
     </div> 
     
     <div class="col l6 m10 s10">
         <div class="input-field col s12">
-          <input id="instructor_room" name="instructorRoom" type="text" ng-model="room_no" ng-required="true" placeholder="Enter the room number of instructor"><br>
+          <input id="instructor_room" name="instructorRoom" type="text" class="validate" ng-model="room_no" ng-required="true" placeholder="Enter the room number of instructor" maxlength="5" pattern="[ABCDE]-[1-6][\d]{2}" title="Pattern should be {Block-Room_no}. Ex:- E-109. Available blocks : A,B,C,D,E"><br>
+          <span  style="color:blue; display: block;font-size:12px;margin:10px;">Enter in the pattern: Name of block followed by 3 digit room number</span>
         </div>
     </div>
 
     <div class="col l6 m10 s10">
         <div class="input-field col s12">  
-            <input id="instructor_newPassword" type="password" ng-model="password"  ng-required="true" placeholder="Enter the password of instructor"><br>
+            <input id="instructor_newPassword" type="password" ng-model="password" class="validate"  ng-required="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="The password must contain at least one number,one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Enter the password of instructor"><br>
+            <span  style="color:blue; display: block;font-size:12px;margin:10px;">The password must contain at least one number,one uppercase and lowercase letter, and at least 8 or more characters</span>
+
         </div>
     </div>
 
     <div class="col l6 m10 s10">
       <div class="input-field col s12"> 
-        <input id="instructor_newRepeatPassword" type="password" ng-model="repeat" ng-blur="checkPassword()" ng-required="true" placeholder="Retype the password of instructor"><br>
-      </div>
+        <input id="instructor_newRepeatPassword" type="password" ng-model="repeat" class="validate" ng-blur="checkPassword()" ng-required="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="The password must contain at least one number,one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Retype the password of instructor"><br>
+        <span  style="color:blue; display: block;font-size:12px;margin:10px;">Enter the same password again</span>
+
+    </div>
     </div>   
 </div>
     <button type="button" class="btn btn-default" ng-click="submit()" style="display:block;margin:0 auto;">Submit</button>
