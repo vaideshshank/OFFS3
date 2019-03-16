@@ -58,7 +58,7 @@ module.exports = {
       }
 
       if(res3[0]==undefined){
-        res.json({"message":"No information exists for the student with entered enrollment number"});
+        res.json({"message":"No information exists for the student with entered enrollment number in the selected school."});
         return;
       }
       //console.log(res3);
